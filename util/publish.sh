@@ -31,8 +31,12 @@ mv $TGT/index.html $TGT/index2.html
 #perl -p -i -e "s/WebTrafficAnalyticsHere/script/g"  $TGT/index2.html
 
 rsync -av LICENSE.txt $TGT/
+
+# Copy $TGT specific files here 
 #cp -pr sys-gh-pages-config/ $TGT/
-rm $TGT/_*
+
+# Remove unnecessary files here
+# rm $TGT/_*
 
 
 #Compile steps here...
