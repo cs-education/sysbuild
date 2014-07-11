@@ -1,0 +1,5 @@
+*.db
+*.fw.png
+*.DS_Store
+node_modules
+web/bin

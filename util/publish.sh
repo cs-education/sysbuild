@@ -33,10 +33,10 @@ mv $TGT/index.html $TGT/index2.html
 rsync -av LICENSE.txt $TGT/
 
 # Copy $TGT specific files here 
-#cp -pr sys-gh-pages-config/ $TGT/
+cp -pr sys-gh-pages-config/ $TGT/
 
 # Remove unnecessary files here
-# rm $TGT/_*
+rm $TGT/_*
 
 
 #Compile steps here...
