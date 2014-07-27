@@ -388,6 +388,16 @@ module.exports = function (grunt) {
                     'rsync jor1k_hd_images/hdgcc-mod.bz2 app/jor1k_hd_images/'
                 ].join('&')
             }
+        },
+
+        // Deployment
+        buildcontrol: {
+            pages: {
+                options: {
+                    remote: 'https://github.com/neelabhg/sys-staging',
+                    branch: 'gh-pages'
+                }
+            }
         }
     });
 
