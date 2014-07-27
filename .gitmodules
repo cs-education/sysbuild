@@ -1,0 +1,3 @@
+[submodule "jor1k"]
+	path = jor1k
+	url = git://github.com/angrave/jor1k.git
