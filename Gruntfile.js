@@ -369,6 +369,25 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+
+        // Run shell commands
+        shell: {
+            setup_jor1k: {
+                command: [
+                    [   // the following commands will run sequentially (since using &&)
+                        // in a subshell (since using &)
+                        'git submodule update --init',
+                        'cd jor1k',
+                        'git checkout master',
+                        'git pull'
+                    ].join('&&'),
+
+                    // Original prebuilt hdgcc.bz2 is from Sebastian Macke (of jor1k).
+                    // May eventually be replaced by our own linux disk image.
+                    'rsync jor1k_hd_images/hdgcc-mod.bz2 app/jor1k_hd_images/'
+                ].join('&')
+            }
         }
     });
 
@@ -427,4 +446,6 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+    grunt.registerTask('setup_jor1k', ['shell:setup_jor1k']);
 };
