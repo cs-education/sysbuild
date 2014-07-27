@@ -392,6 +392,10 @@ module.exports = function (grunt) {
 
         // Deployment
         buildcontrol: {
+            options: {
+                commit: true,
+                push: true
+            },
             pages: {
                 options: {
                     remote: 'https://github.com/neelabhg/sys-staging',
