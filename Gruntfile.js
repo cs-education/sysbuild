@@ -396,9 +396,15 @@ module.exports = function (grunt) {
                 commit: true,
                 push: true
             },
-            pages: {
+            staging: {
                 options: {
                     remote: 'https://github.com/neelabhg/sys-staging',
+                    branch: 'gh-pages'
+                }
+            },
+            prod: {
+                options: {
+                    remote: 'https://github.com/neelabhg/sys',
                     branch: 'gh-pages'
                 }
             }
