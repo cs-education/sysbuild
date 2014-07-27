@@ -1,5 +1,7 @@
-*.db
-*.fw.png
-*.DS_Store
 node_modules
-web/bin
+dist
+.tmp
+.sass-cache
+bower_components
+test/bower_components
+.idea/
