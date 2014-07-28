@@ -25,7 +25,7 @@ module.exports = function (grunt) {
     // This is not defined in initConfig to prevent the plugin from reading the config
     // and then letting someone accidentally invoke the plugin without arguments,
     // resulting in deploying to prod!
-    var buildcontrol_config = {
+    var buildcontrolConfig = {
         options: {
             commit: true,
             push: true
@@ -420,7 +420,7 @@ module.exports = function (grunt) {
 
         // Run shell commands
         shell: {
-            setup_jor1k_submodule: {
+            setupJor1kSubmodule: {
                 command: [
                     'git submodule update --init',
                     'cd <%= config.app %>/jor1k',
@@ -428,8 +428,8 @@ module.exports = function (grunt) {
                     'git pull'
                 ].join('&&')
             },
-            write_git_recent_commits: {
-                command: "git log -n 5 --oneline",
+            writeGitRecentCommits: {
+                command: 'git log -n 5 --oneline',
                 options: {
                     stdout: false,
                     callback: function (err, stdout, stderr, cb) {
@@ -441,7 +441,7 @@ module.exports = function (grunt) {
         },
 
         includes: {
-            google_analytics: {
+            googleAnalytics: {
                 options: {
                     includeRegexp: /(\s*)<!-- include:google_analytics\s+"(\S+)" -->\s*/,
                     duplicates: false
@@ -503,7 +503,7 @@ module.exports = function (grunt) {
         'rev',
         'usemin',
         'htmlmin',
-        'write_build_stamps'
+        'writeBuildStamps'
     ]);
 
     grunt.registerTask('default', [
@@ -513,29 +513,29 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('setup_jor1k', 'Setup the jor1k subproject', [
-        'shell:setup_jor1k_submodule'
+        'shell:setupJor1kSubmodule'
     ]);
 
-    grunt.registerTask('write_build_stamps',
+    grunt.registerTask('writeBuildStamps',
         'Create files in the build directory with build info (date, changes, etc.)', function() {
         grunt.file.write(config.dist + '/build-date.txt', grunt.template.today() + '\n');
-        grunt.task.run('shell:write_git_recent_commits');
+        grunt.task.run('shell:writeGitRecentCommits');
     });
 
     grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
 
-        if (!(target in buildcontrol_config)) {
-            grunt.log.error("Please specify a valid target. Valid targets are: staging, prod.");
+        if (!(target in buildcontrolConfig)) {
+            grunt.log.error('Please specify a valid target. Valid targets are: staging, prod.');
             return false;
         }
 
         if (target === 'prod') {
-            grunt.task.run('includes:google_analytics');
+            grunt.task.run('includes:googleAnalytics');
         }
 
         grunt.config('buildcontrol', {
-            options: buildcontrol_config.options,
-            pages: buildcontrol_config[target]
+            options: buildcontrolConfig.options,
+            pages: buildcontrolConfig[target]
         });
         grunt.task.run('buildcontrol:pages');
     });
