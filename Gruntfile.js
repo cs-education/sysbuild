@@ -21,6 +21,29 @@ module.exports = function (grunt) {
         dist: 'dist'
     };
 
+    // Config for the buildcontrol plugin
+    // This is not defined in initConfig to prevent the plugin from reading the config
+    // and then letting someone accidentally invoke the plugin without arguments,
+    // resulting in deploying to prod!
+    var buildcontrol_config = {
+        options: {
+            commit: true,
+            push: true
+        },
+        staging: {
+            options: {
+                remote: 'https://github.com/neelabhg/sys-staging',
+                branch: 'gh-pages'
+            }
+        },
+        prod: {
+            options: {
+                remote: 'https://github.com/neelabhg/sys',
+                branch: 'gh-pages'
+            }
+        }
+    };
+
     // Define the configuration for all the tasks
     grunt.initConfig({
 
@@ -326,6 +349,12 @@ module.exports = function (grunt) {
                     cwd: '.',
                     src: ['bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'],
                     dest: '<%= config.dist %>'
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: '.',
+                    src: ['LICENSE.txt'],
+                    dest: '<%= config.dist %>'
                 }]
             },
             styles: {
@@ -334,6 +363,15 @@ module.exports = function (grunt) {
                 cwd: '<%= config.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
+            },
+            jor1k_images: {
+                // Original prebuilt hdgcc.bz2 is from Sebastian Macke (of jor1k).
+                // May eventually be replaced by our own linux disk image.
+                expand: true,
+                dot: true,
+                cwd: './jor1k_hd_images',
+                src: ['hdgcc-mod.bz2'],
+                dest: '<%= config.app %>/jor1k_hd_images/'
             }
         },
 
@@ -373,39 +411,22 @@ module.exports = function (grunt) {
 
         // Run shell commands
         shell: {
-            setup_jor1k: {
+            setup_jor1k_submodule: {
                 command: [
-                    [   // the following commands will run sequentially (since using &&)
-                        // in a subshell (since using &)
-                        'git submodule update --init',
-                        'cd jor1k',
-                        'git checkout master',
-                        'git pull'
-                    ].join('&&'),
-
-                    // Original prebuilt hdgcc.bz2 is from Sebastian Macke (of jor1k).
-                    // May eventually be replaced by our own linux disk image.
-                    'rsync jor1k_hd_images/hdgcc-mod.bz2 app/jor1k_hd_images/'
-                ].join('&')
-            }
-        },
-
-        // Deployment
-        buildcontrol: {
-            options: {
-                commit: true,
-                push: true
+                    'git submodule update --init',
+                    'cd jor1k',
+                    'git checkout master',
+                    'git pull'
+                ].join('&&')
             },
-            staging: {
+            write_git_recent_commits: {
+                command: "git log -n 5 --oneline",
                 options: {
-                    remote: 'https://github.com/neelabhg/sys-staging',
-                    branch: 'gh-pages'
-                }
-            },
-            prod: {
-                options: {
-                    remote: 'https://github.com/neelabhg/sys',
-                    branch: 'gh-pages'
+                    stdout: false,
+                    callback: function (err, stdout, stderr, cb) {
+                        grunt.file.write(config.dist + '/publish-recentcommits.txt', stdout);
+                        cb();
+                    }
                 }
             }
         }
@@ -458,7 +479,8 @@ module.exports = function (grunt) {
         'modernizr',
         'rev',
         'usemin',
-        'htmlmin'
+        'htmlmin',
+        'write_build_stamps'
     ]);
 
     grunt.registerTask('default', [
@@ -467,5 +489,27 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.registerTask('setup_jor1k', ['shell:setup_jor1k']);
+    grunt.registerTask('setup_jor1k', 'Setup the jor1k subproject', [
+        'shell:setup_jor1k_submodule',
+        'copy:jor1k_images'
+    ]);
+
+    grunt.registerTask('write_build_stamps', function() {
+        grunt.file.write(config.dist + '/build-date.txt', grunt.template.today() + '\n');
+        grunt.task.run('shell:write_git_recent_commits');
+    });
+
+    grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
+
+        if (!(target in buildcontrol_config)) {
+            grunt.log.error("Please specify a valid target. Valid targets are: staging, prod.");
+            return false;
+        }
+
+        grunt.config('buildcontrol', {
+            options: buildcontrol_config.options,
+            pages: buildcontrol_config[target]
+        });
+        grunt.task.run('buildcontrol:pages');
+    });
 };
