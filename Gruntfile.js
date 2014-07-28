@@ -365,7 +365,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: '<%= config.app %>/jor1k/',
-                    src: ['**'],
+                    src: ['**', '!.git'],
                     dest: '<%= config.dist %>/jor1k/'
                 }, {
                     expand: true,
