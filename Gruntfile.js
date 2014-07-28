@@ -355,6 +355,18 @@ module.exports = function (grunt) {
                     cwd: '.',
                     src: ['LICENSE.txt'],
                     dest: '<%= config.dist %>'
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= config.app %>/jor1k_hd_images/',
+                    src: ['**/*'],
+                    dest: '<%= config.dist %>/jor1k_hd_images/'
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= config.app %>/jor1k/',
+                    src: ['**/*'],
+                    dest: '<%= config.dist %>/jor1k/'
                 }]
             },
             styles: {
@@ -363,15 +375,6 @@ module.exports = function (grunt) {
                 cwd: '<%= config.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
-            },
-            jor1k_images: {
-                // Original prebuilt hdgcc.bz2 is from Sebastian Macke (of jor1k).
-                // May eventually be replaced by our own linux disk image.
-                expand: true,
-                dot: true,
-                cwd: './jor1k_hd_images',
-                src: ['hdgcc-mod.bz2'],
-                dest: '<%= config.app %>/jor1k_hd_images/'
             }
         },
 
@@ -414,7 +417,7 @@ module.exports = function (grunt) {
             setup_jor1k_submodule: {
                 command: [
                     'git submodule update --init',
-                    'cd jor1k',
+                    'cd <%= config.app %>/jor1k',
                     'git checkout master',
                     'git pull'
                 ].join('&&')
@@ -490,8 +493,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('setup_jor1k', 'Setup the jor1k subproject', [
-        'shell:setup_jor1k_submodule',
-        'copy:jor1k_images'
+        'shell:setup_jor1k_submodule'
     ]);
 
     grunt.registerTask('write_build_stamps', function() {
