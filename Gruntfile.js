@@ -367,6 +367,12 @@ module.exports = function (grunt) {
                     cwd: '<%= config.app %>/jor1k/',
                     src: ['**/*'],
                     dest: '<%= config.dist %>/jor1k/'
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: './sys-gh-pages-config/',
+                    src: ['README.md' /*, '_CNAME'*/],
+                    dest: '<%= config.dist %>'
                 }]
             },
             styles: {
