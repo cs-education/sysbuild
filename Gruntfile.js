@@ -432,6 +432,20 @@ module.exports = function (grunt) {
                     }
                 }
             }
+        },
+
+        includes: {
+            google_analytics: {
+                options: {
+                    includeRegexp: /(\s*)<!-- include:google_analytics\s+"(\S+)" -->\s*/,
+                    duplicates: false
+                },
+                files: [{
+                    cwd: '<%= config.dist %>',
+                    src: 'index.html',
+                    dest: '<%= config.dist %>'
+                }]
+            }
         }
     });
 
@@ -496,7 +510,8 @@ module.exports = function (grunt) {
         'shell:setup_jor1k_submodule'
     ]);
 
-    grunt.registerTask('write_build_stamps', function() {
+    grunt.registerTask('write_build_stamps',
+        'Create files in the build directory with build info (date, changes, etc.)', function() {
         grunt.file.write(config.dist + '/build-date.txt', grunt.template.today() + '\n');
         grunt.task.run('shell:write_git_recent_commits');
     });
@@ -506,6 +521,10 @@ module.exports = function (grunt) {
         if (!(target in buildcontrol_config)) {
             grunt.log.error("Please specify a valid target. Valid targets are: staging, prod.");
             return false;
+        }
+
+        if (target === 'prod') {
+            grunt.task.run('includes:google_analytics');
         }
 
         grunt.config('buildcontrol', {
