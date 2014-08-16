@@ -5,7 +5,8 @@
     "bootstrap-sass-official": "~3.1.0",
     "modernizr": "~2.6.2",
     "jquery": "~1.11.0",
-    "ace-builds": "~1.1.5"
+    "ace-builds": "~1.1.5",
+    "jor1k": "https://github.com/angrave/jor1k.git#master"
   },
   "devDependencies": {}
 }
