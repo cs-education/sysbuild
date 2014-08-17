@@ -1,4 +1,4 @@
-/* global jor1kGUI, ExpectTTY */
+/* global Jor1kGUI, ExpectTTY */
 
 // A singleton that encapsulates the virtual machine interface
 
@@ -41,7 +41,7 @@ window.SysRuntime = (function (ExpectTTY) {
         // Wait for tty to be ready
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
-        this.jor1kgui = new jor1kGUI('tty', 'fb', 'stats', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
+        this.jor1kgui = new Jor1kGUI('tty', 'fb', 'stats', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
         this.sendKeys('', 'root login on console', onTTYLogin);
         return this;
     }
@@ -210,14 +210,14 @@ window.SysRuntime = (function (ExpectTTY) {
         /* jshint bitwise: false */
         var tty = false ? 'tty1' : 'tty0';
         var expectResult = null;
-        this.jor1kgui.Pause(false);
+        this.jor1kgui.pause(false);
 
         if(expect) {
             expectResult = new ExpectTTY(this, expect, success, cancel);
         }
 
         for(var i = 0; i < text.length; i++) {
-            this.jor1kgui.SendToWorker(tty, text.charCodeAt(i) >>>0);
+            this.jor1kgui.sendToWorker(tty, text.charCodeAt(i) >>>0);
         }
 
         return expectResult;
