@@ -302,32 +302,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // By default, your `index.html`'s <!-- Usemin block --> will take care of
-        // minification. These next options are pre-configured if you do not wish
-        // to use the Usemin blocks.
-        // cssmin: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/styles/main.css': [
-        //                 '.tmp/styles/{,*/}*.css',
-        //                 '<%= config.app %>/styles/{,*/}*.css'
-        //             ]
-        //         }
-        //     }
-        // },
-        // uglify: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/scripts/scripts.js': [
-        //                 '<%= config.dist %>/scripts/scripts.js'
-        //             ]
-        //         }
-        //     }
-        // },
-        // concat: {
-        //     dist: {}
-        // },
-
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
@@ -381,6 +355,14 @@ module.exports = function (grunt) {
                 cwd: '<%= config.app %>/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
+            },
+            // copy the jor1k downloaded by bower into the app directory
+            jor1k: {
+                expand: true,
+                dot: true,
+                cwd: 'bower_components/jor1k/',
+                src: ['**', '!.git'],
+                dest: '<%= config.app %>/jor1k/'
             }
         },
 
@@ -420,14 +402,6 @@ module.exports = function (grunt) {
 
         // Run shell commands
         shell: {
-            setupJor1kSubmodule: {
-                command: [
-                    'git submodule update --init',
-                    'cd <%= config.app %>/jor1k',
-                    'git checkout master',
-                    'git pull'
-                ].join('&&')
-            },
             writeGitRecentCommits: {
                 command: 'git log -n 5 --oneline',
                 options: {
@@ -512,9 +486,7 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.registerTask('setup_jor1k', 'Setup the jor1k subproject', [
-        'shell:setupJor1kSubmodule'
-    ]);
+    grunt.registerTask('setupJor1k', ['copy:jor1k']);
 
     grunt.registerTask('writeBuildStamps',
         'Create files in the build directory with build info (date, changes, etc.)', function() {
@@ -524,8 +496,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
 
-        if (!(target in buildcontrolConfig)) {
-            grunt.log.error('Please specify a valid target. Valid targets are: staging, prod.');
+        var targets = ['staging', 'prod'];
+        if (targets.indexOf(target) === -1) {
+            grunt.log.error('Please specify a valid target. Valid targets are: ' + targets.join(', ') + '.');
             return false;
         }
 

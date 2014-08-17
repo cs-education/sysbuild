@@ -65,7 +65,7 @@ function SysRuntime() {
   // Wait for tty to be ready
   document.addEventListener("jor1k_terminal_put_char", this.putCharListener, false);
   
-  this.jor1kgui = new jor1kGUI("tty", "fb", "stats", ["../../bin/vmlinux.bin.bz2", "../../../../jor1k_hd_images/hdgcc-mod.bz2"], "");
+  this.jor1kgui = new jor1kGUI("tty", "fb", "stats", ["../../bin/vmlinux.bin.bz2", "../../../jor1k_hd_images/hdgcc-mod.bz2"], "");
   this.SendKeys("","root login on 'console'", onTTYLogin);
   return this;
 }
