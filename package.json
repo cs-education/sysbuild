@@ -1,6 +1,7 @@
 {
   "name": "sysbuild",
   "version": "0.0.0",
+  "private": true,
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -30,6 +31,9 @@
     "jshint-stylish": "~0.1.5",
     "load-grunt-tasks": "~0.4.0",
     "time-grunt": "~0.3.1"
+  },
+  "scripts": {
+    "postinstall": "bower install && grunt setupJor1k"
   },
   "engines": {
     "node": ">=0.10.0"
