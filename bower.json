@@ -6,7 +6,8 @@
     "modernizr": "~2.6.2",
     "jquery": "~1.11.0",
     "ace-builds": "~1.1.5",
-    "jor1k": "https://github.com/angrave/jor1k.git#master"
+    "jor1k": "https://github.com/angrave/jor1k.git#master",
+    "jquery.layout": "*"
   },
   "devDependencies": {}
 }

@@ -10,12 +10,16 @@ window.LiveEdit = (function (ace) {
         this.ace = ace.edit(editorDivId);
         this.ace.setTheme('ace/theme/monokai');
         this.ace.getSession().setMode('ace/mode/c_cpp');
-        this.compileBtn = document.getElementById('compile_btn');
+        this.compileBtn = document.getElementById('compile-btn');
 
         var updateCompileButton = function() {
             var ready = this.runtime.ready();
+            /* TODO: abstract UI specific code */
             this.compileBtn.disabled = !ready;
-            this.setHtml('gcc-compile-status', ready ? 'Ready' : 'Booting up');
+            this.setHtml('gcc-compile-status', ready ? 'Ready' : 'VM booting');
+            this.setHtml('vm-state', ready ? 'Ready' : 'Booting');
+            this.getElement('gcc-compile-status').className = ready ? 'label label-success' : 'label label-warning';
+            this.getElement('vm-state').className = ready ? 'label label-success' : 'label label-warning';
         }.bind(this);
 
         updateCompileButton(); // Maybe sys is already up and running
@@ -47,19 +51,16 @@ window.LiveEdit = (function (ace) {
     };
 
     LiveEdit.prototype.processGccCompletion = function (result) {
-        var GCC_RESULT_HTML_WARN = '<span><a href="#" style="color: darkgoldenrod" onclick="alert(global_last_gcc_output); return false;">SUCCESSFUL WITH WARNINGS</a></span>';
-        var GCC_RESULT_HTML_SUCCESS = '<span style="color: green">SUCCESS</span>';
-        var GCC_RESULT_HTML_ERROR = '<span><a href="#" style="color: red" onclick="alert(global_last_gcc_output); return false;">FAILED</a></span>';
-        //var GCC_RESULT_HTML_COMPILING = '<span style="color: gray">COMPILING</span>';
-
-        var GCC_RESULT_HTML_CANCEL = '<span style="color: gray">Cancelled</span>';
+        var GCC_RESULT_HTML_WARN = '<span onclick="alert(globalLastGccOutput); return false;">SUCCESSFUL WITH WARNINGS</span>';
+        var GCC_RESULT_HTML_ERROR = '<span onclick="alert(globalLastGccOutput); return false;">FAILED</span>';
   
         this.setHtml('gcc-error-count', '');
         this.setHtml('gcc-warning-count', '');
 
         if (!result) {
             // cancelled
-            this.setHtml('gcc-compile-status', GCC_RESULT_HTML_CANCEL);
+            this.setHtml('gcc-compile-status', 'Cancelled');
+            this.getElement('gcc-compile-status').className = 'label label-default';
             return;
         }
 
@@ -74,25 +75,41 @@ window.LiveEdit = (function (ace) {
         this.setHtml('gcc-error-count',   result.stats.error.toString());
         this.setHtml('gcc-warning-count', result.stats.warning.toString());
 
-        var statusMsg = GCC_RESULT_HTML_ERROR;
         if (result.exitCode === 0) {
             var cmdargs = this.getElement('cmdline').value;
-            statusMsg = result.stats.warning > 0 ? GCC_RESULT_HTML_WARN : GCC_RESULT_HTML_SUCCESS;
-            this.runtime.StartProgram('program', cmdargs);
+
+            var warnings = result.stats.warning > 0;
+            this.setHtml('gcc-compile-status', warnings ? GCC_RESULT_HTML_WARN : 'Success');
+            this.getElement('gcc-compile-status').className = warnings ? 'label label-warning' : 'label label-success';
+
+            this.runtime.startProgram('program', cmdargs);
+        } else {
+            this.setHtml('gcc-compile-status', GCC_RESULT_HTML_ERROR);
+            this.getElement('gcc-compile-status').className = 'label label-danger';
         }
-        this.setHtml('gcc-compile-status', statusMsg);
+        
+        this.compileBtn.disabled = false;
     };
 
     LiveEdit.prototype.getCodeText = function() {
         return this.ace.getSession().getValue();
     };
 
-    LiveEdit.prototype.runCode = function(code, gccoptions) {
+    LiveEdit.prototype.runCode = function(code, gccOptions) {
         if(code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0 ) {
             return;
         }
         var callback = this.processGccCompletion.bind(this);
-        this.runtime.StartGccCompile(code,gccoptions,callback);
+
+        this.compileBtn.disabled = true;
+        this.setHtml('gcc-compile-status', 'Compiling');
+        this.getElement('gcc-compile-status').className = 'label label-warning';
+
+        this.runtime.startGccCompile(code, gccOptions, callback);
+    };
+
+    LiveEdit.prototype.setTheme = function (theme) {
+        this.ace.setTheme('ace/theme/' + theme);
     };
 
     return LiveEdit;

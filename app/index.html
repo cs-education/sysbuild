@@ -10,18 +10,13 @@
 
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/jquery.layout/dist/layout-default-latest.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
-
-        <style>
-            .js #no-js-msg { display: none; }
-            .canvas #no-canvas-msg { display: none; }
-            .no-js .show-if-supported, .no-canvas .show-if-supported { display: none; }
-        </style>
 
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="../bower_components/modernizr/modernizr.js"></script>
@@ -32,7 +27,8 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="container">
+        <!-- Unsupported browser message -->        
+        <div>
             <div id="no-js-msg">
                 To use this website you need to enable Javascript in your browser.
             </div>
@@ -44,58 +40,136 @@
             </div>
         </div>
 
-        <div class="container show-if-supported">
-            <!-- start compile html stuff -->
-            <div>
-                <table>
-                    <tr>
-                        <td style="vertical-align: top">
-                            <table>
-                                <tr><td><canvas id="tty" class="screen" width="640" height="384">Terminal</canvas></td></tr>
-                            </table>
-                        </td>
-                        <td style="vertical-align: top">
-                            <div id="code" style="width: 640px; height: 388px; margin-top: 2px">/*Simple unix programming example*/
-                                #include &lt;sys/types.h&gt;
-                                #include &lt;sys/wait.h&gt;
-                                #include &lt;unistd.h&gt;
-                                #include &lt;stdio.h&gt;
-                                int main() {
-                                pid_t child = fork();
-                                printf("My process id is %d\n",getpid());
-                                if(child > 0) waitpid(child,0,0);
-                                return 0;
-                                }
-                            </div>
-                            <div>
-                                gcc options:
-                                <input type="text" size=48 maxlen=256 id="gccoptions" value="-lm -Wall -fmax-errors=10 -Werror -Wextra"></input>
-                                <button id='compile_btn' type='button' onclick= "CompileButtonClicked(this);" style='margin: 10px;disabled: true'>Compile and run</button>
-                            </div>
-                            <div>command line:<input type="text" size=40 maxlen=256 id="cmdline" value="hello world"/></div>
-                            <div><span style="margin: 0 5px 0 5px" id="gcc-compile-status">Please wait for Linux to boot up.</span></div>
-                            <div><span style="margin: 0 5px 0 5px"><span id="gcc-error-count">0</span> error(s),<span id="gcc-warning-count">0</span> warning(s)</span></div>
-                            <div>
-                                <select onchange='editor.setTheme("ace/theme/"+this.options[this.selectedIndex].value)'>
-                                    <option value="monokai">monokai theme</option>
-                                    <option value="terminal">terminal theme</option>
-                                    <option value="tomorrow">tomorrow theme</option>
-                                    <option value="xcode">xcode theme</option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+        <div id="layout" class="show-if-supported" style="position: absolute; width: 100%; height: 100%;">
+            <div id="navbar-container">
+                <!-- Fixed navbar -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">System Programming</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Nav header</li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
             </div>
-            <div class="infobox">
+
+            <div id="doc-tty-container">
+                <div id="doc-container">
+                    <p>Hello World!</p>
+                </div>
+                <div id="tty-container">
+                    <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
+                </div>
+                <div id="compile-opts-container">
+                    <div class="row">
+                        <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc opts</small></label>
+                        <div class="col-sm-5">
+                            <input class="form-control input-sm" type="text" id="gccoptions" placeholder="" maxlen=256 value="-lm -Wall -fmax-errors=10 -Werror -Wextra">
+                        </div>
+                        <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                        <div class="col-sm-4">
+                            <input class="form-control input-sm" type="text" id="cmdline" placeholder="" maxlen=256 value="hello world">
+                        </div>
+                        <button id="compile-btn" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
+                            <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <!-- end compile html stuff -->
+            
+            <div id="code-container">
+                <div id="editor-tabs-bar">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
+                        <li><a href="#" role="tab" data-toggle="tab">program2.c</a></li>
+                    </ul>
+                </div>
+                <div id="code">/*Simple unix programming example*/
+                    #include &lt;sys/types.h&gt;
+                    #include &lt;sys/wait.h&gt;
+                    #include &lt;unistd.h&gt;
+                    #include &lt;stdio.h&gt;
+                    int main() {
+                        pid_t child = fork();
+                        printf("My process id is %d\n",getpid());
+                        if(child > 0) waitpid(child,0,0);
+                        return 0;
+                    }
+                </div>
+                <div id="code-south-bar">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <select class="form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
+                                <option value="monokai">monokai theme</option>
+                                <option value="terminal">terminal theme</option>
+                                <option value="tomorrow">tomorrow theme</option>
+                                <option value="xcode">xcode theme</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 pull-right">
+                            <button type="button" class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-save"></span> Download files
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer-container">
+                <div class="footer">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p>VM state:
+                                    <span class="label label-warning" id="vm-state">Booting</span>
+                                    <span class="label label-info"><span id="vm-mips">0</span> MIPS</span>
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>Compiler:
+                                    <span class="label label-warning" id="gcc-compile-status">Idle</span>
+                                    <span class="label label-danger"><span id="gcc-error-count">0</span> error(s) <span id="gcc-warning-count">0</span> warning(s)</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container col-sm-6 pull-right">
+                        <p class="text-muted pull-right"><small>&copy; 2014, Lawrence Angrave and Neelabh Gupta</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <!-- ==================== Javascript ==================== -->
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+        <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <!-- endbower -->
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
         <!-- endbuild -->
@@ -131,8 +205,9 @@
         <script src="scripts/compile.js"></script>
         <script src="scripts/main.js"></script>
         <script>
-            startEditor();
+            compileMain.initLayout();
+            compileMain.startEditor();
         </script>
         <!-- endbuild -->
-</body>
+    </body>
 </html>

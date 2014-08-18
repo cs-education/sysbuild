@@ -60,7 +60,7 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
         this.term = new Terminal(24, 80, termid);
         this.terminput = new TerminalInput(new UARTDev(this));
 
-        this.IgnoreKeys = function () {
+        this.ignoreKeys = function () {
             //Simpler but not as general, return( document.activeElement.type==="textarea" || document.activeElement.type==='input');
             return ((this.lastMouseDownTarget !== this.terminalcanvas));
         };
@@ -76,7 +76,7 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
         }
 
         document.onkeypress = function (event) {
-            if(this.IgnoreKeys()) {
+            if(this.ignoreKeys()) {
                 return true;
             }
             this.sendToWorker('keypress', {keyCode:event.keyCode, charCode:event.charCode});
@@ -84,7 +84,7 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
         }.bind(this);
 
         document.onkeydown = function (event) {
-            if(this.IgnoreKeys()) {
+            if(this.ignoreKeys()) {
                 return true;
             }
             this.sendToWorker('keydown', {keyCode:event.keyCode, charCode:event.charCode});
@@ -92,7 +92,7 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
         }.bind(this);
 
         document.onkeyup = function (event) {
-            if(this.IgnoreKeys()) {
+            if(this.ignoreKeys()) {
                 return true;
             }
             this.sendToWorker('keyup', {keyCode:event.keyCode, charCode:event.charCode});
