@@ -10,12 +10,16 @@ window.LiveEdit = (function (ace) {
         this.ace = ace.edit(editorDivId);
         this.ace.setTheme('ace/theme/monokai');
         this.ace.getSession().setMode('ace/mode/c_cpp');
-        this.compileBtn = document.getElementById('compile_btn');
+        this.compileBtn = document.getElementById('compile-btn');
 
         var updateCompileButton = function() {
             var ready = this.runtime.ready();
+            /* TODO: abstract UI specific code */
             this.compileBtn.disabled = !ready;
-            this.setHtml('gcc-compile-status', ready ? 'Ready' : 'Booting up');
+            this.setHtml('gcc-compile-status', ready ? 'Ready' : 'VM booting');
+            this.setHtml('vm-state', ready ? 'Ready' : 'Booting');
+            this.getElement('gcc-compile-status').className = ready ? 'label label-success' : 'label label-warning';
+            this.getElement('vm-state').className = ready ? 'label label-success' : 'label label-warning';
         }.bind(this);
 
         updateCompileButton(); // Maybe sys is already up and running
@@ -78,7 +82,7 @@ window.LiveEdit = (function (ace) {
         if (result.exitCode === 0) {
             var cmdargs = this.getElement('cmdline').value;
             statusMsg = result.stats.warning > 0 ? GCC_RESULT_HTML_WARN : GCC_RESULT_HTML_SUCCESS;
-            this.runtime.StartProgram('program', cmdargs);
+            this.runtime.startProgram('program', cmdargs);
         }
         this.setHtml('gcc-compile-status', statusMsg);
     };
@@ -87,12 +91,16 @@ window.LiveEdit = (function (ace) {
         return this.ace.getSession().getValue();
     };
 
-    LiveEdit.prototype.runCode = function(code, gccoptions) {
+    LiveEdit.prototype.runCode = function(code, gccOptions) {
         if(code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0 ) {
             return;
         }
         var callback = this.processGccCompletion.bind(this);
-        this.runtime.StartGccCompile(code,gccoptions,callback);
+        this.runtime.startGccCompile(code, gccOptions, callback);
+    };
+
+    LiveEdit.prototype.setTheme = function (theme) {
+        this.ace.setTheme('ace/theme/' + theme);
     };
 
     return LiveEdit;

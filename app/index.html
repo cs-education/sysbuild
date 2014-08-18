@@ -41,36 +41,38 @@
         </div>
 
         <div id="layout" class="show-if-supported" style="position: absolute; width: 100%; height: 100%;">
-            <!-- Fixed navbar -->
-            <div class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Project name</a>
+            <div id="navbar-container">
+                <!-- Fixed navbar -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">System Programming</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Nav header</li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
                 </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
             </div>
 
             <div id="doc-tty-container">
@@ -90,7 +92,7 @@
                         <div class="col-sm-4">
                             <input class="form-control input-sm" type="text" id="cmdline" placeholder="" maxlen=256 value="hello world">
                         </div>
-                        <button id="compile-btn" type="button" class="btn btn-xs pull-right col-sm-1" onclick="CompileButtonClicked(this);" disabled="disabled">
+                        <button id="compile-btn" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
                             <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </div>
@@ -102,6 +104,7 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
+                        <li><a href="#" role="tab" data-toggle="tab">program2.c</a></li>
                     </ul>
                 </div>
                 <div id="code">/*Simple unix programming example*/
@@ -117,17 +120,17 @@
                     }
                 </div>
                 <div id="code-south-bar">
-                    <div class="">
+                    <div class="row">
                         <div class="col-sm-4">
-                            <select class="form-control col-sm-2" onchange='editor.setTheme("ace/theme/"+this.options[this.selectedIndex].value)'>
+                            <select class="form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
                                 <option value="monokai">monokai theme</option>
                                 <option value="terminal">terminal theme</option>
                                 <option value="tomorrow">tomorrow theme</option>
                                 <option value="xcode">xcode theme</option>
                             </select>
                         </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-default">
+                        <div class="col-sm-3 pull-right">
+                            <button type="button" class="btn btn-default btn-xs pull-right">
                                 <span class="glyphicon glyphicon-save"></span> Download files
                             </button>
                         </div>
@@ -140,15 +143,21 @@
                     <div class="col-sm-6">
                         <div class="row">
                             <div class="col-sm-4">
-                                <span class="label label-warning" id="gcc-compile-status">Booting</span>
+                                <p>VM state:
+                                    <span class="label label-warning" id="vm-state">Booting</span>
+                                    <span class="label label-info"><span id="vm-mips">0</span> MIPS</span>
+                                </p>
                             </div>
-                            <div class="col-sm-4">
-                                <span id="gcc-error-count">0</span> error(s), <span id="gcc-warning-count">0</span> warning(s).
+                            <div class="col-sm-6">
+                                <p>Compiler:
+                                    <span class="label label-warning" id="gcc-compile-status">Idle</span>
+                                    <span class="label label-danger"><span id="gcc-error-count">0</span> error(s) <span id="gcc-warning-count">0</span> warning(s)</span>
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="container col-sm-6 pull-right">
-                        <p class="text-muted pull-right">Place sticky footer content here.</p>
+                        <p class="text-muted pull-right"><small>&copy; 2014, Lawrence Angrave and Neelabh Gupta</small></p>
                     </div>
                 </div>
             </div>
@@ -196,60 +205,9 @@
         <script src="scripts/compile.js"></script>
         <script src="scripts/main.js"></script>
         <script>
-            mainLayout = $('#layout').layout({
-                livePaneResizing: true,
-                
-                north__paneSelector: '.navbar',
-                center__paneSelector: '#doc-tty-container',
-                east__paneSelector: '#code-container',
-                south__paneSelector: '#footer-container',
-                
-                east__size: '50%',
-                spacing_open: 2,
-
-                north__resizable: false,
-                north__size: 52,
-                north__spacing_open: 0,
-                
-                south__resizable: false,
-                south__size: 29,
-                south__spacing_open: 0
-            });
-
-            ttyLayout = mainLayout.panes.center.layout({
-                livePaneResizing: true,
-                spacing_open: 2,
-
-                north__paneSelector: '#doc-container',
-                center__paneSelector: '#tty',
-                south__paneSelector: '#compile-opts-container',
-
-                north__size: '25%',
-
-                south__resizable: false,
-                south__size: 28,
-                south__spacing_open: 0
-            });
-
-            codeLayout = mainLayout.panes.east.layout({
-                livePaneResizing: true,
-                spacing_open: 2,
-
-                north__paneSelector: '#editor-tabs-bar',
-                center__paneSelector: '#code',
-                south__paneSelector: '#code-south-bar',
-
-                north__resizable: false,
-                north__size: 30,
-                north__spacing_open: 0,
-
-                south__resizable: false,
-                south__size: 40,
-                south__spacing_open: 0
-            });
-
-            startEditor();
+            compileMain.initLayout();
+            compileMain.startEditor();
         </script>
         <!-- endbuild -->
-</body>
+    </body>
 </html>

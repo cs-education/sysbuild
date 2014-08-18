@@ -11,6 +11,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     padding: 0.2em 0;
 }
 
+/* Incompatible browser message display rule */
 .js #no-js-msg {
     display: none;
 }
@@ -24,10 +25,33 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     display: none;
 }
 
+/* Remove padding from the panes to make content take up the whole space */
 .ui-layout-pane {
     padding: 0px;
 }
 
+/* Make navbar thinner - http://stackoverflow.com/a/19576381 */
+#navbar-container .navbar-brand,
+#navbar-container .navbar-nav > li > a {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    height: 32px;
+}
+
+#navbar-container .navbar {
+    min-height: 32px !important;
+    margin-bottom: 0px;
+}
+
+#navbar-container .navbar-default {
+    height: 33px;
+}
+
+#navbar-container .navbar-header {
+    height: 32px;
+}
+
+/* Thin footer */
 .footer {
     height: 27px;
     background-color: #f5f5f5;
@@ -38,7 +62,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     padding-left: 15px;
 }
 
-.container .text-muted {
+.footer p {
     margin: 4px 0;
 }
 
@@ -63,6 +87,33 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     padding-right: 2px;
 }
 
+/* Editor tabs bar */
+#editor-tabs-bar {
+    padding: 2px 2px 0px 2px;
+}
+
 #editor-tabs-bar a {
     padding: 2px 10px;
+}
+
+/* The Ace search field somehow inherited a white font on a white background,
+ * so reverting it.
+ */
+.ace-search-field {
+    color: initial;
+}
+
+/* Editor options toolbar */
+#code-south-bar .col-sm-3,
+#code-south-bar .col-sm-4 {
+    padding: 0px;
+}
+
+#code-south-bar .row {
+    margin: 0px;
+    padding: 2px;
+}
+
+#code-south-bar select {
+    height: 22px;
 }

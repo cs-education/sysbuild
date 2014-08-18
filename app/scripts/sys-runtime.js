@@ -28,13 +28,13 @@ window.SysRuntime = (function (ExpectTTY) {
         var onBootFinished = function (completed) {
             this.bootFinished = completed;
             if (completed) {
-                this.NotifyListeners('ready', true);
+                this.notifyListeners('ready', true);
             }
         }.bind(this);
 
         var onTTYLogin = function (completed) {
             if (completed) {
-                this.SendKeys('\x03\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?\n', 'boot2ready-0', onBootFinished);
             }
         }.bind(this);
 
@@ -42,7 +42,7 @@ window.SysRuntime = (function (ExpectTTY) {
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
         this.jor1kgui = new Jor1kGUI('tty', 'fb', 'stats', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
-        this.sendKeys('', 'root login on console', onTTYLogin);
+        this.sendKeys('', 'root login on \'console\'', onTTYLogin);
         return this;
     }
 
@@ -85,7 +85,12 @@ window.SysRuntime = (function (ExpectTTY) {
                     stats[note.type] += 1;
                 });
 
-                result = { 'exit_code':gccExitCode, 'stats':stats,'annotations':annotations,'gcc_output':gccOutput};
+                result = {
+                    exitCode: gccExitCode,
+                    stats: stats,
+                    annotations: annotations,
+                    gccOutput: gccOutput
+                };
             }
 
             guiCallback(result);
@@ -98,7 +103,7 @@ window.SysRuntime = (function (ExpectTTY) {
 
         var cmd = 'echo \\#\\#\\#GCC_COMPILE\\#\\#\\#;clear;gcc ' + gccOptions + ' program.c -o program; echo GCC_EXIT_CODE: $?; echo \\#\\#\\#GCC_COMPILE_FINISHED\\#\\#\\#' + this.compileTicket + '.;clear\n';
 
-        this.expecting = this.SendKeys(cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
+        this.expecting = this.sendKeys(cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
 
         return this.compileTicket;
     };
@@ -191,7 +196,7 @@ window.SysRuntime = (function (ExpectTTY) {
     SysRuntime.prototype.removeListener = function (eventname, fn) {
         var ary = this.listeners[eventname];
         this.listeners[eventname] = ary.filter(function (el) {
-            return el === fn;
+            return el !== fn;
         });
     };
 
