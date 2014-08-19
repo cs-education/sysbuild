@@ -1,4 +1,4 @@
-/* global LiveEdit, SysRuntime */
+/* global LiveEdit, SysRuntime, sysViewModel */
 
 window.compileMain = (function () {
     'use strict';
@@ -10,7 +10,7 @@ window.compileMain = (function () {
     // GLOBAL FUNCTIONS : UI glue
     var compileButtonClicked = function () {
         var code =  liveEdit.getCodeText();
-        var gccOptions = liveEdit.getElement('gccoptions').value;
+        var gccOptions = sysViewModel.gccOptions();
         liveEdit.runCode(code, gccOptions);
         return false;
     };

@@ -1,4 +1,4 @@
-/* global ace */
+/* global ace, sysViewModel */
 
 window.LiveEdit = (function () {
     'use strict';
@@ -10,16 +10,12 @@ window.LiveEdit = (function () {
         this.ace = ace.edit(editorDivId);
         this.ace.setTheme('ace/theme/monokai');
         this.ace.getSession().setMode('ace/mode/c_cpp');
-        this.compileBtn = document.getElementById('compile-btn');
+        this.viewModel = sysViewModel;
 
         var updateCompileButton = function() {
             var ready = this.runtime.ready();
-            /* TODO: abstract UI specific code */
-            this.compileBtn.disabled = !ready;
-            this.setHtml('gcc-compile-status', ready ? 'Ready' : 'VM booting');
-            this.setHtml('vm-state', ready ? 'Ready' : 'Booting');
-            this.getElement('gcc-compile-status').className = ready ? 'label label-success' : 'label label-warning';
-            this.getElement('vm-state').className = ready ? 'label label-success' : 'label label-warning';
+            this.viewModel.vmState(ready ? 'Running' : 'Booting');
+            this.viewModel.compileStatus(ready ? 'Ready' : 'Waiting');
         }.bind(this);
 
         updateCompileButton(); // Maybe sys is already up and running
@@ -28,17 +24,6 @@ window.LiveEdit = (function () {
             updateCompileButton();
         }.bind(this));
     }
-
-    // Currently JQuery-free
-    LiveEdit.prototype.getElement = function (id) {
-        return document.getElementById(id);
-    };
-
-    LiveEdit.prototype.setHtml = function (id, html) {
-        var el = this.getElement(id);
-        el.innerHTML = html;
-        return el;
-    };
 
     LiveEdit.prototype.escapeHtml = function (unsafe) {
         /*stackoverflow.com/questions/6234773/*/
@@ -51,16 +36,12 @@ window.LiveEdit = (function () {
     };
 
     LiveEdit.prototype.processGccCompletion = function (result) {
-        var GCC_RESULT_HTML_WARN = '<span onclick="alert(globalLastGccOutput); return false;">SUCCESSFUL WITH WARNINGS</span>';
-        var GCC_RESULT_HTML_ERROR = '<span onclick="alert(globalLastGccOutput); return false;">FAILED</span>';
-  
-        this.setHtml('gcc-error-count', '');
-        this.setHtml('gcc-warning-count', '');
+        this.viewModel.gccErrorCount(0);
+        this.viewModel.gccWarningCount(0);
 
         if (!result) {
             // cancelled
-            this.setHtml('gcc-compile-status', 'Cancelled');
-            this.getElement('gcc-compile-status').className = 'label label-default';
+            this.viewModel.compileStatus('Cancelled');
             return;
         }
 
@@ -70,25 +51,16 @@ window.LiveEdit = (function () {
         this.runtime.sendKeys('clear\n');
         this.ace.getSession().setAnnotations(result.annotations);
 
-        window.globalLastGccOutput = result.gccOutput;
-
-        this.setHtml('gcc-error-count',   result.stats.error.toString());
-        this.setHtml('gcc-warning-count', result.stats.warning.toString());
+        this.viewModel.lastGccOutput(result.gccOutput);
+        this.viewModel.gccErrorCount(result.stats.error);
+        this.viewModel.gccWarningCount(result.stats.warning);
 
         if (result.exitCode === 0) {
-            var cmdargs = this.getElement('cmdline').value;
-
-            var warnings = result.stats.warning > 0;
-            this.setHtml('gcc-compile-status', warnings ? GCC_RESULT_HTML_WARN : 'Success');
-            this.getElement('gcc-compile-status').className = warnings ? 'label label-warning' : 'label label-success';
-
-            this.runtime.startProgram('program', cmdargs);
+            this.viewModel.compileStatus(result.stats.warning > 0 ? 'Warning' : 'Success');
+            this.runtime.startProgram('program', this.viewModel.programArgs());
         } else {
-            this.setHtml('gcc-compile-status', GCC_RESULT_HTML_ERROR);
-            this.getElement('gcc-compile-status').className = 'label label-danger';
+            this.viewModel.compileStatus('Failed');
         }
-        
-        this.compileBtn.disabled = false;
     };
 
     LiveEdit.prototype.getCodeText = function() {
@@ -101,9 +73,7 @@ window.LiveEdit = (function () {
         }
         var callback = this.processGccCompletion.bind(this);
 
-        this.compileBtn.disabled = true;
-        this.setHtml('gcc-compile-status', 'Compiling');
-        this.getElement('gcc-compile-status').className = 'label label-warning';
+        this.viewModel.compileStatus('Compiling');
 
         this.runtime.startGccCompile(code, gccOptions, callback);
     };

@@ -92,7 +92,7 @@
                         <div class="col-sm-4">
                             <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs">
                         </div>
-                        <button id="compile-btn" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
+                        <button data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
                             <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </div>
@@ -142,22 +142,22 @@
                 <div class="footer">
                     <div class="col-sm-6">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <p>VM state:
-                                    <span class="label label-warning" id="vm-state">Booting</span>
-                                    <span class="label label-info"><span id="vm-mips">0</span> MIPS</span>
+                                    <span data-bind="text: vmState, css: vmStateClass">Booting</span>
+                                    <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
                                 </p>
                             </div>
                             <div class="col-sm-6">
                                 <p>Compiler:
-                                    <span class="label label-warning" id="gcc-compile-status">Idle</span>
-                                    <span class="label label-danger"><span id="gcc-error-count">0</span> error(s) <span id="gcc-warning-count">0</span> warning(s)</span>
+                                    <span data-bind="text: compileStatus, css: compileStatusClass">Idle</span>
+                                    <span data-bind="text: errorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="container col-sm-6 pull-right">
-                        <p class="text-muted pull-right"><small>&copy; 2014, Lawrence Angrave and <a href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
+                        <p class="text-muted pull-right"><small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
                     </div>
                 </div>
             </div>
@@ -204,6 +204,7 @@
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/sys-view-model.js"></script>
         <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>
         <script src="scripts/live-edit.js"></script>
