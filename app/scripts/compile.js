@@ -22,7 +22,6 @@ window.compileMain = (function () {
     };
 
     return {
-        initLayout: initLayout,
         startEditor: startEditor,
         compileButtonClicked: compileButtonClicked,
         setEditorTheme: setEditorTheme
