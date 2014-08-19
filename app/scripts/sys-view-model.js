@@ -22,6 +22,8 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
+        self.challengeDoc = ko.observable('<p>Hello World!</p>');
+
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
         self.gccOptions = ko.observable('-lm -Wall -fmax-errors=10 -Werror -Wextra');
