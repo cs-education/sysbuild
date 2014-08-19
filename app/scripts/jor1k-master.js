@@ -1,6 +1,6 @@
 /* global Terminal, TerminalInput, Ethernet */
 
-window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
+window.Jor1kGUI = (function () {
     'use strict';
 
     /*
@@ -138,4 +138,4 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
 
     return Jor1kGUI;
 
-})(Terminal, TerminalInput, Ethernet);
+})();

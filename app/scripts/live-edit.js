@@ -1,6 +1,6 @@
 /* global ace */
 
-window.LiveEdit = (function (ace) {
+window.LiveEdit = (function () {
     'use strict';
 
     // LiveEdit class.
@@ -113,4 +113,4 @@ window.LiveEdit = (function (ace) {
     };
 
     return LiveEdit;
-})(ace);
+})();

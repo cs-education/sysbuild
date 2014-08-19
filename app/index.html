@@ -86,11 +86,11 @@
                     <div class="row">
                         <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc opts</small></label>
                         <div class="col-sm-5">
-                            <input class="form-control input-sm" type="text" id="gccoptions" placeholder="" maxlen=256 value="-lm -Wall -fmax-errors=10 -Werror -Wextra">
+                            <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
                         </div>
                         <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" type="text" id="cmdline" placeholder="" maxlen=256 value="hello world">
+                            <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs">
                         </div>
                         <button id="compile-btn" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
                             <span class="glyphicon glyphicon-play"></span>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="container col-sm-6 pull-right">
-                        <p class="text-muted pull-right"><small>&copy; 2014, Lawrence Angrave and Neelabh Gupta</small></p>
+                        <p class="text-muted pull-right"><small>&copy; 2014, Lawrence Angrave and <a href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
                     </div>
                 </div>
             </div>
@@ -210,6 +210,9 @@
         <script src="scripts/sys-runtime.js"></script>
         <script src="scripts/compile.js"></script>
         <script src="scripts/main.js"></script>
+        <!-- Do not write any js code in script tags here,
+             because it won't be included in the built code (the minified distribution code).
+             Instead, write it in main.js, some other file, or in script tags outside the build blocks -->
         <!-- endbuild -->
     </body>
 </html>

@@ -1,6 +1,6 @@
 /* global LiveEdit, SysRuntime */
 
-window.compileMain = (function (LiveEdit, SysRuntime) {
+window.compileMain = (function () {
     'use strict';
 
     // Globals
@@ -92,4 +92,4 @@ window.compileMain = (function (LiveEdit, SysRuntime) {
         setEditorTheme: setEditorTheme
     };
 
-})(LiveEdit, SysRuntime);
+})();
