@@ -30,7 +30,7 @@ module.exports = function (grunt) {
             commit: true,
             push: true
         },
-        staging: {
+        neelabhgstaging: {
             options: {
                 remote: 'https://github.com/neelabhg/sys-staging',
                 branch: 'gh-pages'
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
                 remote: 'https://github.com/neelabhg/sys',
                 branch: 'gh-pages'
             }
-        }
+        },
         angraveprod: {
             options: {
                 remote: 'https://github.com/angrave/sys',
@@ -502,13 +502,13 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
 
-        var targets = ['staging', 'prod'];
+        var targets = ['neelabhgprod', 'angraveprod', 'neelabhgstaging'];
         if (targets.indexOf(target) === -1) {
             grunt.log.error('Please specify a valid target. Valid targets are: ' + targets.join(', ') + '.');
             return false;
         }
 
-        if (target === 'prod') {
+        if (target === 'angraveprod') {
             grunt.task.run('includes:googleAnalytics');
         }
 
