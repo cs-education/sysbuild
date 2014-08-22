@@ -1,6 +1,6 @@
-/* global Terminal, TerminalInput, Ethernet */
+/* global Terminal, TerminalInput, Ethernet, sysViewModel */
 
-window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
+window.Jor1kGUI = (function () {
     'use strict';
 
     /*
@@ -105,6 +105,10 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
         }.bind(this);
         
         this.reset();
+
+        window.setInterval(function (){
+            this.sendToWorker('GetIPS', 0);
+        }.bind(this), 1000);
     }
 
     Jor1kGUI.prototype.onMessage = function (e) {
@@ -130,6 +134,10 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
                 console.log('Received stop signal');
                 this.stop = true;
                 break;
+            case 'GetIPS':
+                //this.stats.innerHTML = this.userpaused ? "Paused" : ;
+                sysViewModel.vmMips(this.userpaused ? 0 : (Math.floor(e.data.data/100000)/10.0));
+                break;
             case 'Debug':
                 console.log(e.data.data);
                 break;
@@ -138,4 +146,4 @@ window.Jor1kGUI = (function (Terminal, TerminalInput, Ethernet) {
 
     return Jor1kGUI;
 
-})(Terminal, TerminalInput, Ethernet);
+})();

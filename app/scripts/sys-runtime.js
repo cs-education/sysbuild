@@ -2,7 +2,7 @@
 
 // A singleton that encapsulates the virtual machine interface
 
-window.SysRuntime = (function (ExpectTTY) {
+window.SysRuntime = (function () {
     'use strict';
 
     function SysRuntime() {
@@ -242,4 +242,4 @@ window.SysRuntime = (function (ExpectTTY) {
         }
     };
 
-})(ExpectTTY);
+})();

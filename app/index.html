@@ -76,6 +76,27 @@
             </div>
 
 
+            <div id="doc-tty-container">
+                <div id="doc-container" data-bind="html: challengeDoc"></div>
+                <div id="tty-container">
+                    <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
+                </div>
+                <div id="compile-opts-container">
+                    <div class="row">
+                        <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                        <div class="col-sm-5">
+                            <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
+                        </div>
+                        <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                        <div class="col-sm-4">
+                            <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                        </div>
+                        <button data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
+                            <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             
             <div id="code-container">
                 <div id="editor-tabs-bar">
@@ -121,42 +142,28 @@ int main() {
                 <div id="tty-container">
                     <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
                 </div>
-                <div id="compile-opts-container">
-                    <div class="row">
-                        <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc opts</small></label>
-                        <div class="col-sm-5">
-                            <input class="form-control input-sm" type="text" id="gccoptions" placeholder="" maxlen=256 value="-lm -Wall -fmax-errors=10 -Werror -Wextra">
-                        </div>
-                        <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" type="text" id="cmdline" placeholder="Program arguments" maxlen=256 value="">
-                        </div>
-                        <button id="compile-btn" type="button" class="btn btn-primary btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled" title="Compile and run">
-                            <span class="glyphicon glyphicon-play"></span>
-                        </button>
-                    </div>
-                </div>
+
             </div>
             <div id="footer-container">
                 <div class="footer" >
                     <div class="col-sm-6">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <p>VM state:
-                                    <span class="label label-warning" id="vm-state">Booting</span>
-                                    <span class="label label-info hidden"><span id="vm-mips">0</span> MIPS</span>
+                                    <span data-bind="text: vmState, css: vmStateClass">Booting</span>
+                                    <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
                                 </p>
                             </div>
                             <div class="col-sm-8">
                                 <p>Compiler:
-                                    <span class="label label-warning" id="gcc-compile-status">Idle</span>
-                                    <span class="label label-danger"><span id="gcc-error-count">0</span> error(s) <span id="gcc-warning-count">0</span> warning(s)</span>
+                                    <span data-bind="text: compileStatus, css: compileStatusClass">Idle</span>
+                                    <span data-bind="text: errorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="container col-sm-6 pull-right">
-                        <p class="text-muted pull-right"><small>&copy; 2014, Lawrence Angrave and Neelabh Gupta</small></p>
+                        <p class="text-muted pull-right"><small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
                     </div>
                 </div>
             </div>
@@ -203,12 +210,16 @@ int main() {
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/sys-view-model.js"></script>
         <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>
         <script src="scripts/live-edit.js"></script>
         <script src="scripts/sys-runtime.js"></script>
         <script src="scripts/compile.js"></script>
         <script src="scripts/main.js"></script>
+        <!-- Do not write any js code in script tags here,
+             because it won't be included in the built code (the minified distribution code).
+             Instead, write it in main.js, some other file, or in script tags outside the build blocks -->
         <!-- endbuild -->
     </body>
 </html>
