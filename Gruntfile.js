@@ -36,9 +36,15 @@ module.exports = function (grunt) {
                 branch: 'gh-pages'
             }
         },
-        prod: {
+        neelabhgprod: {
             options: {
                 remote: 'https://github.com/neelabhg/sys',
+                branch: 'gh-pages'
+            }
+        }
+        angraveprod: {
+            options: {
+                remote: 'https://github.com/angrave/sys',
                 branch: 'gh-pages'
             }
         }
