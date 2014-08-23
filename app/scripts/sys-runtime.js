@@ -176,7 +176,8 @@ window.SysRuntime = (function () {
             filename= './' + filename.replace(' ', '\\ ');
         }
         cmdargs = cmdargs.replace('\\', '\\\\').replace('\n','\\n');
-        this.sendKeys('\x03\n' + filename + ' ' + cmdargs + '\n');
+        // Don't \x03 ; it interrupts the clear command
+        this.sendKeys('\n' + filename + ' ' + cmdargs + '\n');
     };
 
     SysRuntime.prototype.sendTextFile = function(filename, contents) {
