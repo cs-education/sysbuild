@@ -53,7 +53,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 
 /* Thin footer */
 .footer {
-    height: 27px;
+    min-height: 27px;
     background-color: #f5f5f5;
 }
 
@@ -116,4 +116,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 
 #code-south-bar select {
     height: 22px;
+}
+
+.terminal-theme {
+    padding: 0px;
 }

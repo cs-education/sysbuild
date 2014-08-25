@@ -21,8 +21,8 @@ $(document).ready(function () {
             north__spacing_open: 0,
             north__showOverflowOnHover: true,
 
-            south__resizable: false,
-            south__size: 29,
+            south__resizable: true,
+            south__size: 60,
             south__spacing_open: 0
         });
 

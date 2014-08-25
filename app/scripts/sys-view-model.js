@@ -22,12 +22,12 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.challengeDoc = ko.observable('<p>Hello World!</p>');
+        self.challengeDoc = ko.observable('<p>Welcome</p>');
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
-        self.gccOptions = ko.observable('-lm -Wall -fmax-errors=10 -Werror -Wextra');
-        self.programArgs = ko.observable('hello world');
+        self.gccOptions = ko.observable('-lm -Wall -fmax-errors=10 -Wextra');
+        self.programArgs = ko.observable('');
         self.lastGccOutput = ko.observable('');
 
         self.compileStatus = ko.observable('Waiting');
@@ -45,6 +45,7 @@ window.SysViewModel = (function () {
 
             str += errors ? (errors + ' error' + (errors > 1 ? 's ' : ' ')) : '';
             str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
+            if(str) { str += '...';}
             return str;
         });
 
