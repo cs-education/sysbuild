@@ -96,6 +96,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 /* Editor tabs bar */
 #editor-tabs-bar {
     padding: 2px 2px 0px 2px;
+    border: 0px;
 }
 
 #editor-tabs-bar a {
@@ -109,7 +110,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     color: initial;
 }
 
+#editor-container {
+    border: 0px;
+}
+
 /* Editor options toolbar */
+#editor-opts-container {
+    border: 0px;
+}
+
 #editor-opts-container .col-sm-3,
 #editor-opts-container .col-sm-4 {
     padding: 0px;
