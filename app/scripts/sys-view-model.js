@@ -22,12 +22,12 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.challengeDoc = ko.observable('<p>Welcome to this tiny but fast linux virtual machine. Currently only Chrome is known to work. Other browsers will be supported in the future.</p>');
+        self.challengeDoc = ko.observable();
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
-        self.gccOptions = ko.observable('-lm -Wall -fmax-errors=10 -Wextra');
-        self.programArgs = ko.observable('');
+        self.gccOptions = ko.observable();
+        self.programArgs = ko.observable();
         self.lastGccOutput = ko.observable('');
 
         self.compileStatus = ko.observable('Waiting');
@@ -62,6 +62,9 @@ window.SysViewModel = (function () {
             var output = self.lastGccOutput();
             if (output) { window.alert(output); }
         };
+
+        self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
+        self.aceTheme = ko.observable();
     }
 
     return SysViewModel;

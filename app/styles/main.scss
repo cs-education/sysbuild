@@ -110,6 +110,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     color: initial;
 }
 
+#doc-container {
+    padding: 5px;
+}
+
+#doc-container > h3 {
+    margin-top: 0px;
+}
+
 #editor-container {
     border: 0px;
 }

@@ -86,12 +86,7 @@
                     <div id="editor-opts-container">
                         <div class="row">
                             <div class="col-sm-4">
-                                <select class="terminal-theme form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
-                                    <option value="monokai">monokai</option>
-                                    <option value="terminal">terminal</option>
-                                    <option value="tomorrow">tomorrow</option>
-                                    <option value="xcode">xcode</option>
-                                </select>
+                                <select data-bind="options: availableAceThemes, value: aceTheme" class="terminal-theme form-control input-sm"></select>
                             </div>
                             <div class="col-sm-3 pull-right">
                                 <button type="button" class="btn btn-default btn-xs pull-right hidden">
@@ -100,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="code">/*Write your C code here*/</div>
+                    <div id="code"></div>
                     <div id="compile-opts-container">
                         <div class="row">
                             <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
@@ -111,7 +106,7 @@
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
                             </div>
-                            <button data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
+                            <button id="compileBtn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
                                 <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </div>
@@ -120,7 +115,10 @@
             </div>
 
             <div id="doc-tty-container">
-                <div id="doc-container" data-bind="html: challengeDoc"></div>
+                <div id="doc-container" data-bind="with: challengeDoc">
+                    <h3 data-bind="text: title"></h3>
+                    <p data-bind="text: instructions"></p>
+                </div>
                 <div id="tty-container">
                     <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
                 </div>
@@ -195,9 +193,9 @@
         <script src="scripts/sys-view-model.js"></script>
         <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>
+        <script src="scripts/editor.js"></script>
         <script src="scripts/live-edit.js"></script>
         <script src="scripts/sys-runtime.js"></script>
-        <script src="scripts/compile.js"></script>
         <script src="scripts/main.js"></script>
         <!-- Do not write any js code in script tags here,
              because it won't be included in the built code (the minified distribution code).

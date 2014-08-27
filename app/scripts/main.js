@@ -1,4 +1,4 @@
-/* global $, ko, compileMain, SysViewModel */
+/* global $, ko, SysViewModel, Editor, LiveEdit, SysRuntime */
 
 $(document).ready(function () {
     'use strict';
@@ -79,5 +79,61 @@ $(document).ready(function () {
     window.sysViewModel = new SysViewModel();
     ko.applyBindings(window.sysViewModel);
 
-    compileMain.startEditor();
+    var editor = new Editor('code');
+    var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
+
+    var compile = function () {
+        var code = editor.getText();
+        var gccOptions = window.sysViewModel.gccOptions();
+        liveEdit.runCode(code, gccOptions);
+    };
+
+    $('#compileBtn').click(function (e) {
+        compile();
+        e.preventDefault();
+    });
+
+    editor.addKeyboardCommand(
+        'compileAndRunShortcut',
+        {
+            win: 'Ctrl-R',
+            mac: 'Command-R'
+        },
+        compile
+    );
+
+    var setState = function (viewModel, codeEditor, state) {
+        viewModel.challengeDoc(state.challengeDoc);
+        viewModel.gccOptions(state.gccOptions);
+        viewModel.programArgs(state.programArgs);
+        codeEditor.setText(state.editorText);
+
+        // placeholder for formatting code when we have a beautifier engine
+        codeEditor.beautify(function (text) { return text; });
+    };
+
+    var setInitialState = function () {
+        var state = {};
+        state.challengeDoc = state.challengeDoc || {
+            title: 'Welcome',
+            instructions: 'Welcome to this tiny but fast linux virtual machine.' +
+                'Currently only Chrome is known to work. Other browsers will be supported in the future.'
+        };
+
+        state.gccOptions = state.gccOptions || '-lm -Wall -fmax-errors=10 -Wextra';
+        state.programArgs = state.programArgs || '';
+        state.editorText = state.editorText || '' +
+            '/*Write your C code here*/\n' +
+            '#include <stdio.h>\n' +
+            '\n' +
+            'int main() {\n' +
+            '    printf("Hello world!");\n' +
+            '    return 0;\n' +
+            '}\n' +
+            '';
+
+        setState(window.sysViewModel, editor, state);
+    };
+
+    setInitialState();
 });
