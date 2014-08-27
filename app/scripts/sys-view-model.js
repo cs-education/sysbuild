@@ -2,7 +2,7 @@
 
 window.SysViewModel = (function () {
     'use strict';
-    
+
     function SysViewModel() {
         var self = this;
         var compileStatusToLabelClassMap = {
@@ -22,7 +22,7 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.challengeDoc = ko.observable('<p>Welcome</p>');
+        self.challengeDoc = ko.observable('<p>Welcome to this tiny but fast linux virtual machine. Currently only Chrome is known to work. Other browsers will be supported in the future.</p>');
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
@@ -47,6 +47,9 @@ window.SysViewModel = (function () {
             str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
             if(str) { str += '...';}
             return str;
+        });
+        self.showErrorWarningLabel = ko.pureComputed(function () {
+            return (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
         });
 
         self.vmState = ko.observable('Stopped');

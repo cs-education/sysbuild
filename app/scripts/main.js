@@ -9,8 +9,8 @@ $(document).ready(function () {
             livePaneResizing: true,
 
             north__paneSelector: '#navbar-container',
-            center__paneSelector: '#doc-tty-container',
-            east__paneSelector: '#code-container',
+            center__paneSelector: '#code-container',
+            east__paneSelector: '#doc-tty-container',
             south__paneSelector: '#footer-container',
 
             east__size: '50%',
@@ -26,22 +26,7 @@ $(document).ready(function () {
             south__spacing_open: 0
         });
 
-        var ttyLayout = mainLayout.panes.center.layout({
-            livePaneResizing: true,
-            spacing_open: 2,
-
-            north__paneSelector: '#doc-container',
-            center__paneSelector: '#tty',
-            south__paneSelector: '#compile-opts-container',
-
-            north__size: '25%',
-
-            south__resizable: false,
-            south__size: 28,
-            south__spacing_open: 0
-        });
-
-        var codeLayout = mainLayout.panes.east.layout({
+        var codeLayout = mainLayout.panes.center.layout({
             livePaneResizing: true,
             spacing_open: 2,
 
@@ -52,6 +37,21 @@ $(document).ready(function () {
             north__resizable: false,
             north__size: 30,
             north__spacing_open: 0,
+
+            south__resizable: false,
+            south__size: 28,
+            south__spacing_open: 0
+        });
+
+        var ttyLayout = mainLayout.panes.east.layout({
+            livePaneResizing: true,
+            spacing_open: 2,
+
+            north__paneSelector: '#doc-container',
+            center__paneSelector: '#tty',
+            south__paneSelector: '#compile-opts-container',
+
+            north__size: '25%',
 
             south__resizable: false,
             south__size: 28,

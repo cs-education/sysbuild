@@ -27,7 +27,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Unsupported browser message -->        
+        <!-- Unsupported browser message -->
         <div>
             <div id="no-js-msg">
                 To use this website you need to enable Javascript in your browser.
@@ -75,6 +75,32 @@
                 </div>
             </div>
 
+            <div id="code-container">
+                <div id="editor-tabs-bar">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
+                    </ul>
+                </div>
+                <div id="code">/*Write your C code here*/</div>
+                <div id="code-south-bar">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <select class="terminal-theme form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
+                                <option value="monokai">monokai</option>
+                                <option value="terminal">terminal</option>
+                                <option value="tomorrow">tomorrow</option>
+                                <option value="xcode">xcode</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 pull-right">
+                            <button type="button" class="btn btn-default btn-xs pull-right hidden">
+                                <span class="glyphicon glyphicon-save"></span> Download files
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div id="doc-tty-container">
                 <div id="doc-container" data-bind="html: challengeDoc"></div>
@@ -97,42 +123,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="code-container">
-                <div id="editor-tabs-bar">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
-                    </ul>
-                </div>
-<div id="code">/*Write your C code here*/</div>
-                <div id="code-south-bar">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <select class="terminal-theme form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
-                                <option value="monokai">monokai</option>
-                                <option value="terminal">terminal</option>
-                                <option value="tomorrow">tomorrow</option>
-                                <option value="xcode">xcode</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3 pull-right">
-                            <button type="button" class="btn btn-default btn-xs pull-right hidden">
-                                <span class="glyphicon glyphicon-save"></span> Download files
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="doc-tty-container">
-                <div id="doc-container">
-                    <p>Welcome to this tiny but fast linux virtual machine. Currently only Chrome is known to work. Other browsers will be supported in the future.</p>
-                </div>
-                <div id="tty-container">
-                    <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
-                </div>
 
-            </div>
             <div id="footer-container">
                 <div class="footer" >
                     <div class="col-sm-6">
@@ -143,10 +134,10 @@
                                     <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
                                 </p>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <p>Compiler:
                                     <span data-bind="text: compileStatus, css: compileStatusClass">Idle</span>
-                                    <span data-bind="text: errorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
+                                    <span data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
                                 </p>
                             </div>
                         </div>
