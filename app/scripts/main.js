@@ -1,4 +1,4 @@
-/* global $, ko, SysViewModel, Editor, LiveEdit, SysRuntime */
+/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime */
 
 $(document).ready(function () {
     'use strict';
@@ -74,13 +74,17 @@ $(document).ready(function () {
         };
     };
 
-    initLayout();
+    var layouts = initLayout();
 
     window.sysViewModel = new SysViewModel();
     ko.applyBindings(window.sysViewModel);
 
     var editor = new Editor('code');
     var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
+
+    layouts.editorLayout.options.onresizeall_end = function() {
+        editor.resize();
+    };
 
     var compile = function () {
         var code = editor.getText();
@@ -100,8 +104,8 @@ $(document).ready(function () {
 
     $('#download-file-btn').click(function () {
         var text = editor.getText();
-        var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, "program.c");
+        var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+        saveAs(blob, 'program.c');
     });
 
     $('#autoformat-code-btn').click(function () {
@@ -129,7 +133,7 @@ $(document).ready(function () {
         var state = {};
         state.challengeDoc = state.challengeDoc || {
             title: 'Welcome',
-            instructions: 'Welcome to this tiny but fast linux virtual machine.' +
+            instructions: 'Welcome to this tiny but fast linux virtual machine. ' +
                 'Currently only Chrome is known to work. Other browsers will be supported in the future.'
         };
 
