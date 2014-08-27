@@ -10,15 +10,16 @@ If you would like to work on this project, continue reading to get started.
 ## Project folder structure ##
 ```
 sysbuild/
-├── app/
-│   ├── jor1k/                      The jor1k project source copied by grunt during setup
-│   ├── jor1k_hd_images/            Disk images for the Virtual Machine
-│   ├── scripts/                    JS files
-│   └── styles/                     SASS and CSS files
-├── bower_components/               Dependencies installed by Bower
-├── node_modules/                   Dependencies installed by npm
-├── sys-gh-pages-config/            Config for the application deployed on production
-└── test/                           Tests
+├── app/                        Application source code
+│   ├── jor1k/                  The jor1k project source copied by grunt during setup
+│   ├── jor1k_hd_images/        Disk images for the Virtual Machine
+│   ├── scripts/                Javascript files
+│   └── styles/                 SASS and CSS files
+├── dist/                       The distributable application output by the build process
+├── bower_components/           Dependencies installed by Bower
+├── node_modules/               Dependencies installed by npm
+├── sys-gh-pages-config/        Config for the application deployed on production
+└── test/                       Tests
     └── spec/
 ```
 
@@ -68,7 +69,7 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 `git push origin my_awesome_feature_branch`
 
 5. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into `master`.
-Wait for someone to review your code and merge your changes. Make sure to follow the code guidelines below.
+Wait for someone to review your code and merge your changes. Make sure you followed the code guidelines below.
 
 ## Code guidelines ##
 * We have an [editor config](https://github.com/angrave/sysbuild/blob/master/.editorconfig) file for maintaining a consistent coding style.
@@ -94,5 +95,16 @@ You will need push access to the appropriate repository before you can deploy.
 4. Deploy to [production](http://angrave.github.io/sys/).  
 `grunt deploy:angraveprod`
 
+## Creators ##
+Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
+Neelabh Gupta [github.com/neelabhg](http://github.com/neelabhg)
+
+The Virtual Machine is powered by the [jor1k](https://github.com/angrave/jor1k) project.
+
 ## Licence ##
-See [LICENSE.txt](https://github.com/angrave/sysbuild/blob/master/LICENSE.txt).
+See [LICENSE.txt](https://github.com/angrave/sysbuild/blob/master/LICENSE.txt).  
+
+### Open source licences ###
+jor1k is distributed under the terms of the [GNU General Public License v3 (GPLv3)](https://github.com/angrave/jor1k/blob/master/LICENSE.md).  
+Bootstrap is released under the [MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE) and is copyright 2014 Twitter.  
+Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.  
