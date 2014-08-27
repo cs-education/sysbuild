@@ -19,10 +19,11 @@ $(document).ready(function () {
             north__resizable: false,
             north__size: 35,
             north__spacing_open: 0,
+            north__spacing_closed: 0,
             north__showOverflowOnHover: true,
 
-            south__resizable: true,
-            south__size: 60,
+            south__resizable: false,
+            south__size: 29,
             south__spacing_open: 0
         });
 
@@ -31,8 +32,20 @@ $(document).ready(function () {
             spacing_open: 2,
 
             north__paneSelector: '#editor-tabs-bar',
+            center__paneSelector: '#editor-container',
+
+            north__resizable: false,
+            north__size: 30,
+            north__spacing_open: 0
+        });
+
+        var editorLayout = codeLayout.panes.center.layout({
+            livePaneResizing: true,
+            spacing_open: 2,
+
+            north__paneSelector: '#editor-opts-container',
             center__paneSelector: '#code',
-            south__paneSelector: '#code-south-bar',
+            south__paneSelector: '#compile-opts-container',
 
             north__resizable: false,
             north__size: 30,
@@ -49,19 +62,15 @@ $(document).ready(function () {
 
             north__paneSelector: '#doc-container',
             center__paneSelector: '#tty',
-            south__paneSelector: '#compile-opts-container',
 
-            north__size: '25%',
-
-            south__resizable: false,
-            south__size: 28,
-            south__spacing_open: 0
+            north__size: '25%'
         });
 
         return {
             mainLayout: mainLayout,
-            ttyLayout: ttyLayout,
-            codeLayout: codeLayout
+            codeLayout: codeLayout,
+            editorLayout: editorLayout,
+            ttyLayout: ttyLayout
         };
     };
 

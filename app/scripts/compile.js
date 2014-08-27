@@ -26,5 +26,4 @@ window.compileMain = (function () {
         compileButtonClicked: compileButtonClicked,
         setEditorTheme: setEditorTheme
     };
-
 })();

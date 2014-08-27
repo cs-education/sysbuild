@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div id="layout" class="show-if-supported" style="position: absolute; width: 100%; height: 100%;">
+        <div id="layout" class="show-if-supported">
             <div id="navbar-container">
                 <!-- Fixed navbar -->
                 <div class="navbar navbar-default" role="navigation">
@@ -82,20 +82,37 @@
                         <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
                     </ul>
                 </div>
-                <div id="code">/*Write your C code here*/</div>
-                <div id="code-south-bar">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <select class="terminal-theme form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
-                                <option value="monokai">monokai</option>
-                                <option value="terminal">terminal</option>
-                                <option value="tomorrow">tomorrow</option>
-                                <option value="xcode">xcode</option>
-                            </select>
+                <div id="editor-container">
+                    <div id="editor-opts-container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <select class="terminal-theme form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
+                                    <option value="monokai">monokai</option>
+                                    <option value="terminal">terminal</option>
+                                    <option value="tomorrow">tomorrow</option>
+                                    <option value="xcode">xcode</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 pull-right">
+                                <button type="button" class="btn btn-default btn-xs pull-right hidden">
+                                    <span class="glyphicon glyphicon-save"></span> Download files
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-sm-3 pull-right">
-                            <button type="button" class="btn btn-default btn-xs pull-right hidden">
-                                <span class="glyphicon glyphicon-save"></span> Download files
+                    </div>
+                    <div id="code">/*Write your C code here*/</div>
+                    <div id="compile-opts-container">
+                        <div class="row">
+                            <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                            <div class="col-sm-5">
+                                <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
+                            </div>
+                            <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                            <div class="col-sm-4">
+                                <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                            </div>
+                            <button data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
+                                <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </div>
                     </div>
@@ -106,21 +123,6 @@
                 <div id="doc-container" data-bind="html: challengeDoc"></div>
                 <div id="tty-container">
                     <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
-                </div>
-                <div id="compile-opts-container">
-                    <div class="row">
-                        <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
-                        <div class="col-sm-5">
-                            <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
-                        </div>
-                        <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
-                        </div>
-                        <button data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
-                            <span class="glyphicon glyphicon-play"></span>
-                        </button>
-                    </div>
                 </div>
             </div>
 
