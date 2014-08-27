@@ -2,9 +2,9 @@
 
 $(document).ready(function () {
     'use strict';
+    /* jshint camelcase: false */
 
     var initLayout = function () {
-        /* jshint camelcase: false */
         var mainLayout = $('#layout').layout({
             livePaneResizing: true,
 
