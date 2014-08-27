@@ -86,11 +86,25 @@
                     <div id="editor-opts-container">
                         <div class="row">
                             <div class="col-sm-4">
-                                <select data-bind="options: availableAceThemes, value: aceTheme" class="terminal-theme form-control input-sm"></select>
+                                <label class="col-sm-2 control-label" for="editor-theme"><small class="pull-right">Theme:</small></label>
+                                <div class="col-sm-10">
+                                    <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
+                                </div>
                             </div>
-                            <div class="col-sm-3 pull-right">
-                                <button type="button" class="btn btn-default btn-xs pull-right hidden">
-                                    <span class="glyphicon glyphicon-save"></span> Download files
+                            <div class="col-sm-3">
+                                <label class="col-sm-4 control-label" for="editor-font-size"><small class="pull-right">font&nbsp;size (px):</small></label>
+                                <div class="col-sm-8">
+                                    <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="">
+                                <button id="download-file-btn" type="button" class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-save"></span> Download file
+                                </button>
+                            </div>
+                            <div class="">
+                                <button id="autoformat-code-btn" type="button" class="btn btn-default btn-xs pull-right hidden">
+                                    <span class="glyphicon glyphicon-indent-left"></span> Autoformat code
                                 </button>
                             </div>
                         </div>
@@ -106,7 +120,7 @@
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
                             </div>
-                            <button id="compileBtn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
+                            <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
                                 <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </div>
@@ -157,6 +171,8 @@
         <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
+        <script src="../bower_components/FileSaver/FileSaver.js"></script>
+        <script src="../bower_components/blob/Blob.js"></script>
         <!-- endbower -->
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js"></script>

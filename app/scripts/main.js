@@ -88,9 +88,24 @@ $(document).ready(function () {
         liveEdit.runCode(code, gccOptions);
     };
 
-    $('#compileBtn').click(function (e) {
+    // placeholder for formatting code when we have a beautifier engine
+    var beautifierFunction = function (text) {
+        return text;
+    };
+
+    $('#compile-btn').click(function (e) {
         compile();
         e.preventDefault();
+    });
+
+    $('#download-file-btn').click(function () {
+        var text = editor.getText();
+        var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "program.c");
+    });
+
+    $('#autoformat-code-btn').click(function () {
+        editor.beautify(beautifierFunction);
     });
 
     editor.addKeyboardCommand(
@@ -107,9 +122,7 @@ $(document).ready(function () {
         viewModel.gccOptions(state.gccOptions);
         viewModel.programArgs(state.programArgs);
         codeEditor.setText(state.editorText);
-
-        // placeholder for formatting code when we have a beautifier engine
-        codeEditor.beautify(function (text) { return text; });
+        codeEditor.beautify(beautifierFunction);
     };
 
     var setInitialState = function () {

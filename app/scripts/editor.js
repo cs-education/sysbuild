@@ -10,11 +10,16 @@ window.Editor = (function () {
         self.editorDivId = editorDivId;
         self.aceEditor = ace.edit(editorDivId);
         self.setTheme(self.viewModel.aceTheme());
+        self.viewModel.aceFontSize(12);
         self.setMode('c_cpp');
 
         // automatically change theme upon selection
         self.viewModel.aceTheme.subscribe(function () {
             self.setTheme(self.viewModel.aceTheme());
+        });
+
+        self.viewModel.aceFontSize.subscribe(function () {
+            self.setFontSize(self.viewModel.aceFontSize() + 'px');
         });
     }
 

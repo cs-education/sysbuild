@@ -137,10 +137,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     padding: 2px;
 }
 
-#editor-opts-container select {
+#editor-opts-container .form-control {
     height: 22px;
-}
-
-.terminal-theme {
     padding: 0px;
 }

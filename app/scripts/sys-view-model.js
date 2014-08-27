@@ -65,6 +65,7 @@ window.SysViewModel = (function () {
 
         self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
         self.aceTheme = ko.observable();
+        self.aceFontSize = ko.observable();
     }
 
     return SysViewModel;
