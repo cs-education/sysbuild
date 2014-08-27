@@ -3,11 +3,6 @@
 window.Jor1kGUI = (function () {
     'use strict';
 
-    /*
-    function DebugMessage(message) {
-        console.log(message);
-    }*/
-
     function UARTDev(worker) {
         this.ReceiveChar = function (c) {
             if (worker.lastMouseDownTarget !== worker.fbcanvas) {
@@ -16,7 +11,7 @@ window.Jor1kGUI = (function () {
         };
     }
 
-    function Jor1kGUI(termid, fbid, statsid, imageurls, relayURL) {
+    function Jor1kGUI(termId, imageurls, relayURL) {
         this.urls = imageurls;
 
         this.worker = new Worker('jor1k/js/worker/worker.js');
@@ -24,7 +19,7 @@ window.Jor1kGUI = (function () {
         this.worker.onerror = function (e) {
             console.log('Error at ' + e.filename + ':' + e.lineno + ': ' + e.message);
         };
-        
+
         this.sendToWorker = function (command, data) {
             this.worker.postMessage(
             {
@@ -36,7 +31,7 @@ window.Jor1kGUI = (function () {
         this.reset = function () {
             this.stop = false; // VM Stopped/Aborted
             this.userpaused = false;
-            this.executepending=false; // if we rec an execute message while paused      
+            this.executepending=false; // if we rec an execute message while paused
             this.sendToWorker('Reset');
             this.sendToWorker('LoadAndStart', this.urls);
             this.term.PauseBlink(false);
@@ -55,9 +50,9 @@ window.Jor1kGUI = (function () {
             this.term.PauseBlink(pause);
         };
 
-        this.terminalcanvas = document.getElementById(termid);
+        this.terminalcanvas = document.getElementById(termId);
 
-        this.term = new Terminal(24, 80, termid);
+        this.term = new Terminal(24, 80, termId);
         this.terminput = new TerminalInput(new UARTDev(this));
 
         this.ignoreKeys = function () {
@@ -68,7 +63,7 @@ window.Jor1kGUI = (function () {
         var recordTarget = function (event) {
             this.lastMouseDownTarget = event.target;
         }.bind(this);
-          
+
         if(document.addEventListener) {
             document.addEventListener('mousedown', recordTarget, false);
         } else {
@@ -103,7 +98,7 @@ window.Jor1kGUI = (function () {
         this.ethernet.onmessage = function (e) {
             this.sendToWorker('ethmac', e.data);
         }.bind(this);
-        
+
         this.reset();
 
         window.setInterval(function (){
@@ -116,7 +111,7 @@ window.Jor1kGUI = (function () {
             return;
         }
         switch(e.data.command) {
-            case 'execute':  // this command is send back and forth to be responsive
+            case 'execute':  // this command is sent back and forth to be responsive
                 if(this.userpaused) {
                     this.executepending = true;
                 } else {
@@ -135,7 +130,6 @@ window.Jor1kGUI = (function () {
                 this.stop = true;
                 break;
             case 'GetIPS':
-                //this.stats.innerHTML = this.userpaused ? "Paused" : ;
                 sysViewModel.vmMips(this.userpaused ? 0 : (Math.floor(e.data.data/100000)/10.0));
                 break;
             case 'Debug':
@@ -145,5 +139,4 @@ window.Jor1kGUI = (function () {
     };
 
     return Jor1kGUI;
-
 })();

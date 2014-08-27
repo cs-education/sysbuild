@@ -61,7 +61,7 @@ $(document).ready(function () {
         return {
             mainLayout: mainLayout,
             ttyLayout: ttyLayout,
-            codeLayout: codeLayout,
+            codeLayout: codeLayout
         };
     };
 
