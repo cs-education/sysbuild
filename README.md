@@ -10,16 +10,16 @@ If you would like to work on this project, continue reading to get started.
 ## Project folder structure ##
 ```
 sysbuild/
-├── app/                        Application source code
-│   ├── jor1k/                  The jor1k project source copied by grunt during setup
-│   ├── jor1k_hd_images/        Disk images for the Virtual Machine
-│   ├── scripts/                Javascript files
-│   └── styles/                 SASS and CSS files
-├── dist/                       The distributable application output by the build process
-├── bower_components/           Dependencies installed by Bower
-├── node_modules/               Dependencies installed by npm
-├── sys-gh-pages-config/        Config for the application deployed on production
-└── test/                       Tests
+├── app/                      Application source code
+│   ├── jor1k/                The jor1k project source copied by grunt during setup
+│   ├── jor1k_hd_images/      Disk images for the Virtual Machine
+│   ├── scripts/              Javascript files
+│   └── styles/               SASS and CSS files
+├── dist/                     The distributable application output by the build process
+├── bower_components/         Dependencies installed by Bower
+├── node_modules/             Dependencies installed by npm
+├── sys-gh-pages-config/      Config for the application deployed on production
+└── test/                     Tests
     └── spec/
 ```
 
