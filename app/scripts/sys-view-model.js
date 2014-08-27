@@ -2,7 +2,7 @@
 
 window.SysViewModel = (function () {
     'use strict';
-    
+
     function SysViewModel() {
         var self = this;
         var compileStatusToLabelClassMap = {
@@ -22,12 +22,12 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.challengeDoc = ko.observable('<p>Welcome</p>');
+        self.challengeDoc = ko.observable();
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
-        self.gccOptions = ko.observable('-lm -Wall -fmax-errors=10 -Wextra');
-        self.programArgs = ko.observable('');
+        self.gccOptions = ko.observable();
+        self.programArgs = ko.observable();
         self.lastGccOutput = ko.observable('');
 
         self.compileStatus = ko.observable('Waiting');
@@ -48,6 +48,9 @@ window.SysViewModel = (function () {
             if(str) { str += '...';}
             return str;
         });
+        self.showErrorWarningLabel = ko.pureComputed(function () {
+            return (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
+        });
 
         self.vmState = ko.observable('Stopped');
         self.vmStateClass = ko.pureComputed(function () {
@@ -59,6 +62,10 @@ window.SysViewModel = (function () {
             var output = self.lastGccOutput();
             if (output) { window.alert(output); }
         };
+
+        self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
+        self.aceTheme = ko.observable();
+        self.aceFontSize = ko.observable();
     }
 
     return SysViewModel;

@@ -1,15 +1,12 @@
-/* global ace, sysViewModel */
+/* global sysViewModel */
 
 window.LiveEdit = (function () {
     'use strict';
 
     // LiveEdit class.
-    function LiveEdit(editorDivId, _runtime) {
+    function LiveEdit(editor, _runtime) {
         this.runtime = _runtime;
-  
-        this.ace = ace.edit(editorDivId);
-        this.ace.setTheme('ace/theme/monokai');
-        this.ace.getSession().setMode('ace/mode/c_cpp');
+        this.editor = editor;
         this.viewModel = sysViewModel;
 
         var updateCompileButton = function() {
@@ -19,7 +16,7 @@ window.LiveEdit = (function () {
         }.bind(this);
 
         updateCompileButton(); // Maybe sys is already up and running
-  
+
         this.runtime.addListener('ready', function() {
             updateCompileButton();
         }.bind(this));
@@ -49,7 +46,7 @@ window.LiveEdit = (function () {
         // result = { 'exitcode':gcc_exit_code, 'stats':stats,'annotations':annotations,'gcc_ouput':gcc_output}
 
         this.runtime.sendKeys('clear\n');
-        this.ace.getSession().setAnnotations(result.annotations);
+        this.editor.setAnnotations(result.annotations);
 
         this.viewModel.lastGccOutput(result.gccOutput);
         this.viewModel.gccErrorCount(result.stats.error);
@@ -63,10 +60,6 @@ window.LiveEdit = (function () {
         }
     };
 
-    LiveEdit.prototype.getCodeText = function() {
-        return this.ace.getSession().getValue();
-    };
-
     LiveEdit.prototype.runCode = function(code, gccOptions) {
         if(code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0 ) {
             return;
@@ -76,10 +69,6 @@ window.LiveEdit = (function () {
         this.viewModel.compileStatus('Compiling');
 
         this.runtime.startGccCompile(code, gccOptions, callback);
-    };
-
-    LiveEdit.prototype.setTheme = function (theme) {
-        this.ace.setTheme('ace/theme/' + theme);
     };
 
     return LiveEdit;

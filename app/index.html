@@ -27,7 +27,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Unsupported browser message -->        
+        <!-- Unsupported browser message -->
         <div>
             <div id="no-js-msg">
                 To use this website you need to enable Javascript in your browser.
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div id="layout" class="show-if-supported" style="position: absolute; width: 100%; height: 100%;">
+        <div id="layout" class="show-if-supported">
             <div id="navbar-container">
                 <!-- Fixed navbar -->
                 <div class="navbar navbar-default" role="navigation">
@@ -75,29 +75,6 @@
                 </div>
             </div>
 
-
-            <div id="doc-tty-container">
-                <div id="doc-container" data-bind="html: challengeDoc"></div>
-                <div id="tty-container">
-                    <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
-                </div>
-                <div id="compile-opts-container">
-                    <div class="row">
-                        <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
-                        <div class="col-sm-5">
-                            <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
-                        </div>
-                        <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
-                        </div>
-                        <button data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" onclick="compileMain.compileButtonClicked(this);" disabled="disabled">
-                            <span class="glyphicon glyphicon-play"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
             <div id="code-container">
                 <div id="editor-tabs-bar">
                     <!-- Nav tabs -->
@@ -105,34 +82,62 @@
                         <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
                     </ul>
                 </div>
-<div id="code">/*Write your C code here*/</div>
-                <div id="code-south-bar">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <select class="terminal-theme form-control input-sm" onchange='compileMain.setEditorTheme(this.options[this.selectedIndex].value)'>
-                                <option value="monokai">monokai</option>
-                                <option value="terminal">terminal</option>
-                                <option value="tomorrow">tomorrow</option>
-                                <option value="xcode">xcode</option>
-                            </select>
+                <div id="editor-container">
+                    <div id="editor-opts-container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="col-sm-2 control-label" for="editor-theme"><small class="pull-right">Theme:</small></label>
+                                <div class="col-sm-10">
+                                    <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-sm-4 control-label" for="editor-font-size"><small class="pull-right">font&nbsp;size (px):</small></label>
+                                <div class="col-sm-8">
+                                    <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="">
+                                <button id="download-file-btn" type="button" class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-save"></span> Download file
+                                </button>
+                            </div>
+                            <div class="">
+                                <button id="autoformat-code-btn" type="button" class="btn btn-default btn-xs pull-right hidden">
+                                    <span class="glyphicon glyphicon-indent-left"></span> Autoformat code
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-sm-3 pull-right">
-                            <button type="button" class="btn btn-default btn-xs pull-right hidden">
-                                <span class="glyphicon glyphicon-save"></span> Download files
+                    </div>
+                    <div id="code"></div>
+                    <div id="compile-opts-container">
+                        <div class="row">
+                            <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                            <div class="col-sm-5">
+                                <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
+                            </div>
+                            <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                            <div class="col-sm-4">
+                                <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                            </div>
+                            <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
+                                <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div id="doc-tty-container">
-                <div id="doc-container">
-                    <p>Welcome to this tiny but fast linux virtual machine. Currently only Chrome is known to work. Other browsers will be supported in the future.</p>
+                <div id="doc-container" data-bind="with: challengeDoc">
+                    <h3 data-bind="text: title"></h3>
+                    <p data-bind="text: instructions"></p>
                 </div>
                 <div id="tty-container">
                     <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
                 </div>
-
             </div>
+
             <div id="footer-container">
                 <div class="footer" >
                     <div class="col-sm-6">
@@ -143,10 +148,10 @@
                                     <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
                                 </p>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <p>Compiler:
                                     <span data-bind="text: compileStatus, css: compileStatusClass">Idle</span>
-                                    <span data-bind="text: errorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
+                                    <span data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
                                 </p>
                             </div>
                         </div>
@@ -166,6 +171,8 @@
         <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
+        <script src="../bower_components/FileSaver/FileSaver.js"></script>
+        <script src="../bower_components/blob/Blob.js"></script>
         <!-- endbower -->
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js"></script>
@@ -202,9 +209,9 @@
         <script src="scripts/sys-view-model.js"></script>
         <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>
+        <script src="scripts/editor.js"></script>
         <script src="scripts/live-edit.js"></script>
         <script src="scripts/sys-runtime.js"></script>
-        <script src="scripts/compile.js"></script>
         <script src="scripts/main.js"></script>
         <!-- Do not write any js code in script tags here,
              because it won't be included in the built code (the minified distribution code).

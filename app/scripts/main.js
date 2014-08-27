@@ -1,16 +1,16 @@
-/* global $, ko, compileMain, SysViewModel */
+/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime */
 
 $(document).ready(function () {
     'use strict';
+    /* jshint camelcase: false */
 
     var initLayout = function () {
-        /* jshint camelcase: false */
         var mainLayout = $('#layout').layout({
             livePaneResizing: true,
 
             north__paneSelector: '#navbar-container',
-            center__paneSelector: '#doc-tty-container',
-            east__paneSelector: '#code-container',
+            center__paneSelector: '#code-container',
+            east__paneSelector: '#doc-tty-container',
             south__paneSelector: '#footer-container',
 
             east__size: '50%',
@@ -19,35 +19,33 @@ $(document).ready(function () {
             north__resizable: false,
             north__size: 35,
             north__spacing_open: 0,
+            north__spacing_closed: 0,
             north__showOverflowOnHover: true,
 
-            south__resizable: true,
-            south__size: 60,
-            south__spacing_open: 0
-        });
-
-        var ttyLayout = mainLayout.panes.center.layout({
-            livePaneResizing: true,
-            spacing_open: 2,
-
-            north__paneSelector: '#doc-container',
-            center__paneSelector: '#tty',
-            south__paneSelector: '#compile-opts-container',
-
-            north__size: '25%',
-
             south__resizable: false,
-            south__size: 28,
+            south__size: 29,
             south__spacing_open: 0
         });
 
-        var codeLayout = mainLayout.panes.east.layout({
+        var codeLayout = mainLayout.panes.center.layout({
             livePaneResizing: true,
             spacing_open: 2,
 
             north__paneSelector: '#editor-tabs-bar',
+            center__paneSelector: '#editor-container',
+
+            north__resizable: false,
+            north__size: 30,
+            north__spacing_open: 0
+        });
+
+        var editorLayout = codeLayout.panes.center.layout({
+            livePaneResizing: true,
+            spacing_open: 2,
+
+            north__paneSelector: '#editor-opts-container',
             center__paneSelector: '#code',
-            south__paneSelector: '#code-south-bar',
+            south__paneSelector: '#compile-opts-container',
 
             north__resizable: false,
             north__size: 30,
@@ -58,17 +56,101 @@ $(document).ready(function () {
             south__spacing_open: 0
         });
 
+        var ttyLayout = mainLayout.panes.east.layout({
+            livePaneResizing: true,
+            spacing_open: 2,
+
+            north__paneSelector: '#doc-container',
+            center__paneSelector: '#tty',
+
+            north__size: '25%'
+        });
+
         return {
             mainLayout: mainLayout,
-            ttyLayout: ttyLayout,
-            codeLayout: codeLayout
+            codeLayout: codeLayout,
+            editorLayout: editorLayout,
+            ttyLayout: ttyLayout
         };
     };
 
-    initLayout();
+    var layouts = initLayout();
 
     window.sysViewModel = new SysViewModel();
     ko.applyBindings(window.sysViewModel);
 
-    compileMain.startEditor();
+    var editor = new Editor('code');
+    var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
+
+    layouts.editorLayout.options.onresizeall_end = function() {
+        editor.resize();
+    };
+
+    var compile = function () {
+        var code = editor.getText();
+        var gccOptions = window.sysViewModel.gccOptions();
+        liveEdit.runCode(code, gccOptions);
+    };
+
+    // placeholder for formatting code when we have a beautifier engine
+    var beautifierFunction = function (text) {
+        return text;
+    };
+
+    $('#compile-btn').click(function (e) {
+        compile();
+        e.preventDefault();
+    });
+
+    $('#download-file-btn').click(function () {
+        var text = editor.getText();
+        var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+        saveAs(blob, 'program.c');
+    });
+
+    $('#autoformat-code-btn').click(function () {
+        editor.beautify(beautifierFunction);
+    });
+
+    editor.addKeyboardCommand(
+        'compileAndRunShortcut',
+        {
+            win: 'Ctrl-R',
+            mac: 'Command-R'
+        },
+        compile
+    );
+
+    var setState = function (viewModel, codeEditor, state) {
+        viewModel.challengeDoc(state.challengeDoc);
+        viewModel.gccOptions(state.gccOptions);
+        viewModel.programArgs(state.programArgs);
+        codeEditor.setText(state.editorText);
+        codeEditor.beautify(beautifierFunction);
+    };
+
+    var setInitialState = function () {
+        var state = {};
+        state.challengeDoc = state.challengeDoc || {
+            title: 'Welcome',
+            instructions: 'Welcome to this tiny but fast linux virtual machine. ' +
+                'Currently only Chrome is known to work. Other browsers will be supported in the future.'
+        };
+
+        state.gccOptions = state.gccOptions || '-lm -Wall -fmax-errors=10 -Wextra';
+        state.programArgs = state.programArgs || '';
+        state.editorText = state.editorText || '' +
+            '/*Write your C code here*/\n' +
+            '#include <stdio.h>\n' +
+            '\n' +
+            'int main() {\n' +
+            '    printf("Hello world!");\n' +
+            '    return 0;\n' +
+            '}\n' +
+            '';
+
+        setState(window.sysViewModel, editor, state);
+    };
+
+    setInitialState();
 });

@@ -25,6 +25,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     display: none;
 }
 
+#layout {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 /* Remove padding from the panes to make content take up the whole space */
 .ui-layout-pane {
     padding: 0px;
@@ -90,6 +96,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 /* Editor tabs bar */
 #editor-tabs-bar {
     padding: 2px 2px 0px 2px;
+    border: 0px;
 }
 
 #editor-tabs-bar a {
@@ -103,21 +110,34 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     color: initial;
 }
 
+#doc-container {
+    padding: 5px;
+}
+
+#doc-container > h3 {
+    margin-top: 0px;
+}
+
+#editor-container {
+    border: 0px;
+}
+
 /* Editor options toolbar */
-#code-south-bar .col-sm-3,
-#code-south-bar .col-sm-4 {
+#editor-opts-container {
+    border: 0px;
+}
+
+#editor-opts-container .col-sm-3,
+#editor-opts-container .col-sm-4 {
     padding: 0px;
 }
 
-#code-south-bar .row {
+#editor-opts-container .row {
     margin: 0px;
     padding: 2px;
 }
 
-#code-south-bar select {
+#editor-opts-container .form-control {
     height: 22px;
-}
-
-.terminal-theme {
     padding: 0px;
 }
