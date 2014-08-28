@@ -97,11 +97,21 @@ $(document).ready(function () {
         return text;
     };
 
+    var compileShortcut = { // used for text and for binding
+        win: 'Ctrl-Return',
+        mac: 'Command-Return'
+    };
+              
+    var isMac = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
+    
+    var compileBtnTooltip = 'Compile and Run ('+(isMac ? compileShortcut.mac.replace('Command','⌘') :compileShortcut.win ) +' in code editor)';
+    
+
     $('#compile-btn').click(function (e) {
         compile();
         e.preventDefault();
-    });
-
+    })    .attr('title', compileBtnTooltip);
+    
     $('#download-file-btn').click(function () {
         var text = editor.getText();
         var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
@@ -114,10 +124,7 @@ $(document).ready(function () {
 
     editor.addKeyboardCommand(
         'compileAndRunShortcut',
-        {
-            win: 'Ctrl-R',
-            mac: 'Command-R'
-        },
+        compileShortcut,
         compile
     );
 
