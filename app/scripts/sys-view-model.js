@@ -45,7 +45,7 @@ window.SysViewModel = (function () {
 
             str += errors ? (errors + ' error' + (errors > 1 ? 's ' : ' ')) : '';
             str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
-            if(str) { str += '...';}
+            if(str) { str += '\u2026'; }
             return str;
         });
         self.showErrorWarningLabel = ko.pureComputed(function () {

@@ -92,26 +92,23 @@ $(document).ready(function () {
         liveEdit.runCode(code, gccOptions);
     };
 
-    // placeholder for formatting code when we have a beautifier engine
-    var beautifierFunction = function (text) {
-        return text;
-    };
-
     var compileShortcut = { // used for text and for binding
         win: 'Ctrl-Return',
         mac: 'Command-Return'
     };
-              
-    var isMac = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
-    
-    var compileBtnTooltip = 'Compile and Run ('+(isMac ? compileShortcut.mac.replace('Command','⌘') :compileShortcut.win ) +' in code editor)';
-    
 
-    $('#compile-btn').click(function (e) {
-        compile();
-        e.preventDefault();
-    })    .attr('title', compileBtnTooltip);
-    
+    var platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
+
+    var compileBtnTooltip = 'Compile and Run (' + (platform === 'mac' ? compileShortcut.mac.replace('Command','\u2318') : compileShortcut.win) + ' in code editor)';
+
+    $('#compile-btn')
+        .attr('title', compileBtnTooltip)
+        .tooltip({container: 'body'})
+        .click(function (e) {
+            compile();
+            e.preventDefault();
+        });
+
     $('#download-file-btn').click(function () {
         var text = editor.getText();
         var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
@@ -119,7 +116,10 @@ $(document).ready(function () {
     });
 
     $('#autoformat-code-btn').click(function () {
-        editor.beautify(beautifierFunction);
+        // placeholder for formatting code when we have a beautifier engine
+        editor.beautify(function (text) {
+            return text;
+        });
     });
 
     editor.addKeyboardCommand(
@@ -133,7 +133,6 @@ $(document).ready(function () {
         viewModel.gccOptions(state.gccOptions);
         viewModel.programArgs(state.programArgs);
         codeEditor.setText(state.editorText);
-        codeEditor.beautify(beautifierFunction);
     };
 
     var setInitialState = function () {
