@@ -98,14 +98,18 @@ $(document).ready(function () {
     };
 
     var platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
+    var compileBtnTooltip = 'Compile and Run (' + (platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win) + ' in code editor)';
+    window.sysViewModel.compileBtnTooltip(compileBtnTooltip);
 
-    var compileBtnTooltip = 'Compile and Run (' + (platform === 'mac' ? compileShortcut.mac.replace('Command','\u2318') : compileShortcut.win) + ' in code editor)';
+    $('#compile-btn').click(function () {
+        compile();
+    });
 
-    $('#compile-btn')
-        .attr('title', compileBtnTooltip)
-        .tooltip({container: 'body'})
+    // Initialize Bootstrap tooltip and popover
+    $('[data-toggle=tooltip]').tooltip();
+    $('[data-toggle=popover]')
+        .popover()
         .click(function (e) {
-            compile();
             e.preventDefault();
         });
 
@@ -150,7 +154,7 @@ $(document).ready(function () {
             '#include <stdio.h>\n' +
             '\n' +
             'int main() {\n' +
-            '    printf("Hello world!");\n' +
+            '    printf("Hello world!\\n");\n' +
             '    return 0;\n' +
             '}\n' +
             '';

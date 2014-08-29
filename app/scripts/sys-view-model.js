@@ -37,6 +37,7 @@ window.SysViewModel = (function () {
         self.compileBtnEnable = ko.pureComputed(function () {
             return !(self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
         });
+        self.compileBtnTooltip = ko.observable();
 
         self.errorWarningLabel = ko.pureComputed(function () {
             var errors = self.gccErrorCount(),
@@ -57,11 +58,6 @@ window.SysViewModel = (function () {
             return 'label label-' + vmStateToLabelClassMap[self.vmState()];
         });
         self.vmMips = ko.observable(0);
-
-        self.showLastGccOutput = function () {
-            var output = self.lastGccOutput();
-            if (output) { window.alert(output); }
-        };
 
         self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
         self.aceTheme = ko.observable();

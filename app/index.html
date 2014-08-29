@@ -120,7 +120,8 @@
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
                             </div>
-                            <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
+                            <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
+                                    data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
                                 <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </div>
@@ -151,7 +152,9 @@
                             <div class="col-sm-7">
                                 <p>Compiler:
                                     <span data-bind="text: compileStatus, css: compileStatusClass">Idle</span>
-                                    <span data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, click: showLastGccOutput"></span>
+                                    <a href="#"
+                                       data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
+                                       tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus"></a>
                                 </p>
                             </div>
                         </div>
