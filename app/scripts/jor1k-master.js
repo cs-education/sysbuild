@@ -64,6 +64,11 @@ window.Jor1kGUI = (function () {
             this.lastMouseDownTarget = event.target;
         }.bind(this);
 
+        // set the focus to the terminal after toggling full screen
+        sysViewModel.ttyFullScreen.subscribe(function () {
+            this.lastMouseDownTarget = this.terminalcanvas;
+        }, this);
+
         if(document.addEventListener) {
             document.addEventListener('mousedown', recordTarget, false);
         } else {

@@ -61,7 +61,7 @@ $(document).ready(function () {
             spacing_open: 2,
 
             north__paneSelector: '#doc-container',
-            center__paneSelector: '#tty',
+            center__paneSelector: '#tty-pane',
 
             north__size: '25%'
         });

@@ -1,4 +1,4 @@
-/* global ko */
+/* global ko, $ */
 
 window.SysViewModel = (function () {
     'use strict';
@@ -62,6 +62,19 @@ window.SysViewModel = (function () {
         self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
         self.aceTheme = ko.observable();
         self.aceFontSize = ko.observable();
+
+        self.ttyContainer = $('#tty-container');
+        self.ttyFullScreen = ko.observable(false);
+        self.ttyFullScreen.subscribe(function (newTTYFullScreenStatus) {
+            if (newTTYFullScreenStatus) {
+                self.ttyContainer.appendTo('body');
+            } else {
+                self.ttyContainer.appendTo('#tty-pane');
+            }
+        });
+        self.ttyToggleBtnClass = ko.pureComputed(function () {
+            return 'glyphicon ' + (self.ttyFullScreen() ? 'glyphicon-resize-small' : 'glyphicon-resize-full');
+        });
     }
 
     return SysViewModel;

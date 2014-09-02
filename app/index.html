@@ -134,8 +134,13 @@
                     <h3 data-bind="text: title"></h3>
                     <p data-bind="text: instructions"></p>
                 </div>
-                <div id="tty-container">
-                    <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
+                <div id="tty-pane">
+                    <div id="tty-container">
+                        <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
+                        <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                            <span data-bind="css: ttyToggleBtnClass"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
 

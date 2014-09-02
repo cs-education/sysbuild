@@ -141,3 +141,22 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     height: 22px;
     padding: 0px;
 }
+
+#tty-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+}
+
+#tty {
+    width: 100%;
+    height: 100%;
+}
+
+#tty-container > button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
