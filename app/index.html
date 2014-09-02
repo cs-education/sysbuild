@@ -85,29 +85,28 @@
                 </div>
                 <div id="editor-container">
                     <div id="editor-opts-container">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="col-sm-2 control-label" for="editor-theme"><small class="pull-right">Theme:</small></label>
-                                <div class="col-sm-10">
+                        <div class="navbar navbar-default">
+                            <form class="navbar-form row">
+                                <div class="col-md-2">
+                                    <label class="control-label sr-only" for="editor-theme">Theme</label>
                                     <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-sm-4 control-label" for="editor-font-size"><small class="pull-right">font&nbsp;size (px):</small></label>
-                                <div class="col-sm-8">
+                                <div class="col-md-2">
+                                    <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
                                     <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
                                 </div>
-                            </div>
-                            <div class="">
-                                <button id="download-file-btn" type="button" class="btn btn-default btn-xs pull-right">
-                                    <span class="glyphicon glyphicon-save"></span> Download file
-                                </button>
-                            </div>
-                            <div class="">
-                                <button id="autoformat-code-btn" type="button" class="btn btn-default btn-xs pull-right hidden">
-                                    <span class="glyphicon glyphicon-indent-left"></span> Autoformat code
-                                </button>
-                            </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-2">
+                                    <button id="autoformat-code-btn" type="button" class="btn btn-default btn-sm center-block">
+                                        <span class="glyphicon glyphicon-indent-left"></span> Autoformat code
+                                    </button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="download-file-btn" type="button" class="btn btn-default btn-sm center-block">
+                                        <span class="glyphicon glyphicon-save"></span> Download file
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div id="code"></div>

@@ -13,6 +13,10 @@ $(document).ready(function () {
             east__paneSelector: '#doc-tty-container',
             south__paneSelector: '#footer-container',
 
+            // Hack to prevent editor toolbar from becoming too small.
+            // Better is to figure out how to fire a media query upon resize
+            center__minWidth: 700,
+
             east__size: '50%',
             spacing_open: 2,
 
@@ -35,7 +39,7 @@ $(document).ready(function () {
             center__paneSelector: '#editor-container',
 
             north__resizable: false,
-            north__size: 30,
+            north__size: 27,
             north__spacing_open: 0
         });
 

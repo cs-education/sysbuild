@@ -36,7 +36,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     padding: 0px;
 }
 
-/* Make navbar thinner - http://stackoverflow.com/a/19576381 */
+/* Make navbar thinner - http://stackoverflow.com/a/19576381 (How do you decrease navbar height in Bootstrap 3?) */
 #navbar-container .navbar-brand,
 #navbar-container .navbar-nav > li > a {
     padding-top: 5px !important;
@@ -123,23 +123,30 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 }
 
 /* Editor options toolbar */
-#editor-opts-container {
-    border: 0px;
-}
-
-#editor-opts-container .col-sm-3,
-#editor-opts-container .col-sm-4 {
-    padding: 0px;
-}
-
-#editor-opts-container .row {
-    margin: 0px;
+#editor-opts-container .navbar {
+    min-height: 26px !important;
     padding: 2px;
+    margin-bottom: 0px;
 }
 
-#editor-opts-container .form-control {
+#editor-opts-container .navbar-form {
+    margin: 0px;
+}
+
+#editor-opts-container .navbar-form > div,
+#editor-opts-container .row {
+    padding: 0 2px;
+}
+
+#editor-opts-container .form-control,
+#editor-opts-container .btn-sm {
+    padding: 1px 5px;
     height: 22px;
-    padding: 0px;
+    width: 100%;
+}
+
+#editor-font-size {
+    padding-right: 0px !important;
 }
 
 /* tty full screen support */
