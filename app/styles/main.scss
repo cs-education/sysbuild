@@ -142,12 +142,17 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     padding: 0px;
 }
 
+/* tty full screen support */
 #tty-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
     z-index: 100;
+}
+
+body {
+    overflow: hidden;
 }
 
 #tty {
