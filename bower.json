@@ -10,7 +10,8 @@
     "jquery.layout": "*",
     "knockout": "~3.2.0",
     "FileSaver": "*",
-    "blob": "*"
+    "blob": "*",
+    "fuelux": "~3.0.1"
   },
   "devDependencies": {}
 }

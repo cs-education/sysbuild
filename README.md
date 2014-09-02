@@ -46,7 +46,9 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
   JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.  
   `grunt serve`
 
-* If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
+* If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.
+  Some plugins (Blob.js and FuelUX specifically do not support this, so for now you have to enter CSS and JS files manually
+  in the HTML file. We are considering moving to RequireJS, so that dependency management becomes simpler.)  
   `grunt bowerInstall`
 
 * Run [JSHint](http://www.jshint.com/about/).  
