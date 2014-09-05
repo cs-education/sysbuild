@@ -46,10 +46,6 @@ window.Editor = (function () {
         this.aceEditor.getSession().setMode('ace/mode/' + mode);
     };
 
-    Editor.prototype.beautify = function (beautifierFunc) {
-        this.setText(beautifierFunc(this.getText()));
-    };
-
     Editor.prototype.setAnnotations = function (annotations) {
         this.aceEditor.getSession().setAnnotations(annotations);
     };
@@ -65,6 +61,52 @@ window.Editor = (function () {
             exec: execFunc,
             readOnly: true // false if this command should not apply in readOnly mode
         });
+    };
+
+    Editor.prototype.autoIndentCode = function () {
+        // Implementation taken from the javaplayland project
+        // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L618
+
+        var currentRow,
+            thisLineIndent,
+            thisLine,
+            currentIndent,
+            editor = this.aceEditor,
+            position = editor.getCursorPosition(),
+            editSession = editor.getSession(),
+            text = editSession.getDocument(),
+            mode = editSession.getMode(),
+            length = editSession.getLength();
+
+        for (currentRow = 0; currentRow < length; currentRow++) {
+            if (currentRow === 0) {
+                continue;
+            }
+
+            thisLineIndent = mode.getNextLineIndent(
+                editSession.getState(currentRow - 1),
+                editSession.getLine(currentRow - 1),
+                editSession.getTabString()
+            );
+
+            thisLine = editSession.getLine(currentRow);
+            currentIndent = /^\s*/.exec(thisLine)[0];
+            if (currentIndent !== thisLineIndent) {
+                thisLine = thisLineIndent + thisLine.trim();
+            }
+
+            text.insertLines(currentRow, [thisLine]);
+            text.removeLines(currentRow + 1, currentRow + 1);
+
+            mode.autoOutdent(
+                editSession.getState(currentRow),
+                editSession,
+                currentRow
+            );
+        }
+
+        editor.moveCursorToPosition(position);
+        editor.clearSelection();
     };
 
     return Editor;

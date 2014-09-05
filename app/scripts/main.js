@@ -123,11 +123,8 @@ $(document).ready(function () {
         saveAs(blob, 'program.c');
     });
 
-    $('#autoformat-code-btn').click(function () {
-        // placeholder for formatting code when we have a beautifier engine
-        editor.beautify(function (text) {
-            return text;
-        });
+    $('#autoindent-code-btn').click(function () {
+        editor.autoIndentCode();
     });
 
     editor.addKeyboardCommand(
