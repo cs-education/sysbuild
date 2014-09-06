@@ -156,7 +156,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <p>Compiler:
-                                    <span data-bind="text: compileStatus, css: compileStatusClass">Idle</span>
+                                    <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
                                     <a href="#"
                                        data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
                                        tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus"></a>
