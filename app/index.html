@@ -113,8 +113,10 @@
                     <div id="compile-opts-container">
                         <div class="row">
                             <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
-                            <div class="col-sm-5">
-                                <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256 data-bind="textInput: gccOptions">
+                            <div class="col-sm-5" data-bind="css: {'has-error': gccOptsError()}">
+                                <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
+                                       data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                                       tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
                             </div>
                             <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
                             <div class="col-sm-4">

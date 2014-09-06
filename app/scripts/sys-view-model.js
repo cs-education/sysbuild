@@ -27,6 +27,8 @@ window.SysViewModel = (function () {
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
         self.gccOptions = ko.observable();
+        self.gccOptsError = ko.observable('');
+
         self.programArgs = ko.observable();
         self.lastGccOutput = ko.observable('');
 

@@ -61,6 +61,7 @@ window.LiveEdit = (function () {
         this.viewModel.lastGccOutput(result.gccOutput);
         this.viewModel.gccErrorCount(result.stats.error);
         this.viewModel.gccWarningCount(result.stats.warning);
+        this.viewModel.gccOptsError(gccOptsErrors.map(function(error) { return error.text; }).join('\n'));
 
         if (result.exitCode === 0) {
             this.viewModel.compileStatus(result.stats.warning > 0 ? 'Warning' : 'Success');

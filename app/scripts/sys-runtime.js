@@ -130,7 +130,7 @@ window.SysRuntime = (function () {
                 isGccOptsError: error.type === 'gcc',
                 type: aceAnnotationType,
                 text: error.text
-            }
+            };
         });
     };
 
