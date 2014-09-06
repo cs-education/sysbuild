@@ -117,6 +117,10 @@ $(document).ready(function () {
             e.preventDefault();
         });
 
+    $('#editor-opts-container').find('form').submit(function (e) {
+        e.preventDefault();
+    });
+
     $('#download-file-btn').click(function () {
         var text = editor.getText();
         var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
