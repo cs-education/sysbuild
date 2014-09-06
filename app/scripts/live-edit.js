@@ -46,7 +46,17 @@ window.LiveEdit = (function () {
         // result = { 'exitcode':gcc_exit_code, 'stats':stats,'annotations':annotations,'gcc_ouput':gcc_output}
 
         this.runtime.sendKeys('clear\n');
-        this.editor.setAnnotations(result.annotations);
+
+        var aceAnnotations = [], gccOptsErrors = [];
+        result.annotations.forEach(function (annotation) {
+            if (annotation.isGccOptsError) {
+                gccOptsErrors.push(annotation);
+            } else {
+                aceAnnotations.push(annotation);
+            }
+        });
+
+        this.editor.setAnnotations(aceAnnotations);
 
         this.viewModel.lastGccOutput(result.gccOutput);
         this.viewModel.gccErrorCount(result.stats.error);

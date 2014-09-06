@@ -100,7 +100,9 @@ window.SysRuntime = (function () {
 
         this.sendTextFile('program.c', code);
 
-        var cmd = 'echo \\#\\#\\#GCC_COMPILE\\#\\#\\#;clear;gcc ' + gccOptions + ' program.c -o program; echo GCC_EXIT_CODE: $?; echo \\#\\#\\#GCC_COMPILE_FINISHED\\#\\#\\#' + this.compileTicket + '.;clear\n';
+        var cmd = 'echo \\#\\#\\#GCC_COMPILE\\#\\#\\#;clear;gcc ' + gccOptions +
+            ' program.c -o program; echo GCC_EXIT_CODE: $?; echo \\#\\#\\#GCC_COMPILE_FINISHED\\#\\#\\#' +
+            this.compileTicket + '.;clear\n';
 
         this.expecting = this.sendKeys(cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
 
@@ -109,7 +111,27 @@ window.SysRuntime = (function () {
 
     SysRuntime.prototype.getErrorAnnotations = function (gccOutputStr) {
         var errors = (new GccOutputParser()).parse(gccOutputStr);
-        return errors;
+        return errors.map(function (error) {
+            var aceAnnotationType;
+
+            // Determine the type of editor annotation. ace supports error, warning or info.
+            if (error.gccErrorType.toLowerCase().indexOf('error') !== -1) {
+                aceAnnotationType = 'error';
+            } else if (error.gccErrorType.toLowerCase().indexOf('warning') !== -1) {
+                aceAnnotationType = 'warning';
+            } else {
+                aceAnnotationType = 'info';
+            }
+
+            return {
+                // line numbers in ace start from zero
+                row: error.row - 1,
+                col: error.col,
+                isGccOptsError: error.type === 'gcc',
+                type: aceAnnotationType,
+                text: error.text
+            }
+        });
     };
 
     SysRuntime.prototype.startProgram = function (filename, cmdargs) {

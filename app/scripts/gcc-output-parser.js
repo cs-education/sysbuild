@@ -1,62 +1,57 @@
 window.GccOutputParser = (function () {
     'use strict';
 
-    var gccOutputParseRe = /(?:program\.c|gcc|collect2):\s*(.+)\s*:\s*(.+)\s*/;
+    var gccOutputParseRe = /(program\.c|gcc|cc1|collect2):\s*(.+)\s*:\s*(.+)\s*/;
     var gccRowColTypeParseRe = /(\d+):(\d+):\s*(.+)/;
     var gccOutputTypeTextSplitRe = /\s*(.+)\s*:\s*(.+)\s*/;
-
+    var errorTypeMap = {
+        'program.c': 'compile',
+        'gcc': 'gcc',
+        'cc1': 'gcc',
+        'collect2': 'linker'
+    };
 
     function GccOutputParser() {
     }
 
     GccOutputParser.prototype.parse = function (gccOutputStr) {
-        var match, lineColTypeMatch, typeTextSplitMatch, row, col, gccErrorType, aceAnnotationType, text, errors = [];
+        var match, lineColTypeMatch, typeTextSplitMatch, row, col, gccErrorType, text, errors = [];
 
         gccOutputStr.split('\n').forEach(function (errorLine) {
             match = gccOutputParseRe.exec(errorLine);
 
             if (match) {
-                lineColTypeMatch = gccRowColTypeParseRe.exec(match[1]);
+                lineColTypeMatch = gccRowColTypeParseRe.exec(match[2]);
 
                 if (lineColTypeMatch) {
-                    // line numbers in ace start from zero
-                    row = lineColTypeMatch[1] - 1;
+                    row = lineColTypeMatch[1];
                     col = lineColTypeMatch[2];
                     typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(lineColTypeMatch[3]);
                     if (typeTextSplitMatch) {
                         gccErrorType = typeTextSplitMatch[1];
-                        text = typeTextSplitMatch[2] + ': ' + match[2];
+                        text = typeTextSplitMatch[2] + ': ' + match[3];
                     } else {
                         gccErrorType = lineColTypeMatch[3];
-                        text = match[2];
+                        text = match[3];
                     }
                 } else {
                     // some gcc output without line info
                     row = col = 0;
-                    typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(match[1]);
+                    typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(match[2]);
                     if (typeTextSplitMatch) {
                         gccErrorType = typeTextSplitMatch[1];
-                        text = typeTextSplitMatch[2] + ': ' + match[2];
+                        text = typeTextSplitMatch[2] + ': ' + match[3];
                     } else {
-                        gccErrorType = match[1];
-                        text = match[2];
+                        gccErrorType = match[2];
+                        text = match[3];
                     }
-                }
-
-                // Determine the type of editor annotation. ace supports error, warning or info.
-                // This annotation type is also used to determine success of the compilation process.
-                if (gccErrorType.toLowerCase().indexOf('error') !== -1) {
-                    aceAnnotationType = 'error';
-                } else if (gccErrorType.toLowerCase().indexOf('warning') !== -1) {
-                    aceAnnotationType = 'warning';
-                } else {
-                    aceAnnotationType = 'info';
                 }
 
                 errors.push({
                     row: row,
                     column: col,
-                    type: aceAnnotationType,
+                    type: errorTypeMap[match[1]],
+                    gccErrorType: gccErrorType,
                     text: text
                 });
             }
