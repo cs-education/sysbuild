@@ -12,6 +12,8 @@ window.Editor = (function () {
         self.setTheme(self.viewModel.aceTheme());
         self.viewModel.aceFontSize(12);
         self.setMode('c_cpp');
+        self.aceEditor.getSession().setTabSize(4);
+        self.aceEditor.getSession().setUseSoftTabs(true);
         self.backgroundAutoIndent = true;
 
         // automatically change theme upon selection
@@ -21,6 +23,16 @@ window.Editor = (function () {
 
         self.viewModel.aceFontSize.subscribe(function () {
             self.setFontSize(self.viewModel.aceFontSize() + 'px');
+        });
+
+        // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
+        self.aceEditor.on('change', function () {
+            if (self.backgroundAutoIndent) {
+                window.clearTimeout(self.reIndentTimer);
+                if (!self.reIndenting) {
+                    self.reIndentTimer = window.setTimeout(self.autoIndentCode.bind(self), 500);
+                }
+            }
         });
 
         // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
@@ -113,6 +125,8 @@ window.Editor = (function () {
             mode = editSession.getMode(),
             length = editSession.getLength();
 
+        this.reIndenting = true;
+
         for (currentRow = 0; currentRow < length; currentRow++) {
             if (currentRow === 0) {
                 continue;
@@ -142,6 +156,8 @@ window.Editor = (function () {
 
         editor.moveCursorToPosition(position);
         editor.clearSelection();
+
+        this.reIndenting = false;
     };
 
     return Editor;
