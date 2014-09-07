@@ -12,6 +12,7 @@ window.Editor = (function () {
         self.setTheme(self.viewModel.aceTheme());
         self.viewModel.aceFontSize(12);
         self.setMode('c_cpp');
+        self.backgroundAutoIndent = true;
 
         // automatically change theme upon selection
         self.viewModel.aceTheme.subscribe(function () {
@@ -20,6 +21,40 @@ window.Editor = (function () {
 
         self.viewModel.aceFontSize.subscribe(function () {
             self.setFontSize(self.viewModel.aceFontSize() + 'px');
+        });
+
+        // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
+        var $settingsPopover = $('#editor-settings-btn');
+        $settingsPopover.popover({
+            title: function() {
+                return 'Editor settings';
+            },
+            content: function() {
+                return $('#editor-settings-popover').html();
+            }
+        });
+
+        // Should use KnockoutJS for the following bindings but event binding in popovers is tricky,
+        // since the popover content is static.
+
+        $settingsPopover.on('shown.bs.popover', function () {
+            $('#editor-autoindent-checkbox').prop('checked', self.backgroundAutoIndent);
+            $('#ace-highlight-active-lines-checkbox').prop('checked', self.aceEditor.getHighlightActiveLine());
+            $('#ace-show-invisibles-checkbox').prop('checked', self.aceEditor.getShowInvisibles());
+        });
+
+        // http://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
+        var $body = $('body');
+        $body.on('change', '#editor-autoindent-checkbox', function () {
+            self.backgroundAutoIndent = this.checked;
+        });
+
+        $body.on('change', '#ace-highlight-active-lines-checkbox', function () {
+            self.aceEditor.setHighlightActiveLine(this.checked);
+        });
+
+        $body.on('change', '#ace-show-invisibles-checkbox', function () {
+            self.aceEditor.setShowInvisibles(this.checked);
         });
     }
 

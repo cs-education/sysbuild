@@ -95,10 +95,10 @@
                                     <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
                                     <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
                                 </div>
-                                <div class="col-md-4"></div>
+                                <div class="col-md-3"></div>
                                 <div class="col-md-2">
                                     <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
-                                        <span class="glyphicon glyphicon-indent-left"></span> Autoindent code
+                                        <span class="glyphicon glyphicon-indent-left"></span> Indent code
                                     </button>
                                 </div>
                                 <div class="col-md-2">
@@ -106,6 +106,34 @@
                                         <span class="glyphicon glyphicon-save"></span> Download file
                                     </button>
                                 </div>
+                                <div class="col-md-1">
+                                    <button id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
+                                            data-toggle="popover" data-container="body" data-html="true" data-placement="bottom">
+                                        <span class="glyphicon glyphicon-cog"></span> Settings
+                                    </button>
+                                </div>
+                                <script type ="text/template" id="editor-settings-popover">
+                                    <form>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="editor-autoindent-checkbox" type="checkbox">
+                                                Autoindent code
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="ace-highlight-active-lines-checkbox" type="checkbox">
+                                                Highlight Active Line
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="ace-show-invisibles-checkbox" type="checkbox">
+                                                Show invisible characters
+                                            </label>
+                                        </div>
+                                    </form>
+                                </script>
                             </form>
                         </div>
                     </div>
