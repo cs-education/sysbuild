@@ -36,6 +36,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     padding: 0px;
 }
 
+/* Navbar */
+#navbar-container {
+    border: 0px;
+}
+
 /* Make navbar thinner - http://stackoverflow.com/a/19576381 (How do you decrease navbar height in Bootstrap 3?) */
 #navbar-container .navbar-brand,
 #navbar-container .navbar-nav > li > a {
@@ -47,9 +52,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 #navbar-container .navbar {
     min-height: 32px !important;
     margin-bottom: 0px;
+    border-radius: 0px;
 }
 
-#navbar-container .navbar-default {
+#navbar-container .navbar-default,
+#navbar-container .navbar-inverse {
     height: 33px;
 }
 

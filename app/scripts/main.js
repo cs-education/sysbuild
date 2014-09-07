@@ -21,7 +21,7 @@ $(document).ready(function () {
             spacing_open: 2,
 
             north__resizable: false,
-            north__size: 35,
+            north__size: 33,
             north__spacing_open: 0,
             north__spacing_closed: 0,
             north__showOverflowOnHover: true,
