@@ -33,7 +33,7 @@ window.SysRuntime = (function () {
 
         var onTTYLogin = function (completed) {
             if (completed) {
-                this.sendKeys('\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?;rm a.out\n', 'boot2ready-0', onBootFinished);
             }
         }.bind(this);
 
