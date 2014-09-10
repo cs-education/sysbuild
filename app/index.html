@@ -80,81 +80,89 @@
                 <div id="editor-tabs-bar">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#" role="tab" data-toggle="tab">program.c</a></li>
+                        <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Code</a></li>
+                        <li><a href="#man-page-tab" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Man pages</a></li>
                     </ul>
                 </div>
-                <div id="editor-container">
-                    <div id="editor-opts-container">
-                        <div class="navbar navbar-default">
-                            <form class="navbar-form row">
-                                <div class="col-md-2">
-                                    <label class="control-label sr-only" for="editor-theme">Theme</label>
-                                    <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
+                <div class="tab-content">
+                    <div id="editor-container" class="tab-pane active">
+                        <div id="editor-opts-container">
+                            <div class="navbar navbar-default">
+                                <form class="navbar-form row">
+                                    <div class="col-md-2">
+                                        <label class="control-label sr-only" for="editor-theme">Theme</label>
+                                        <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
+                                        <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-2">
+                                        <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
+                                            <span class="glyphicon glyphicon-indent-left"></span> Indent code
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button id="download-file-btn" type="button" class="btn btn-default btn-sm center-block">
+                                            <span class="glyphicon glyphicon-save"></span> Download file
+                                        </button>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
+                                                data-toggle="popover" data-container="body" data-html="true" data-placement="bottom">
+                                            <span class="glyphicon glyphicon-cog"></span> Settings
+                                        </button>
+                                    </div>
+                                    <script type ="text/template" id="editor-settings-popover">
+                                        <form>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="editor-autoindent-checkbox" type="checkbox">
+                                                    Autoindent code
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="ace-highlight-active-lines-checkbox" type="checkbox">
+                                                    Highlight Active Line
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="ace-show-invisibles-checkbox" type="checkbox">
+                                                    Show invisible characters
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="code"></div>
+                        <div id="compile-opts-container">
+                            <div class="row">
+                                <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                                <div class="col-sm-5" data-bind="css: {'has-error': gccOptsError()}">
+                                    <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
+                                           data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                                           tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
-                                    <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
+                                <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
                                 </div>
-                                <div class="col-md-3"></div>
-                                <div class="col-md-2">
-                                    <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
-                                        <span class="glyphicon glyphicon-indent-left"></span> Indent code
-                                    </button>
-                                </div>
-                                <div class="col-md-2">
-                                    <button id="download-file-btn" type="button" class="btn btn-default btn-sm center-block">
-                                        <span class="glyphicon glyphicon-save"></span> Download file
-                                    </button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
-                                            data-toggle="popover" data-container="body" data-html="true" data-placement="bottom">
-                                        <span class="glyphicon glyphicon-cog"></span> Settings
-                                    </button>
-                                </div>
-                                <script type ="text/template" id="editor-settings-popover">
-                                    <form>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input id="editor-autoindent-checkbox" type="checkbox">
-                                                Autoindent code
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input id="ace-highlight-active-lines-checkbox" type="checkbox">
-                                                Highlight Active Line
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input id="ace-show-invisibles-checkbox" type="checkbox">
-                                                Show invisible characters
-                                            </label>
-                                        </div>
-                                    </form>
-                                </script>
-                            </form>
+                                <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
+                                        data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
+                                    <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div id="code"></div>
-                    <div id="compile-opts-container">
-                        <div class="row">
-                            <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
-                            <div class="col-sm-5" data-bind="css: {'has-error': gccOptsError()}">
-                                <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
-                                       data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
-                                       tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
-                            </div>
-                            <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
-                            <div class="col-sm-4">
-                                <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
-                            </div>
-                            <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
-                                    data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
-                                <span class="glyphicon glyphicon-play"></span>
-                            </button>
-                        </div>
+                    <div id="man-page-tab" class="tab-pane">
+                        <iframe style="width: 100%; height: 100%" src="http://man7.org/linux/man-pages/index.html">
+                            <p>Your browser does not support iframes.</p>
+                        </iframe>
                     </div>
                 </div>
             </div>

@@ -47,23 +47,32 @@ $(document).ready(function () {
         };
     };
 
-    initLayout();
-
     window.sysViewModel = new SysViewModel();
-    ko.applyBindings(window.sysViewModel);
-
     var editor = new Editor('code');
     var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
 
+    var resizeIFrame = function () {
+        window.setTimeout(function () {
+            $('#man-page-tab').height(
+                    $('#code-container').height() -
+                    $('#editor-tabs-bar').height() -
+                    5
+            );
+        }, 200);
+    };
+
     $(window).resize(function() {
         editor.resize();
+        resizeIFrame();
     });
 
-    var compile = function () {
-        var code = editor.getText();
-        var gccOptions = window.sysViewModel.gccOptions();
-        liveEdit.runCode(code, gccOptions);
-    };
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if ($(e.target).attr('href') === '#editor-container') {
+            editor.resize();
+        } else if ($(e.target).attr('href') === '#man-page-tab') {
+            resizeIFrame();
+        }
+    });
 
     var compileShortcut = { // used for text and for binding
         win: 'Ctrl-Return',
@@ -71,12 +80,26 @@ $(document).ready(function () {
     };
 
     var platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
-    var compileBtnTooltip = 'Compile and Run (' + (platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win) + ' in code editor)';
+    var compileBtnTooltip = 'Compile and Run (' +
+        (platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win) +
+        ' in code editor)';
     window.sysViewModel.compileBtnTooltip(compileBtnTooltip);
+
+    var compile = function () {
+        var code = editor.getText();
+        var gccOptions = window.sysViewModel.gccOptions();
+        liveEdit.runCode(code, gccOptions);
+    };
 
     $('#compile-btn').click(function () {
         compile();
     });
+
+    editor.addKeyboardCommand(
+        'compileAndRunShortcut',
+        compileShortcut,
+        compile
+    );
 
     // Initialize Bootstrap tooltip and popover
     $('[data-toggle=tooltip]').tooltip();
@@ -100,17 +123,13 @@ $(document).ready(function () {
         editor.autoIndentCode();
     });
 
-    editor.addKeyboardCommand(
-        'compileAndRunShortcut',
-        compileShortcut,
-        compile
-    );
-
     var setState = function (viewModel, codeEditor, state) {
         viewModel.challengeDoc(state.challengeDoc);
         viewModel.gccOptions(state.gccOptions);
         viewModel.programArgs(state.programArgs);
         codeEditor.setText(state.editorText);
+        ko.applyBindings(window.sysViewModel);
+        initLayout();
         $(window).trigger('resize');
     };
 
