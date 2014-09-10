@@ -97,16 +97,34 @@ window.Editor = (function () {
         this.aceEditor.getSession().setAnnotations(annotations);
     };
 
-    Editor.prototype.resize = function () {
-        this.aceEditor.resize();
+    Editor.prototype.resize = function (resizeAfter) {
+        var self = this;
+        resizeAfter = resizeAfter || 200;
+
+        // We resize after a timeout because when the window resize handler is called,
+        // the window may not have resized completely, and hence the calculation below would
+        // be made with old values. The timeout helps to make sure the resize is complete before
+        // reading size values.
+        // TODO: remove reliance on specific div ids, and cache the jQuery selectors
+        window.setTimeout(function () {
+            $('#' + self.editorDivId).height(
+                $('#code-container').height() -
+                $('#editor-tabs-bar').height() -
+                $('#editor-opts-container').height() -
+                $('#compile-opts-container').height() -
+                2
+            );
+            self.aceEditor.resize();
+        }, resizeAfter);
     };
 
-    Editor.prototype.addKeyboardCommand = function (cmdName, keyBindings, execFunc) {
+    Editor.prototype.addKeyboardCommand = function (cmdName, keyBindings, execFunc, readOnly) {
+        readOnly = readOnly || true;
         this.aceEditor.commands.addCommand({
             name: cmdName,
             bindKey: keyBindings,
             exec: execFunc,
-            readOnly: true // false if this command should not apply in readOnly mode
+            readOnly: readOnly // false if this command should not apply in readOnly mode
         });
     };
 

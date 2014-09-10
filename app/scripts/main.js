@@ -31,35 +31,6 @@ $(document).ready(function () {
             south__spacing_open: 0
         });
 
-        var codeLayout = mainLayout.panes.center.layout({
-            livePaneResizing: true,
-            spacing_open: 2,
-
-            north__paneSelector: '#editor-tabs-bar',
-            center__paneSelector: '#editor-container',
-
-            north__resizable: false,
-            north__size: 27,
-            north__spacing_open: 0
-        });
-
-        var editorLayout = codeLayout.panes.center.layout({
-            livePaneResizing: true,
-            spacing_open: 2,
-
-            north__paneSelector: '#editor-opts-container',
-            center__paneSelector: '#code',
-            south__paneSelector: '#compile-opts-container',
-
-            north__resizable: false,
-            north__size: 30,
-            north__spacing_open: 0,
-
-            south__resizable: false,
-            south__size: 28,
-            south__spacing_open: 0
-        });
-
         var ttyLayout = mainLayout.panes.east.layout({
             livePaneResizing: true,
             spacing_open: 2,
@@ -72,13 +43,11 @@ $(document).ready(function () {
 
         return {
             mainLayout: mainLayout,
-            codeLayout: codeLayout,
-            editorLayout: editorLayout,
             ttyLayout: ttyLayout
         };
     };
 
-    var layouts = initLayout();
+    initLayout();
 
     window.sysViewModel = new SysViewModel();
     ko.applyBindings(window.sysViewModel);
@@ -86,9 +55,9 @@ $(document).ready(function () {
     var editor = new Editor('code');
     var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
 
-    layouts.editorLayout.options.onresizeall_end = function() {
+    $(window).resize(function() {
         editor.resize();
-    };
+    });
 
     var compile = function () {
         var code = editor.getText();
@@ -142,6 +111,7 @@ $(document).ready(function () {
         viewModel.gccOptions(state.gccOptions);
         viewModel.programArgs(state.programArgs);
         codeEditor.setText(state.editorText);
+        $(window).trigger('resize');
     };
 
     var setInitialState = function () {
