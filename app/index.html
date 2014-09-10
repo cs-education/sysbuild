@@ -81,7 +81,16 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Code</a></li>
-                        <li><a href="#man-page-tab" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Man pages</a></li>
+                        <li><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man pages</a></li>
+                        <!-- ko foreach: openManPageTabs -->
+                        <li>
+                            <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
+                                <span class="glyphicon glyphicon-globe"></span>
+                                &nbsp;<span data-bind="text: tabName"></span>&nbsp;
+                                <button class="close" data-bind="click: $parent.closeManPageTab">&times;</button>
+                            </a>
+                        </li>
+                        <!-- /ko -->
                     </ul>
                 </div>
                 <div class="tab-content">
@@ -159,11 +168,14 @@
                             </div>
                         </div>
                     </div>
-                    <div id="man-page-tab" class="tab-pane">
+                    <div class="tab-pane man-page-tab" id="man-pages-index">
                         <iframe style="width: 100%; height: 100%" src="http://man7.org/linux/man-pages/index.html">
                             <p>Your browser does not support iframes.</p>
                         </iframe>
                     </div>
+                    <!-- ko foreach: openManPageTabs -->
+                    <div class="tab-pane man-page-tab" data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml"></div>
+                    <!-- /ko -->
                 </div>
             </div>
 

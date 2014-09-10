@@ -51,9 +51,27 @@ $(document).ready(function () {
     var editor = new Editor('code');
     var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
 
-    var resizeIFrame = function () {
+    var manPageTokens = [
+        { token: 'accept', display: 'accept(2)', url: 'http://man7.org/linux/man-pages/man2/accept.2.html' },
+        { token: 'printf', display: 'printf(3)', url: 'http://man7.org/linux/man-pages/man3/printf.3.html' },
+        { token: 'write', display: 'write(2)', url: 'http://man7.org/linux/man-pages/man2/write.2.html' },
+        { token: 'select', display: 'select(2)', url: 'http://man7.org/linux/man-pages/man2/select.2.html' }
+    ];
+
+    var getManPage = function (manPageToken) {
+        return {
+            tabName: manPageToken.display,
+            tabHtml: '<iframe style="width: 100%; height: 100%" src="' + manPageToken.url + '"></iframe>'
+        };
+    };
+
+    manPageTokens.forEach(function (token) {
+        window.sysViewModel.openManPageTabs.push(getManPage(token));
+    });
+
+    var resizeIFrames = function () {
         window.setTimeout(function () {
-            $('#man-page-tab').height(
+            $('.man-page-tab').height(
                     $('#code-container').height() -
                     $('#editor-tabs-bar').height() -
                     5
@@ -63,14 +81,14 @@ $(document).ready(function () {
 
     $(window).resize(function() {
         editor.resize();
-        resizeIFrame();
+        resizeIFrames();
     });
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         if ($(e.target).attr('href') === '#editor-container') {
             editor.resize();
-        } else if ($(e.target).attr('href') === '#man-page-tab') {
-            resizeIFrame();
+        } else {
+            resizeIFrames();
         }
     });
 

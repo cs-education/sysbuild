@@ -77,6 +77,21 @@ window.SysViewModel = (function () {
         self.ttyToggleBtnClass = ko.pureComputed(function () {
             return 'glyphicon ' + (self.ttyFullScreen() ? 'glyphicon-resize-small' : 'glyphicon-resize-full');
         });
+
+        self.openManPageTabs = ko.observableArray();
+        self.closeManPageTab = function (tab) {
+            var index = self.openManPageTabs.indexOf(tab);
+            var previousTabContentSelector;
+            if (index >= 1) {
+                previousTabContentSelector = '#man-page-tab-' + (index - 1);
+            } else {
+                previousTabContentSelector = '#man-pages-index';
+            }
+            $('a[href="' + previousTabContentSelector + '"]').parent().addClass('active');
+            $(previousTabContentSelector).addClass('active');
+
+            self.openManPageTabs.splice(index, 1);
+        };
     }
 
     return SysViewModel;
