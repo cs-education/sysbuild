@@ -62,7 +62,7 @@ window.SysViewModel = (function () {
         self.vmMips = ko.observable(0);
 
         self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
-        self.aceTheme = ko.observable();
+        self.aceTheme = ko.observable(self.availableAceThemes()[0]);
         self.aceFontSize = ko.observable();
 
         self.ttyContainer = $('#tty-container');

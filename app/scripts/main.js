@@ -69,26 +69,26 @@ $(document).ready(function () {
         window.sysViewModel.openManPageTabs.push(getManPage(token));
     });
 
-    var resizeIFrames = function () {
+    var resizeTabs = function () {
         window.setTimeout(function () {
-            $('.man-page-tab').height(
+            $('.tab-content').height(
                     $('#code-container').height() -
                     $('#editor-tabs-bar').height() -
                     5
             );
-        }, 200);
+        }, 500);
     };
 
     $(window).resize(function() {
-        editor.resize();
-        resizeIFrames();
+        editor.resize(500);
+        resizeTabs();
     });
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         if ($(e.target).attr('href') === '#editor-container') {
             editor.resize();
         } else {
-            resizeIFrames();
+            resizeTabs();
         }
     });
 
