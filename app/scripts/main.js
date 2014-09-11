@@ -66,7 +66,7 @@ $(document).ready(function () {
     };
 
     manPageTokens.forEach(function (token) {
-        window.sysViewModel.openManPageTabs.push(getManPage(token));
+        // window.sysViewModel.openManPageTabs.push(getManPage(token));
     });
 
     var resizeTabs = function () {
