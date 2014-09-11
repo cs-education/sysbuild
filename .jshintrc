@@ -17,5 +17,5 @@
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "jquery": true
+    "jquery": false
 }

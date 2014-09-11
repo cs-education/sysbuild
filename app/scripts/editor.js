@@ -1,4 +1,4 @@
-/* global ace, sysViewModel */
+/* global $, ace, sysViewModel */
 
 window.Editor = (function () {
     'use strict';
