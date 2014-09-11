@@ -25,6 +25,10 @@ window.Editor = (function () {
             self.setFontSize(self.viewModel.aceFontSize() + 'px');
         });
 
+        self.viewModel.editorText.subscribe(function () {
+            self.setText(self.viewModel.editorText());
+        });
+
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
         self.aceEditor.on('change', function () {
             if (self.backgroundAutoIndent) {

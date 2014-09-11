@@ -23,6 +23,7 @@ window.SysViewModel = (function () {
         };
 
         self.challengeDoc = ko.observable();
+        self.editorText = ko.observable();
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
@@ -93,6 +94,13 @@ window.SysViewModel = (function () {
             self.openManPageTabs.splice(index, 1);
         };
     }
+
+    SysViewModel.prototype.setState = function (state) {
+        this.challengeDoc(state.challengeDoc);
+        this.gccOptions(state.gccOptions);
+        this.programArgs(state.programArgs);
+        this.editorText(state.editorText);
+    };
 
     return SysViewModel;
 })();

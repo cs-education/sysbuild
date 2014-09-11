@@ -141,17 +141,6 @@ $(document).ready(function () {
         editor.autoIndentCode();
     });
 
-    var setState = function (viewModel, codeEditor, state) {
-        viewModel.challengeDoc(state.challengeDoc);
-        viewModel.gccOptions(state.gccOptions);
-        viewModel.programArgs(state.programArgs);
-        codeEditor.setText(state.editorText);
-        ko.applyBindings(window.sysViewModel);
-        Router.getInstance().run();
-        initLayout();
-        $(window).trigger('resize');
-    };
-
     var setInitialState = function () {
         var state = {};
         state.challengeDoc = state.challengeDoc || {
@@ -172,8 +161,12 @@ $(document).ready(function () {
             '}\n' +
             '';
 
-        setState(window.sysViewModel, editor, state);
+        window.sysViewModel.setState(state);
     };
 
     setInitialState();
+    ko.applyBindings(window.sysViewModel);
+    Router.getInstance().run();
+    initLayout();
+    $(window).trigger('resize');
 });
