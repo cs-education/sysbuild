@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime */
+/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
 
 $(document).ready(function () {
     'use strict';
@@ -147,6 +147,7 @@ $(document).ready(function () {
         viewModel.programArgs(state.programArgs);
         codeEditor.setText(state.editorText);
         ko.applyBindings(window.sysViewModel);
+        Router.getInstance().run();
         initLayout();
         $(window).trigger('resize');
     };
