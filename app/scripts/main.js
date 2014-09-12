@@ -167,6 +167,13 @@ $(document).ready(function () {
     setInitialState();
     ko.applyBindings(window.sysViewModel);
     Router.getInstance().run();
-    initLayout();
-    $(window).trigger('resize');
+
+    window.sysViewModel.playgroundVisible.subscribe(function (playgroundVisible) {
+        if (playgroundVisible) {
+            if (!window.layouts) {
+                window.layouts = initLayout();
+            }
+            $(window).trigger('resize');
+        }
+    });
 });

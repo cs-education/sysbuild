@@ -98,6 +98,9 @@ window.SysViewModel = (function () {
 
         self.chapters = ko.observableArray();
         self.showChapterIndex = ko.observable();
+        self.currentChapter = ko.observable(0);
+        self.currentSection = ko.observable(0);
+        self.currentActivity = ko.observable(0);
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {
