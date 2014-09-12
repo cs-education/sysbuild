@@ -3,8 +3,14 @@
 window.Editor = (function () {
     'use strict';
 
+    // Counter for generating unique element Ids for an editor
+    var editorInstanceCounter = 0;
+
     function Editor(editorDivId) {
         var self = this;
+        self.editorId = editorInstanceCounter;
+        editorInstanceCounter += 1;
+
         self.viewModel = sysViewModel;
 
         self.editorDivId = editorDivId;
@@ -39,6 +45,36 @@ window.Editor = (function () {
             }
         });
 
+        self.elementIdPrefix = 'editor' + self.editorId + '-';
+
+        var $editorSettingsPopover = $('<div>').append(
+            $('<form>').append(
+                $('<div>').attr('class', 'checkbox').append(
+                    $('<label>').append(
+                        $('<input>').attr({id: self.elementIdPrefix + 'autoindent-checkbox', type: 'checkbox'})
+                    ).append(
+                        $('<span>').text('Autoindent code')
+                    )
+                )
+            ).append(
+                $('<div>').attr('class', 'checkbox').append(
+                    $('<label>').append(
+                        $('<input>').attr({id: self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', type: 'checkbox'})
+                    ).append(
+                        $('<span>').text('Highlight Active Line')
+                    )
+                )
+            ).append(
+                $('<div>').attr('class', 'checkbox').append(
+                    $('<label>').append(
+                        $('<input>').attr({id: self.elementIdPrefix + 'ace-show-invisibles-checkbox', type: 'checkbox'})
+                    ).append(
+                        $('<span>').text('Show invisible characters')
+                    )
+                )
+            )
+        );
+
         // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
         var $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
@@ -46,7 +82,7 @@ window.Editor = (function () {
                 return 'Editor settings';
             },
             content: function() {
-                return $('#editor-settings-popover').html();
+                return $editorSettingsPopover.html();
             }
         });
 
@@ -54,22 +90,22 @@ window.Editor = (function () {
         // since the popover content is static.
 
         $settingsPopover.on('shown.bs.popover', function () {
-            $('#editor-autoindent-checkbox').prop('checked', self.backgroundAutoIndent);
-            $('#ace-highlight-active-lines-checkbox').prop('checked', self.aceEditor.getHighlightActiveLine());
-            $('#ace-show-invisibles-checkbox').prop('checked', self.aceEditor.getShowInvisibles());
+            $('#' + self.elementIdPrefix + 'autoindent-checkbox').prop('checked', self.backgroundAutoIndent);
+            $('#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox').prop('checked', self.aceEditor.getHighlightActiveLine());
+            $('#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox').prop('checked', self.aceEditor.getShowInvisibles());
         });
 
         // http://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
         var $body = $('body');
-        $body.on('change', '#editor-autoindent-checkbox', function () {
+        $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
         });
 
-        $body.on('change', '#ace-highlight-active-lines-checkbox', function () {
+        $body.on('change', '#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', function () {
             self.aceEditor.setHighlightActiveLine(this.checked);
         });
 
-        $body.on('change', '#ace-show-invisibles-checkbox', function () {
+        $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
             self.aceEditor.setShowInvisibles(this.checked);
         });
     }
