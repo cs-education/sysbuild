@@ -143,11 +143,10 @@ $(document).ready(function () {
 
     var setInitialState = function () {
         var state = {};
-        state.challengeDoc = state.challengeDoc || {
-            title: 'Welcome',
-            instructions: 'Welcome to this tiny but fast linux virtual machine. ' +
-                'Currently only Chrome is known to work. Other browsers will be supported in the future.'
-        };
+        state.challengeDoc = state.challengeDoc ||
+            '<h2>Welcome</h2>' +
+            '<p>Welcome to this tiny but fast linux virtual machine. ' +
+            'Currently only Chrome is known to work. Other browsers will be supported in the future.</p>';
 
         state.gccOptions = state.gccOptions || '-lm -Wall -fmax-errors=10 -Wextra';
         state.programArgs = state.programArgs || '';

@@ -8,13 +8,29 @@ window.Router = (function () {
         /* jshint newcap: false */
         var viewModel = sysViewModel;
 
-        return Sammy(function () {
-            this.get('/', function () {
-                viewModel.setSysPlayGroundState({playgroundVisible: false});
+        var populateChapters = function () {
+            if (viewModel.chapters().length === 0) {
                 $.getJSON('sysassets/sys.json', function (data) {
                     viewModel.chapters(data.chapters);
-                    viewModel.showChapterIndex(true);
                 });
+            }
+        };
+
+        var getActivityFromIdx = function (chapterIdx, sectionIdx, activityIdx) {
+            var chapter = viewModel.chapters()[chapterIdx];
+            chapter = chapter || { sections: [] };
+            var section = chapter.sections[sectionIdx];
+            section = section || { activities: [] };
+            var activity = section.activities[activityIdx];
+            activity = activity || {};
+            return activity;
+        };
+
+        return Sammy(function () {
+            this.get('/', function () {
+                populateChapters();
+                viewModel.playgroundVisible(false);
+                viewModel.showChapterIndex(true);
             });
 
             this.get('#chapter/:chapterIdx', function () {
@@ -30,22 +46,27 @@ window.Router = (function () {
                     sectionIdx = this.params.sectionIdx,
                     activityIdx = this.params.activityIdx;
 
+                populateChapters();
+
                 viewModel.currentChapter(chapterIdx);
                 viewModel.currentSection(sectionIdx);
                 viewModel.currentActivity(activityIdx);
 
-                var chapter = viewModel.chapters()[chapterIdx];
-                chapter = chapter || { sections: [] };
-                var section = chapter.sections[sectionIdx];
-                section = section || { activities: [] };
-                var activity = section.activities[activityIdx];
-                activity = activity || {};
+                var activity = getActivityFromIdx(chapterIdx, sectionIdx, activityIdx);
 
-                console.log(activity);
                 if (activity.type === 'play') {
-                    console.log('playground!');
-                    viewModel.showChapterIndex(false);
-                    viewModel.setSysPlayGroundState({playgroundVisible: true});
+                    $.get('sysassets/' + activity.docFile, function (docFile) {
+                        viewModel.showChapterIndex(false);
+                        viewModel.setSysPlayGroundState({
+                            challengeDoc: docFile,
+                            gccOptions: activity.gccOptions,
+                            programArgs: activity.programCommandLineArgs,
+                            editorText: activity.code,
+                            playgroundVisible: true
+                        });
+                    });
+                } else if (activity.type === 'video') {
+                    console.log('video!');
                 }
             });
         });

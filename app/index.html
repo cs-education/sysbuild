@@ -199,10 +199,7 @@
             </div>
 
             <div id="doc-tty-container">
-                <div id="doc-container" data-bind="with: challengeDoc">
-                    <h3 data-bind="text: title"></h3>
-                    <p data-bind="text: instructions"></p>
-                </div>
+                <div id="doc-container" data-bind="html: challengeDoc"></div>
                 <div id="tty-pane">
                     <div id="tty-container">
                         <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
