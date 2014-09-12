@@ -1,4 +1,4 @@
-/* global $, Sammy, sysViewModel */
+/* global $, Sammy, sysViewModel, marked */
 
 window.Router = (function () {
     'use strict';
@@ -55,10 +55,10 @@ window.Router = (function () {
                 var activity = getActivityFromIdx(chapterIdx, sectionIdx, activityIdx);
 
                 if (activity.type === 'play') {
-                    $.get('sysassets/' + activity.docFile, function (docFile) {
+                    $.get('sysassets/' + activity.docFile, function (doc) {
                         viewModel.showChapterIndex(false);
                         viewModel.setSysPlayGroundState({
-                            challengeDoc: docFile,
+                            challengeDoc: marked(doc),
                             gccOptions: activity.gccOptions,
                             programArgs: activity.programCommandLineArgs,
                             editorText: activity.code,
