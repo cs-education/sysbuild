@@ -96,10 +96,20 @@ window.SysViewModel = (function () {
     }
 
     SysViewModel.prototype.setState = function (state) {
-        this.challengeDoc(state.challengeDoc);
-        this.gccOptions(state.gccOptions);
-        this.programArgs(state.programArgs);
-        this.editorText(state.editorText);
+        state = state || {};
+
+        if (state.challengeDoc) {
+            this.challengeDoc(state.challengeDoc);
+        }
+        if (state.gccOptions) {
+            this.gccOptions(state.gccOptions);
+        }
+        if (state.programArgs) {
+            this.programArgs(state.programArgs);
+        }
+        if (state.editorText) {
+            this.editorText(state.editorText);
+        }
     };
 
     return SysViewModel;
