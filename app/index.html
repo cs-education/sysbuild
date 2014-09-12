@@ -11,6 +11,7 @@
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/jquery.layout/dist/layout-default-latest.css" />
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -41,8 +42,8 @@
             </div>
         </div>
 
-        <!-- Chapter index -->
-        <div id="chapter-index" data-bind="visible: showChapterIndex">
+
+        <div id="chapter-index" data-bind="visible: !playgroundVisible()">
             <div class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -52,23 +53,33 @@
             </div>
 
             <div class="container">
-                <div>
-                    <h1>An introduction to system programming and C</h1>
-                    <p class="lead">By Lawrence Angrave at the University of Illinois at Urbana-Champaign 2014</p>
-                </div>
-                <div data-bind="foreach: chapters">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4><a href="#" data-bind="text: name"></a></h4>
-                        </div>
-                        <div class="panel-body">
-                            <p data-bind="text: description"></p>
-                            <h5>Sections:</h5>
-                            <ol data-bind="foreach: sections">
-                                <li><a href="#" data-bind="text: name"></a></li>
-                            </ol>
+                <!-- Chapter index -->
+                <div data-bind="visible: showChapterIndex">
+                    <div>
+                        <h1>An introduction to system programming and C</h1>
+                        <p class="lead">By Lawrence Angrave at the University of Illinois at Urbana-Champaign 2014</p>
+                    </div>
+                    <div data-bind="foreach: chapters">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4><a href="#" data-bind="text: name"></a></h4>
+                            </div>
+                            <div class="panel-body">
+                                <p data-bind="text: description"></p>
+                                <h5>Sections:</h5>
+                                <ol data-bind="foreach: sections">
+                                    <li><a href="#" data-bind="text: name"></a></li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Video Lesson -->
+                <div data-bind="visible: showVideoLesson">
+                    <p data-bind="text: currentVideoFilePrefix"></p>
+                    <p data-bind="text: currentVideoTopics"></p>
+                    <p data-bind="text: currentVideoDoc"></p>
                 </div>
             </div>
 
@@ -241,12 +252,15 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
+        <script src="../bower_components/jquery-1.11.0/dist/jquery.js"></script>
         <script src="../bower_components/jquery/dist/jquery.js"></script>
         <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
         <script src="../bower_components/Blob/Blob.js"></script>
         <script src="../bower_components/FileSaver/FileSaver.js"></script>
+        <script src="../bower_components/requirejs/require.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="../bower_components/moment/moment.js"></script>
         <script src="../bower_components/sammy/lib/sammy.js"></script>
         <!-- endbower -->

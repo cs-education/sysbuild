@@ -26,11 +26,58 @@ window.Router = (function () {
             return activity;
         };
 
+        var goToChapterIndex = function () {
+            viewModel.playgroundVisible(false);
+            viewModel.showVideoLesson(false);
+            viewModel.showChapterIndex(true);
+        };
+
+        var goToPlayGround = function (playActivity) {
+            var cb = function (doc) {
+                viewModel.showChapterIndex(false);
+                viewModel.showVideoLesson(false);
+                viewModel.setSysPlayGroundState({
+                    challengeDoc: marked(doc),
+                    gccOptions: playActivity.gccOptions || '',
+                    programArgs: playActivity.programCommandLineArgs || '',
+                    editorText: playActivity.code || '',
+                    playgroundVisible: true
+                });
+            };
+
+            if (playActivity.docFile) {
+                $.get('sysassets/' + playActivity.docFile, function (doc) {
+                    cb(doc);
+                });
+            } else {
+                cb('');
+            }
+        };
+
+        var goToVideoLesson = function (videoActivity) {
+            var cb = function (doc) {
+                viewModel.playgroundVisible(false);
+                viewModel.showChapterIndex(false);
+                viewModel.showVideoLesson(true);
+
+                viewModel.currentVideoFilePrefix(videoActivity.file);
+                viewModel.currentVideoTopics(videoActivity.topics || '');
+                viewModel.currentVideoDoc(marked(doc));
+            };
+
+            if (videoActivity.docFile) {
+                $.get('sysassets/' + videoActivity.docFile, function (doc) {
+                    cb(doc);
+                });
+            } else {
+                cb('');
+            }
+        };
+
         return Sammy(function () {
             this.get('/', function () {
                 populateChapters();
-                viewModel.playgroundVisible(false);
-                viewModel.showChapterIndex(true);
+                goToChapterIndex();
             });
 
             this.get('#chapter/:chapterIdx', function () {
@@ -55,18 +102,11 @@ window.Router = (function () {
                 var activity = getActivityFromIdx(chapterIdx, sectionIdx, activityIdx);
 
                 if (activity.type === 'play') {
-                    $.get('sysassets/' + activity.docFile, function (doc) {
-                        viewModel.showChapterIndex(false);
-                        viewModel.setSysPlayGroundState({
-                            challengeDoc: marked(doc),
-                            gccOptions: activity.gccOptions,
-                            programArgs: activity.programCommandLineArgs,
-                            editorText: activity.code,
-                            playgroundVisible: true
-                        });
-                    });
+                    goToPlayGround(activity);
                 } else if (activity.type === 'video') {
-                    console.log('video!');
+                    goToVideoLesson(activity);
+                } else {
+                    goToChapterIndex();
                 }
             });
         });

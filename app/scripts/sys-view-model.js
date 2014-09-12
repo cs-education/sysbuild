@@ -101,6 +101,11 @@ window.SysViewModel = (function () {
         self.currentChapter = ko.observable(0);
         self.currentSection = ko.observable(0);
         self.currentActivity = ko.observable(0);
+
+        self.showVideoLesson = ko.observable();
+        self.currentVideoFilePrefix = ko.observable();
+        self.currentVideoTopics = ko.observable();
+        self.currentVideoDoc = ko.observable();
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {
