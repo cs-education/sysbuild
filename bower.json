@@ -13,7 +13,8 @@
     "FileSaver": "*",
     "fuelux": "~3.0.1",
     "sammy": "~0.7.6",
-    "marked": "~0.3.2"
+    "marked": "~0.3.2",
+    "videojs": "~4.8.1"
   },
   "devDependencies": {}
 }
