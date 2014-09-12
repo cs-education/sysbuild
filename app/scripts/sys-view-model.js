@@ -22,6 +22,8 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
+        self.playgroundVisible = ko.observable(false);
+
         self.challengeDoc = ko.observable();
         self.editorText = ko.observable();
 
@@ -93,9 +95,12 @@ window.SysViewModel = (function () {
 
             self.openManPageTabs.splice(index, 1);
         };
+
+        self.chapters = ko.observableArray();
+        self.showChapterIndex = ko.observable();
     }
 
-    SysViewModel.prototype.setState = function (state) {
+    SysViewModel.prototype.setSysPlayGroundState = function (state) {
         state = state || {};
 
         if (state.challengeDoc) {
@@ -109,6 +114,9 @@ window.SysViewModel = (function () {
         }
         if (state.editorText) {
             this.editorText(state.editorText);
+        }
+        if (state.playgroundVisible) {
+            this.playgroundVisible(state.playgroundVisible);
         }
     };
 

@@ -41,7 +41,48 @@
             </div>
         </div>
 
-        <div id="layout" class="show-if-supported">
+        <!-- Chapter index -->
+        <div id="chapter-index" data-bind="visible: showChapterIndex">
+            <div class="navbar navbar-inverse" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">System Programming</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div>
+                    <h1>An introduction to system programming and C</h1>
+                    <p class="lead">By Lawrence Angrave at the University of Illinois at Urbana-Champaign 2014</p>
+                </div>
+                <div data-bind="foreach: chapters">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4><a href="#" data-bind="text: name"></a></h4>
+                        </div>
+                        <div class="panel-body">
+                            <p data-bind="text: description"></p>
+                            <h5>Sections:</h5>
+                            <ol data-bind="foreach: sections">
+                                <li><a href="#" data-bind="text: name"></a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="container">
+                    <p class="text-muted">
+                        <small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code playground -->
+        <div id="layout" class="show-if-supported" data-bind="visible: playgroundVisible">
             <div id="navbar-container">
                 <!-- Fixed navbar -->
                 <div class="navbar navbar-default" role="navigation">

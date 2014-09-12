@@ -161,7 +161,7 @@ $(document).ready(function () {
             '}\n' +
             '';
 
-        window.sysViewModel.setState(state);
+        window.sysViewModel.setSysPlayGroundState(state);
     };
 
     setInitialState();
