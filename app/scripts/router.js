@@ -27,22 +27,19 @@ window.Router = (function () {
         };
 
         var goToChapterIndex = function () {
-            viewModel.playgroundVisible(false);
-            viewModel.showVideoLesson(false);
-            viewModel.showChapterIndex(true);
+            viewModel.shownPage('chapter_index');
         };
 
         var goToPlayGround = function (playActivity) {
             var cb = function (doc) {
-                viewModel.showChapterIndex(false);
-                viewModel.showVideoLesson(false);
                 viewModel.setSysPlayGroundState({
                     challengeDoc: marked(doc),
                     gccOptions: playActivity.gccOptions || '',
                     programArgs: playActivity.programCommandLineArgs || '',
-                    editorText: playActivity.code || '',
-                    playgroundVisible: true
+                    editorText: playActivity.code || ''
                 });
+
+                viewModel.shownPage('playground');
             };
 
             if (playActivity.docFile) {
@@ -56,9 +53,7 @@ window.Router = (function () {
 
         var goToVideoLesson = function (videoActivity) {
             var cb = function (doc) {
-                viewModel.playgroundVisible(false);
-                viewModel.showChapterIndex(false);
-                viewModel.showVideoLesson(true);
+                viewModel.shownPage('video');
 
                 viewModel.currentVideoFilePrefix('sysassets/' + videoActivity.file);
                 viewModel.currentVideoTopics(videoActivity.topics || '');

@@ -42,215 +42,217 @@
             </div>
         </div>
 
-        <!-- Chapter index and video lession views -->
-        <div id="chapter-index-video-lessons" data-bind="visible: !playgroundVisible()">
-            <div class="navbar navbar-inverse" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">System Programming</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <!-- Chapter index -->
-                <div data-bind="visible: showChapterIndex">
-                    <div>
-                        <h1>An introduction to system programming and C</h1>
-                        <p class="lead">By Lawrence Angrave at the University of Illinois at Urbana-Champaign 2014</p>
-                    </div>
-                    <div data-bind="foreach: chapters">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4><a href="#" data-bind="text: name"></a></h4>
-                            </div>
-                            <div class="panel-body">
-                                <p data-bind="text: description"></p>
-                                <h5>Sections:</h5>
-                                <ol data-bind="foreach: sections">
-                                    <li><a href="#" data-bind="text: name"></a></li>
-                                </ol>
-                            </div>
+        <div class="show-if-supported">
+            <!-- Chapter index and video lession views -->
+            <div id="chapter-index-video-lessons" data-bind="visible: shownPage() !== 'playground'">
+                <div class="navbar navbar-inverse" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">System Programming</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Video Lesson -->
-                <div data-bind="visible: showVideoLesson">
-                    <video id="lesson-video" controls preload="none" width="960" height="540" class="video-js vjs-default-skin vjs-big-play-centered" poster="">
-                        <source data-bind="attr: {src: currentVideoFilePrefix() + '.mp4' }" type="video/mp4">
-                        <source data-bind="attr: {src: currentVideoFilePrefix() + '.webm' }" type="video/webm">
-                        <source data-bind="attr: {src: currentVideoFilePrefix() + '.ogv' }" type="video/ogg">
-                    </video>
-                    <p data-bind="text: currentVideoTopics"></p>
-                    <p data-bind="html: currentVideoDoc"></p>
-                </div>
-            </div>
-
-            <div class="footer">
                 <div class="container">
-                    <p class="text-muted">
-                        <small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small>
-                    </p>
+                    <!-- Chapter index -->
+                    <div data-bind="visible: shownPage() === 'chapter_index'">
+                        <div>
+                            <h1>An introduction to system programming and C</h1>
+                            <p class="lead">By Lawrence Angrave at the University of Illinois at Urbana-Champaign 2014</p>
+                        </div>
+                        <div data-bind="foreach: chapters">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4><a href="#" data-bind="text: name"></a></h4>
+                                </div>
+                                <div class="panel-body">
+                                    <p data-bind="text: description"></p>
+                                    <h5>Sections:</h5>
+                                    <ol data-bind="foreach: sections">
+                                        <li><a href="#" data-bind="text: name"></a></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Lesson -->
+                    <div data-bind="visible: shownPage() === 'video'">
+                        <video id="lesson-video" controls preload="none" width="960" height="540" class="video-js vjs-default-skin vjs-big-play-centered" poster="">
+                            <source data-bind="attr: {src: currentVideoFilePrefix() + '.mp4' }" type="video/mp4">
+                            <source data-bind="attr: {src: currentVideoFilePrefix() + '.webm' }" type="video/webm">
+                            <source data-bind="attr: {src: currentVideoFilePrefix() + '.ogv' }" type="video/ogg">
+                        </video>
+                        <p data-bind="text: currentVideoTopics"></p>
+                        <p data-bind="html: currentVideoDoc"></p>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <div class="container">
+                        <p class="text-muted">
+                            <small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Code playground -->
-        <div id="layout" class="show-if-supported" data-bind="visible: playgroundVisible">
-            <div id="navbar-container">
-                <!-- Fixed navbar -->
-                <div class="navbar navbar-default" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">System Programming</a>
+            <!-- Code playground -->
+            <div id="layout" data-bind="visible: shownPage() === 'playground'">
+                <div id="navbar-container">
+                    <!-- Fixed navbar -->
+                    <div class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">System Programming</a>
+                        </div>
+                        <div class="collapse navbar-collapse hidden">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#about">About</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Nav header</li>
+                                        <li><a href="#">Separated link</a></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
                     </div>
-                    <div class="collapse navbar-collapse hidden">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
+                </div>
+
+                <div id="code-container">
+                    <div id="editor-tabs-bar">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Code</a></li>
+                            <li><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man pages</a></li>
+                            <!-- ko foreach: openManPageTabs -->
+                            <li>
+                                <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
+                                    <span class="glyphicon glyphicon-globe"></span>
+                                    &nbsp;<span data-bind="text: tabName"></span>&nbsp;
+                                    <button class="close" data-bind="click: $parent.closeManPageTab">&times;</button>
+                                </a>
                             </li>
+                            <!-- /ko -->
                         </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-
-            <div id="code-container">
-                <div id="editor-tabs-bar">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Code</a></li>
-                        <li><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man pages</a></li>
+                    </div>
+                    <div class="tab-content">
+                        <div id="editor-container" class="tab-pane active">
+                            <div id="editor-opts-container">
+                                <div class="navbar navbar-default">
+                                    <form class="navbar-form row">
+                                        <div class="col-md-2">
+                                            <label class="control-label sr-only" for="editor-theme">Theme</label>
+                                            <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
+                                            <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
+                                        </div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-2">
+                                            <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
+                                                <span class="glyphicon glyphicon-indent-left"></span> Indent code
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button id="download-file-btn" type="button" class="btn btn-default btn-sm center-block">
+                                                <span class="glyphicon glyphicon-save"></span> Download file
+                                            </button>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
+                                                    data-toggle="popover" data-container="body" data-html="true" data-placement="bottom">
+                                                <span class="glyphicon glyphicon-cog"></span> Settings
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="code"></div>
+                            <div id="compile-opts-container">
+                                <div class="row">
+                                    <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                                    <div class="col-sm-5" data-bind="css: {'has-error': gccOptsError()}">
+                                        <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
+                                               data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                                               tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
+                                    </div>
+                                    <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                                    </div>
+                                    <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
+                                            data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
+                                        <span class="glyphicon glyphicon-play"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane man-page-tab" id="man-pages-index">
+                            <iframe src="http://man7.org/linux/man-pages/index.html">
+                                <p>Your browser does not support iframes.</p>
+                            </iframe>
+                        </div>
                         <!-- ko foreach: openManPageTabs -->
-                        <li>
-                            <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
-                                <span class="glyphicon glyphicon-globe"></span>
-                                &nbsp;<span data-bind="text: tabName"></span>&nbsp;
-                                <button class="close" data-bind="click: $parent.closeManPageTab">&times;</button>
-                            </a>
-                        </li>
+                        <div class="tab-pane man-page-tab" data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml"></div>
                         <!-- /ko -->
-                    </ul>
+                    </div>
                 </div>
-                <div class="tab-content">
-                    <div id="editor-container" class="tab-pane active">
-                        <div id="editor-opts-container">
-                            <div class="navbar navbar-default">
-                                <form class="navbar-form row">
-                                    <div class="col-md-2">
-                                        <label class="control-label sr-only" for="editor-theme">Theme</label>
-                                        <select data-bind="options: availableAceThemes, value: aceTheme" id="editor-theme" class="form-control input-sm"></select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
-                                        <input data-bind="value: aceFontSize" id="editor-font-size" type="number" class="form-control input-sm">
-                                    </div>
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-2">
-                                        <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
-                                            <span class="glyphicon glyphicon-indent-left"></span> Indent code
-                                        </button>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button id="download-file-btn" type="button" class="btn btn-default btn-sm center-block">
-                                            <span class="glyphicon glyphicon-save"></span> Download file
-                                        </button>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <button id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
-                                                data-toggle="popover" data-container="body" data-html="true" data-placement="bottom">
-                                            <span class="glyphicon glyphicon-cog"></span> Settings
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+
+                <div id="doc-tty-container">
+                    <div id="doc-container" data-bind="html: challengeDoc"></div>
+                    <div id="tty-pane">
+                        <div id="tty-container">
+                            <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
+                            <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                                <span data-bind="css: ttyToggleBtnClass"></span>
+                            </button>
                         </div>
-                        <div id="code"></div>
-                        <div id="compile-opts-container">
+                    </div>
+                </div>
+
+                <div id="footer-container">
+                    <div class="footer" >
+                        <div class="col-sm-6">
                             <div class="row">
-                                <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
-                                <div class="col-sm-5" data-bind="css: {'has-error': gccOptsError()}">
-                                    <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
-                                           data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
-                                           tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
+                                <div class="col-sm-5">
+                                    <p>VM state:
+                                        <span data-bind="text: vmState, css: vmStateClass">Booting</span>
+                                        <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
+                                    </p>
                                 </div>
-                                <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                                <div class="col-sm-7">
+                                    <p>Compiler:
+                                        <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
+                                        <a href="#"
+                                           data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
+                                           tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus"></a>
+                                    </p>
                                 </div>
-                                <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
-                                        data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
-                                    <span class="glyphicon glyphicon-play"></span>
-                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane man-page-tab" id="man-pages-index">
-                        <iframe src="http://man7.org/linux/man-pages/index.html">
-                            <p>Your browser does not support iframes.</p>
-                        </iframe>
-                    </div>
-                    <!-- ko foreach: openManPageTabs -->
-                    <div class="tab-pane man-page-tab" data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml"></div>
-                    <!-- /ko -->
-                </div>
-            </div>
-
-            <div id="doc-tty-container">
-                <div id="doc-container" data-bind="html: challengeDoc"></div>
-                <div id="tty-pane">
-                    <div id="tty-container">
-                        <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
-                        <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
-                            <span data-bind="css: ttyToggleBtnClass"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="footer-container">
-                <div class="footer" >
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <p>VM state:
-                                    <span data-bind="text: vmState, css: vmStateClass">Booting</span>
-                                    <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-7">
-                                <p>Compiler:
-                                    <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
-                                    <a href="#"
-                                       data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
-                                       tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus"></a>
-                                </p>
-                            </div>
+                        <div class="container col-sm-6 pull-right">
+                            <p class="text-muted pull-right"><small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
                         </div>
                     </div>
-                    <div class="container col-sm-6 pull-right">
-                        <p class="text-muted pull-right"><small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
-                    </div>
                 </div>
             </div>
-        </div>
+        </div><!--/.show-if-supported -->
 
         <!-- ==================== Javascript ==================== -->
 

@@ -22,8 +22,6 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.playgroundVisible = ko.observable(false);
-
         self.challengeDoc = ko.observable();
         self.editorText = ko.observable();
 
@@ -97,15 +95,22 @@ window.SysViewModel = (function () {
         };
 
         self.chapters = ko.observableArray();
-        self.showChapterIndex = ko.observable();
         self.currentChapter = ko.observable(0);
         self.currentSection = ko.observable(0);
         self.currentActivity = ko.observable(0);
 
-        self.showVideoLesson = ko.observable();
         self.currentVideoFilePrefix = ko.observable();
         self.currentVideoTopics = ko.observable();
         self.currentVideoDoc = ko.observable();
+
+        self.shownPage = ko.observable();
+        self.shownPage.subscribe(function (newPage) {
+            if (newPage === 'playground') {
+                $('body').css('overflow', 'hidden');
+            } else {
+                $('body').css('overflow', 'auto');
+            }
+        });
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {
@@ -122,9 +127,6 @@ window.SysViewModel = (function () {
         }
         if (state.editorText) {
             this.editorText(state.editorText);
-        }
-        if (state.playgroundVisible) {
-            this.playgroundVisible(state.playgroundVisible);
         }
     };
 

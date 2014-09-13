@@ -167,8 +167,8 @@ $(document).ready(function () {
     ko.applyBindings(window.sysViewModel);
     Router.getInstance().run();
 
-    window.sysViewModel.playgroundVisible.subscribe(function (playgroundVisible) {
-        if (playgroundVisible) {
+    window.sysViewModel.shownPage.subscribe(function (newPage) {
+        if (newPage === 'playground') {
             if (!window.layouts) {
                 window.layouts = initLayout();
             }
