@@ -29,7 +29,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 /* Taken from Bootstrap Sticky footer example
  * http://getbootstrap.com/examples/sticky-footer/
  */
-#chapter-index .footer {
+#chapter-index-video-lessons .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -38,17 +38,17 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     background-color: #f5f5f5;
 }
 
-#chapter-index .footer .container {
+#chapter-index-video-lessons .footer .container {
     width: auto;
     max-width: 680px;
     padding: 0 15px;
 }
 
-#chapter-index .footer .container .text-muted {
+#chapter-index-video-lessons .footer .container .text-muted {
     margin: 20px 0;
     text-align: center;
 }
 
-#chapter-index .navbar {
+#chapter-index-video-lessons .navbar {
     border-radius: 0px;
 }

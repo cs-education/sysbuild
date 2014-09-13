@@ -1,4 +1,4 @@
-/* global $, Sammy, sysViewModel, marked */
+/* global $, Sammy, sysViewModel, marked, videojs */
 
 window.Router = (function () {
     'use strict';
@@ -60,9 +60,13 @@ window.Router = (function () {
                 viewModel.showChapterIndex(false);
                 viewModel.showVideoLesson(true);
 
-                viewModel.currentVideoFilePrefix(videoActivity.file);
+                viewModel.currentVideoFilePrefix('sysassets/' + videoActivity.file);
                 viewModel.currentVideoTopics(videoActivity.topics || '');
                 viewModel.currentVideoDoc(marked(doc));
+
+                videojs('lesson-video', {}, function () {
+
+                });
             };
 
             if (videoActivity.docFile) {

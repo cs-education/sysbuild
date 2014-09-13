@@ -42,8 +42,8 @@
             </div>
         </div>
 
-
-        <div id="chapter-index" data-bind="visible: !playgroundVisible()">
+        <!-- Chapter index and video lession views -->
+        <div id="chapter-index-video-lessons" data-bind="visible: !playgroundVisible()">
             <div class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -77,9 +77,13 @@
 
                 <!-- Video Lesson -->
                 <div data-bind="visible: showVideoLesson">
-                    <p data-bind="text: currentVideoFilePrefix"></p>
+                    <video id="lesson-video" controls preload="none" width="960" height="540" class="video-js vjs-default-skin vjs-big-play-centered" poster="">
+                        <source data-bind="attr: {src: currentVideoFilePrefix() + '.mp4' }" type="video/mp4">
+                        <source data-bind="attr: {src: currentVideoFilePrefix() + '.webm' }" type="video/webm">
+                        <source data-bind="attr: {src: currentVideoFilePrefix() + '.ogv' }" type="video/ogg">
+                    </video>
                     <p data-bind="text: currentVideoTopics"></p>
-                    <p data-bind="text: currentVideoDoc"></p>
+                    <p data-bind="html: currentVideoDoc"></p>
                 </div>
             </div>
 
