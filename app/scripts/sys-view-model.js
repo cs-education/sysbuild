@@ -116,6 +116,18 @@ window.SysViewModel = (function () {
                 $('body').css('overflow', 'auto');
             }
         });
+
+        self.getNavUrlPrev = ko.pureComputed(function () {
+            return '#chapter/' + self.currentChapterIdx() +
+                '/section/' + self.currentSectionIdx() +
+                '/activity/' + (parseInt(self.currentActivityIdx(), 10) - 1);
+        });
+
+        self.getNavUrlNext = ko.pureComputed(function () {
+            return '#chapter/' + self.currentChapterIdx() +
+                '/section/' + self.currentSectionIdx() +
+                '/activity/' + (parseInt(self.currentActivityIdx(), 10) + 1);
+        });
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {

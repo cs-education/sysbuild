@@ -84,7 +84,7 @@ window.Router = (function () {
                     videojs('lesson-video').dispose();
                 }
 
-                $('#lesson-video-container').append($video);
+                $('#lesson-video-container').width(960).append($video);
 
                 videojs('lesson-video', {
                     controls: true,
