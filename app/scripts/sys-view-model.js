@@ -95,9 +95,14 @@ window.SysViewModel = (function () {
         };
 
         self.chapters = ko.observableArray();
-        self.currentChapter = ko.observable(0);
-        self.currentSection = ko.observable(0);
-        self.currentActivity = ko.observable(0);
+        self.currentChapterIdx = ko.observable(0);
+        self.currentChapter = ko.observable();
+
+        self.currentSectionIdx = ko.observable(0);
+        self.currentSection = ko.observable();
+
+        self.currentActivityIdx = ko.observable(0);
+        self.currentActivity = ko.observable();
 
         self.currentVideoFilePrefix = ko.observable();
         self.currentVideoTopics = ko.observable();

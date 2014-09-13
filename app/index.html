@@ -63,13 +63,13 @@
                         <div data-bind="foreach: chapters">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4><a href="#" data-bind="text: name"></a></h4>
+                                    <h4><a data-bind="text: name, attr: { href: '#chapter/' + $index() }"></a></h4>
                                 </div>
                                 <div class="panel-body">
                                     <p data-bind="text: description"></p>
                                     <h5>Sections:</h5>
                                     <ol data-bind="foreach: sections">
-                                        <li><a href="#" data-bind="text: name"></a></li>
+                                        <li><a data-bind="text: name, attr: { href: '#chapter/' + $parentContext.$index() + '/section/' + $index() }"></a></li>
                                     </ol>
                                 </div>
                             </div>
@@ -78,11 +78,8 @@
 
                     <!-- Video Lesson -->
                     <div data-bind="visible: shownPage() === 'video'">
-                        <video id="lesson-video" controls preload="none" width="960" height="540" class="video-js vjs-default-skin vjs-big-play-centered" poster="">
-                            <source data-bind="attr: {src: currentVideoFilePrefix() + '.mp4' }" type="video/mp4">
-                            <source data-bind="attr: {src: currentVideoFilePrefix() + '.webm' }" type="video/webm">
-                            <source data-bind="attr: {src: currentVideoFilePrefix() + '.ogv' }" type="video/ogg">
-                        </video>
+                        <h1 data-bind="with: currentSection"><span data-bind="text: name"></span></h1>
+                        <div id="lesson-video-container"></div>
                         <p data-bind="text: currentVideoTopics"></p>
                         <p data-bind="html: currentVideoDoc"></p>
                     </div>
