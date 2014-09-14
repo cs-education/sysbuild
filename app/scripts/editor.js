@@ -1,4 +1,4 @@
-/* global ace, sysViewModel */
+/* global $, ace, sysViewModel */
 
 window.Editor = (function () {
     'use strict';
@@ -23,12 +23,16 @@ window.Editor = (function () {
         self.backgroundAutoIndent = true;
 
         // automatically change theme upon selection
-        self.viewModel.aceTheme.subscribe(function () {
-            self.setTheme(self.viewModel.aceTheme());
+        self.viewModel.aceTheme.subscribe(function (newTheme) {
+            self.setTheme(newTheme);
         });
 
-        self.viewModel.aceFontSize.subscribe(function () {
-            self.setFontSize(self.viewModel.aceFontSize() + 'px');
+        self.viewModel.aceFontSize.subscribe(function (newFontSize) {
+            self.setFontSize(newFontSize + 'px');
+        });
+
+        self.viewModel.editorText.subscribe(function (newText) {
+            self.setText(newText);
         });
 
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500

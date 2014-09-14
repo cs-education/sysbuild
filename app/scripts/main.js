@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime */
+/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
 
 $(document).ready(function () {
     'use strict';
@@ -65,7 +65,7 @@ $(document).ready(function () {
         };
     };
 
-    manPageTokens.forEach(function (token) {
+    manPageTokens.slice(0, 0).forEach(function (token) {
         window.sysViewModel.openManPageTabs.push(getManPage(token));
     });
 
@@ -141,38 +141,15 @@ $(document).ready(function () {
         editor.autoIndentCode();
     });
 
-    var setState = function (viewModel, codeEditor, state) {
-        viewModel.challengeDoc(state.challengeDoc);
-        viewModel.gccOptions(state.gccOptions);
-        viewModel.programArgs(state.programArgs);
-        codeEditor.setText(state.editorText);
-        ko.applyBindings(window.sysViewModel);
-        initLayout();
-        $(window).trigger('resize');
-    };
+    ko.applyBindings(window.sysViewModel);
+    window.sysViewModel.shownPage.subscribe(function (newPage) {
+        if (newPage === 'playground') {
+            if (!window.layouts) {
+                window.layouts = initLayout();
+            }
+            $(window).trigger('resize');
+        }
+    });
 
-    var setInitialState = function () {
-        var state = {};
-        state.challengeDoc = state.challengeDoc || {
-            title: 'Welcome',
-            instructions: 'Welcome to this tiny but fast linux virtual machine. ' +
-                'Currently only Chrome is known to work. Other browsers will be supported in the future.'
-        };
-
-        state.gccOptions = state.gccOptions || '-lm -Wall -fmax-errors=10 -Wextra';
-        state.programArgs = state.programArgs || '';
-        state.editorText = state.editorText || '' +
-            '/*Write your C code here*/\n' +
-            '#include <stdio.h>\n' +
-            '\n' +
-            'int main() {\n' +
-            '    printf("Hello world!\\n");\n' +
-            '    return 0;\n' +
-            '}\n' +
-            '';
-
-        setState(window.sysViewModel, editor, state);
-    };
-
-    setInitialState();
+    Router.getInstance().run();
 });

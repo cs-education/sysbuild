@@ -1,7 +1,7 @@
 # Gitignore file for the sysbuild project
 # Project-specific gitignores
 app/jor1k
-
+app/sysassets
 
 # Created by the Yeoman webapp generator
 node_modules
@@ -119,7 +119,7 @@ local.properties
 # PDT-specific
 .buildpath
 
-# sbteclipse plugin 
+# sbteclipse plugin
 .target
 
 # TeXlipse plugin

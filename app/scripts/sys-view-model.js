@@ -22,14 +22,15 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.challengeDoc = ko.observable();
+        self.challengeDoc = ko.observable('');
+        self.editorText = ko.observable('');
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
-        self.gccOptions = ko.observable();
+        self.gccOptions = ko.observable('');
         self.gccOptsError = ko.observable('');
 
-        self.programArgs = ko.observable();
+        self.programArgs = ko.observable('');
         self.lastGccOutput = ko.observable('');
 
         self.compileStatus = ko.observable('Waiting');
@@ -92,7 +93,86 @@ window.SysViewModel = (function () {
 
             self.openManPageTabs.splice(index, 1);
         };
+
+        self.chapters = ko.observableArray([]);
+        self.currentChapterIdx = ko.observable(0);
+        self.currentChapter = ko.observable();
+
+        self.currentSectionIdx = ko.observable(0);
+        self.currentSection = ko.observable();
+
+        self.currentActivityIdx = ko.observable(0);
+        self.currentActivity = ko.observable();
+
+        self.currentVideoFilePrefix = ko.observable();
+        self.currentVideoTopics = ko.observable();
+        self.currentVideoDoc = ko.observable();
+
+        self.shownPage = ko.observable();
+        self.shownPage.subscribe(function (newPage) {
+            if (newPage === 'playground') {
+                $('body').css('overflow', 'hidden');
+            } else {
+                $('body').css('overflow', 'auto');
+            }
+        });
+
+        self.getNavUrlPrev = ko.pureComputed(function () {
+            var currentChapter = self.currentChapter(),
+                currentSectionIdx = parseInt(self.currentSectionIdx(), 10),
+                currentActivityIdx = parseInt(self.currentActivityIdx(), 10),
+                prevSection = currentChapter ? currentChapter.sections[currentSectionIdx - 1] : null,
+                prevSectionNumActivities = prevSection ? prevSection.activities.length : 1,
+                prevSectionIdx = currentSectionIdx,
+                prevActivityIdx = currentActivityIdx - 1;
+
+            if (prevActivityIdx < 0) {
+                prevSectionIdx -= 1;
+                prevActivityIdx = prevSectionNumActivities - 1;
+            }
+
+            return '#chapter/' + self.currentChapterIdx() +
+                '/section/' + prevSectionIdx +
+                '/activity/' + prevActivityIdx;
+        });
+
+        self.getNavUrlNext = ko.pureComputed(function () {
+            var currentSection = self.currentSection(),
+                currentSectionIdx = parseInt(self.currentSectionIdx(), 10),
+                currentActivityIdx = parseInt(self.currentActivityIdx(), 10),
+                numActivities = currentSection ? currentSection.activities.length : 1,
+                nextSectionIdx = currentSectionIdx,
+                nextActivityIdx = currentActivityIdx + 1;
+
+            if (nextActivityIdx >= numActivities) {
+                nextSectionIdx += 1;
+                nextActivityIdx = 0;
+            }
+
+            return '#chapter/' + self.currentChapterIdx() +
+                '/section/' + nextSectionIdx +
+                '/activity/' + nextActivityIdx;
+        });
+
+        self.playGroundNavPagerVisible = ko.observable();
     }
+
+    SysViewModel.prototype.setSysPlayGroundState = function (state) {
+        state = state || {};
+
+        if (state.challengeDoc) {
+            this.challengeDoc(state.challengeDoc);
+        }
+        if (state.gccOptions) {
+            this.gccOptions(state.gccOptions);
+        }
+        if (state.programArgs) {
+            this.programArgs(state.programArgs);
+        }
+        if (state.editorText) {
+            this.editorText(state.editorText);
+        }
+    };
 
     return SysViewModel;
 })();
