@@ -9,11 +9,20 @@ window.Router = (function () {
         var viewModel = sysViewModel;
 
         var populateChapters = function () {
+            var jqxhr;
             if (viewModel.chapters().length === 0) {
-                $.getJSON('sysassets/sys.json', function (data) {
+                // Load chapters
+                jqxhr = $.getJSON('sysassets/sys.json', function (data) {
                     viewModel.chapters(data.chapters);
                 });
+            } else {
+                // Chapters have already been loaded, so request cannot fail
+                jqxhr = {
+                    'done': function (cb) { cb(); },
+                    'fail': function () {}
+                };
             }
+            return jqxhr;
         };
 
         var populateCurrentNavigation = function (chapterIdx, sectionIdx, activityIdx) {
@@ -50,9 +59,7 @@ window.Router = (function () {
             };
 
             if (playActivity.docFile) {
-                $.get('sysassets/' + playActivity.docFile, function (doc) {
-                    cb(doc);
-                });
+                $.get('sysassets/' + playActivity.docFile, cb);
             } else {
                 cb(playActivity.doc || '');
             }
@@ -95,25 +102,27 @@ window.Router = (function () {
             };
 
             if (videoActivity.docFile) {
-                $.get('sysassets/' + videoActivity.docFile, function (doc) {
-                    cb(doc);
-                });
+                $.get('sysassets/' + videoActivity.docFile, cb);
             } else {
-                cb('');
+                cb(videoActivity.doc || '');
             }
         };
 
         return Sammy(function () {
             this.get('/', function () {
-                populateChapters();
-                stopVideo();
-                viewModel.currentChapterIdx(0);
-                viewModel.currentChapter(null);
-                viewModel.currentSectionIdx(0);
-                viewModel.currentSection(null);
-                viewModel.currentActivityIdx(0);
-                viewModel.currentActivity(null);
-                viewModel.shownPage('chapter_index');
+                var self = this;
+                populateChapters().done(function () {
+                    stopVideo();
+                    viewModel.currentChapterIdx(0);
+                    viewModel.currentChapter(null);
+                    viewModel.currentSectionIdx(0);
+                    viewModel.currentSection(null);
+                    viewModel.currentActivityIdx(0);
+                    viewModel.currentActivity(null);
+                    viewModel.shownPage('chapter_index');
+                }).fail(function () {
+                    self.redirect('#playground');
+                });
             });
 
             this.get('#chapter/:chapterIdx', function () {
@@ -125,18 +134,20 @@ window.Router = (function () {
             });
 
             this.get('#chapter/:chapterIdx/section/:sectionIdx/activity/:activityIdx', function () {
-                populateChapters();
-                populateCurrentNavigation(this.params.chapterIdx, this.params.sectionIdx, this.params.activityIdx);
-
-                var activity = viewModel.currentActivity();
-
-                if (activity.type === 'play') {
-                    goToPlayGround(activity);
-                } else if (activity.type === 'video') {
-                    goToVideoLesson(activity);
-                } else {
-                    this.redirect('#/');
-                }
+                var self = this;
+                populateChapters().done(function () {
+                    populateCurrentNavigation(self.params.chapterIdx, self.params.sectionIdx, self.params.activityIdx);
+                    var activity = viewModel.currentActivity();
+                    if (activity.type === 'play') {
+                        goToPlayGround(activity);
+                    } else if (activity.type === 'video') {
+                        goToVideoLesson(activity);
+                    } else {
+                        self.redirect('#/');
+                    }
+                }).fail(function () {
+                    self.redirect('#playground');
+                });
             });
 
             this.get('#playground', function () {
