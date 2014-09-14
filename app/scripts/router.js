@@ -18,13 +18,13 @@ window.Router = (function () {
             } else {
                 // Chapters have already been loaded, so request cannot fail
                 jqxhr = {
-                    'done': function (cb) {
+                    done: function (cb) {
                         if (cb) {
                             cb();
                         }
                         return this;
                     },
-                    'fail': function () {
+                    fail: function () {
                         return this;
                     }
                 };
