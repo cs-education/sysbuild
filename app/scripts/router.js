@@ -75,10 +75,7 @@ window.Router = (function () {
                 var $video = $('<video>').attr('id', 'lesson-video').
                     addClass('video-js vjs-default-skin vjs-big-play-centered');
 
-                if ($('#lesson-video').length > 0) {
-                    videojs('lesson-video').dispose();
-                }
-
+                stopVideo();
                 $('#lesson-video-container').width(960).append($video);
 
                 videojs('lesson-video', {
