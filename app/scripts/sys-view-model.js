@@ -153,6 +153,8 @@ window.SysViewModel = (function () {
                 '/section/' + nextSectionIdx +
                 '/activity/' + nextActivityIdx;
         });
+
+        self.playGroundNavPagerVisible = ko.observable();
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {

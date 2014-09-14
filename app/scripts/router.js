@@ -46,6 +46,7 @@ window.Router = (function () {
                 });
 
                 viewModel.shownPage('playground');
+                viewModel.playGroundNavPagerVisible(true);
             };
 
             if (playActivity.docFile) {
@@ -53,7 +54,7 @@ window.Router = (function () {
                     cb(doc);
                 });
             } else {
-                cb('');
+                cb(playActivity.doc || '');
             }
         };
 
@@ -136,6 +137,29 @@ window.Router = (function () {
                 } else {
                     this.redirect('#/');
                 }
+            });
+
+            this.get('#playground', function () {
+                var playActivity = {};
+                playActivity.doc =
+                    '<h2>Welcome</h2>' +
+                    '<p>Welcome to this tiny but fast linux virtual machine. ' +
+                    'Currently only Chrome is known to work. Other browsers will be supported in the future.</p>';
+
+                playActivity.gccOptions = '-lm -Wall -fmax-errors=10 -Wextra';
+                playActivity.programCommandLineArgs = '';
+                playActivity.code =
+                    '/*Write your C code here*/\n' +
+                    '#include <stdio.h>\n' +
+                    '\n' +
+                    'int main() {\n' +
+                    '    printf("Hello world!\\n");\n' +
+                    '    return 0;\n' +
+                    '}\n' +
+                    '';
+
+                goToPlayGround(playActivity);
+                viewModel.playGroundNavPagerVisible(false);
             });
         });
     }

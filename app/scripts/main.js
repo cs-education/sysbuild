@@ -141,32 +141,7 @@ $(document).ready(function () {
         editor.autoIndentCode();
     });
 
-    var setInitialState = function () {
-        var state = {};
-        state.challengeDoc = state.challengeDoc ||
-            '<h2>Welcome</h2>' +
-            '<p>Welcome to this tiny but fast linux virtual machine. ' +
-            'Currently only Chrome is known to work. Other browsers will be supported in the future.</p>';
-
-        state.gccOptions = state.gccOptions || '-lm -Wall -fmax-errors=10 -Wextra';
-        state.programArgs = state.programArgs || '';
-        state.editorText = state.editorText || '' +
-            '/*Write your C code here*/\n' +
-            '#include <stdio.h>\n' +
-            '\n' +
-            'int main() {\n' +
-            '    printf("Hello world!\\n");\n' +
-            '    return 0;\n' +
-            '}\n' +
-            '';
-
-        window.sysViewModel.setSysPlayGroundState(state);
-    };
-
-    setInitialState();
     ko.applyBindings(window.sysViewModel);
-    Router.getInstance().run();
-
     window.sysViewModel.shownPage.subscribe(function (newPage) {
         if (newPage === 'playground') {
             if (!window.layouts) {
@@ -175,4 +150,6 @@ $(document).ready(function () {
             $(window).trigger('resize');
         }
     });
+
+    Router.getInstance().run();
 });
