@@ -22,15 +22,15 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
-        self.challengeDoc = ko.observable();
-        self.editorText = ko.observable();
+        self.challengeDoc = ko.observable('');
+        self.editorText = ko.observable('');
 
         self.gccErrorCount = ko.observable(0);
         self.gccWarningCount = ko.observable(0);
-        self.gccOptions = ko.observable();
+        self.gccOptions = ko.observable('');
         self.gccOptsError = ko.observable('');
 
-        self.programArgs = ko.observable();
+        self.programArgs = ko.observable('');
         self.lastGccOutput = ko.observable('');
 
         self.compileStatus = ko.observable('Waiting');
