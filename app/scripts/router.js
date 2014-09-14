@@ -43,6 +43,12 @@ window.Router = (function () {
             viewModel.currentActivity(activity);
         };
 
+        var stopVideo = function () {
+            if ($('#lesson-video').length > 0) {
+                videojs('lesson-video').dispose();
+            }
+        };
+
         var goToPlayGround = function (playActivity) {
             stopVideo();
 
@@ -59,15 +65,9 @@ window.Router = (function () {
             };
 
             if (playActivity.docFile) {
-                $.get('sysassets/' + playActivity.docFile, cb);
+                $.get('sysassets/' + playActivity.docFile).done(cb).fail(function () { cb(playActivity.doc || ''); });
             } else {
                 cb(playActivity.doc || '');
-            }
-        };
-
-        var stopVideo = function () {
-            if ($('#lesson-video').length > 0) {
-                videojs('lesson-video').dispose();
             }
         };
 
@@ -102,7 +102,7 @@ window.Router = (function () {
             };
 
             if (videoActivity.docFile) {
-                $.get('sysassets/' + videoActivity.docFile, cb);
+                $.get('sysassets/' + videoActivity.docFile).done(cb).fail(function () { cb(videoActivity.doc || ''); });
             } else {
                 cb(videoActivity.doc || '');
             }
