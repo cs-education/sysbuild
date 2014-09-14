@@ -94,7 +94,7 @@ window.SysViewModel = (function () {
             self.openManPageTabs.splice(index, 1);
         };
 
-        self.chapters = ko.observableArray();
+        self.chapters = ko.observableArray([]);
         self.currentChapterIdx = ko.observable(0);
         self.currentChapter = ko.observable();
 
@@ -118,15 +118,40 @@ window.SysViewModel = (function () {
         });
 
         self.getNavUrlPrev = ko.pureComputed(function () {
+            var currentChapter = self.currentChapter(),
+                currentSectionIdx = parseInt(self.currentSectionIdx(), 10),
+                currentActivityIdx = parseInt(self.currentActivityIdx(), 10),
+                prevSection = currentChapter ? currentChapter.sections[currentSectionIdx - 1] : null,
+                prevSectionNumActivities = prevSection ? prevSection.activities.length : 1,
+                prevSectionIdx = currentSectionIdx,
+                prevActivityIdx = currentActivityIdx - 1;
+
+            if (prevActivityIdx < 0) {
+                prevSectionIdx -= 1;
+                prevActivityIdx = prevSectionNumActivities - 1;
+            }
+
             return '#chapter/' + self.currentChapterIdx() +
-                '/section/' + self.currentSectionIdx() +
-                '/activity/' + (parseInt(self.currentActivityIdx(), 10) - 1);
+                '/section/' + prevSectionIdx +
+                '/activity/' + prevActivityIdx;
         });
 
         self.getNavUrlNext = ko.pureComputed(function () {
+            var currentSection = self.currentSection(),
+                currentSectionIdx = parseInt(self.currentSectionIdx(), 10),
+                currentActivityIdx = parseInt(self.currentActivityIdx(), 10),
+                numActivities = currentSection ? currentSection.activities.length : 1,
+                nextSectionIdx = currentSectionIdx,
+                nextActivityIdx = currentActivityIdx + 1;
+
+            if (nextActivityIdx >= numActivities) {
+                nextSectionIdx += 1;
+                nextActivityIdx = 0;
+            }
+
             return '#chapter/' + self.currentChapterIdx() +
-                '/section/' + self.currentSectionIdx() +
-                '/activity/' + (parseInt(self.currentActivityIdx(), 10) + 1);
+                '/section/' + nextSectionIdx +
+                '/activity/' + nextActivityIdx;
         });
     }
 

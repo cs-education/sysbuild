@@ -34,11 +34,6 @@ window.Router = (function () {
             viewModel.currentActivity(activity);
         };
 
-        var goToChapterIndex = function () {
-            stopVideo();
-            viewModel.shownPage('chapter_index');
-        };
-
         var goToPlayGround = function (playActivity) {
             stopVideo();
 
@@ -113,7 +108,14 @@ window.Router = (function () {
         return Sammy(function () {
             this.get('/', function () {
                 populateChapters();
-                goToChapterIndex();
+                stopVideo();
+                viewModel.currentChapterIdx(0);
+                viewModel.currentChapter(null);
+                viewModel.currentSectionIdx(0);
+                viewModel.currentSection(null);
+                viewModel.currentActivityIdx(0);
+                viewModel.currentActivity(null);
+                viewModel.shownPage('chapter_index');
             });
 
             this.get('#chapter/:chapterIdx', function () {
@@ -135,7 +137,7 @@ window.Router = (function () {
                 } else if (activity.type === 'video') {
                     goToVideoLesson(activity);
                 } else {
-                    goToChapterIndex();
+                    this.redirect('#/');
                 }
             });
         });
