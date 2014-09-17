@@ -51,7 +51,8 @@
                             <a class="navbar-brand" href="#">System Programming</a>
                         </div>
                         <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav navbar-right">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Lessons</a></li>
                                 <li><a href="#playground">Playground</a></li>
                             </ul>
                         </div><!--/.nav-collapse -->
@@ -121,6 +122,10 @@
                             <a class="navbar-brand" href="#">System Programming</a>
                         </div>
                         <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li data-bind="css: { active: playGroundNavPagerVisible }"><a href="#">Lessons</a></li>
+                                <li data-bind="css: { active: !playGroundNavPagerVisible() }"><a href="#playground">Playground</a></li>
+                            </ul>
                             <ul class="nav navbar-nav navbar-right" data-bind="visible: playGroundNavPagerVisible">
                                 <li class="previous">
                                     <a data-bind="attr: { href: getNavUrlPrev }">&larr; Previous</a>
