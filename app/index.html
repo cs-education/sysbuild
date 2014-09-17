@@ -137,7 +137,7 @@
                     <div id="editor-tabs-bar">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Code</a></li>
+                            <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>&nbsp;Code</a></li>
                             <li><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man pages</a></li>
                             <!-- ko foreach: openManPageTabs -->
                             <li>
@@ -175,10 +175,10 @@
                                             </button>
                                         </div>
                                         <div class="col-md-2">
-                                            <button id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
-                                                    data-toggle="popover" data-container="body" data-html="true" data-placement="bottom">
+                                            <a href="#" tabindex="0" id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
+                                               data-toggle="popover" data-trigger="focus" data-container="body" data-html="true" data-placement="bottom">
                                                 <span class="glyphicon glyphicon-cog"></span> Settings
-                                            </button>
+                                            </a>
                                         </div>
                                     </form>
                                 </div>
