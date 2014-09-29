@@ -6,7 +6,7 @@
     position: relative;
     *z-index: 1;
     width: 600px;
-    margin: 50px auto 0 auto;
+    margin: 20px auto 0 auto;
     padding: 15px;
     text-align: left;
     background-color: #0097cf;
@@ -48,7 +48,7 @@
 }
 
 .tt-dropdown-menu {
-    width: 600px;
+    width: 574px;
     margin-top: 12px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -72,20 +72,17 @@
     border-top: 1px solid #ccc;
 }
 
-.tt-suggestions .repo-language {
-    float: right;
-    font-style: italic;
-}
-
-.tt-suggestions .repo-name {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.tt-suggestions .repo-description {
-    margin: 0;
-}
-
 .twitter-typeahead .tt-suggestion.tt-cursor {
     color: #03739c;
+}
+
+#man-pages-search-typeahead .empty-message {
+    padding: 5px 10px;
+    text-align: center;
+}
+
+#man-pages-search-title {
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 20px;
 }

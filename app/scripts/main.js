@@ -84,9 +84,26 @@ $(document).ready(function () {
     $manPagesTypeahead.typeahead({
         highlight: true
     }, {
-        name: 'manpages',
         displayKey: 'name',
-        source: manPages.ttAdapter()
+        source: manPages.ttAdapter(),
+        templates: {
+            empty: [
+                '<div class="empty-message">',
+                'unable to find any man pages that match the current query',
+                '</div>'
+            ].join('\n'),
+            // Typeahead Docs (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets):
+            // "Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string."
+            // So instead of using some templating library, using a simple function to act as a compiled template
+            suggestion: function (context) {
+                return [
+                    '<div>',
+                    '<p><strong>' + context.name + '</strong><span class="pull-right"> Section ' + context.section + '</span>' + '</p>',
+                    '<p>' + context.summary + '</p>',
+                    '</div>'
+                ].join('\n');
+            }
+        }
     });
 
     var resizeTabs = function () {
