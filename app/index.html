@@ -142,10 +142,18 @@
                     <div id="editor-tabs-bar">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>&nbsp;Code</a></li>
-                            <li class="hidden"><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man pages</a></li>
+                            <li data-bind="css: { active: currentActiveTabIndex() === -2}">
+                                <a data-bind="click: function () { currentActiveTabIndex(-2); }" href="#editor-container" role="tab" data-toggle="tab">
+                                    <span class="glyphicon glyphicon-file"></span>&nbsp;Code
+                                </a>
+                            </li>
+                            <li data-bind="css: { active: currentActiveTabIndex() === -1}">
+                                <a data-bind="click: function () { currentActiveTabIndex(-1); }" href="#man-pages-index" role="tab" data-toggle="tab">
+                                    <span class="glyphicon glyphicon-globe"></span>&nbsp;Man page search
+                                </a>
+                            </li>
                             <!-- ko foreach: openManPageTabs -->
-                            <li>
+                            <li data-bind="css: { active: $parent.currentActiveTabIndex() === $index()}, click: function () { $parent.currentActiveTabIndex($index()); }">
                                 <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
                                     <span class="glyphicon glyphicon-globe"></span>
                                     &nbsp;<span data-bind="text: tabName"></span>&nbsp;
@@ -156,7 +164,7 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div id="editor-container" class="tab-pane active">
+                        <div id="editor-container" class="tab-pane" data-bind="css: { active: currentActiveTabIndex() === -2}">
                             <div id="editor-opts-container">
                                 <div class="navbar navbar-default">
                                     <form class="navbar-form row">
@@ -208,13 +216,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane man-page-tab" id="man-pages-index">
-                            <iframe src="http://man7.org/linux/man-pages/index.html">
-                                <p>Your browser does not support iframes.</p>
-                            </iframe>
+                        <div class="tab-pane man-page-tab" id="man-pages-index" data-bind="css: { active: currentActiveTabIndex() === -1}">
+                            <h3 id="man-pages-search-title">Search Linux Man Pages</h3>
+                            <div id="man-pages-search-typeahead">
+                                <input class="typeahead" type="text" placeholder="Linux Man Pages">
+                            </div>
+                            <button type="button" id="man-page-open-btn" class="btn btn-lg btn-primary center-block">Open Man Page</button>
                         </div>
                         <!-- ko foreach: openManPageTabs -->
-                        <div class="tab-pane man-page-tab" data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml"></div>
+                        <div class="tab-pane man-page-tab"
+                             data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml, css: { active: $parent.currentActiveTabIndex() === $index()}"></div>
                         <!-- /ko -->
                     </div>
                 </div>
@@ -272,6 +283,7 @@
         <script src="../bower_components/moment/moment.js"></script>
         <script src="../bower_components/sammy/lib/sammy.js"></script>
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
+        <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
         <!-- endbower -->
         <script src="../bower_components/marked/lib/marked.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>

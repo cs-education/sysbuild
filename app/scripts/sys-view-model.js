@@ -80,16 +80,18 @@ window.SysViewModel = (function () {
         });
 
         self.openManPageTabs = ko.observableArray();
+        self.currentActiveTabIndex = ko.observable(-2);
         self.closeManPageTab = function (tab) {
-            var index = self.openManPageTabs.indexOf(tab);
-            var previousTabContentSelector;
-            if (index >= 1) {
-                previousTabContentSelector = '#man-page-tab-' + (index - 1);
-            } else {
-                previousTabContentSelector = '#man-pages-index';
+            var previousTabIndex,
+                index = self.openManPageTabs.indexOf(tab);
+            if (index === self.currentActiveTabIndex()) {
+                if (index >= 1) {
+                    previousTabIndex = index - 1;
+                } else {
+                    previousTabIndex = -1;
+                }
+                self.currentActiveTabIndex(previousTabIndex);
             }
-            $('a[href="' + previousTabContentSelector + '"]').parent().addClass('active');
-            $(previousTabContentSelector).addClass('active');
 
             self.openManPageTabs.splice(index, 1);
         };
