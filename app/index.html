@@ -209,9 +209,9 @@
                             </div>
                         </div>
                         <div class="tab-pane man-page-tab" id="man-pages-index">
-                            <iframe src="http://man7.org/linux/man-pages/index.html">
-                                <p>Your browser does not support iframes.</p>
-                            </iframe>
+                            <div id="man-pages-search-typeahead">
+                                <input class="typeahead" type="text" placeholder="Linux Man Pages">
+                            </div>
                         </div>
                         <!-- ko foreach: openManPageTabs -->
                         <div class="tab-pane man-page-tab" data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml"></div>

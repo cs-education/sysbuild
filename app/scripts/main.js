@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
+/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
 
 $(document).ready(function () {
     'use strict';
@@ -67,6 +67,26 @@ $(document).ready(function () {
 
     manPageTokens.slice(0, 0).forEach(function (token) {
         window.sysViewModel.openManPageTabs.push(getManPage(token));
+    });
+
+    var manPages = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+            url: 'sysassets/man_pages/sys_man_page_index.min.json'
+        }
+    });
+
+    manPages.initialize();
+
+    var $manPagesTypeahead = $('#man-pages-search-typeahead').children('.typeahead');
+    $manPagesTypeahead.typeahead({
+        highlight: true
+    }, {
+        name: 'manpages',
+        displayKey: 'name',
+        source: manPages.ttAdapter()
     });
 
     var resizeTabs = function () {
