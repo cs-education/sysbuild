@@ -66,7 +66,8 @@ window.Router = (function () {
                     programArgs: playActivity.programCommandLineArgs || '',
                     editorText: playActivity.code || ''
                 });
-
+                viewModel.currentActiveTabIndex(-2); // Show code editor
+                viewModel.openManPageTabs([]); // Close previously open man page tabs
                 viewModel.shownPage('playground');
                 viewModel.playGroundNavPagerVisible(true);
             };
