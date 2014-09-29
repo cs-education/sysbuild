@@ -51,26 +51,8 @@ $(document).ready(function () {
     var editor = new Editor('code');
     var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
 
-    var manPageTokens = [
-        { token: 'accept', display: 'accept(2)', url: 'http://man7.org/linux/man-pages/man2/accept.2.html' },
-        { token: 'printf', display: 'printf(3)', url: 'http://man7.org/linux/man-pages/man3/printf.3.html' },
-        { token: 'write', display: 'write(2)', url: 'http://man7.org/linux/man-pages/man2/write.2.html' },
-        { token: 'select', display: 'select(2)', url: 'http://man7.org/linux/man-pages/man2/select.2.html' }
-    ];
-
-    var getManPage = function (manPageToken) {
-        return {
-            tabName: manPageToken.display,
-            tabHtml: '<iframe style="width: 100%; height: 100%" src="' + manPageToken.url + '"></iframe>'
-        };
-    };
-
-    manPageTokens.slice(0, 0).forEach(function (token) {
-        window.sysViewModel.openManPageTabs.push(getManPage(token));
-    });
-
     var manPages = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'summary'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
@@ -80,8 +62,9 @@ $(document).ready(function () {
 
     manPages.initialize();
 
-    var $manPagesTypeahead = $('#man-pages-search-typeahead').children('.typeahead');
-    $manPagesTypeahead.typeahead({
+    var lastSelectedManPage = null;
+
+    $('#man-pages-search-typeahead').children('.typeahead').typeahead({
         highlight: true
     }, {
         displayKey: 'name',
@@ -104,14 +87,32 @@ $(document).ready(function () {
                 ].join('\n');
             }
         }
+    }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
+        lastSelectedManPage = suggestion;
+    });
+
+    var getManPageTabData = function (manPage) {
+        var name = manPage.name;
+        var section = manPage.section;
+        var url = 'sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
+        return {
+            tabName: name + ' (' + section + ')',
+            tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'
+        };
+    };
+
+    $('#man-page-open-btn').click(function () {
+        if (lastSelectedManPage) {
+            window.sysViewModel.openManPageTabs.push(getManPageTabData(lastSelectedManPage));
+        }
     });
 
     var resizeTabs = function () {
         window.setTimeout(function () {
             $('.tab-content').height(
-                    $('#code-container').height() -
-                    $('#editor-tabs-bar').height() -
-                    5
+                $('#code-container').height() -
+                $('#editor-tabs-bar').height() -
+                5
             );
         }, 500);
     };
