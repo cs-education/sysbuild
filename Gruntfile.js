@@ -320,7 +320,8 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.webp',
                         '{,*/}*.html',
-                        'styles/fonts/{,*/}*.*'
+                        'styles/fonts/{,*/}*.*',
+                        '!sysassets/**'
                     ]
                 }, {
                     expand: true,
@@ -524,7 +525,7 @@ module.exports = function (grunt) {
             grunt.task.run('includes:googleAnalytics');
         }
 
-        grunt.task.run('copy:sysassets');
+        //grunt.task.run('copy:sysassets');
 
         grunt.config('buildcontrol', {
             options: buildcontrolConfig.options,
