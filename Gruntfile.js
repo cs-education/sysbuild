@@ -374,6 +374,13 @@ module.exports = function (grunt) {
                 cwd: 'bower_components/jor1k/',
                 src: ['**', '!.git'],
                 dest: '<%= config.app %>/jor1k/'
+            },
+            sysassets: {
+                expand: true,
+                dot: true,
+                cwd: '<%= config.app %>/sysassets/',
+                src: ['chapters/**', 'man_pages/**', 'mp4/**', '!**/.git**', '!**/*.json', '**/*.min.json'],
+                dest: '<%= config.dist %>/sysassets/'
             }
         },
 
