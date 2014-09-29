@@ -64,6 +64,25 @@ $(document).ready(function () {
 
     var lastSelectedManPage = null;
 
+    var getManPageTabData = function (manPage) {
+        var name = manPage.name;
+        var section = manPage.section;
+        var url = 'sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
+        return {
+            tabName: name + ' (' + section + ')',
+            tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'
+        };
+    };
+
+    var openManPage = function () {
+        var openManPageTabs;
+        if (lastSelectedManPage) {
+            openManPageTabs = window.sysViewModel.openManPageTabs;
+            openManPageTabs.push(getManPageTabData(lastSelectedManPage));
+            window.sysViewModel.currentActiveTabIndex(openManPageTabs().length - 1);
+        }
+    };
+
     $('#man-pages-search-typeahead').children('.typeahead').typeahead({
         highlight: true
     }, {
@@ -89,23 +108,26 @@ $(document).ready(function () {
         }
     }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
         lastSelectedManPage = suggestion;
-    });
-
-    var getManPageTabData = function (manPage) {
-        var name = manPage.name;
-        var section = manPage.section;
-        var url = 'sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
-        return {
-            tabName: name + ' (' + section + ')',
-            tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'
-        };
-    };
-
-    $('#man-page-open-btn').click(function () {
-        if (lastSelectedManPage) {
-            window.sysViewModel.openManPageTabs.push(getManPageTabData(lastSelectedManPage));
+    }).keypress(function (e) {
+        if (e.which === 13) {
+            // Enter key pressed
+            openManPage();
+        } else {
+            // User typed in something
+            // Discard the last selected man page because it should be saved only when
+            // the user autocompleted the typeahead hint or used a suggestion
+            lastSelectedManPage = null;
+        }
+    }).keydown(function (e) {
+        if (e.which === 8) {
+            // Backspace pressed
+            // keypress does not fire for Backspace in Chrome
+            // (http://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
+            lastSelectedManPage = null;
         }
     });
+
+    $('#man-page-open-btn').click(openManPage);
 
     var resizeTabs = function () {
         window.setTimeout(function () {
