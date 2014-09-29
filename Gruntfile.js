@@ -524,6 +524,8 @@ module.exports = function (grunt) {
             grunt.task.run('includes:googleAnalytics');
         }
 
+        grunt.task.run('copy:sysassets');
+
         grunt.config('buildcontrol', {
             options: buildcontrolConfig.options,
             pages: buildcontrolConfig[target]
