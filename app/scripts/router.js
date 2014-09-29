@@ -12,7 +12,7 @@ window.Router = (function () {
             var jqxhr;
             if (viewModel.chapters().length === 0) {
                 // Load chapters
-                jqxhr = $.getJSON('sysassets/sys.json', function (data) {
+                jqxhr = $.getJSON('sysassets/sys.min.json', function (data) {
                     viewModel.chapters(data.chapters);
                 });
             } else {

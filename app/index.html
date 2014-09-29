@@ -143,7 +143,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="active"><a href="#editor-container" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>&nbsp;Code</a></li>
-                            <li class="hidden"><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man pages</a></li>
+                            <li><a href="#man-pages-index" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span>&nbsp;Man page search</a></li>
                             <!-- ko foreach: openManPageTabs -->
                             <li>
                                 <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
@@ -272,6 +272,7 @@
         <script src="../bower_components/moment/moment.js"></script>
         <script src="../bower_components/sammy/lib/sammy.js"></script>
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
+        <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
         <!-- endbower -->
         <script src="../bower_components/marked/lib/marked.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
