@@ -83,7 +83,7 @@ window.Router = (function () {
             var cb = function (doc) {
                 viewModel.shownPage('video');
 
-                var currentVideoFilePrefix = 'sysassets/' + videoActivity.file;
+                var currentVideoFilePrefix = 'https://angrave.github.io/sysassets/' + videoActivity.file;
                 viewModel.currentVideoFilePrefix(currentVideoFilePrefix);
                 viewModel.currentVideoTopics(videoActivity.topics || '');
                 viewModel.currentVideoDoc(marked(doc));

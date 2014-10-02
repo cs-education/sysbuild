@@ -67,7 +67,7 @@ $(document).ready(function () {
     var getManPageTabData = function (manPage) {
         var name = manPage.name;
         var section = manPage.section;
-        var url = 'sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
+        var url = 'https://angrave.github.io/sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
         return {
             tabName: name + ' (' + section + ')',
             tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'
