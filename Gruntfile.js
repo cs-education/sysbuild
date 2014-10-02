@@ -380,7 +380,7 @@ module.exports = function (grunt) {
                 expand: true,
                 dot: true,
                 cwd: '<%= config.app %>/sysassets/',
-                src: ['chapters/**', 'man_pages/**', 'mp4/**', '!**/.git**', '!**/*.json', '**/*.min.json'],
+                src: ['chapters/**', '**/*.min.json'],
                 dest: '<%= config.dist %>/sysassets/'
             }
         },
@@ -525,7 +525,7 @@ module.exports = function (grunt) {
             grunt.task.run('includes:googleAnalytics');
         }
 
-        //grunt.task.run('copy:sysassets');
+        grunt.task.run('copy:sysassets');
 
         grunt.config('buildcontrol', {
             options: buildcontrolConfig.options,
