@@ -434,17 +434,6 @@ module.exports = function (grunt) {
         },
 
         includes: {
-            analyticsConfigProd: {
-                options: {
-                    includeRegexp: /(\s*)<!-- include:google_analytics_config\s+"(\S+)" -->\s*/,
-                    duplicates: false
-                },
-                files: [{
-                    cwd: '<%= config.dist %>',
-                    src: 'index.html',
-                    dest: '<%= config.dist %>'
-                }]
-            }
         }
     });
 
@@ -519,10 +508,6 @@ module.exports = function (grunt) {
         if (targets.indexOf(target) === -1) {
             grunt.log.error('Please specify a valid target. Valid targets are: ' + targets.join(', ') + '.');
             return false;
-        }
-
-        if (target === 'angraveprod') {
-            grunt.task.run('includes:analyticsConfigProd');
         }
 
         grunt.task.run('copy:sysassets');
