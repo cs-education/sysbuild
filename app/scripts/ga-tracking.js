@@ -13,7 +13,7 @@ window.Tracker = (function () {
     };
 
     function Tracker() {
-        // Disable tracking if the opt-out cookie exists or this is not a production application
+        // Disable tracking if the opt-out cookie exists or this is not a production environment
         if (document.cookie.indexOf('disableTracking=true') > -1 || !isProduction()) {
             window['ga-disable-' + angraveGaWebPropertyId] = true;
             window['ga-disable-' + neelabhgGaWebPropertyId] = true;
