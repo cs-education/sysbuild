@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router, Tracker */
+/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
 
 $(document).ready(function () {
     'use strict';
@@ -203,7 +203,6 @@ $(document).ready(function () {
 
     ko.applyBindings(window.sysViewModel);
     window.sysViewModel.shownPage.subscribe(function (newPage) {
-        Tracker.getInstance().trackPageView();
         if (newPage === 'playground') {
             if (!window.layouts) {
                 window.layouts = initLayout();

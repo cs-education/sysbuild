@@ -1,4 +1,4 @@
-/* global $, Sammy, sysViewModel, marked, videojs */
+/* global $, Sammy, sysViewModel, marked, videojs, Tracker */
 
 window.Router = (function () {
     'use strict';
@@ -70,6 +70,7 @@ window.Router = (function () {
                 viewModel.openManPageTabs([]); // Close previously open man page tabs
                 viewModel.shownPage('playground');
                 viewModel.playGroundNavPagerVisible(true);
+                Tracker.getInstance().trackPageView();
             };
 
             if (playActivity.docFile) {
@@ -82,6 +83,7 @@ window.Router = (function () {
         var goToVideoLesson = function (videoActivity) {
             var cb = function (doc) {
                 viewModel.shownPage('video');
+                Tracker.getInstance().trackPageView();
 
                 var currentVideoFilePrefix = 'https://angrave.github.io/sysassets/' + videoActivity.file;
                 viewModel.currentVideoFilePrefix(currentVideoFilePrefix);
@@ -137,6 +139,7 @@ window.Router = (function () {
                     viewModel.currentActivityIdx(0);
                     viewModel.currentActivity(null);
                     viewModel.shownPage('chapter_index');
+                    Tracker.getInstance().trackPageView();
                 }).fail(function () {
                     self.redirect('#playground');
                 });
