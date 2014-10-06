@@ -5,35 +5,58 @@ window.Tracker = (function () {
     'use strict';
     var instance;
 
-    var angraveGaWebPropertyId = 'UA-42515111-2',
-        neelabhgGaWebPropertyId = 'UA-39700861-4';
+    var angraveProdGaWebPropertyId = 'UA-42515111-2',
+        neelabhgProdGaWebPropertyId = 'UA-39700861-4',
+        neelabhgStagingGaWebPropertyId = 'UA-39700861-5';
 
-    var isProduction = function () {
-        return window.location.hostname + window.location.pathname === 'angrave.github.io/sys/';
+    var getEnvironment = function () {
+        var loc = window.location.hostname + window.location.pathname;
+        if (loc === 'angrave.github.io/sys/') {
+            return 'prod';
+        } else if (loc === 'neelabhg.github.io/sys-staging/') {
+            return 'staging';
+        } else {
+            return 'dev';
+        }
     };
 
     function Tracker() {
-        // Disable tracking if the opt-out cookie exists or this is not a production environment
-        if (document.cookie.indexOf('disableTracking=true') > -1 || !isProduction()) {
-            window['ga-disable-' + angraveGaWebPropertyId] = true;
-            window['ga-disable-' + neelabhgGaWebPropertyId] = true;
+        var env = getEnvironment();
+        // Disable tracking if the opt-out cookie exists.
+        if (document.cookie.indexOf('disableTracking=true') > -1) {
+            this.disableTracking();
         }
 
         // Create the tracker objects
-        ga('create', angraveGaWebPropertyId, 'auto', {'name': 'angrave'});
-        ga('create', neelabhgGaWebPropertyId, 'auto', {'name': 'neelabhg'});
+        if (env === 'prod') {
+            ga('create', angraveProdGaWebPropertyId, 'auto', {'name': 'angrave'});
+            ga('create', neelabhgProdGaWebPropertyId, 'auto', {'name': 'neelabhg'});
+        } else if (env === 'staging') {
+            ga('create', neelabhgStagingGaWebPropertyId, 'auto', {'name': 'neelabhgStaging'});
+        }
     }
 
+    /**
+     * Disable tracking on the current page
+     * https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#optout
+     */
+    Tracker.prototype.disableTracking = function () {
+        window['ga-disable-' + angraveProdGaWebPropertyId] = true;
+        window['ga-disable-' + neelabhgProdGaWebPropertyId] = true;
+        window['ga-disable-' + neelabhgStagingGaWebPropertyId] = true;
+    };
+
     Tracker.prototype.isTrackingEnabled = function () {
-        return !(window['ga-disable-' + angraveGaWebPropertyId] && window['ga-disable-' + neelabhgGaWebPropertyId]);
+        return !(window['ga-disable-' + angraveProdGaWebPropertyId] &&
+                 window['ga-disable-' + neelabhgProdGaWebPropertyId] &&
+                 window['ga-disable-' + neelabhgStagingGaWebPropertyId]);
     };
 
     // Opt-out function
     Tracker.prototype.optout = function () {
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced
+        // https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#optout
         document.cookie = 'disableTracking' + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-        window['ga-disable-' + angraveGaWebPropertyId] = true;
-        window['ga-disable-' + neelabhgGaWebPropertyId] = true;
+        this.disableTracking();
     };
 
     /**
@@ -46,10 +69,12 @@ window.Tracker = (function () {
      */
     Tracker.prototype.trackEvent = function () {
         var args = Array.prototype.slice.call(arguments);
-        args.unshift('angrave.send', 'event');
-        ga.apply(null, args);
-        args[0] = 'neelabhg.send';
-        ga.apply(null, args);
+        args.unshift('event');
+        ga(function () {
+            ga.getAll().forEach(function (tracker) {
+                tracker.send.apply(null, args);
+            });
+        });
     };
 
     /**
@@ -66,8 +91,11 @@ window.Tracker = (function () {
         if (title) {
             properties.title = title;
         }
-        ga('angrave.send', 'pageview', properties);
-        ga('neelabhg.send', 'pageview', properties);
+        ga(function () {
+            ga.getAll().forEach(function (tracker) {
+                tracker.send.apply(null, ['pageview', properties]);
+            });
+        });
     };
 
     return {
