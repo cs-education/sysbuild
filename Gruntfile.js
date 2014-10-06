@@ -434,9 +434,9 @@ module.exports = function (grunt) {
         },
 
         includes: {
-            googleAnalytics: {
+            analyticsConfigProd: {
                 options: {
-                    includeRegexp: /(\s*)<!-- include:google_analytics\s+"(\S+)" -->\s*/,
+                    includeRegexp: /(\s*)<!-- include:google_analytics_config\s+"(\S+)" -->\s*/,
                     duplicates: false
                 },
                 files: [{
@@ -522,7 +522,7 @@ module.exports = function (grunt) {
         }
 
         if (target === 'angraveprod') {
-            grunt.task.run('includes:googleAnalytics');
+            grunt.task.run('includes:analyticsConfigProd');
         }
 
         grunt.task.run('copy:sysassets');
