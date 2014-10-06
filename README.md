@@ -14,7 +14,8 @@ sysbuild/
 │   ├── jor1k/                The jor1k project source copied by grunt during setup
 │   ├── jor1k_hd_images/      Disk images for the Virtual Machine
 │   ├── scripts/              Javascript files
-│   └── styles/               SASS and CSS files
+│   ├── styles/               SASS and CSS files
+│   └── sysassets/            Files from the sysassets project copied by grunt during setup
 ├── dist/                     The distributable application output by the build process
 ├── bower_components/         Dependencies installed by Bower
 ├── node_modules/             Dependencies installed by npm
