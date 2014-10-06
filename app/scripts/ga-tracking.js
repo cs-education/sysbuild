@@ -61,10 +61,10 @@ window.Tracker = (function () {
     Tracker.prototype.trackPageView = function (page, title) {
         // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
         var properties = {
-            'page': page || window.location.pathname + window.location.search + window.location.hash
+            page: page || window.location.pathname + window.location.search + window.location.hash
         };
         if (title) {
-            properties['title'] = title;
+            properties.title = title;
         }
         ga('angrave.send', 'pageview', properties);
         ga('neelabhg.send', 'pageview', properties);

@@ -119,6 +119,15 @@ window.Router = (function () {
         return Sammy(function () {
             this.get('/', function () {
                 var self = this;
+
+                /* Urls /, /# and /#/ are treated the same and trigger this route,
+                 * but /# and /#/ have different location.hash values.
+                 * So, if this route was triggered by going to /#/, the following statement
+                 * changes the url to /#, so that a consistent page url can be used,
+                 * especially when tracking page views.
+                 */
+                window.location.hash = '';
+
                 populateChapters().done(function () {
                     stopVideo();
                     viewModel.currentChapterIdx(0);
