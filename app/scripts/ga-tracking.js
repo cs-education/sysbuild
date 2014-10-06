@@ -72,7 +72,7 @@ window.Tracker = (function () {
         args.unshift('event');
         ga(function () {
             ga.getAll().forEach(function (tracker) {
-                tracker.send.apply(null, args);
+                tracker.send.apply(tracker, args);
             });
         });
     };
@@ -93,7 +93,7 @@ window.Tracker = (function () {
         }
         ga(function () {
             ga.getAll().forEach(function (tracker) {
-                tracker.send.apply(null, ['pageview', properties]);
+                tracker.send('pageview', properties);
             });
         });
     };
