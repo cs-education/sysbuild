@@ -4,7 +4,7 @@ Source code for the Linux-In-The-Browser project used
 in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
 at [UIUC](http://illinois.edu/). View it live [here](http://angrave.github.io/sys/).
 
-Use the [issue tracker](https://github.com/angrave/sysbuild/issues) to submit bug reports and feature requests.
+Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
 If you would like to work on this project, continue reading to get started.
 
 ## Project folder structure ##
@@ -28,7 +28,7 @@ sysbuild/
 1. Install [node.js](http://nodejs.org/). Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
 
 2. Clone this git repository.  
-`git clone https://github.com/angrave/sysbuild.git`
+`git clone https://github.com/cs-education/sysbuild.git`
 
 3. Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/).
 You might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
@@ -75,7 +75,7 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 Wait for someone to review your code and merge your changes. Make sure you followed the code guidelines below.
 
 ## Code guidelines ##
-* We have an [editor config](https://github.com/angrave/sysbuild/blob/master/.editorconfig) file for maintaining a consistent coding style.
+* We have an [editor config](https://github.com/cs-education/sysbuild/blob/master/.editorconfig) file for maintaining a consistent coding style.
   Read more and download plugins at <http://editorconfig.org>.
 * Please include tests whenever possible.
 * Keep accessibility in mind when writing HTML.
@@ -86,14 +86,14 @@ Wait for someone to review your code and merge your changes. Make sure you follo
 
 ## Deploying ##
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
-The production repository is <https://github.com/angrave/sys> and the staging repository is <https://github.com/neelabhg/sys-staging>.
+The production repository is <https://github.com/angrave/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
 You will need push access to the appropriate repository before you can deploy.
 
 1. Build the distributable project (output in the `dist/` folder).  
 `grunt build`
 
-2. Deploy to [staging](http://neelabhg.github.io/sys-staging/).  
-`grunt deploy:neelabhgstaging`
+2. Deploy to [staging](http://cs-education.github.io/sys-staging/).  
+`grunt deploy:staging`
 
 4. Deploy to [production](http://angrave.github.io/sys/).  
 `grunt deploy:angraveprod`
@@ -105,7 +105,7 @@ Neelabh Gupta [github.com/neelabhg](http://github.com/neelabhg)
 The Virtual Machine is powered by the [jor1k](https://github.com/angrave/jor1k) project.
 
 ## Licence ##
-See [LICENSE.txt](https://github.com/angrave/sysbuild/blob/master/LICENSE.txt).  
+See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).  
 
 ### Open source licences ###
 jor1k is distributed under the terms of the [GNU General Public License v3 (GPLv3)](https://github.com/angrave/jor1k/blob/master/LICENSE.md).  

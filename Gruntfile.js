@@ -29,15 +29,9 @@ module.exports = function (grunt) {
             commit: true,
             push: true
         },
-        neelabhgstaging: {
+        staging: {
             options: {
-                remote: 'https://github.com/neelabhg/sys-staging',
-                branch: 'gh-pages'
-            }
-        },
-        neelabhgprod: {
-            options: {
-                remote: 'https://github.com/neelabhg/sys',
+                remote: 'https://github.com/cs-education/sys-staging',
                 branch: 'gh-pages'
             }
         },
@@ -504,7 +498,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
 
-        var targets = ['neelabhgprod', 'angraveprod', 'neelabhgstaging'];
+        var targets = ['angraveprod', 'staging'];
         if (targets.indexOf(target) === -1) {
             grunt.log.error('Please specify a valid target. Valid targets are: ' + targets.join(', ') + '.');
             return false;

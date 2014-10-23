@@ -13,7 +13,7 @@ window.Tracker = (function () {
         var loc = window.location.hostname + window.location.pathname;
         if (loc === 'angrave.github.io/sys/') {
             return 'prod';
-        } else if (loc === 'neelabhg.github.io/sys-staging/') {
+        } else if (loc === 'cs-education.github.io/sys-staging/') {
             return 'staging';
         } else {
             return 'dev';
