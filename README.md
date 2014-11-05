@@ -102,12 +102,12 @@ You will need push access to the appropriate repository before you can deploy.
 Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
 Neelabh Gupta [github.com/neelabhg](http://github.com/neelabhg)
 
-The Virtual Machine is powered by the [jor1k](https://github.com/angrave/jor1k) project.
+The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.
 
 ## Licence ##
 See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).  
 
 ### Open source licences ###
-jor1k is distributed under the terms of the [GNU General Public License v3 (GPLv3)](https://github.com/angrave/jor1k/blob/master/LICENSE.md).  
+jor1k is distributed under the terms of the [GNU General Public License v3 (GPLv3)](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
 Bootstrap is released under the [MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE) and is copyright 2014 Twitter.  
 Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.  
