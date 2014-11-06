@@ -57,8 +57,8 @@ window.LiveEdit = (function () {
         });
 
         this.editor.setAnnotations(aceAnnotations);
-
-        this.viewModel.lastGccOutput(result.gccOutput);
+        // Fix XSS issue gcc output
+        this.viewModel.lastGccOutput(this.escapeHtml(result.gccOutput));
         this.viewModel.gccErrorCount(result.stats.error);
         this.viewModel.gccWarningCount(result.stats.warning);
         this.viewModel.gccOptsError(gccOptsErrors.map(function(error) { return error.text; }).join('\n'));
