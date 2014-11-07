@@ -11,6 +11,7 @@
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/jquery.layout/dist/layout-default-latest.css" />
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="../bower_components/videojs/dist/video-js/video-js.css" />
         <!-- endbower -->
         <!-- endbuild -->
@@ -266,7 +267,7 @@
                                         <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
                                         <a href="#"
                                            data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
-                                           tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus"></a>
+                                           tabindex="0" data-toggle="modal" data-target="#myModal" data-html="true" data-placement="auto top" data-trigger="focus"></a>
                                     </p>
                                 </div>
                             </div>
@@ -275,20 +276,41 @@
                             <p class="text-muted pull-right"><small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div><!--/.show-if-supported -->
-
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel" data-bind="text: errorWarningLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <pre data-bind="text: lastGccOutput()"></pre>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- ==================== Javascript ==================== -->
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
+        <script src="../bower_components/jquery-1.11.0/dist/jquery.js"></script>
         <script src="../bower_components/jquery/dist/jquery.js"></script>
         <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
         <script src="../bower_components/Blob/Blob.js"></script>
         <script src="../bower_components/FileSaver/FileSaver.js"></script>
+        <script src="../bower_components/requirejs/require.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="../bower_components/moment/moment.js"></script>
         <script src="../bower_components/sammy/lib/sammy.js"></script>
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
