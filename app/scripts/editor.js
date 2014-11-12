@@ -159,7 +159,10 @@ window.Editor = (function () {
     };
 
     Editor.prototype.addKeyboardCommand = function (cmdName, keyBindings, execFunc, readOnly) {
-        readOnly = readOnly || true;
+        // If readOnly param is not passed in, then default to true, else coerce the passed in value to boolean and use
+        readOnly = (typeof readOnly === 'undefined') ? true : !!readOnly;
+
+        // http://ace.c9.io/#nav=howto
         this.aceEditor.commands.addCommand({
             name: cmdName,
             bindKey: keyBindings,

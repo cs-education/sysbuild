@@ -176,7 +176,8 @@ $(document).ready(function () {
     editor.addKeyboardCommand(
         'compileAndRunShortcut',
         compileShortcut,
-        compile
+        compile,
+        true // the compile command should work in readOnly mode
     );
 
     // Initialize Bootstrap tooltip and popover
