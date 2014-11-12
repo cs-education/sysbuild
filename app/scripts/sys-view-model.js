@@ -84,6 +84,9 @@ window.SysViewModel = (function () {
         self.closeManPageTab = function (tab) {
             var previousTabIndex,
                 index = self.openManPageTabs.indexOf(tab);
+
+            self.openManPageTabs.splice(index, 1);
+
             if (index === self.currentActiveTabIndex()) {
                 if (index >= 1) {
                     previousTabIndex = index - 1;
@@ -93,7 +96,6 @@ window.SysViewModel = (function () {
                 self.currentActiveTabIndex(previousTabIndex);
             }
 
-            self.openManPageTabs.splice(index, 1);
         };
 
         self.chapters = ko.observableArray([]);
