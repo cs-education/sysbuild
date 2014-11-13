@@ -1,6 +1,6 @@
 /* global describe, it */
 
-(function (GccOutputParser) {
+(function () {
     'use strict';
 
     describe('GccOutputParser', function () {
@@ -50,4 +50,4 @@
             });
         });
     });
-})(window.GccOutputParser);
+})();
