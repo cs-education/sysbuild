@@ -266,7 +266,7 @@
                                         <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
                                         <a href="#"
                                            data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
-                                           tabindex="0" data-toggle="modal" data-target="#myModal" data-html="true" data-placement="auto top" data-trigger="focus"></a>
+                                           tabindex="0" data-toggle="modal" data-target="#gccErrorWindow" data-html="true" data-placement="auto top" data-trigger="focus"></a>
                                     </p>
                                 </div>
                             </div>
@@ -281,7 +281,7 @@
             </div>
         </div><!--/.show-if-supported -->
         <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="gccErrorWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
