@@ -82,19 +82,15 @@ window.SysViewModel = (function () {
         self.openManPageTabs = ko.observableArray();
         self.currentActiveTabIndex = ko.observable(-2);
         self.closeManPageTab = function (tab) {
-            var previousTabIndex,
+            var newActiveTabIndex = self.currentActiveTabIndex(),
                 index = self.openManPageTabs.indexOf(tab);
 
             self.openManPageTabs.splice(index, 1);
 
-            if (index === self.currentActiveTabIndex()) {
-                if (index >= 1) {
-                    previousTabIndex = index - 1;
-                } else {
-                    previousTabIndex = -1;
-                }
-                self.currentActiveTabIndex(previousTabIndex);
+            if (index <= newActiveTabIndex) {
+                newActiveTabIndex = newActiveTabIndex - 1;
             }
+            self.currentActiveTabIndex(newActiveTabIndex);
 
         };
 
