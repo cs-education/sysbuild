@@ -166,7 +166,7 @@
                                 <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
                                     <span class="glyphicon glyphicon-globe"></span>
                                     &nbsp;<span data-bind="text: tabName"></span>&nbsp;
-                                    <button class="close" data-bind="click: $parent.closeManPageTab">&times;</button>
+                                    <button class="close" data-bind="click: $parent.closeManPageTab, clickBubble: false">&times;</button>
                                 </a>
                             </li>
                             <!-- /ko -->
