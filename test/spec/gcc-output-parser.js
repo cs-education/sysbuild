@@ -1,4 +1,4 @@
-/* global describe, beforeEach, assert, it, GccOutputParser */
+/* global assert, beforeEach, describe, GccOutputParser, it */
 
 (function () {
     'use strict';
