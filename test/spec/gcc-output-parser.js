@@ -23,8 +23,8 @@
         // compiler error
         describe('when given a compiler error string', function () {
             beforeEach(function () {
-                var compilerOutput = 'program.c: In function ‘main’:\n' +
-                    'program.c:6:2: error: expected ‘;’ before ‘return’\n' +
+                var compilerOutput = 'program.c: In function \'main\':\n' +
+                    'program.c:6:2: error: expected \';\' before \'return\'\n' +
                     '  return 0;\n  ^';
                 this.results = this.parser.parse(compilerOutput);
             });
@@ -36,7 +36,7 @@
                 assert.propertyVal(error, 'column', '2');
                 assert.propertyVal(error, 'gccErrorType', 'error');
                 assert.propertyVal(error, 'row', '6');
-                assert.propertyVal(error, 'text', 'expected ‘;’ before ‘return’');
+                assert.propertyVal(error, 'text', 'expected \';\' before \'return\'');
                 assert.propertyVal(error, 'type', 'compile');
             });
         });
@@ -44,8 +44,8 @@
         // linker error
         describe('when given a linker error string', function () {
             beforeEach(function () {
-                var compilerOutput = 'libcygwin.a(libcmain.o): In function `main\':\n' +
-                    'libcmain.c:39: undefined reference to `WinMain\'\n' +
+                var compilerOutput = 'libcygwin.a(libcmain.o): In function \'main\':\n' +
+                    'libcmain.c:39: undefined reference to \'WinMain\'\n' +
                     'collect2: error: ld returned 1 exit status';
                 this.results = this.parser.parse(compilerOutput);
             });
@@ -84,7 +84,7 @@
         // cc1 error
         describe('when given a cc1 error string', function () {
             beforeEach(function () {
-                var compilerOutput = 'cc1: error: unrecognised debug output level \"aslkdfjalksjd\"';
+                var compilerOutput = 'cc1: error: unrecognised debug output level "aslkdfjalksjd"';
                 this.results = this.parser.parse(compilerOutput);
             });
 
