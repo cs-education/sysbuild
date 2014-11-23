@@ -1,16 +1,16 @@
-/* global describe, before, assert, it */
+/* global describe, beforeEach, assert, it, GccOutputParser */
 
 (function () {
     'use strict';
 
     describe('GccOutputParser', function () {
-        before(function () {
-            this.parser = new window.GccOutputParser();
+        beforeEach(function () {
+            this.parser = new GccOutputParser();
         });
 
         // no errors
         describe('when given an empty string', function () {
-            before(function () {
+            beforeEach(function () {
                 this.results = this.parser.parse('');
             });
 
@@ -22,7 +22,7 @@
 
         // compiler error
         describe('when given a compiler error string', function () {
-            before(function () {
+            beforeEach(function () {
                 var compilerOutput = 'program.c: In function ‘main’:\n' +
                     'program.c:6:2: error: expected ‘;’ before ‘return’\n' +
                     '  return 0;\n  ^';
@@ -43,7 +43,7 @@
 
         // linker error
         describe('when given a linker error string', function () {
-            before(function () {
+            beforeEach(function () {
                 var compilerOutput = 'libcygwin.a(libcmain.o): In function `main\':\n' +
                     'libcmain.c:39: undefined reference to `WinMain\'\n' +
                     'collect2: error: ld returned 1 exit status';
@@ -64,7 +64,7 @@
 
         // gcc error
         describe('when given a gcc error string', function () {
-            before(function () {
+            beforeEach(function () {
                 var compilerOutput = 'gcc: error: unrecognized command line option \'-asdfasdf\'';
                 this.results = this.parser.parse(compilerOutput);
             });
@@ -83,7 +83,7 @@
 
         // cc1 error
         describe('when given a cc1 error string', function () {
-            before(function () {
+            beforeEach(function () {
                 var compilerOutput = 'cc1: error: unrecognised debug output level \"aslkdfjalksjd\"';
                 this.results = this.parser.parse(compilerOutput);
             });
@@ -102,7 +102,7 @@
 
         // multiple errors
         describe('when given a string containing multiple compiler errors', function () {
-            before(function () {
+            beforeEach(function () {
                 var compilerOutput = 'program.c: In function \'thing\':\n' +
                     'program.c:10:5: warning: return makes integer from pointer without a cast [enabled by default]\n' +
                     '    return \"thing\"\n' + '    ^\n' +
