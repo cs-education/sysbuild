@@ -123,6 +123,12 @@ window.SysRuntime = (function () {
                 aceAnnotationType = 'info';
             }
 
+            if (typeof error.type === 'undefined') {
+                // if the errors are not in program.c, invalidate the row and column so that
+                // the editor does not place an annotation
+                error.row = error.col = -1;
+            }
+
             return {
                 // line numbers in ace start from zero
                 row: error.row - 1,
