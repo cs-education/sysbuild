@@ -65,7 +65,7 @@ window.Jor1kGUI = (function () {
         }.bind(this);
 
         // set the focus to the terminal after toggling full screen
-        sysViewModel.ttyFullScreen.subscribe(function () {
+        SysViewModel.getInstance().ttyFullScreen.subscribe(function () {
             this.lastMouseDownTarget = this.terminalcanvas;
         }, this);
 
@@ -135,7 +135,7 @@ window.Jor1kGUI = (function () {
                 this.stop = true;
                 break;
             case 'GetIPS':
-                sysViewModel.vmMips(this.userpaused ? 0 : (Math.floor(e.data.data/100000)/10.0));
+                SysViewModel.getInstance().vmMips(this.userpaused ? 0 : (Math.floor(e.data.data/100000)/10.0));
                 break;
             case 'Debug':
                 console.log(e.data.data);

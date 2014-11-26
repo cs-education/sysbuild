@@ -11,7 +11,7 @@ window.Editor = (function () {
         self.editorId = editorInstanceCounter;
         editorInstanceCounter += 1;
 
-        self.viewModel = sysViewModel;
+        self.viewModel = SysViewModel.getInstance();
 
         self.editorDivId = editorDivId;
         self.aceEditor = ace.edit(editorDivId);
