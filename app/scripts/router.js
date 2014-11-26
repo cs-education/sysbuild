@@ -1,4 +1,4 @@
-/* global $, Sammy, sysViewModel, marked, videojs, Tracker */
+/* global $, Sammy, SysViewModel, marked, videojs, Tracker */
 
 window.Router = (function () {
     'use strict';
@@ -6,7 +6,7 @@ window.Router = (function () {
 
     function Router() {
         /* jshint newcap: false */
-        var viewModel = sysViewModel;
+        var viewModel = SysViewModel.getInstance();
 
         var populateChapters = function () {
             var jqxhr;

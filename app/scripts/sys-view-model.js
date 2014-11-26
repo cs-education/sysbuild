@@ -2,6 +2,7 @@
 
 window.SysViewModel = (function () {
     'use strict';
+    var instance;
 
     function SysViewModel() {
         var self = this;
@@ -174,5 +175,13 @@ window.SysViewModel = (function () {
         }
     };
 
-    return SysViewModel;
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = new SysViewModel();
+                instance.constructor = null;
+            }
+            return instance;
+        }
+    };
 })();
