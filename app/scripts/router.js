@@ -1,4 +1,4 @@
-/* global $, Sammy, sysViewModel, marked, videojs, Tracker */
+/* global $, Sammy, SysViewModel, marked, videojs, Tracker */
 
 window.Router = (function () {
     'use strict';

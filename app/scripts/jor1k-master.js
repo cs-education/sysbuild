@@ -1,4 +1,4 @@
-/* global Terminal, TerminalInput, Ethernet, sysViewModel */
+/* global Terminal, TerminalInput, Ethernet, SysViewModel */
 
 window.Jor1kGUI = (function () {
     'use strict';

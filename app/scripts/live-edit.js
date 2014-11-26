@@ -1,4 +1,4 @@
-/* global sysViewModel */
+/* global SysViewModel */
 
 window.LiveEdit = (function () {
     'use strict';
