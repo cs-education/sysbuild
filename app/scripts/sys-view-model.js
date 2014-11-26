@@ -50,7 +50,14 @@ window.SysViewModel = (function () {
 
             str += errors ? (errors + ' error' + (errors > 1 ? 's ' : ' ')) : '';
             str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
-            if(str) { str += '\u2026'; }
+            if (str) {
+                str += '\u2026';
+            } else {
+                if (self.showErrorWarningLabel()) {
+                    // the compilation failed but error/warning count is not available
+                    str = self.compileStatus() + '\u2026';
+                }
+            }
             return str;
         });
         self.showErrorWarningLabel = ko.pureComputed(function () {

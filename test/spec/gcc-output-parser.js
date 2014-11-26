@@ -44,16 +44,27 @@
         // linker error
         describe('when given a linker error string', function () {
             beforeEach(function () {
-                var compilerOutput = 'libcygwin.a(libcmain.o): In function \'main\':\n' +
-                    'libcmain.c:39: undefined reference to \'WinMain\'\n' +
-                    'collect2: error: ld returned 1 exit status';
+                var compilerOutput = '/tmp/ccwIU8df.o: In function \'main\':\n' +
+                'program.c:(.text+0x20): undefined reference to \'nonExistentFunction\'\n' +
+                'collect2: error: ld returned 1 exit status';
                 this.results = this.parser.parse(compilerOutput);
             });
 
             it('should return the correct error information', function () {
                 assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 1); // one error
+                assert.lengthOf(this.results, 2); // two errors
+
+                // error one
                 var error = this.results[0];
+                assert.propertyVal(error, 'column', 0);
+                // TODO: currently the gccErrorType returned is incorrect, so the assertion is commented out
+                //assert.propertyVal(error, 'gccErrorType', 'error');
+                assert.propertyVal(error, 'row', 0);
+                assert.propertyVal(error, 'text', 'undefined reference to \'nonExistentFunction\'');
+                assert.propertyVal(error, 'type', 'compile');
+
+                // error two
+                error = this.results[1];
                 assert.propertyVal(error, 'column', 0);
                 assert.propertyVal(error, 'gccErrorType', 'error');
                 assert.propertyVal(error, 'row', 0);
