@@ -24,6 +24,8 @@ sysbuild/
     └── spec/
 ```
 
+This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
+
 ## Development environment set up ##
 1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [node.js](http://nodejs.org/). Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
 
@@ -58,6 +60,9 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 
 * Run tests.  
   `grunt test`
+
+* Run a local test server, to run the tests in a browser. Navigate to `http://localhost:9001` after running the following.  
+  `grunt testserver`
 
 ## Contributing ##
 1. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
