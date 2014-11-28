@@ -12,8 +12,8 @@ window.SysViewModel = (function () {
             'Compiling': 'primary',
             'Cancelled': 'default',
             'Success': 'success',
-            'Warnings': 'warning',
-            'Failed': 'danger'
+            'Warnings': 'default',
+            'Failed': 'default'
         };
 
         var vmStateToLabelClassMap = {
@@ -47,16 +47,12 @@ window.SysViewModel = (function () {
             var errors = self.gccErrorCount(),
                 warnings = self.gccWarningCount(),
                 str = '';
-
-            str += errors ? (errors + ' error' + (errors > 1 ? 's ' : ' ')) : '';
-            str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
-            if (str) {
-                str += '\u2026';
-            } else {
-                if (self.showErrorWarningLabel()) {
-                    // the compilation failed but error/warning count is not available
-                    str = self.compileStatus() + '\u2026';
-                }
+            // The span colors are taken from the bootstrap label background colors
+            str += errors ? '<span style="color: #d9534f">' + (errors + ' error' + (errors > 1 ? 's ' : '')) + (warnings ? '' : '\u2026') + '</span>' : '';
+            str += warnings ? '&nbsp;<span style="color: #f0ad4e">' + (warnings + ' warning' + (warnings > 1 ? 's' : '')) + '\u2026' + '</span>' : '';
+            if (!str && self.showErrorWarningLabel()) {
+                // the compilation failed but error/warning count is not available
+                str = '<span style="color: #d9534f">' + self.compileStatus() + '\u2026' + '</span>';
             }
             return str;
         });
