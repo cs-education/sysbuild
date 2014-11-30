@@ -80,9 +80,11 @@ window.SysViewModel = (function () {
         self.ttyFullScreen = ko.observable(false);
         self.ttyFullScreen.subscribe(function (newTTYFullScreenStatus) {
             if (newTTYFullScreenStatus) {
-                self.currentTTYContainer.appendTo('body');
+                self.ttyContainer.appendTo('body');
+                self.ttyContainerTwo.appendTo('body');
             } else {
-                self.currentTTYContainer.appendTo('#tty-pane');
+                self.ttyContainer.appendTo('#tty-pane');
+                self.ttyContainerTwo.appendTo('#tty-pane');
             }
         });
         self.isPrimaryTTY = ko.observable(true);

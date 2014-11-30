@@ -6,8 +6,6 @@ window.Jor1kGUI = (function () {
     function UARTDev(worker, tty) {
         this.ReceiveChar = function (c) {
             if (worker.lastMouseDownTarget !== worker.fbcanvas) {
-                if(tty == 'tty1')
-                    console.log('sending ' + c + ' over tty1');
                 worker.sendToWorker(tty, c);
             }
         };
@@ -57,8 +55,8 @@ window.Jor1kGUI = (function () {
         this.terminalcanvas = document.getElementById(termId);
         this.terminalcanvastwo = document.getElementById(termIdTwo);
 
-        this.term = new Terminal(36, 80, termId);
-        this.termTwo = new Terminal(36, 80, termIdTwo);
+        this.term = new Terminal(24, 80, termId);
+        this.termTwo = new Terminal(24, 80, termIdTwo);
         this.terminput = new TerminalInput(new UARTDev(this, termId));
         this.terminputtwo = new TerminalInput(new UARTDev(this, termIdTwo));
 
