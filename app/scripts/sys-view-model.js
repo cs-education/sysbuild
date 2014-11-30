@@ -2,6 +2,7 @@
 
 window.SysViewModel = (function () {
     'use strict';
+    var instance;
 
     function SysViewModel() {
         var self = this;
@@ -49,7 +50,14 @@ window.SysViewModel = (function () {
 
             str += errors ? (errors + ' error' + (errors > 1 ? 's ' : ' ')) : '';
             str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
-            if(str) { str += '\u2026'; }
+            if (str) {
+                str += '\u2026';
+            } else {
+                if (self.showErrorWarningLabel()) {
+                    // the compilation failed but error/warning count is not available
+                    str = self.compileStatus() + '\u2026';
+                }
+            }
             return str;
         });
         self.showErrorWarningLabel = ko.pureComputed(function () {
@@ -82,18 +90,16 @@ window.SysViewModel = (function () {
         self.openManPageTabs = ko.observableArray();
         self.currentActiveTabIndex = ko.observable(-2);
         self.closeManPageTab = function (tab) {
-            var previousTabIndex,
+            var newActiveTabIndex = self.currentActiveTabIndex(),
                 index = self.openManPageTabs.indexOf(tab);
-            if (index === self.currentActiveTabIndex()) {
-                if (index >= 1) {
-                    previousTabIndex = index - 1;
-                } else {
-                    previousTabIndex = -1;
-                }
-                self.currentActiveTabIndex(previousTabIndex);
-            }
 
             self.openManPageTabs.splice(index, 1);
+
+            if (index <= newActiveTabIndex) {
+                newActiveTabIndex = newActiveTabIndex - 1;
+            }
+            self.currentActiveTabIndex(newActiveTabIndex);
+
         };
 
         self.chapters = ko.observableArray([]);
@@ -176,5 +182,13 @@ window.SysViewModel = (function () {
         }
     };
 
-    return SysViewModel;
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = new SysViewModel();
+                instance.constructor = null;
+            }
+            return instance;
+        }
+    };
 })();

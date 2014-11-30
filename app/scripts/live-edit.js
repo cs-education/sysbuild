@@ -1,4 +1,4 @@
-/* global sysViewModel */
+/* global SysViewModel */
 
 window.LiveEdit = (function () {
     'use strict';
@@ -7,7 +7,7 @@ window.LiveEdit = (function () {
     function LiveEdit(editor, _runtime) {
         this.runtime = _runtime;
         this.editor = editor;
-        this.viewModel = sysViewModel;
+        this.viewModel = SysViewModel.getInstance();
 
         var updateCompileButton = function() {
             var ready = this.runtime.ready();
@@ -57,7 +57,6 @@ window.LiveEdit = (function () {
         });
 
         this.editor.setAnnotations(aceAnnotations);
-
         this.viewModel.lastGccOutput(result.gccOutput);
         this.viewModel.gccErrorCount(result.stats.error);
         this.viewModel.gccWarningCount(result.stats.warning);

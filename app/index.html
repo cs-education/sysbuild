@@ -166,7 +166,7 @@
                                 <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
                                     <span class="glyphicon glyphicon-globe"></span>
                                     &nbsp;<span data-bind="text: tabName"></span>&nbsp;
-                                    <button class="close" data-bind="click: $parent.closeManPageTab">&times;</button>
+                                    <button class="close" data-bind="click: $parent.closeManPageTab, clickBubble: false">&times;</button>
                                 </a>
                             </li>
                             <!-- /ko -->
@@ -265,14 +265,32 @@
                                     <p>Compiler:
                                         <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
                                         <a href="#"
-                                           data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass, attr: {'data-content': '<pre>' + lastGccOutput() + '</pre>'}"
-                                           tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus"></a>
+                                           data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass"
+                                           data-toggle="modal" data-target="#gccErrorWindow"></a>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="container col-sm-6 pull-right">
                             <p class="text-muted pull-right"><small>&copy; 2014, <a target="_blank" href="https://github.com/angrave">Lawrence Angrave</a> and <a target="_blank" href="http://neelabhgupta.com/">Neelabh Gupta</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GCC Error Modal -->
+            <div class="modal fade" id="gccErrorWindow" tabindex="-1" role="dialog" aria-labelledby="gccErrorLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="gccErrorLabel" data-bind="text: errorWarningLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <pre data-bind="text: lastGccOutput()"></pre>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -289,7 +307,6 @@
         <script src="../bower_components/knockout/dist/knockout.js"></script>
         <script src="../bower_components/Blob/Blob.js"></script>
         <script src="../bower_components/FileSaver/FileSaver.js"></script>
-        <script src="../bower_components/moment/moment.js"></script>
         <script src="../bower_components/sammy/lib/sammy.js"></script>
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
         <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>

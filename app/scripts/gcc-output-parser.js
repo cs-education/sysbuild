@@ -1,7 +1,7 @@
 window.GccOutputParser = (function () {
     'use strict';
 
-    var gccOutputParseRe = /(program\.c|gcc|cc1|collect2):\s*(.+)\s*:\s*(.+)\s*/;
+    var gccOutputParseRe = /(.+?):\s*(.+)\s*:\s*(.+)\s*/;
     var gccRowColTypeParseRe = /(\d+):(\d+):\s*(.+)/;
     var gccOutputTypeTextSplitRe = /\s*(.+)\s*:\s*(.+)\s*/;
     var errorTypeMap = {

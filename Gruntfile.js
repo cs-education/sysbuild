@@ -496,6 +496,8 @@ module.exports = function (grunt) {
         grunt.task.run('shell:writeGitRecentCommits');
     });
 
+    grunt.registerTask('testserver', ['connect:test:keepalive']);
+
     grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
 
         var targets = ['angraveprod', 'staging'];

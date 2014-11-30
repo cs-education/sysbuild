@@ -1,4 +1,4 @@
-# sysweb #
+# sysbuild #
 
 Source code for the Linux-In-The-Browser project used
 in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
@@ -24,21 +24,26 @@ sysbuild/
     └── spec/
 ```
 
+This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
+
 ## Development environment set up ##
-1. Install [node.js](http://nodejs.org/). Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
+1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [node.js](http://nodejs.org/). Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
 
-2. Clone this git repository.  
-`git clone https://github.com/cs-education/sysbuild.git`
-
-3. Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/).
+2. Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/).
 You might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
 because of the [location npm installs global packages](https://www.npmjs.org/doc/files/npm-folders.html) in.  
 `npm install -g bower grunt-cli`
 
+3. [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository.  
+`git clone https://github.com/YOUR-USERNAME/sysbuild.git`
+
 4. Change to the project directory.  
 `cd sysbuild/`
 
-5. Install dependencies and set up the project.  
+5. Configure Git to sync your fork with the original repository.  
+`git remote add upstream https://github.com/cs-education/sysbuild.git`
+
+6. Install dependencies and set up the project.  
 `npm install`
 
 ## Useful commands ##
@@ -47,9 +52,7 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
   JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.  
   `grunt serve`
 
-* If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.
-  Some plugins (Blob.js and FuelUX specifically do not support this, so for now you have to enter CSS and JS files manually
-  in the HTML file. We are considering moving to RequireJS, so that dependency management becomes simpler.)  
+* If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
   `grunt bowerInstall`
 
 * Run [JSHint](http://www.jshint.com/about/).  
@@ -58,21 +61,31 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 * Run tests.  
   `grunt test`
 
+* Run a local test server, to run the tests in a browser. Navigate to `http://localhost:9001` after running the following.  
+  `grunt testserver`
+
 ## Contributing ##
-1. Create a new branch to make changes or add a new feature.  
+1. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
+`git fetch upstream`  
+`git checkout master`  
+`git merge upstream/master`  
+`git push origin master`
+
+2. Create a new branch to make changes or add a new feature.  
 `git checkout -b my_awesome_feature_branch`
 
-2. Stage your changes before committing. Type the following for every added/modified/deleted file.  
+3. Stage your changes before committing. Type the following for every added/modified/deleted file.  
 `git add path/to/modified_file`
 
-3. Commit your changes. Do this often.  
+4. Commit your changes. Do this often.  
 `git commit -m "I changed this to that and fixed bla."`
 
-4. Push the branch to origin so that others can see it.  
+5. Push the branch to origin so that others can see it.  
 `git push origin my_awesome_feature_branch`
 
-5. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into `master`.
+6. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master`.
 Wait for someone to review your code and merge your changes. Make sure you followed the code guidelines below.
+If you were working on an issue, you can have the issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
 
 ## Code guidelines ##
 * We have an [editor config](https://github.com/cs-education/sysbuild/blob/master/.editorconfig) file for maintaining a consistent coding style.
@@ -81,7 +94,7 @@ Wait for someone to review your code and merge your changes. Make sure you follo
 * Keep accessibility in mind when writing HTML.
 * Make sure there are no JSHint errors.
 * Make sure all tests pass.
-* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into `master` through a pull request.
+* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into upstream through a pull request.
   This allows us to review code before merging and makes rolling back changes easier.
 
 ## Deploying ##

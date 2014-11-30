@@ -47,7 +47,7 @@ $(document).ready(function () {
         };
     };
 
-    window.sysViewModel = new SysViewModel();
+    var viewModel = SysViewModel.getInstance();
     var editor = new Editor('code');
     var liveEdit = new LiveEdit(editor, SysRuntime.getInstance());
 
@@ -77,9 +77,9 @@ $(document).ready(function () {
     var openManPage = function () {
         var openManPageTabs;
         if (lastSelectedManPage) {
-            openManPageTabs = window.sysViewModel.openManPageTabs;
+            openManPageTabs = viewModel.openManPageTabs;
             openManPageTabs.push(getManPageTabData(lastSelectedManPage));
-            window.sysViewModel.currentActiveTabIndex(openManPageTabs().length - 1);
+            viewModel.currentActiveTabIndex(openManPageTabs().length - 1);
         }
     };
 
@@ -161,11 +161,11 @@ $(document).ready(function () {
     var compileBtnTooltip = 'Compile and Run (' +
         (platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win) +
         ' in code editor)';
-    window.sysViewModel.compileBtnTooltip(compileBtnTooltip);
+    viewModel.compileBtnTooltip(compileBtnTooltip);
 
     var compile = function () {
         var code = editor.getText();
-        var gccOptions = window.sysViewModel.gccOptions();
+        var gccOptions = viewModel.gccOptions();
         liveEdit.runCode(code, gccOptions);
     };
 
@@ -176,7 +176,8 @@ $(document).ready(function () {
     editor.addKeyboardCommand(
         'compileAndRunShortcut',
         compileShortcut,
-        compile
+        compile,
+        true // the compile command should work in readOnly mode
     );
 
     // Initialize Bootstrap tooltip and popover
@@ -201,8 +202,8 @@ $(document).ready(function () {
         editor.autoIndentCode();
     });
 
-    ko.applyBindings(window.sysViewModel);
-    window.sysViewModel.shownPage.subscribe(function (newPage) {
+    ko.applyBindings(viewModel);
+    viewModel.shownPage.subscribe(function (newPage) {
         if (newPage === 'playground') {
             if (!window.layouts) {
                 window.layouts = initLayout();
