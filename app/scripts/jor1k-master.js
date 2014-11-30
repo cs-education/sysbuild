@@ -3,10 +3,12 @@
 window.Jor1kGUI = (function () {
     'use strict';
 
-    function UARTDev(worker) {
+    function UARTDev(worker, tty) {
         this.ReceiveChar = function (c) {
             if (worker.lastMouseDownTarget !== worker.fbcanvas) {
-                worker.sendToWorker('tty0', c);
+                if(tty == 'tty1')
+                    console.log('sending ' + c + ' over tty1');
+                worker.sendToWorker(tty, c);
             }
         };
     }
@@ -57,8 +59,8 @@ window.Jor1kGUI = (function () {
 
         this.term = new Terminal(24, 80, termId);
         this.termTwo = new Terminal(24, 80, termIdTwo);
-        this.terminput = new TerminalInput(new UARTDev(this));
-        this.terminputtwo = new TerminalInput(new UARTDev(this));
+        this.terminput = new TerminalInput(new UARTDev(this, termId));
+        this.terminputtwo = new TerminalInput(new UARTDev(this, termIdTwo));
 
         this.ignoreKeys = function () {
             //Simpler but not as general, return( document.activeElement.type==="textarea" || document.activeElement.type==='input');
@@ -72,7 +74,7 @@ window.Jor1kGUI = (function () {
         // set the focus to the terminal after toggling full screen
         // TODO: implement terminal switching full screen
         SysViewModel.getInstance().ttyFullScreen.subscribe(function () {
-            this.lastMouseDownTarget = this.terminalcanvas;
+            this.lastMouseDownTarget = this.terminalcanvastwo;
         }, this);
 
         if(document.addEventListener) {
@@ -88,7 +90,7 @@ window.Jor1kGUI = (function () {
             this.sendToWorker('keypress', {keyCode:event.keyCode, charCode:event.charCode});
             if(this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyPress(event);
-            } else {
+            } else if(this.lastMouseDownTarget === this.terminalcanvastwo) {
                 return this.terminputtwo.OnKeyPress(event);
             }
         }.bind(this);
@@ -100,7 +102,7 @@ window.Jor1kGUI = (function () {
             this.sendToWorker('keydown', {keyCode:event.keyCode, charCode:event.charCode});
             if(this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyDown(event);
-            } else {
+            } else if(this.lastMouseDownTarget === this.terminalcanvastwo) {
                 return this.terminputtwo.OnKeyDown(event);
             }
         }.bind(this);
@@ -112,7 +114,7 @@ window.Jor1kGUI = (function () {
             this.sendToWorker('keyup', {keyCode:event.keyCode, charCode:event.charCode});
             if(this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyUp(event);
-            } else {
+            } else if(this.lastMouseDownTarget === this.terminalcanvastwo) {
                 return this.terminputtwo.OnKeyUp(event);
             }
         }.bind(this);
@@ -150,6 +152,7 @@ window.Jor1kGUI = (function () {
                 break;
             case 'tty1':
                 this.termTwo.PutChar(e.data.data);
+                console.log('tty1: ' + e.data.data);
                 break;
             case 'Stop':
                 console.log('Received stop signal');

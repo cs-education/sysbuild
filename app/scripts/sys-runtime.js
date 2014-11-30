@@ -36,12 +36,18 @@ window.SysRuntime = (function () {
                 this.sendKeys('tty0', '\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?;rm a.out\n', 'boot2ready-0', onBootFinished);
             }
         }.bind(this);
+        var onTTYLogin2= function (completed) {
+            if (completed) {
+                this.sendKeys('tty1', '\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?;rm a.out\n', 'boot2ready-0', onBootFinished);
+            }
+        }.bind(this);
 
         // Wait for tty to be ready
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
         this.jor1kgui = new Jor1kGUI('tty0', 'tty1', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
         this.sendKeys('tty0', '', 'root login on \'console\'', onTTYLogin);
+        this.sendKeys('tty1', '', 'root login on \'console\'', onTTYLogin2);
         return this;
     }
 
