@@ -75,16 +75,32 @@ window.SysViewModel = (function () {
         self.aceFontSize = ko.observable();
 
         self.ttyContainer = $('#tty-container');
+        self.ttyContainerTwo = $('#tty-container-two');
+        self.currentTTYContainer = self.ttyContainer;
         self.ttyFullScreen = ko.observable(false);
         self.ttyFullScreen.subscribe(function (newTTYFullScreenStatus) {
             if (newTTYFullScreenStatus) {
-                self.ttyContainer.appendTo('body');
+                self.currentTTYContainer.appendTo('body');
             } else {
-                self.ttyContainer.appendTo('#tty-pane');
+                self.currentTTYContainer.appendTo('#tty-pane');
             }
+        });
+        self.isPrimaryTTY = ko.observable(true);
+        self.isPrimaryTTY.subscribe(function (newFrontTTY) {
+            self.currentTTYContainer.hide();
+            if (newFrontTTY) {
+                self.currentTTYContainer = self.ttyContainer;
+            } else {
+                self.currentTTYContainer = self.ttyContainerTwo;
+            }
+            self.currentTTYContainer.show();
         });
         self.ttyToggleBtnClass = ko.pureComputed(function () {
             return 'glyphicon ' + (self.ttyFullScreen() ? 'glyphicon-resize-small' : 'glyphicon-resize-full');
+        });
+
+        self.ttySwitchBtnClass = ko.pureComputed(function () {
+            return 'glyphicon ' + (self.isPrimaryTTY() ? 'glyphicon-chevron-right' : 'glyphicon-chevron-left');
         });
 
         self.openManPageTabs = ko.observableArray();

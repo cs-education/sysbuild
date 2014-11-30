@@ -33,7 +33,7 @@ window.SysRuntime = (function () {
 
         var onTTYLogin = function (completed) {
             if (completed) {
-                this.sendKeys('\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?;rm a.out\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('tty0', '\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?;rm a.out\n', 'boot2ready-0', onBootFinished);
             }
         }.bind(this);
 
@@ -41,7 +41,7 @@ window.SysRuntime = (function () {
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
         this.jor1kgui = new Jor1kGUI('tty0', 'tty1', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
-        this.sendKeys('', 'root login on \'console\'', onTTYLogin);
+        this.sendKeys('tty0', '', 'root login on \'console\'', onTTYLogin);
         return this;
     }
 
@@ -96,7 +96,7 @@ window.SysRuntime = (function () {
 
         }.bind(this);
 
-        this.sendKeys('\x03\ncd ~;rm program.c program 2>/dev/null\n');
+        this.sendKeys('tty0', '\x03\ncd ~;rm program.c program 2>/dev/null\n');
 
         this.sendTextFile('program.c', code);
 
@@ -104,7 +104,7 @@ window.SysRuntime = (function () {
             ' program.c -o program; echo GCC_EXIT_CODE: $?; echo \\#\\#\\#GCC_COMPILE_FINISHED\\#\\#\\#' +
             this.compileTicket + '.;clear\n';
 
-        this.expecting = this.sendKeys(cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
+        this.expecting = this.sendKeys('tty0', cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
 
         return this.compileTicket;
     };
@@ -149,11 +149,11 @@ window.SysRuntime = (function () {
         }
         cmdargs = cmdargs.replace('\\', '\\\\').replace('\n','\\n');
         // Don't \x03 ; it interrupts the clear command
-        this.sendKeys('\n' + filename + ' ' + cmdargs + '\n');
+        this.sendKeys('tty0', '\n' + filename + ' ' + cmdargs + '\n');
     };
 
     SysRuntime.prototype.sendTextFile = function(filename, contents) {
-        this.sendKeys('\nstty raw\ndd ibs=1 of=' + filename + ' count=' + contents.length + '\n'+ contents + '\nstty -raw\n');
+        this.sendKeys('tty0', '\nstty raw\ndd ibs=1 of=' + filename + ' count=' + contents.length + '\n'+ contents + '\nstty -raw\n');
     };
 
     // Used to broadcast 'putchar' and 'ready' events
@@ -184,9 +184,8 @@ window.SysRuntime = (function () {
         }
     };
 
-    SysRuntime.prototype.sendKeys = function (text, expect, success, cancel) {
+    SysRuntime.prototype.sendKeys = function (tty, text, expect, success, cancel) {
         /* jshint bitwise: false */
-        var tty = false ? 'tty1' : 'tty0';
         var expectResult = null;
         this.jor1kgui.pause(false);
 
