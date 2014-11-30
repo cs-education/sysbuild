@@ -40,7 +40,7 @@ window.SysRuntime = (function () {
         // Wait for tty to be ready
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
-        this.jor1kgui = new Jor1kGUI('tty', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
+        this.jor1kgui = new Jor1kGUI('tty0', 'tty1', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
         this.sendKeys('', 'root login on \'console\'', onTTYLogin);
         return this;
     }

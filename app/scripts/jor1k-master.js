@@ -11,7 +11,7 @@ window.Jor1kGUI = (function () {
         };
     }
 
-    function Jor1kGUI(termId, imageurls, relayURL) {
+    function Jor1kGUI(termId, termIdTwo, imageurls, relayURL) {
         this.urls = imageurls;
 
         this.worker = new Worker('jor1k/js/worker/worker.js');
@@ -35,6 +35,7 @@ window.Jor1kGUI = (function () {
             this.sendToWorker('Reset');
             this.sendToWorker('LoadAndStart', this.urls);
             this.term.PauseBlink(false);
+//            this.termTwo.PauseBlink(false);
         };
 
         this.pause = function (pause) {
@@ -48,11 +49,13 @@ window.Jor1kGUI = (function () {
                 this.sendToWorker('execute', 0);
             }
             this.term.PauseBlink(pause);
+//            this.termTwo.PauseBlink(pause);
         };
 
         this.terminalcanvas = document.getElementById(termId);
 
         this.term = new Terminal(24, 80, termId);
+//        this.termTwo = new Terminal(24, 80, termId);
         this.terminput = new TerminalInput(new UARTDev(this));
 
         this.ignoreKeys = function () {
@@ -129,6 +132,9 @@ window.Jor1kGUI = (function () {
                 break;
             case 'tty0':
                 this.term.PutChar(e.data.data);
+                break;
+            case 'tty1':
+//                this.termTwo.PutChar(e.data.data);
                 break;
             case 'Stop':
                 console.log('Received stop signal');
