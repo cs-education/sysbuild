@@ -25,15 +25,21 @@ window.SysRuntime = (function () {
         }.bind(this);
 
         var onBootFinished = function (completed) {
-            this.bootFinished = completed;
-            if (completed) {
+            if (completed && this.bootFinished) {
                 this.notifyListeners('ready', true);
+            }
+            this.bootFinished = completed;
+        }.bind(this);
+
+        var onTTYLogin1 = function (completed) {
+            if (completed) {
+                this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onBootFinished);
             }
         }.bind(this);
 
-        var onTTYLogin = function (completed) {
+        var onTTYLogin2 = function (completed) {
             if (completed) {
-                this.sendKeys('tty0', '\nstty -clocal crtscts -ixoff\ngcc hello.c;echo boot2ready-$?;rm a.out\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onBootFinished);
             }
         }.bind(this);
 
@@ -41,7 +47,8 @@ window.SysRuntime = (function () {
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
         this.jor1kgui = new Jor1kGUI('tty0', 'tty1', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
-        this.sendKeys('tty0', '', 'root login on \'console\'', onTTYLogin);
+        this.sendKeys('tty0', '', 'root login on \'ttyS0\'', onTTYLogin1);
+        this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTYLogin2);
         return this;
     }
 
