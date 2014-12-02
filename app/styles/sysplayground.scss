@@ -164,3 +164,11 @@ body {
     width: 100%;
     height: 100%;
 }
+
+.compile-status-label-text-error {
+    color: $brand-danger;
+}
+
+.compile-status-label-text-warning {
+    color: $brand-warning;
+}

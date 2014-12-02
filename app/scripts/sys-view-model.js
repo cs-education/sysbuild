@@ -47,12 +47,11 @@ window.SysViewModel = (function () {
             var errors = self.gccErrorCount(),
                 warnings = self.gccWarningCount(),
                 str = '';
-            // The span colors are taken from the bootstrap label background colors
-            str += errors ? '<span style="color: #d9534f">' + (errors + ' error' + (errors > 1 ? 's ' : '')) + (warnings ? '' : '\u2026') + '</span>' : '';
-            str += warnings ? '&nbsp;<span style="color: #f0ad4e">' + (warnings + ' warning' + (warnings > 1 ? 's' : '')) + '\u2026' + '</span>' : '';
+            str += errors ? '<span class="compile-status-label-text-error">' + (errors + ' error' + (errors > 1 ? 's ' : '')) + (warnings ? '' : '\u2026') + '</span>' : '';
+            str += warnings ? '&nbsp;<span class="compile-status-label-text-warning">' + (warnings + ' warning' + (warnings > 1 ? 's' : '')) + '\u2026' + '</span>' : '';
             if (!str && self.showErrorWarningLabel()) {
                 // the compilation failed but error/warning count is not available
-                str = '<span style="color: #d9534f">' + self.compileStatus() + '\u2026' + '</span>';
+                str = '<span class="compile-status-label-text-error">' + self.compileStatus() + '\u2026' + '</span>';
             }
             return str;
         });
