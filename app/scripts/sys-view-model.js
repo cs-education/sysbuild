@@ -12,8 +12,8 @@ window.SysViewModel = (function () {
             'Compiling': 'primary',
             'Cancelled': 'default',
             'Success': 'success',
-            'Warnings': 'default',
-            'Failed': 'default'
+            'Warnings': 'default-light',
+            'Failed': 'default-light'
         };
 
         var vmStateToLabelClassMap = {
