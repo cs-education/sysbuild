@@ -242,11 +242,27 @@
                     <div id="doc-container" data-bind="html: challengeDoc"></div>
                     <div id="tty-pane">
                         <div id="tty-container">
-                            <canvas id="tty" class="screen" width="640" height="384">Terminal</canvas>
-                            <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
-                                <span data-bind="css: ttyToggleBtnClass"></span>
-                            </button>
+                            <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
+                            <div class="tty-buttons">
+                                <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                                    <span data-bind="css: ttyToggleBtnClass"></span>
+                                </button>
+                                <button data-bind="click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+                                    <span data-bind="css: ttySwitchBtnClass"></span>
+                                </button>
+                            </div>
                         </div>
+                        <div id="tty-container-two">
+                            <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
+                            <div class="tty-buttons">
+                                <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                                    <span data-bind="css: ttyToggleBtnClass"></span>
+                                </button>
+                                <button data-bind="click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+                                    <span data-bind="css: ttySwitchBtnClass"></span>
+                                </button>
+                                </div>
+                            </div>
                     </div>
                 </div>
 
