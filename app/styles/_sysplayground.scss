@@ -170,5 +170,5 @@ body {
 }
 
 .compile-status-label-text-warning {
-    color: $brand-warning;
+    color: darken($brand-warning, 20%);
 }

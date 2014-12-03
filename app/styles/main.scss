@@ -54,5 +54,5 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 }
 
 .label-default-light {
-    @include label-variant(lighten($label-default-bg, 20%));
+    @include label-variant(lighten($label-default-bg, 25%));
 }
