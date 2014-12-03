@@ -3,8 +3,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // bower:scss
 @import "../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
-@import "sysplayground.scss";
-@import "typeahead.scss";
+@import "sysplayground";
+@import "typeahead";
 
 .browsehappy {
     margin: 0.2em 0;
@@ -51,4 +51,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 
 #lesson-video-container {
     margin: 0px auto;
+}
+
+.label-default-light {
+    @include label-variant(lighten($label-default-bg, 25%));
 }

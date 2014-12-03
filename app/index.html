@@ -17,7 +17,6 @@
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="../bower_components/fuelux/dist/css/fuelux.css" />
         <!-- endbuild -->
 
         <!-- build:js scripts/vendor/modernizr.js -->
@@ -265,8 +264,8 @@
                                     <p>Compiler:
                                         <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
                                         <a href="#"
-                                           data-bind="text: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass"
-                                           data-toggle="modal" data-target="#gccErrorWindow"></a>
+                                           data-bind="html: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass"
+                                           data-toggle="modal" data-target="#gcc-error-window"></a>
                                     </p>
                                 </div>
                             </div>
@@ -279,12 +278,12 @@
             </div>
 
             <!-- GCC Error Modal -->
-            <div class="modal fade" id="gccErrorWindow" tabindex="-1" role="dialog" aria-labelledby="gccErrorLabel" aria-hidden="true">
+            <div class="modal fade" id="gcc-error-window" tabindex="-1" role="dialog" aria-labelledby="gcc-error-label" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title" id="gccErrorLabel" data-bind="text: errorWarningLabel"></h4>
+                            <h4 class="modal-title" id="gcc-error-label" data-bind="html: errorWarningLabel"></h4>
                         </div>
                         <div class="modal-body">
                             <pre data-bind="text: lastGccOutput()"></pre>
@@ -320,10 +319,6 @@
         <script src="../bower_components/ace-builds/src-min-noconflict/theme-xcode.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js scripts/tracking.js -->
-        <script src="scripts/ga-tracking.js"></script>
-        <!-- endbuild -->
-
         <!-- build:js scripts/plugins.js -->
         <script src="../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
         <script src="../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
@@ -337,7 +332,6 @@
         <script src="../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
         <script src="../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
         <script src="../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
-        <script src="../bower_components/fuelux/dist/js/fuelux.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/jor1k.js -->
@@ -347,6 +341,7 @@
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/ga-tracking.js"></script>
         <script src="scripts/sys-view-model.js"></script>
         <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>

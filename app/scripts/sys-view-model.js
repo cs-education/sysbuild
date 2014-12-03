@@ -12,8 +12,8 @@ window.SysViewModel = (function () {
             'Compiling': 'primary',
             'Cancelled': 'default',
             'Success': 'success',
-            'Warnings': 'warning',
-            'Failed': 'danger'
+            'Warnings': 'default-light',
+            'Failed': 'default-light'
         };
 
         var vmStateToLabelClassMap = {
@@ -47,16 +47,11 @@ window.SysViewModel = (function () {
             var errors = self.gccErrorCount(),
                 warnings = self.gccWarningCount(),
                 str = '';
-
-            str += errors ? (errors + ' error' + (errors > 1 ? 's ' : ' ')) : '';
-            str += warnings ? (warnings + ' warning' + (warnings > 1 ? 's' : '')) : '';
-            if (str) {
-                str += '\u2026';
-            } else {
-                if (self.showErrorWarningLabel()) {
-                    // the compilation failed but error/warning count is not available
-                    str = self.compileStatus() + '\u2026';
-                }
+            str += errors ? '<span class="compile-status-label-text-error">' + (errors + ' error' + (errors > 1 ? 's ' : '')) + (warnings ? '' : '\u2026') + '</span>' : '';
+            str += warnings ? '&nbsp;<span class="compile-status-label-text-warning">' + (warnings + ' warning' + (warnings > 1 ? 's' : '')) + '\u2026' + '</span>' : '';
+            if (!str && self.showErrorWarningLabel()) {
+                // the compilation failed but error/warning count is not available
+                str = '<span class="compile-status-label-text-error">' + self.compileStatus() + '\u2026' + '</span>';
             }
             return str;
         });
