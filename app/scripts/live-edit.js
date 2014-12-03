@@ -45,7 +45,7 @@ window.LiveEdit = (function () {
         // null if cancelled
         // result = { 'exitcode':gcc_exit_code, 'stats':stats,'annotations':annotations,'gcc_ouput':gcc_output}
 
-        this.runtime.sendKeys('clear\n');
+        this.runtime.sendKeys('tty0', 'clear\n');
 
         var aceAnnotations = [], gccOptsErrors = [];
         result.annotations.forEach(function (annotation) {

@@ -72,7 +72,11 @@ window.Jor1kGUI = (function () {
         // set the focus to the terminal after toggling full screen
         // TODO: implement terminal switching full screen
         SysViewModel.getInstance().ttyFullScreen.subscribe(function () {
-            this.lastMouseDownTarget = this.terminalcanvastwo;
+            if(SysViewModel.getInstance().isPrimaryTTY()) {
+                this.lastMouseDownTarget = this.terminalcanvas;
+            } else {
+                this.lastMouseDownTarget = this.terminalcanvastwo;
+            }
         }, this);
 
         if(document.addEventListener) {
