@@ -48,7 +48,7 @@ oop.inherits(TokenHighlighter, Tooltip);
         var row = 1;
         var tokenStart = 0;
         var searchAndHighlight = function(token){
-            console.log(this);
+            //console.log(this);
             if(token.type === 'identifier'){
                 var highlight = function(results){
                     if(results){
