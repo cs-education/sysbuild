@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
+/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router, TokenHighlighter */
 
 $(document).ready(function () {
     'use strict';
@@ -82,6 +82,17 @@ $(document).ready(function () {
             viewModel.currentActiveTabIndex(openManPageTabs().length - 1);
         }
     };
+
+    var manPageTokens = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'summary'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+            url: 'sysassets/man_pages/sys_man_page_index.min.json'
+        }
+    });
+    manPageTokens.initialize();
+    editor.tokenHighlighter = new TokenHighlighter(editor, manPageTokens);
 
     $('#man-pages-search-typeahead').children('.typeahead').typeahead({
         highlight: true
