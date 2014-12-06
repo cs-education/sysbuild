@@ -2,4 +2,6 @@ language: node_js
 node_js:
   - "0.10"
 before_install: npm install -g bower grunt-cli
-
+notifications:
+  email: false
+  webhooks: http://ec2-54-226-82-16.compute-1.amazonaws.com:5000/travisci
