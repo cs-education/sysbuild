@@ -171,6 +171,8 @@ window.Router = (function () {
             });
 
             this.get('#playground', function () {
+                populateChapters();
+
                 var playActivity = {};
                 playActivity.doc =
                     '<h2>Welcome</h2>' +
