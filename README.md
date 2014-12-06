@@ -90,14 +90,20 @@ If you were working on an issue, you can have the issue [closed automatically](h
 ## Code guidelines ##
 * We have an [editor config](https://github.com/cs-education/sysbuild/blob/master/.editorconfig) file for maintaining a consistent coding style.
   Read more and download plugins at <http://editorconfig.org>.
+
 * Please include tests whenever possible.
+
 * Keep accessibility in mind when writing HTML.
+
 * Make sure there are no JSHint errors.
+
 * Make sure all tests pass.
-* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into upstream/master through a pull request.
-  Your fork's master should always be in sync with upstream/master. If you made your changes in your master branch and your pull request gets rejected,
-  your master branch will be ahead of upstream/master and it is [hard to cleanup](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
+
+* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
+  Your fork's `master` should always be in sync with `upstream/master`. If you made your changes in your `master` branch and your pull request gets rejected,
+  your `master` branch will be ahead of `upstream/master` and it is [hard to cleanup](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
   Therefore, always make changes in a new branch.
+
 * We use [Travis CI](https://travis-ci.org/) for continuous integration. Every time you open a pull request and make commits onto it, a build is triggered.
   Sometimes you will make commits which do not need a build to be created (for example, editing the README or non-code changes). In that case, just add
   `[skip ci]` somewhere in your commit message. [Learn more](http://docs.travis-ci.com/user/how-to-skip-a-build/).
