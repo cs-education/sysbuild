@@ -514,4 +514,6 @@ module.exports = function (grunt) {
         });
         grunt.task.run('buildcontrol:pages');
     });
+
+    grunt.registerTask('travis', ['jshint', 'test']);
 };
