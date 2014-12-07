@@ -92,7 +92,7 @@ $(document).ready(function () {
         }
     });
     manPageTokens.initialize();
-    editor.tokenHighlighter = new TokenHighlighter(editor, manPageTokens);
+    editor.tokenHighlighter = new TokenHighlighter(editor, manPageTokens, openManPage);
 
     $('#man-pages-search-typeahead').children('.typeahead').typeahead({
         highlight: true

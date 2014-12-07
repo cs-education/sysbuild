@@ -6,7 +6,7 @@ var aceEvent = ace.require('ace/lib/event');
 var Range = ace.require('ace/range').Range;
 var Tooltip = ace.require('ace/tooltip').Tooltip;
 
-function TokenHighlighter(editor, manPageTokens) {
+function TokenHighlighter(editor, manPageTokens, clickCallback) {
     editor = editor.aceEditor;
     if (editor.TokenHighlighter) {
         return;
@@ -15,6 +15,7 @@ function TokenHighlighter(editor, manPageTokens) {
     editor.TokenHighlighter = this;
     this.editor = editor;
     this.manPageTokens = manPageTokens;
+    this.clickCallback = clickCallback;
 
     this.highlightTokens = this.highlightTokens.bind(this);
     this.update = this.update.bind(this);
@@ -27,6 +28,7 @@ function TokenHighlighter(editor, manPageTokens) {
 oop.inherits(TokenHighlighter, Tooltip);
 
 (function () {
+    var self = this;
     this.token = {};
     this.markers = [];
     this.range = new Range();
@@ -47,17 +49,16 @@ oop.inherits(TokenHighlighter, Tooltip);
         var manPageTokens = this.manPageTokens;
         var row = 1;
         var tokenStart = 0;
+        console.log(r);
         var searchAndHighlight = function(token){
-            //console.log(this);
             if(token.type === 'identifier'){
-                var highlight = function(results){
-                    if(results){
-                        //var range = new Range(row, tokenStart, row, tokenStart+token.value.length);
-                        //markers.append(this.session.addMarker(range, 'ace_bracket', 'text'));
-                        console.log(results[0]);
+                manPageTokens.get(token.value, function(results){
+                    if(results.length && results[0].name === token.value){
+                        var range = new Range(row, tokenStart, row, tokenStart+token.value.length);
+                        self.markers.push(session.addMarker(range, 'token-highlight', 'text'));
+                        console.log(self.markers);
                     }
-                };
-                manPageTokens.get(token.value, highlight);
+                });
             }
             tokenStart += token.value.length;
         };
@@ -70,10 +71,13 @@ oop.inherits(TokenHighlighter, Tooltip);
     };
 
     this.update = function () {
+        var session = this.editor.session;
+
         if(!this.$timer){
-            this.markers.forEach(function(marker){
-                this.editor.session.removeMarker(marker);
+            self.markers.forEach(function(marker){
+                session.removeMarker(marker);
             });
+            self.markers = [];
             this.$timer = setTimeout(this.highlightTokens, 100);
         }
         /*
