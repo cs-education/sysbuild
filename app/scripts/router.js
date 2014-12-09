@@ -8,29 +8,48 @@ window.Router = (function () {
         /* jshint newcap: false */
         var viewModel = SysViewModel.getInstance();
 
-        var populateChapters = function () {
-            var jqxhr;
-            if (viewModel.chapters().length === 0) {
-                // Load chapters
-                jqxhr = $.getJSON('sysassets/sys.min.json', function (data) {
-                    viewModel.chapters(data.chapters);
-                });
-            } else {
-                // Chapters have already been loaded, so request cannot fail
-                jqxhr = {
-                    done: function (cb) {
-                        if (cb) {
-                            cb();
+        var populateChapters = (function(){
+            var previouslyFailed = false;
+            return function () {
+                var jqxhr;
+                if (previouslyFailed){
+                    // Chapter load already failed, don't try again
+                    jqxhr = {
+                        done: function (){
+                            return this;
+                        },
+                        fail: function (cb){
+                            if (cb){
+                                cb();
+                            }
+                            return this;
                         }
-                        return this;
-                    },
-                    fail: function () {
-                        return this;
-                    }
-                };
-            }
-            return jqxhr;
-        };
+                    };
+                } else if (viewModel.chapters().length === 0) {
+                    // Load chapters
+                    jqxhr = $.getJSON('sysassets/sys.min.json', function (data) {
+                        viewModel.chapters(data.chapters);
+                    }).fail(function(){
+                        // Getting file failed, don't try again
+                        previouslyFailed = true;
+                    });
+                } else {
+                    // Chapters have already been loaded, so request cannot fail
+                    jqxhr = {
+                        done: function (cb) {
+                            if (cb) {
+                                cb();
+                            }
+                            return this;
+                        },
+                        fail: function () {
+                            return this;
+                        }
+                    };
+                }
+                return jqxhr;
+            };
+        })();
 
         var populateCurrentNavigation = function (chapterIdx, sectionIdx, activityIdx) {
             var chapter = viewModel.chapters()[chapterIdx];
@@ -171,6 +190,8 @@ window.Router = (function () {
             });
 
             this.get('#playground', function () {
+                populateChapters();
+
                 var playActivity = {};
                 playActivity.doc =
                     '<h2>Welcome</h2>' +
