@@ -108,6 +108,24 @@ window.Editor = (function () {
         $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
             self.aceEditor.setShowInvisibles(this.checked);
         });
+
+        // The following three click handlers achieve toggling the settings popover when clicking the settings button
+        // and hiding it when clicking anywhere outside it.
+        $body.on('click', function () {
+            $settingsPopover.popover('hide');
+        });
+
+        // TODO: The .popover selector will select all popovers,
+        // and so a click on any popover in the body with trigger !== "focus" will call this handler.
+        // This works for now, but may create problems in the future.
+        $body.on('click', '.popover', function (e) {
+            e.stopPropagation();
+        });
+
+        $settingsPopover.on('click', function (e) {
+            $settingsPopover.popover('toggle');
+            e.stopPropagation();
+        });
     }
 
     Editor.prototype.setTheme = function (theme) {
