@@ -74,11 +74,11 @@ $(document).ready(function () {
         };
     };
 
-    var openManPage = function () {
+    var openManPage = function (selectedManPage) {
         var openManPageTabs;
-        if (lastSelectedManPage) {
+        if (selectedManPage) {
             openManPageTabs = viewModel.openManPageTabs;
-            openManPageTabs.push(getManPageTabData(lastSelectedManPage));
+            openManPageTabs.push(getManPageTabData(selectedManPage));
             viewModel.currentActiveTabIndex(openManPageTabs().length - 1);
         }
     };
@@ -122,7 +122,7 @@ $(document).ready(function () {
     }).keypress(function (e) {
         if (e.which === 13) {
             // Enter key pressed
-            openManPage();
+            openManPage(lastSelectedManPage);
         } else {
             // User typed in something
             // Discard the last selected man page because it should be saved only when
@@ -138,7 +138,9 @@ $(document).ready(function () {
         }
     });
 
-    $('#man-page-open-btn').click(openManPage);
+    $('#man-page-open-btn').click(function(){
+        openManPage(lastSelectedManPage);
+    });
 
     var resizeTabs = function () {
         window.setTimeout(function () {
