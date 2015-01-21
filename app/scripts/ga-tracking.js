@@ -11,8 +11,10 @@ window.Tracker = (function () {
 
     var getEnvironment = function () {
         var loc = window.location.hostname + window.location.pathname;
-        if (loc === 'angrave.github.io/sys/') {
+        if (loc === 'cs-education.github.io/sys/') {
             return 'prod';
+        } else if (loc === 'angrave.github.io/sys/') {
+            return 'angraveprod';
         } else if (loc === 'cs-education.github.io/sys-staging/') {
             return 'staging';
         } else {
@@ -28,7 +30,7 @@ window.Tracker = (function () {
         }
 
         // Create the tracker objects
-        if (env === 'prod') {
+        if (env === 'angraveprod') {
             ga('create', angraveProdGaWebPropertyId, 'auto', {'name': 'angrave'});
             ga('create', neelabhgProdGaWebPropertyId, 'auto', {'name': 'neelabhg'});
         } else if (env === 'staging') {

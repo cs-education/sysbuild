@@ -2,7 +2,7 @@
 
 Source code for the Linux-In-The-Browser project used
 in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
-at [UIUC](http://illinois.edu/). View it live [here](http://angrave.github.io/sys/).
+at [UIUC](http://illinois.edu/). View it live [here](http://cs-education.github.io/sys/).
 
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
 If you would like to work on this project, continue reading to get started.
@@ -110,7 +110,7 @@ If you were working on an issue, you can have the issue [closed automatically](h
 
 ## Deploying ##
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
-The production repository is <https://github.com/angrave/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
+The production repository is <https://github.com/cs-education/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
 You will need push access to the appropriate repository before you can deploy.
 
 1. Build the distributable project (output in the `dist/` folder).  
@@ -119,8 +119,8 @@ You will need push access to the appropriate repository before you can deploy.
 2. Deploy to [staging](http://cs-education.github.io/sys-staging/).  
 `grunt deploy:staging`
 
-4. Deploy to [production](http://angrave.github.io/sys/).  
-`grunt deploy:angraveprod`
+4. Deploy to [production](http://cs-education.github.io/sys/).  
+`grunt deploy:prod`
 
 ## Creators ##
 Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
