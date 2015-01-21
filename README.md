@@ -126,7 +126,7 @@ You will need push access to the appropriate repository before you can deploy.
 #### Creators ####
 Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
 
-#### 2014 Contributors - UIUC Students ####
+#### 2014-15 Contributors - UIUC Students ####
 Anant Singh [github.com/anant-singh](https://github.com/anant-singh)  
 Eric Ahn [github.com/wchill](https://github.com/wchill)  
 Joseph Tran [github.com/jdtran23](https://github.com/jdtran23)  
@@ -136,12 +136,13 @@ Scott Walters [github.com/scowalt](https://github.com/scowalt)
 Siddharth Seth [github.com/siddharth-seth](https://github.com/siddharth-seth)
 
 #### Open source projects ####
-The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.
+The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.  
+The code editor is powered by [Ace](http://ace.c9.io/).
 
 ## Licence ##
-See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).  
+See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).
 
-### Open source licences ###
-jor1k is distributed under the terms of the [GNU General Public License v3 (GPLv3)](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
+#### Open source licences ####
+jor1k is distributed under the terms of the [Simplified BSD License](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
 Bootstrap is released under the [MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE) and is copyright 2014 Twitter.  
 Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.  
