@@ -5,9 +5,10 @@ window.Tracker = (function () {
     'use strict';
     var instance;
 
-    var angraveProdGaWebPropertyId = 'UA-42515111-2',
-        neelabhgProdGaWebPropertyId = 'UA-39700861-4',
-        neelabhgStagingGaWebPropertyId = 'UA-39700861-5';
+    var angraveOldProdGaWebPropertyId = 'UA-42515111-2',
+        neelabhgOldProdGaWebPropertyId = 'UA-39700861-4',
+        neelabhgStagingGaWebPropertyId = 'UA-39700861-5',
+        neelabhgProdGaWebPropertyId = 'UA-39700861-6';
 
     var getEnvironment = function () {
         var loc = window.location.hostname + window.location.pathname;
@@ -30,9 +31,11 @@ window.Tracker = (function () {
         }
 
         // Create the tracker objects
-        if (env === 'angraveprod') {
-            ga('create', angraveProdGaWebPropertyId, 'auto', {'name': 'angrave'});
-            ga('create', neelabhgProdGaWebPropertyId, 'auto', {'name': 'neelabhg'});
+        if (env === 'prod') {
+            ga('create', neelabhgProdGaWebPropertyId, 'auto', {'name': 'neelabhgProd'});
+        } else if (env === 'angraveprod') {
+            ga('create', angraveOldProdGaWebPropertyId, 'auto', {'name': 'angraveOldProd'});
+            ga('create', neelabhgOldProdGaWebPropertyId, 'auto', {'name': 'neelabhgOldProd'});
         } else if (env === 'staging') {
             ga('create', neelabhgStagingGaWebPropertyId, 'auto', {'name': 'neelabhgStaging'});
         }
@@ -43,15 +46,17 @@ window.Tracker = (function () {
      * https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#optout
      */
     Tracker.prototype.disableTracking = function () {
-        window['ga-disable-' + angraveProdGaWebPropertyId] = true;
-        window['ga-disable-' + neelabhgProdGaWebPropertyId] = true;
+        window['ga-disable-' + angraveOldProdGaWebPropertyId] = true;
+        window['ga-disable-' + neelabhgOldProdGaWebPropertyId] = true;
         window['ga-disable-' + neelabhgStagingGaWebPropertyId] = true;
+        window['ga-disable-' + neelabhgProdGaWebPropertyId] = true;
     };
 
     Tracker.prototype.isTrackingEnabled = function () {
-        return !(window['ga-disable-' + angraveProdGaWebPropertyId] &&
-                 window['ga-disable-' + neelabhgProdGaWebPropertyId] &&
-                 window['ga-disable-' + neelabhgStagingGaWebPropertyId]);
+        return !(window['ga-disable-' + angraveOldProdGaWebPropertyId] &&
+                 window['ga-disable-' + neelabhgOldProdGaWebPropertyId] &&
+                 window['ga-disable-' + neelabhgStagingGaWebPropertyId] &&
+                 window['ga-disable-' + neelabhgProdGaWebPropertyId]);
     };
 
     // Opt-out function
