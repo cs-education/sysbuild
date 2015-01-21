@@ -11,6 +11,7 @@ If you would like to work on this project, continue reading to get started.
 ```
 sysbuild/
 ├── app/                      Application source code
+│   ├── images/               Images/pictures
 │   ├── jor1k/                The jor1k project source copied by grunt during setup
 │   ├── jor1k_hd_images/      Disk images for the Virtual Machine
 │   ├── scripts/              Javascript files
