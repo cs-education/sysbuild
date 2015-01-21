@@ -122,10 +122,11 @@ You will need push access to the appropriate repository before you can deploy.
 4. Deploy to [production](http://cs-education.github.io/sys/).  
 `grunt deploy:prod`
 
-## Creators ##
+## Credits ##
+#### Creators ####
 Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
 
-## 2014 Contributors - UIUC Students ##
+#### 2014 Contributors - UIUC Students ####
 Anant Singh [github.com/anant-singh](https://github.com/anant-singh)  
 Eric Ahn [github.com/wchill](https://github.com/wchill)  
 Joseph Tran [github.com/jdtran23](https://github.com/jdtran23)  
@@ -134,7 +135,7 @@ Neelabh Gupta [github.com/neelabhg](http://github.com/neelabhg)
 Scott Walters [github.com/scowalt](https://github.com/scowalt)  
 Siddharth Seth [github.com/siddharth-seth](https://github.com/siddharth-seth)
 
-## Open source projects ##
+#### Open source projects ####
 The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.
 
 ## Licence ##
