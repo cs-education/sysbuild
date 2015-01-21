@@ -2,7 +2,7 @@
 
 Source code for the Linux-In-The-Browser project used
 in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
-at [UIUC](http://illinois.edu/). View it live [here](http://angrave.github.io/sys/).
+at [UIUC](http://illinois.edu/). View it live [here](http://cs-education.github.io/sys/).
 
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
 If you would like to work on this project, continue reading to get started.
@@ -11,6 +11,7 @@ If you would like to work on this project, continue reading to get started.
 ```
 sysbuild/
 ├── app/                      Application source code
+│   ├── images/               Images/pictures
 │   ├── jor1k/                The jor1k project source copied by grunt during setup
 │   ├── jor1k_hd_images/      Disk images for the Virtual Machine
 │   ├── scripts/              Javascript files
@@ -110,7 +111,7 @@ If you were working on an issue, you can have the issue [closed automatically](h
 
 ## Deploying ##
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
-The production repository is <https://github.com/angrave/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
+The production repository is <https://github.com/cs-education/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
 You will need push access to the appropriate repository before you can deploy.
 
 1. Build the distributable project (output in the `dist/` folder).  
@@ -119,13 +120,14 @@ You will need push access to the appropriate repository before you can deploy.
 2. Deploy to [staging](http://cs-education.github.io/sys-staging/).  
 `grunt deploy:staging`
 
-4. Deploy to [production](http://angrave.github.io/sys/).  
-`grunt deploy:angraveprod`
+4. Deploy to [production](http://cs-education.github.io/sys/).  
+`grunt deploy:prod`
 
-## Creators ##
+## Credits ##
+#### Creators ####
 Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
 
-## 2014 Contributors - UIUC Students ##
+#### 2014-15 Contributors - UIUC Students ####
 Anant Singh [github.com/anant-singh](https://github.com/anant-singh)  
 Eric Ahn [github.com/wchill](https://github.com/wchill)  
 Joseph Tran [github.com/jdtran23](https://github.com/jdtran23)  
@@ -134,13 +136,14 @@ Neelabh Gupta [github.com/neelabhg](http://github.com/neelabhg)
 Scott Walters [github.com/scowalt](https://github.com/scowalt)  
 Siddharth Seth [github.com/siddharth-seth](https://github.com/siddharth-seth)
 
-## Open source projects ##
-The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.
+#### Open source projects ####
+The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.  
+The code editor is powered by [Ace](http://ace.c9.io/).
 
 ## Licence ##
-See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).  
+See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).
 
-### Open source licences ###
-jor1k is distributed under the terms of the [GNU General Public License v3 (GPLv3)](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
+#### Open source licences ####
+jor1k is distributed under the terms of the [Simplified BSD License](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
 Bootstrap is released under the [MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE) and is copyright 2014 Twitter.  
 Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.  

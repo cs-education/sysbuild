@@ -35,6 +35,12 @@ module.exports = function (grunt) {
                 branch: 'gh-pages'
             }
         },
+        prod: {
+            options: {
+                remote: 'https://github.com/cs-education/sys',
+                branch: 'gh-pages'
+            }
+        },
         angraveprod: {
             options: {
                 remote: 'https://github.com/angrave/sys',
@@ -500,7 +506,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
 
-        var targets = ['angraveprod', 'staging'];
+        var targets = ['staging', 'prod', 'angraveprod'];
         if (targets.indexOf(target) === -1) {
             grunt.log.error('Please specify a valid target. Valid targets are: ' + targets.join(', ') + '.');
             return false;
