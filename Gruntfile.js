@@ -166,6 +166,18 @@ module.exports = function (grunt) {
             ]
         },
 
+        jscs : {
+            options: {
+                config: '.jscsrc'
+            },
+            src: [
+                'Gruntfile.js',
+                '<%= config.app %>/scripts/{,*/}*.js',
+                '!<%= config.app %>/scripts/vendor/*',
+                'test/spec/{,*/}*.js'
+            ]
+        },
+
         // Mocha testing framework configuration options
         mocha: {
             all: {
