@@ -141,6 +141,7 @@ The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jo
 The code editor is powered by [Ace](http://ace.c9.io/).
 
 ## Licence ##
+This project is licenced under a variant of the University of Illinois/NCSA Open Source License.
 See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).
 
 #### Open source licences ####
