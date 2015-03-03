@@ -31,7 +31,7 @@ window.Jor1kGUI = (function () {
         this.reset = function () {
             this.stop = false; // VM Stopped/Aborted
             this.userpaused = false;
-            this.executepending=false; // if we rec an execute message while paused
+            this.executepending = false; // if we rec an execute message while paused
             this.sendToWorker('Reset');
             this.sendToWorker('LoadAndStart', this.urls);
             this.term.PauseBlink(false);
@@ -44,7 +44,7 @@ window.Jor1kGUI = (function () {
                 return;
             }
             this.userpaused = pause;
-            if(! this.userpaused && this.executepending) {
+            if (!this.userpaused && this.executepending) {
                 this.executepending = false;
                 this.sendToWorker('execute', 0);
             }
@@ -72,51 +72,51 @@ window.Jor1kGUI = (function () {
         // set the focus to the terminal after toggling full screen
         // TODO: implement terminal switching full screen
         SysViewModel.getInstance().ttyFullScreen.subscribe(function () {
-            if(SysViewModel.getInstance().isPrimaryTTY()) {
+            if (SysViewModel.getInstance().isPrimaryTTY()) {
                 this.lastMouseDownTarget = this.terminalcanvas;
             } else {
                 this.lastMouseDownTarget = this.terminalcanvastwo;
             }
         }, this);
 
-        if(document.addEventListener) {
+        if (document.addEventListener) {
             document.addEventListener('mousedown', recordTarget, false);
         } else {
             window.onmousedown = recordTarget; // IE 10 support (untested)
         }
 
         document.onkeypress = function (event) {
-            if(this.ignoreKeys()) {
+            if (this.ignoreKeys()) {
                 return true;
             }
             this.sendToWorker('keypress', {keyCode:event.keyCode, charCode:event.charCode});
-            if(this.lastMouseDownTarget === this.terminalcanvas) {
+            if (this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyPress(event);
-            } else if(this.lastMouseDownTarget === this.terminalcanvastwo) {
+            } else if (this.lastMouseDownTarget === this.terminalcanvastwo) {
                 return this.terminputtwo.OnKeyPress(event);
             }
         }.bind(this);
 
         document.onkeydown = function (event) {
-            if(this.ignoreKeys()) {
+            if (this.ignoreKeys()) {
                 return true;
             }
             this.sendToWorker('keydown', {keyCode:event.keyCode, charCode:event.charCode});
-            if(this.lastMouseDownTarget === this.terminalcanvas) {
+            if (this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyDown(event);
-            } else if(this.lastMouseDownTarget === this.terminalcanvastwo) {
+            } else if (this.lastMouseDownTarget === this.terminalcanvastwo) {
                 return this.terminputtwo.OnKeyDown(event);
             }
         }.bind(this);
 
         document.onkeyup = function (event) {
-            if(this.ignoreKeys()) {
+            if (this.ignoreKeys()) {
                 return true;
             }
             this.sendToWorker('keyup', {keyCode:event.keyCode, charCode:event.charCode});
-            if(this.lastMouseDownTarget === this.terminalcanvas) {
+            if (this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyUp(event);
-            } else if(this.lastMouseDownTarget === this.terminalcanvastwo) {
+            } else if (this.lastMouseDownTarget === this.terminalcanvastwo) {
                 return this.terminputtwo.OnKeyUp(event);
             }
         }.bind(this);
@@ -128,7 +128,7 @@ window.Jor1kGUI = (function () {
 
         this.reset();
 
-        window.setInterval(function (){
+        window.setInterval(function () {
             this.sendToWorker('GetIPS', 0);
         }.bind(this), 1000);
     }
@@ -137,9 +137,9 @@ window.Jor1kGUI = (function () {
         if (this.stop) {
             return;
         }
-        switch(e.data.command) {
+        switch (e.data.command) {
             case 'execute':  // this command is sent back and forth to be responsive
-                if(this.userpaused) {
+                if (this.userpaused) {
                     this.executepending = true;
                 } else {
                     this.executepending = false;
@@ -160,7 +160,7 @@ window.Jor1kGUI = (function () {
                 this.stop = true;
                 break;
             case 'GetIPS':
-                SysViewModel.getInstance().vmMips(this.userpaused ? 0 : (Math.floor(e.data.data/100000)/10.0));
+                SysViewModel.getInstance().vmMips(this.userpaused ? 0 : (Math.floor(e.data.data / 100000) / 10.0));
                 break;
             case 'Debug':
                 console.log(e.data.data);

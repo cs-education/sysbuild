@@ -139,7 +139,7 @@ $(document).ready(function () {
         }, 500);
     };
 
-    $(window).resize(function() {
+    $(window).resize(function () {
         editor.resize(500);
         resizeTabs();
     });

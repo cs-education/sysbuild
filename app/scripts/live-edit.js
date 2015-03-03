@@ -9,7 +9,7 @@ window.LiveEdit = (function () {
         this.editor = editor;
         this.viewModel = SysViewModel.getInstance();
 
-        var updateCompileButton = function() {
+        var updateCompileButton = function () {
             var ready = this.runtime.ready();
             this.viewModel.vmState(ready ? 'Running' : 'Booting');
             this.viewModel.compileStatus(ready ? 'Ready' : 'Waiting');
@@ -17,7 +17,7 @@ window.LiveEdit = (function () {
 
         updateCompileButton(); // Maybe sys is already up and running
 
-        this.runtime.addListener('ready', function() {
+        this.runtime.addListener('ready', function () {
             updateCompileButton();
         }.bind(this));
     }
@@ -60,7 +60,9 @@ window.LiveEdit = (function () {
         this.viewModel.lastGccOutput(result.gccOutput);
         this.viewModel.gccErrorCount(result.stats.error);
         this.viewModel.gccWarningCount(result.stats.warning);
-        this.viewModel.gccOptsError(gccOptsErrors.map(function(error) { return error.text; }).join('\n'));
+        this.viewModel.gccOptsError(gccOptsErrors.map(function (error) {
+            return error.text;
+        }).join('\n'));
 
         if (result.exitCode === 0) {
             this.viewModel.compileStatus(result.stats.warning > 0 ? 'Warning' : 'Success');
@@ -70,8 +72,8 @@ window.LiveEdit = (function () {
         }
     };
 
-    LiveEdit.prototype.runCode = function(code, gccOptions) {
-        if(code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0 ) {
+    LiveEdit.prototype.runCode = function (code, gccOptions) {
+        if (code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0) {
             return;
         }
         var callback = this.processGccCompletion.bind(this);

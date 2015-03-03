@@ -78,10 +78,10 @@ window.Editor = (function () {
         // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
         var $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
-            title: function() {
+            title: function () {
                 return 'Editor settings';
             },
-            content: function() {
+            content: function () {
                 return $editorSettingsPopover.html();
             }
         });
@@ -132,7 +132,7 @@ window.Editor = (function () {
         this.aceEditor.setTheme('ace/theme/' + theme);
     };
 
-    Editor.prototype.getText = function() {
+    Editor.prototype.getText = function () {
         return this.aceEditor.getSession().getValue();
     };
 
