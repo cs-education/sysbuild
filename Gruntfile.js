@@ -533,5 +533,5 @@ module.exports = function (grunt) {
         grunt.task.run('buildcontrol:pages');
     });
 
-    grunt.registerTask('travis', ['jshint', 'test']);
+    grunt.registerTask('travis', ['jshint', 'jscs', 'test']);
 };
