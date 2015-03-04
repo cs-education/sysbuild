@@ -152,15 +152,15 @@ window.SysRuntime = (function () {
             return;
         }
         if (filename[0] !== '/' && filename[0] !== '.') {
-            filename= './' + filename.replace(' ', '\\ ');
+            filename = './' + filename.replace(' ', '\\ ');
         }
-        cmdargs = cmdargs.replace('\\', '\\\\').replace('\n','\\n');
+        cmdargs = cmdargs.replace('\\', '\\\\').replace('\n', '\\n');
         // Don't \x03 ; it interrupts the clear command
         this.sendKeys('tty0', '\n' + filename + ' ' + cmdargs + '\n');
     };
 
-    SysRuntime.prototype.sendTextFile = function(filename, contents) {
-        this.sendKeys('tty0', '\nstty raw\ndd ibs=1 of=' + filename + ' count=' + contents.length + '\n'+ contents + '\nstty -raw\n');
+    SysRuntime.prototype.sendTextFile = function (filename, contents) {
+        this.sendKeys('tty0', '\nstty raw\ndd ibs=1 of=' + filename + ' count=' + contents.length + '\n' + contents + '\nstty -raw\n');
     };
 
     // Used to broadcast 'putchar' and 'ready' events
@@ -182,11 +182,11 @@ window.SysRuntime = (function () {
 
     SysRuntime.prototype.notifyListeners = function (eventname, data) {
         var ary = this.listeners[eventname];
-        if(!ary) {
+        if (!ary) {
             return;
         }
         ary = ary.slice(); // Listeners may be added/removed during this event, so make a copy first
-        for(var i = 0; ary && i < ary.length; i++) {
+        for (var i = 0; ary && i < ary.length; i++) {
             ary[i](this, data);
         }
     };
@@ -196,12 +196,12 @@ window.SysRuntime = (function () {
         var expectResult = null;
         this.jor1kgui.pause(false);
 
-        if(expect) {
+        if (expect) {
             expectResult = new ExpectTTY(this, expect, success, cancel);
         }
 
-        for(var i = 0; i < text.length; i++) {
-            this.jor1kgui.sendToWorker(tty, text.charCodeAt(i) >>>0);
+        for (var i = 0; i < text.length; i++) {
+            this.jor1kgui.sendToWorker(tty, text.charCodeAt(i) >>> 0);
         }
 
         return expectResult;

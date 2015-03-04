@@ -106,7 +106,7 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
-                    middleware: function(connect) {
+                    middleware: function (connect) {
                         return [
                             connect.static('.tmp'),
                             connect().use('/bower_components', connect.static('./bower_components')),
@@ -119,7 +119,7 @@ module.exports = function (grunt) {
                 options: {
                     open: false,
                     port: 9001,
-                    middleware: function(connect) {
+                    middleware: function (connect) {
                         return [
                             connect.static('.tmp'),
                             connect.static('test'),
@@ -159,6 +159,18 @@ module.exports = function (grunt) {
                 reporter: require('jshint-stylish')
             },
             all: [
+                'Gruntfile.js',
+                '<%= config.app %>/scripts/{,*/}*.js',
+                '!<%= config.app %>/scripts/vendor/*',
+                'test/spec/{,*/}*.js'
+            ]
+        },
+
+        jscs : {
+            options: {
+                config: '.jscsrc'
+            },
+            src: [
                 'Gruntfile.js',
                 '<%= config.app %>/scripts/{,*/}*.js',
                 '!<%= config.app %>/scripts/vendor/*',
@@ -357,7 +369,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: './sys-gh-pages-config/',
-                    src: ['README.md' /*, '_CNAME'*/],
+                    src: ['README.md'],
                     dest: '<%= config.dist %>'
                 }]
             },
@@ -497,14 +509,14 @@ module.exports = function (grunt) {
     grunt.registerTask('setupJor1k', ['copy:jor1k']);
 
     grunt.registerTask('writeBuildStamps',
-        'Create files in the build directory with build info (date, changes, etc.)', function() {
+        'Create files in the build directory with build info (date, changes, etc.)', function () {
         grunt.file.write(config.dist + '/build-date.txt', grunt.template.today() + '\n');
         grunt.task.run('shell:writeGitRecentCommits');
     });
 
     grunt.registerTask('testserver', ['connect:test:keepalive']);
 
-    grunt.registerTask('deploy', 'Deploy the sys project', function(target) {
+    grunt.registerTask('deploy', 'Deploy the sys project', function (target) {
 
         var targets = ['staging', 'prod', 'angraveprod'];
         if (targets.indexOf(target) === -1) {
@@ -521,5 +533,5 @@ module.exports = function (grunt) {
         grunt.task.run('buildcontrol:pages');
     });
 
-    grunt.registerTask('travis', ['jshint', 'test']);
+    grunt.registerTask('travis', ['jshint', 'jscs', 'test']);
 };

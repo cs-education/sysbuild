@@ -8,18 +8,18 @@ window.Router = (function () {
         /* jshint newcap: false */
         var viewModel = SysViewModel.getInstance();
 
-        var populateChapters = (function(){
+        var populateChapters = (function () {
             var previouslyFailed = false;
             return function () {
                 var jqxhr;
-                if (previouslyFailed){
+                if (previouslyFailed) {
                     // Chapter load already failed, don't try again
                     jqxhr = {
-                        done: function (){
+                        done: function () {
                             return this;
                         },
-                        fail: function (cb){
-                            if (cb){
+                        fail: function (cb) {
+                            if (cb) {
                                 cb();
                             }
                             return this;
@@ -29,7 +29,7 @@ window.Router = (function () {
                     // Load chapters
                     jqxhr = $.getJSON('sysassets/sys.min.json', function (data) {
                         viewModel.chapters(data.chapters);
-                    }).fail(function(){
+                    }).fail(function () {
                         // Getting file failed, don't try again
                         previouslyFailed = true;
                     });
@@ -93,7 +93,9 @@ window.Router = (function () {
             };
 
             if (playActivity.docFile) {
-                $.get('sysassets/' + playActivity.docFile).done(cb).fail(function () { cb(playActivity.doc || ''); });
+                $.get('sysassets/' + playActivity.docFile).done(cb).fail(function () {
+                    cb(playActivity.doc || '');
+                });
             } else {
                 cb(playActivity.doc || '');
             }
@@ -131,7 +133,9 @@ window.Router = (function () {
             };
 
             if (videoActivity.docFile) {
-                $.get('sysassets/' + videoActivity.docFile).done(cb).fail(function () { cb(videoActivity.doc || ''); });
+                $.get('sysassets/' + videoActivity.docFile).done(cb).fail(function () {
+                    cb(videoActivity.doc || '');
+                });
             } else {
                 cb(videoActivity.doc || '');
             }

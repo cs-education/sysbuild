@@ -1,4 +1,4 @@
-# sysbuild [![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild) #
+# sysbuild [![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild) [![Dependency Status](https://gemnasium.com/cs-education/sysbuild.svg)](https://gemnasium.com/cs-education/sysbuild) #
 
 Source code for the Linux-In-The-Browser project used
 in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
@@ -59,6 +59,9 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 * Run [JSHint](http://www.jshint.com/about/).  
   `grunt jshint`
 
+* Run [JSCS](http://jscs.info/).  
+  `grunt jscs`
+
 * Run tests.  
   `grunt test`
 
@@ -96,7 +99,7 @@ If you were working on an issue, you can have the issue [closed automatically](h
 
 * Keep accessibility in mind when writing HTML.
 
-* Make sure there are no JSHint errors.
+* Make sure there are no JSHint/JSCS errors.
 
 * Make sure all tests pass.
 
@@ -141,6 +144,7 @@ The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jo
 The code editor is powered by [Ace](http://ace.c9.io/).
 
 ## Licence ##
+This project is licenced under a variant of the University of Illinois/NCSA Open Source License.  
 See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).
 
 #### Open source licences ####

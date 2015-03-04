@@ -78,10 +78,10 @@ window.Editor = (function () {
         // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
         var $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
-            title: function() {
+            title: function () {
                 return 'Editor settings';
             },
-            content: function() {
+            content: function () {
                 return $editorSettingsPopover.html();
             }
         });
@@ -132,7 +132,7 @@ window.Editor = (function () {
         this.aceEditor.setTheme('ace/theme/' + theme);
     };
 
-    Editor.prototype.getText = function() {
+    Editor.prototype.getText = function () {
         return this.aceEditor.getSession().getValue();
     };
 
@@ -207,30 +207,28 @@ window.Editor = (function () {
         this.reIndenting = true;
 
         for (currentRow = 0; currentRow < length; currentRow++) {
-            if (currentRow === 0) {
-                continue;
+            if (currentRow !== 0) {
+                thisLineIndent = mode.getNextLineIndent(
+                    editSession.getState(currentRow - 1),
+                    editSession.getLine(currentRow - 1),
+                    editSession.getTabString()
+                );
+
+                thisLine = editSession.getLine(currentRow);
+                currentIndent = /^\s*/.exec(thisLine)[0];
+                if (currentIndent !== thisLineIndent) {
+                    thisLine = thisLineIndent + thisLine.trim();
+                }
+
+                text.insertLines(currentRow, [thisLine]);
+                text.removeLines(currentRow + 1, currentRow + 1);
+
+                mode.autoOutdent(
+                    editSession.getState(currentRow),
+                    editSession,
+                    currentRow
+                );
             }
-
-            thisLineIndent = mode.getNextLineIndent(
-                editSession.getState(currentRow - 1),
-                editSession.getLine(currentRow - 1),
-                editSession.getTabString()
-            );
-
-            thisLine = editSession.getLine(currentRow);
-            currentIndent = /^\s*/.exec(thisLine)[0];
-            if (currentIndent !== thisLineIndent) {
-                thisLine = thisLineIndent + thisLine.trim();
-            }
-
-            text.insertLines(currentRow, [thisLine]);
-            text.removeLines(currentRow + 1, currentRow + 1);
-
-            mode.autoOutdent(
-                editSession.getState(currentRow),
-                editSession,
-                currentRow
-            );
         }
 
         editor.moveCursorToPosition(position);
