@@ -60,8 +60,7 @@ window.SysViewModel = (function () {
             var status = (self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
             if (!status) {
                 $.notific8('The compiler is now online', confirmNotific8Options);
-            }
-            else {
+            } else {
                 $.notific8('The compiler is currently busy', busyNotific8Options);
             }
             return !status;
