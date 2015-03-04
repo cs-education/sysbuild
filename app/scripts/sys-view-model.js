@@ -24,15 +24,21 @@ window.SysViewModel = (function () {
         };
 
         var warningNotific8Options = {
-            life: 5000,
+            life: 2000,
             theme: 'ruby',
-            icons: 'info-circled'
+            icon: 'exclamation-triangle'
+        };
+
+        var busyNotific8Options = {
+            life: 2000,
+            theme: 'lemon',
+            icon: 'info-circled'
         };
 
         var confirmNotific8Options = {
-            life: 5000,
+            life: 2000,
             theme: 'lime',
-            icons: 'check-mark-2'
+            icon: 'check-mark-2'
         };
 
         self.challengeDoc = ko.observable('');
@@ -53,7 +59,10 @@ window.SysViewModel = (function () {
         self.compileBtnEnable = ko.pureComputed(function () {
             var status = (self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
             if (!status) {
-                $.notific8('The compile button is now ready', confirmNotific8Options);
+                $.notific8('The compiler is now online', confirmNotific8Options);
+            }
+            else {
+                $.notific8('The compiler is currently busy', busyNotific8Options);
             }
             return !status;
         });
@@ -73,8 +82,8 @@ window.SysViewModel = (function () {
         });
         self.showErrorWarningLabel = ko.pureComputed(function () {
             var status = (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
-            if (!status) {
-                $.notific8('There errors or warnings during compilation', warningNotific8Options);
+            if (status) {
+                $.notific8('There were errors or warnings during compilation', warningNotific8Options);
             }
             return status;
         });
