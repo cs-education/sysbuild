@@ -22,14 +22,14 @@ window.Editor = (function () {
         self.preferences = Preferences.getInstance('editor');
 
         var autoIndent = self.preferences.getItem('autoindent', 'true');
+        var highlightLine = self.preferences.getItem('highlightline', 'true');
         var showInvisibles = self.preferences.getItem('showinvisibles', 'false');
-        var highlightLine = self.preferences.getItem('highlightline', 'false');
         var theme = self.preferences.getItem('theme', self.viewModel.aceTheme());
         var fontSize = self.preferences.getItem('fontsize', 12);
 
         self.backgroundAutoIndent = (autoIndent === 'true');
-        self.aceEditor.setShowInvisibles(showInvisibles === 'true');
         self.aceEditor.setHighlightActiveLine(highlightLine === 'true');
+        self.aceEditor.setShowInvisibles(showInvisibles === 'true');
         self.setTheme(theme);
         self.viewModel.aceTheme(theme);
         self.setFontSize(fontSize + 'px');
