@@ -188,8 +188,10 @@ $(document).ready(function () {
             e.preventDefault();
         });
 
-    $('#editor-opts-container').find('form').submit(function () {
-        return false;
+    $('#editor-opts-container').find('form').submit(function (e) {
+        //return false;
+        e.preventDefault();
+        e.stopPropagation();
     });
 
     $('#download-file-btn').click(function () {
