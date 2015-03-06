@@ -21,10 +21,10 @@ window.Editor = (function () {
 
         // check if local storage supported
         try {
-             self.useLocalStorage = (localStorage !== 'undefined');
+            self.useLocalStorage = (localStorage !== 'undefined');
         } catch (e) {
-             // error accessing local storage (user may have blocked access)
-             self.useLocalStorage = false;
+            // error accessing local storage (user may have blocked access)
+            self.useLocalStorage = false;
         }
 
         if(self.useLocalStorage) {
@@ -36,15 +36,15 @@ window.Editor = (function () {
             var fontSize = localStorage.getItem('fontsize');
 
             if(autoIndent !== null) {
-                self.backgroundAutoIndent = (autoIndent == 'true');
+                self.backgroundAutoIndent = (autoIndent === 'true');
             }
 
             if(showInvisibles !== null) {
-                self.aceEditor.setShowInvisibles(showInvisibles == 'true');
+                self.aceEditor.setShowInvisibles(showInvisibles === 'true');
             }
 
             if(highlightLine !== null) {
-                self.aceEditor.setHighlightActiveLine(highlightLine == 'true');
+                self.aceEditor.setHighlightActiveLine(highlightLine === 'true');
             }
 
             if(theme !== null) {
