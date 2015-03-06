@@ -15,55 +15,55 @@ window.Preferences = (function () {
             console.log(e);
             self.useLocalStorage = false;
         }
+    }
 
-        self.setItem = function (key, value) {
-            if (self.useLocalStorage) {
-                try {
-                    localStorage.setItem(key, value);
-                } catch (e) {
-                    // error modifying local storage (out of space?)
-                    console.log(e);
-                }
+    Preferences.prototype.setItem = function (key, value) {
+        if (this.useLocalStorage) {
+            try {
+                localStorage.setItem(key, value);
+            } catch (e) {
+                // error modifying local storage (out of space?)
+                console.log(e);
             }
-        };
+        }
+    };
 
-        self.getItem = function (key, defaultValue) {
-            if (self.useLocalStorage) {
-                try {
-                    var result = localStorage.getItem(key);
-                    return (result !== null ? result : defaultValue);
-                } catch (e) {
-                    // error reading from local storage
-                    console.log(e);
-                    return defaultValue;
-                }
-            } else {
+    Preferences.prototype.getItem = function (key, defaultValue) {
+        if (this.useLocalStorage) {
+            try {
+                var result = localStorage.getItem(key);
+                return (result !== null ? result : defaultValue);
+            } catch (e) {
+                // error reading from local storage
+                console.log(e);
                 return defaultValue;
             }
-        };
+        } else {
+            return defaultValue;
+        }
+    };
 
-        self.removeItem = function (key) {
-            if (self.useLocalStorage) {
-                try {
-                    localStorage.removeItem(key);
-                } catch (e) {
-                    // error modifying local storage
-                    console.log(e);
-                }
+    Preferences.prototype.removeItem = function (key) {
+        if (this.useLocalStorage) {
+            try {
+                localStorage.removeItem(key);
+            } catch (e) {
+                // error modifying local storage
+                console.log(e);
             }
-        };
+        }
+    };
 
-        self.clear = function () {
-            if (self.useLocalStorage) {
-                try {
-                    localStorage.clear();
-                } catch (e) {
-                    // error modifying local storage
-                    console.log(e);
-                }
+    Preferences.prototype.clear = function () {
+        if (this.useLocalStorage) {
+            try {
+                localStorage.clear();
+            } catch (e) {
+                // error modifying local storage
+                console.log(e);
             }
-        };
-    }
+        }
+    };
 
     function NamedPreferences(namespace, preferenceManager) {
         var self = this;
