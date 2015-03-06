@@ -18,7 +18,6 @@ window.Editor = (function () {
         self.setMode('c_cpp');
         self.aceEditor.getSession().setTabSize(4);
         self.aceEditor.getSession().setUseSoftTabs(true);
-        self.backgroundAutoIndent = false;
 
         // check if local storage supported
         try {
