@@ -29,8 +29,6 @@ window.Editor = (function () {
 
         if(self.useLocalStorage) {
 
-            self.useLocalStorage = true;
-
             var autoIndent = localStorage.getItem('autoindent');
             var showInvisibles = localStorage.getItem('showinvisibles');
             var highlightLine = localStorage.getItem('highlightline');
