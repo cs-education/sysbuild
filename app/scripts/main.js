@@ -189,7 +189,6 @@ $(document).ready(function () {
         });
 
     $('#editor-opts-container').find('form').submit(function (e) {
-        //return false;
         e.preventDefault();
         e.stopPropagation();
     });
