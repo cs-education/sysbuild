@@ -387,13 +387,6 @@ module.exports = function (grunt) {
                 cwd: 'bower_components/jor1k/',
                 src: ['**', '!.git'],
                 dest: '<%= config.app %>/jor1k/'
-            },
-            sysassets: {
-                expand: true,
-                dot: true,
-                cwd: '<%= config.app %>/sysassets/',
-                src: ['chapters/**', '**/*.min.json'],
-                dest: '<%= config.dist %>/sysassets/'
             }
         },
 
@@ -523,8 +516,6 @@ module.exports = function (grunt) {
             grunt.log.error('Please specify a valid target. Valid targets are: ' + targets.join(', ') + '.');
             return false;
         }
-
-        grunt.task.run('copy:sysassets');
 
         grunt.config('buildcontrol', {
             options: buildcontrolConfig.options,
