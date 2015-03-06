@@ -27,7 +27,7 @@ window.Editor = (function () {
             self.useLocalStorage = false;
         }
 
-        if(self.useLocalStorage) {
+        if (self.useLocalStorage) {
 
             var autoIndent = localStorage.getItem('autoindent');
             var showInvisibles = localStorage.getItem('showinvisibles');
@@ -35,24 +35,24 @@ window.Editor = (function () {
             var theme = localStorage.getItem('theme');
             var fontSize = localStorage.getItem('fontsize');
 
-            if(autoIndent !== null) {
+            if (autoIndent !== null) {
                 self.backgroundAutoIndent = (autoIndent === 'true');
             }
 
-            if(showInvisibles !== null) {
+            if (showInvisibles !== null) {
                 self.aceEditor.setShowInvisibles(showInvisibles === 'true');
             }
 
-            if(highlightLine !== null) {
+            if (highlightLine !== null) {
                 self.aceEditor.setHighlightActiveLine(highlightLine === 'true');
             }
 
-            if(theme !== null) {
+            if (theme !== null) {
                 self.setTheme(theme);
                 self.viewModel.aceTheme(theme);
             }
 
-            if(fontSize !== null) {
+            if (fontSize !== null) {
                 self.setFontSize(fontSize + 'px');
                 self.viewModel.aceFontSize(fontSize);
             }
@@ -67,14 +67,14 @@ window.Editor = (function () {
         // automatically change theme upon selection
         self.viewModel.aceTheme.subscribe(function (newTheme) {
             self.setTheme(newTheme);
-            if(self.useLocalStorage) {
+            if (self.useLocalStorage) {
                 localStorage.setItem('theme', newTheme);
             }
         });
 
         self.viewModel.aceFontSize.subscribe(function (newFontSize) {
             self.setFontSize(newFontSize + 'px');
-            if(self.useLocalStorage) {
+            if (self.useLocalStorage) {
                 localStorage.setItem('fontsize', newFontSize);
             }
         });
@@ -147,21 +147,21 @@ window.Editor = (function () {
         var $body = $('body');
         $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
-            if(self.useLocalStorage) {
+            if (self.useLocalStorage) {
                 localStorage.setItem('autoindent', this.checked);
             }
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', function () {
             self.aceEditor.setHighlightActiveLine(this.checked);
-            if(self.useLocalStorage) {
+            if (self.useLocalStorage) {
                 localStorage.setItem('highlightline', this.checked);
             }
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
             self.aceEditor.setShowInvisibles(this.checked);
-            if(self.useLocalStorage) {
+            if (self.useLocalStorage) {
                 localStorage.setItem('showinvisibles', this.checked);
             }
         });
