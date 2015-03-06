@@ -67,21 +67,21 @@ window.Preferences = (function () {
 
     function NamedPreferences(namespace, preferenceManager) {
         var self = this;
-        var manager = preferenceManager;
-        var prefix = namespace;
-
-        self.setItem = function (key, value) {
-            manager.setItem(prefix + '/' + key, value);
-        };
-
-        self.getItem = function (key, defaultValue) {
-            return manager.getItem(prefix + '/' + key, defaultValue);
-        };
-
-        self.removeItem = function (key) {
-            manager.removeItem(prefix + '/' + key);
-        };
+        self.manager = preferenceManager;
+        self.prefix = 'preferences/' + namespace;
     }
+
+    NamedPreferences.prototype.setItem = function (key, value) {
+        this.manager.setItem(this.prefix + '/' + key, value);
+    };
+
+    NamedPreferences.prototype.getItem = function (key, defaultValue) {
+        return this.manager.getItem(this.prefix + '/' + key, defaultValue);
+    };
+
+    NamedPreferences.prototype.removeItem = function (key) {
+        this.manager.removeItem(this.prefix + '/' + key);
+    };
 
     return {
         getInstance: function (namespace) {
