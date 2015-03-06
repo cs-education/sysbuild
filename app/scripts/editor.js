@@ -1,4 +1,4 @@
-/* global $, ace, SysViewModel */
+/* global $, ace, SysViewModel, Preferences */
 
 window.Editor = (function () {
     'use strict';
@@ -19,64 +19,31 @@ window.Editor = (function () {
         self.aceEditor.getSession().setTabSize(4);
         self.aceEditor.getSession().setUseSoftTabs(true);
 
-        // check if local storage supported
-        try {
-            self.useLocalStorage = (localStorage !== 'undefined');
-        } catch (e) {
-            // error accessing local storage (user may have blocked access)
-            self.useLocalStorage = false;
-        }
+        self.preferences = Preferences.getInstance('editor');
 
-        if (self.useLocalStorage) {
+        var autoIndent = self.preferences.getItem('autoindent', 'true');
+        var showInvisibles = self.preferences.getItem('showinvisibles', 'true');
+        var highlightLine = self.preferences.getItem('highlightline', 'true');
+        var theme = self.preferences.getItem('theme', self.viewModel.aceTheme());
+        var fontSize = self.preferences.getItem('fontsize', 12);
 
-            var autoIndent = localStorage.getItem('autoindent');
-            var showInvisibles = localStorage.getItem('showinvisibles');
-            var highlightLine = localStorage.getItem('highlightline');
-            var theme = localStorage.getItem('theme');
-            var fontSize = localStorage.getItem('fontsize');
-
-            if (autoIndent !== null) {
-                self.backgroundAutoIndent = (autoIndent === 'true');
-            }
-
-            if (showInvisibles !== null) {
-                self.aceEditor.setShowInvisibles(showInvisibles === 'true');
-            }
-
-            if (highlightLine !== null) {
-                self.aceEditor.setHighlightActiveLine(highlightLine === 'true');
-            }
-
-            if (theme !== null) {
-                self.setTheme(theme);
-                self.viewModel.aceTheme(theme);
-            }
-
-            if (fontSize !== null) {
-                self.setFontSize(fontSize + 'px');
-                self.viewModel.aceFontSize(fontSize);
-            }
-
-        } else {
-            // web storage not supported, use default settings
-            self.backgroundAutoIndent = true;
-            self.setTheme(self.viewModel.aceTheme());
-            self.viewModel.aceFontSize(12);
-        }
+        self.backgroundAutoIndent = (autoIndent === 'true');
+        self.aceEditor.setShowInvisibles(showInvisibles === 'true');
+        self.aceEditor.setHighlightActiveLine(highlightLine === 'true');
+        self.setTheme(theme);
+        self.viewModel.aceTheme(theme);
+        self.setFontSize(fontSize + 'px');
+        self.viewModel.aceFontSize(fontSize);
 
         // automatically change theme upon selection
         self.viewModel.aceTheme.subscribe(function (newTheme) {
             self.setTheme(newTheme);
-            if (self.useLocalStorage) {
-                localStorage.setItem('theme', newTheme);
-            }
+            self.preferences.setItem('theme', newTheme);
         });
 
         self.viewModel.aceFontSize.subscribe(function (newFontSize) {
             self.setFontSize(newFontSize + 'px');
-            if (self.useLocalStorage) {
-                localStorage.setItem('fontsize', newFontSize);
-            }
+            self.preferences.setItem('fontsize', newFontSize);
         });
 
         self.viewModel.editorText.subscribe(function (newText) {
@@ -147,23 +114,17 @@ window.Editor = (function () {
         var $body = $('body');
         $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
-            if (self.useLocalStorage) {
-                localStorage.setItem('autoindent', this.checked);
-            }
+            self.preferences.setItem('autoindent', this.checked);
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', function () {
             self.aceEditor.setHighlightActiveLine(this.checked);
-            if (self.useLocalStorage) {
-                localStorage.setItem('highlightline', this.checked);
-            }
+            self.preferences.setItem('highlightline', this.checked);
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
             self.aceEditor.setShowInvisibles(this.checked);
-            if (self.useLocalStorage) {
-                localStorage.setItem('showinvisibles', this.checked);
-            }
+            self.preferences.setItem('showinvisibles', this.checked);
         });
 
         // The following three click handlers achieve toggling the settings popover when clicking the settings button
