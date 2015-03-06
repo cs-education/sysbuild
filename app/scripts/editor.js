@@ -21,7 +21,12 @@ window.Editor = (function () {
         self.backgroundAutoIndent = false;
 
         // check if local storage supported
-        self.useLocalStorage = (typeof(Storage) !== 'undefined');
+        try {
+             self.useLocalStorage = (localStorage !== 'undefined');
+        } catch (e) {
+             // error accessing local storage (user may have blocked access)
+             self.useLocalStorage = false;
+        }
 
         if(self.useLocalStorage) {
 
