@@ -15,20 +15,66 @@ window.Editor = (function () {
 
         self.editorDivId = editorDivId;
         self.aceEditor = ace.edit(editorDivId);
-        self.setTheme(self.viewModel.aceTheme());
-        self.viewModel.aceFontSize(12);
         self.setMode('c_cpp');
         self.aceEditor.getSession().setTabSize(4);
         self.aceEditor.getSession().setUseSoftTabs(true);
-        self.backgroundAutoIndent = true;
+        self.backgroundAutoIndent = false;
+
+        // check if local storage supported
+        self.useLocalStorage = (typeof(Storage) !== 'undefined');
+
+        if(self.useLocalStorage) {
+
+            self.useLocalStorage = true;
+
+            var autoIndent = localStorage.getItem('autoindent');
+            var showInvisibles = localStorage.getItem('showinvisibles');
+            var highlightLine = localStorage.getItem('highlightline');
+            var theme = localStorage.getItem('theme');
+            var fontSize = localStorage.getItem('fontsize');
+
+            if(autoIndent !== null) {
+                self.backgroundAutoIndent = (autoIndent == 'true');
+            }
+
+            if(showInvisibles !== null) {
+                self.aceEditor.setShowInvisibles(showInvisibles == 'true');
+            }
+
+            if(highlightLine !== null) {
+                self.aceEditor.setHighlightActiveLine(highlightLine == 'true');
+            }
+
+            if(theme !== null) {
+                self.setTheme(theme);
+                self.viewModel.aceTheme(theme);
+            }
+
+            if(fontSize !== null) {
+                self.setFontSize(fontSize + 'px');
+                self.viewModel.aceFontSize(fontSize);
+            }
+
+        } else {
+            // web storage not supported, use default settings
+            self.backgroundAutoIndent = true;
+            self.setTheme(self.viewModel.aceTheme());
+            self.viewModel.aceFontSize(12);
+        }
 
         // automatically change theme upon selection
         self.viewModel.aceTheme.subscribe(function (newTheme) {
             self.setTheme(newTheme);
+            if(self.useLocalStorage) {
+                localStorage.setItem('theme', newTheme);
+            }
         });
 
         self.viewModel.aceFontSize.subscribe(function (newFontSize) {
             self.setFontSize(newFontSize + 'px');
+            if(self.useLocalStorage) {
+                localStorage.setItem('fontsize', newFontSize);
+            }
         });
 
         self.viewModel.editorText.subscribe(function (newText) {
@@ -99,14 +145,23 @@ window.Editor = (function () {
         var $body = $('body');
         $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
+            if(self.useLocalStorage) {
+                localStorage.setItem('autoindent', this.checked);
+            }
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', function () {
             self.aceEditor.setHighlightActiveLine(this.checked);
+            if(self.useLocalStorage) {
+                localStorage.setItem('highlightline', this.checked);
+            }
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
             self.aceEditor.setShowInvisibles(this.checked);
+            if(self.useLocalStorage) {
+                localStorage.setItem('showinvisibles', this.checked);
+            }
         });
 
         // The following three click handlers achieve toggling the settings popover when clicking the settings button
@@ -116,7 +171,7 @@ window.Editor = (function () {
         });
 
         // TODO: The .popover selector will select all popovers,
-        // and so a click on any popover in the body with trigger !== "focus" will call this handler.
+        // and so a click on any popover in the body with trigger !== 'focus' will call this handler.
         // This works for now, but may create problems in the future.
         $body.on('click', '.popover', function (e) {
             e.stopPropagation();
