@@ -188,8 +188,8 @@ $(document).ready(function () {
             e.preventDefault();
         });
 
-    $('#editor-opts-container').find('form').submit(function (e) {
-        e.preventDefault();
+    $('#editor-opts-container').find('form').submit(function () {
+        return false;
     });
 
     $('#download-file-btn').click(function () {
