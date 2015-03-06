@@ -27,7 +27,7 @@ window.Router = (function () {
                     };
                 } else if (viewModel.chapters().length === 0) {
                     // Load chapters
-                    jqxhr = $.getJSON('sysassets/sys.min.json', function (data) {
+                    jqxhr = $.getJSON('http://angrave.github.io/sysassets/sys.min.json', function (data) {
                         viewModel.chapters(data.chapters);
                     }).fail(function () {
                         // Getting file failed, don't try again
@@ -93,7 +93,7 @@ window.Router = (function () {
             };
 
             if (playActivity.docFile) {
-                $.get('sysassets/' + playActivity.docFile).done(cb).fail(function () {
+                $.get('http://angrave.github.io/sysassets/' + playActivity.docFile).done(cb).fail(function () {
                     cb(playActivity.doc || '');
                 });
             } else {
@@ -133,7 +133,7 @@ window.Router = (function () {
             };
 
             if (videoActivity.docFile) {
-                $.get('sysassets/' + videoActivity.docFile).done(cb).fail(function () {
+                $.get('http://angrave.github.io/sysassets/' + videoActivity.docFile).done(cb).fail(function () {
                     cb(videoActivity.doc || '');
                 });
             } else {
