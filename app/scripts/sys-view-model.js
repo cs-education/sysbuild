@@ -24,19 +24,19 @@ window.SysViewModel = (function () {
         };
 
         var warningNotific8Options = {
-            life: 2000,
+            life: 5000,
             theme: 'ruby',
             icon: 'exclamation-triangle'
         };
 
         var busyNotific8Options = {
-            life: 2000,
+            life: 5000,
             theme: 'lemon',
             icon: 'info-circled'
         };
 
         var confirmNotific8Options = {
-            life: 2000,
+            life: 5000,
             theme: 'lime',
             icon: 'check-mark-2'
         };
@@ -57,13 +57,13 @@ window.SysViewModel = (function () {
             return 'label label-' + compileStatusToLabelClassMap[self.compileStatus()];
         });
         self.compileBtnEnable = ko.pureComputed(function () {
-            var status = (self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
-            if (!status) {
+            var ready = !(self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
+            if (status) {
                 $.notific8('The compiler is now online', confirmNotific8Options);
             } else {
                 $.notific8('The compiler is currently busy', busyNotific8Options);
             }
-            return !status;
+            return status;
         });
         self.compileBtnTooltip = ko.observable();
 
