@@ -58,12 +58,12 @@ window.SysViewModel = (function () {
         });
         self.compileBtnEnable = ko.pureComputed(function () {
             var ready = !(self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
-            if (status) {
+            if (ready) {
                 $.notific8('The compiler is now online', confirmNotific8Options);
             } else {
                 $.notific8('The compiler is currently busy', busyNotific8Options);
             }
-            return status;
+            return ready;
         });
         self.compileBtnTooltip = ko.observable();
 
@@ -80,11 +80,11 @@ window.SysViewModel = (function () {
             return str;
         });
         self.showErrorWarningLabel = ko.pureComputed(function () {
-            var status = (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
-            if (status) {
+            var busy = (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
+            if (busy) {
                 $.notific8('There were errors or warnings during compilation', warningNotific8Options);
             }
-            return status;
+            return busy;
         });
 
         self.vmState = ko.observable('Stopped');
