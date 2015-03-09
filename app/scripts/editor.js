@@ -1,4 +1,4 @@
-/* global $, ace, SysViewModel */
+/* global $, ace, SysViewModel, Preferences */
 
 window.Editor = (function () {
     'use strict';
@@ -15,20 +15,35 @@ window.Editor = (function () {
 
         self.editorDivId = editorDivId;
         self.aceEditor = ace.edit(editorDivId);
-        self.setTheme(self.viewModel.aceTheme());
-        self.viewModel.aceFontSize(12);
         self.setMode('c_cpp');
         self.aceEditor.getSession().setTabSize(4);
         self.aceEditor.getSession().setUseSoftTabs(true);
-        self.backgroundAutoIndent = true;
+
+        self.preferences = Preferences.getInstance('editor');
+
+        var autoIndent = self.preferences.getItem('autoindent', 'true');
+        var highlightLine = self.preferences.getItem('highlightline', 'true');
+        var showInvisibles = self.preferences.getItem('showinvisibles', 'false');
+        var theme = self.preferences.getItem('theme', self.viewModel.aceTheme());
+        var fontSize = self.preferences.getItem('fontsize', 12);
+
+        self.backgroundAutoIndent = (autoIndent === 'true');
+        self.aceEditor.setHighlightActiveLine(highlightLine === 'true');
+        self.aceEditor.setShowInvisibles(showInvisibles === 'true');
+        self.setTheme(theme);
+        self.viewModel.aceTheme(theme);
+        self.setFontSize(fontSize + 'px');
+        self.viewModel.aceFontSize(fontSize);
 
         // automatically change theme upon selection
         self.viewModel.aceTheme.subscribe(function (newTheme) {
             self.setTheme(newTheme);
+            self.preferences.setItem('theme', newTheme);
         });
 
         self.viewModel.aceFontSize.subscribe(function (newFontSize) {
             self.setFontSize(newFontSize + 'px');
+            self.preferences.setItem('fontsize', newFontSize);
         });
 
         self.viewModel.editorText.subscribe(function (newText) {
@@ -99,14 +114,17 @@ window.Editor = (function () {
         var $body = $('body');
         $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
+            self.preferences.setItem('autoindent', this.checked);
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', function () {
             self.aceEditor.setHighlightActiveLine(this.checked);
+            self.preferences.setItem('highlightline', this.checked);
         });
 
         $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
             self.aceEditor.setShowInvisibles(this.checked);
+            self.preferences.setItem('showinvisibles', this.checked);
         });
 
         // The following three click handlers achieve toggling the settings popover when clicking the settings button
@@ -116,7 +134,7 @@ window.Editor = (function () {
         });
 
         // TODO: The .popover selector will select all popovers,
-        // and so a click on any popover in the body with trigger !== "focus" will call this handler.
+        // and so a click on any popover in the body with trigger !== 'focus' will call this handler.
         // This works for now, but may create problems in the future.
         $body.on('click', '.popover', function (e) {
             e.stopPropagation();
