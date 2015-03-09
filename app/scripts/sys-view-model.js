@@ -23,6 +23,24 @@ window.SysViewModel = (function () {
             'Paused': 'default'
         };
 
+        var warningNotific8Options = {
+            life: 5000,
+            theme: 'ruby',
+            icon: 'exclamation-triangle'
+        };
+
+        var busyNotific8Options = {
+            life: 5000,
+            theme: 'lemon',
+            icon: 'info-circled'
+        };
+
+        var confirmNotific8Options = {
+            life: 5000,
+            theme: 'lime',
+            icon: 'check-mark-2'
+        };
+
         self.challengeDoc = ko.observable('');
         self.editorText = ko.observable('');
 
@@ -39,7 +57,13 @@ window.SysViewModel = (function () {
             return 'label label-' + compileStatusToLabelClassMap[self.compileStatus()];
         });
         self.compileBtnEnable = ko.pureComputed(function () {
-            return !(self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
+            var ready = !(self.compileStatus() === 'Waiting' || self.compileStatus() === 'Compiling');
+            if (ready) {
+                $.notific8('The compiler is now online', confirmNotific8Options);
+            } else {
+                $.notific8('The compiler is currently busy', busyNotific8Options);
+            }
+            return ready;
         });
         self.compileBtnTooltip = ko.observable();
 
@@ -56,7 +80,11 @@ window.SysViewModel = (function () {
             return str;
         });
         self.showErrorWarningLabel = ko.pureComputed(function () {
-            return (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
+            var busy = (self.compileStatus() === 'Warnings' || self.compileStatus() === 'Failed');
+            if (busy) {
+                $.notific8('There were errors or warnings during compilation', warningNotific8Options);
+            }
+            return busy;
         });
 
         self.vmState = ko.observable('Stopped');
