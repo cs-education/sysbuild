@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router, TokenHighlighter */
+/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
 
 $(document).ready(function () {
     'use strict';
@@ -84,7 +84,7 @@ $(document).ready(function () {
     };
 
     var manPageTokens = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'summary'),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
@@ -92,7 +92,7 @@ $(document).ready(function () {
         }
     });
     manPageTokens.initialize();
-    editor.tokenHighlighter = new TokenHighlighter(editor, manPageTokens, openManPage);
+    editor.setTokenHighlighter(manPageTokens, openManPage);
 
     $('#man-pages-search-typeahead').children('.typeahead').typeahead({
         highlight: true
@@ -138,7 +138,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#man-page-open-btn').click(function(){
+    $('#man-page-open-btn').click(function () {
         openManPage(lastSelectedManPage);
     });
 

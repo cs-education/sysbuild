@@ -1,4 +1,4 @@
-/* global $, ace, SysViewModel */
+/* global $, ace, SysViewModel, TokenHighlighter */
 
 window.Editor = (function () {
     'use strict';
@@ -135,6 +135,11 @@ window.Editor = (function () {
 
     Editor.prototype.setAnnotations = function (annotations) {
         this.aceEditor.getSession().setAnnotations(annotations);
+    };
+
+    Editor.prototype.setTokenHighlighter = function (tokens, cb) {
+        var tokenHighlighter = new TokenHighlighter(this, tokens, cb);
+        this.tokenHiglighter = tokenHighlighter;
     };
 
     Editor.prototype.resize = function (resizeAfter) {
