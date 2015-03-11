@@ -190,6 +190,7 @@ $(document).ready(function () {
 
     $('#editor-opts-container').find('form').submit(function (e) {
         e.preventDefault();
+        e.stopPropagation();
     });
 
     $('#download-file-btn').click(function () {

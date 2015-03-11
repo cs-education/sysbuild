@@ -58,14 +58,20 @@
 
 /* hack for the gcc options + program args + compile button toolbar */
 #compile-opts-container .col-sm-1,
-#compile-opts-container .col-sm-4,
-#compile-opts-container .col-sm-5 {
+#compile-opts-container .col-sm-10,
+#compile-opts-container .col-sm-11 {
     padding: 1px;
 }
 
 #compile-opts-container .row {
     margin: 0px;
     padding: 1px;
+}
+
+#compile-opts-container .btn-xs{
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 3px;
 }
 
 #compile-opts-container input {

@@ -12,6 +12,7 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/jquery.layout/dist/layout-default-latest.css" />
         <link rel="stylesheet" href="../bower_components/videojs/dist/video-js/video-js.css" />
+        <link rel="stylesheet" href="../bower_components/jquery-notific8/src/css/jquery.notific8.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -207,18 +208,25 @@
                             <div id="code"></div>
                             <div id="compile-opts-container">
                                 <div class="row">
-                                    <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
-                                    <div class="col-sm-5" data-bind="css: {'has-error': gccOptsError()}">
-                                        <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
-                                               data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
-                                               tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
-                                    </div>
-                                    <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                                            <div class="col-sm-11" data-bind="css: {'has-error': gccOptsError()}">
+                                                <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
+                                                    data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                                                    tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                                            <div class="col-sm-11">
+                                                <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                                            </div>
+                                        </div>
                                     </div>
                                     <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
-                                            data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-1" disabled="disabled">
+                                            data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-2" disabled="disabled">
+                                        Run It<br>
                                         <span class="glyphicon glyphicon-play"></span>
                                     </button>
                                 </div>
@@ -326,6 +334,7 @@
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
         <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
         <script src="../bower_components/xdomain/dist/xdomain.min.js"></script>
+        <script src="../bower_components/jquery-notific8/src/js/jquery.notific8.js"></script>
         <!-- endbower -->
         <script src="../bower_components/marked/lib/marked.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
@@ -361,6 +370,7 @@
         <script src="scripts/xdomain.js"></script>
         <script src="scripts/ga-tracking.js"></script>
         <script src="scripts/sys-view-model.js"></script>
+        <script src="scripts/preferences.js"></script>
         <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>
         <script src="scripts/editor.js"></script>
