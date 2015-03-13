@@ -100,6 +100,15 @@
     color: initial;
 }
 
+.token-highlight {
+    margin: -1px 0 0 -1px;
+    border: 1px solid #49483E;
+    background-color: #00b3ee;
+    opacity: 0.6;
+    position: absolute;
+    z-index: 6;
+}
+
 #doc-container {
     padding: 5px;
 }
