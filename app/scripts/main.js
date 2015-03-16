@@ -56,7 +56,7 @@ $(document).ready(function () {
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'http://angrave.github.io/sysassets/man_pages/sys_man_page_index.min.json'
+            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
         }
     });
 
@@ -67,7 +67,7 @@ $(document).ready(function () {
     var getManPageTabData = function (manPage) {
         var name = manPage.name;
         var section = manPage.section;
-        var url = 'https://angrave.github.io/sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
+        var url = 'https://cs-education.github.io/sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
         return {
             tabName: name + ' (' + section + ')',
             tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'

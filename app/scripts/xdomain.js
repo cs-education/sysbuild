@@ -3,6 +3,6 @@
     'use strict';
 
     xdomain.slaves({
-        'http://angrave.github.io': '/sysassets/proxy.html'
+        'http://cs-education.github.io': '/sysassets/proxy.html'
     });
 })();

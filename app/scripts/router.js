@@ -27,7 +27,7 @@ window.Router = (function () {
                     };
                 } else if (viewModel.chapters().length === 0) {
                     // Load chapters
-                    jqxhr = $.getJSON('http://angrave.github.io/sysassets/sys.min.json', function (data) {
+                    jqxhr = $.getJSON('http://cs-education.github.io/sysassets/sys.min.json', function (data) {
                         viewModel.chapters(data.chapters);
                     }).fail(function () {
                         // Getting file failed, don't try again
@@ -93,7 +93,7 @@ window.Router = (function () {
             };
 
             if (playActivity.docFile) {
-                $.get('http://angrave.github.io/sysassets/' + playActivity.docFile).done(cb).fail(function () {
+                $.get('http://cs-education.github.io/sysassets/' + playActivity.docFile).done(cb).fail(function () {
                     cb(playActivity.doc || '');
                 });
             } else {
@@ -106,7 +106,7 @@ window.Router = (function () {
                 viewModel.shownPage('video');
                 Tracker.getInstance().trackPageView();
 
-                var currentVideoFilePrefix = 'https://angrave.github.io/sysassets/' + videoActivity.file;
+                var currentVideoFilePrefix = 'https://cs-education.github.io/sysassets/' + videoActivity.file;
                 viewModel.currentVideoFilePrefix(currentVideoFilePrefix);
                 viewModel.currentVideoTopics(videoActivity.topics || '');
                 viewModel.currentVideoDoc(marked(doc));
@@ -133,7 +133,7 @@ window.Router = (function () {
             };
 
             if (videoActivity.docFile) {
-                $.get('http://angrave.github.io/sysassets/' + videoActivity.docFile).done(cb).fail(function () {
+                $.get('http://cs-education.github.io/sysassets/' + videoActivity.docFile).done(cb).fail(function () {
                     cb(videoActivity.doc || '');
                 });
             } else {
