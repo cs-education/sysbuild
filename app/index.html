@@ -151,6 +151,11 @@
                     <div id="editor-tabs-bar">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
+                            <li data-bind="css: { active: currentActiveTabIndex() === -3}">
+                                <a data-bind="click: function () { currentActiveTabIndex(-3); }" href="#video-search-page" role="tab" data-toggle="tab">
+                                    <span class="glyphicon glyphicon-globe"></span>&nbsp;Video Search
+                                </a>
+                            </li>
                             <li data-bind="css: { active: currentActiveTabIndex() === -2}">
                                 <a data-bind="click: function () { currentActiveTabIndex(-2); }" href="#editor-container" role="tab" data-toggle="tab">
                                     <span class="glyphicon glyphicon-file"></span>&nbsp;Code
@@ -243,6 +248,17 @@
                         <div class="tab-pane man-page-tab"
                              data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml, css: { active: $parent.currentActiveTabIndex() === $index()}"></div>
                         <!-- /ko -->
+
+                        <div class="tab-pane man-page-tab" id="video-search-index" data-bind="css: { active: currentActiveTabIndex() === -3}">
+                            <h3 id="video-search-title">Search Video</h3>
+                            <div id="video-search-typeahead">
+                                <input class="typeahead" type="text" placeholder="Video Search">
+                            </div>
+                            <button type="button" id="video-search-btn" class="btn btn-lg btn-primary center-block">Search Video</button>
+                            <div>
+                                Video demo test here.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
