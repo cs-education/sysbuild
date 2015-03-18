@@ -13,8 +13,9 @@
     "FileSaver": "*",
     "sammy": "~0.7.6",
     "marked": "~0.3.2",
-    "videojs": "~4.8.1",
+    "videojs": "~4.12.4",
     "typeahead.js": "~0.10.5",
+    "xdomain": "~0.6.17",
     "jquery-notific8": "~1.7.0"
   },
   "devDependencies": {}
