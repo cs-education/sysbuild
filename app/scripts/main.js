@@ -227,4 +227,82 @@ $(document).ready(function () {
     });
 
     Router.getInstance().run();
+
+    //url will eventually hold the indexed transcripts to search
+    //placeholder in meantime
+    var videoSearch = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'summary'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
+        }
+    });
+
+    videoSearch.initialize();
+
+
+    var playerTime = 0;
+    var player = videojs("example-video");
+
+    $('#video-search-typeahead').children('.typeahead').typeahead({
+        highlight: true
+    }, {
+        displayKey: 'name',
+        source: videoSearch.ttAdapter(),
+        templates: {
+            empty: [
+                '<div class="empty-message">',
+                'unable to find any video lessons that match the current query',
+                '</div>'
+            ].join('\n'),
+            // Typeahead Docs (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets):
+            // "Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string."
+            // So instead of using some templating library, using a simple function to act as a compiled template
+            suggestion: function (context) {
+                return [
+                    '<div>',
+                        '<p><strong>' + context.name + '</strong><span class="pull-right"> Section ' + context.section + '</span>' + '</p>',
+                        '<p>' + context.summary + '</p>',
+                    '</div>'
+                ].join('\n');
+            }
+        }
+    }).on('typeahead:selected typeahead:autocompleted typeahead:uservalue', function (e, suggestion) {
+        playerTime = suggestion;
+        console.log(playerTime);
+        //for now suggestion is a time for proof of concept purposes
+        //eventually it'll suggest an actually line from the transcripts
+    }).on('change', function(e) {                     // user typed their own value
+        var value = $('#video-typeahead').val();
+        playerTime = value;
+        console.log(playerTime);
+    }).keypress(function (e) {
+        if (e.which === 13) {
+            // Enter key pressed
+            console.log(playerTime);
+            player.currentTime(playerTime);
+            player.play();
+        } else {
+            // User typed in something
+            // Discard the last selected man page because it should be saved only when
+            // the user autocompleted the typeahead hint or used a suggestion
+            playerTime = 0;
+        }
+    }).keydown(function (e) {
+        if (e.which === 8) {
+            // Backspace pressed
+            // keypress does not fire for Backspace in Chrome
+            // (http://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
+            playerTime = 0;
+        }
+    });
+
+    $('#video-search-btn').click(function () {
+        console.log("click: " + playerTime);
+        player.currentTime(playerTime);
+        player.play();
+    });
+
+
 });

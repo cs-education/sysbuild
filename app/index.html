@@ -252,11 +252,14 @@
                         <div class="tab-pane man-page-tab" id="video-search-index" data-bind="css: { active: currentActiveTabIndex() === -3}">
                             <h3 id="video-search-title">Search Video</h3>
                             <div id="video-search-typeahead">
-                                <input class="typeahead" type="text" placeholder="Video Search">
+                                <input id="video-typeahead" class="typeahead" type="text" placeholder="Video Search">
                             </div>
                             <button type="button" id="video-search-btn" class="btn btn-lg btn-primary center-block">Search Video</button>
                             <div>
-                                Video demo test here.
+                                <video id="example-video" class="video-js vjs-default-skin vjs-big-play-centered"
+                                    controls preload="auto" width="640" height="264">
+                                    <source src="https://cs-education.github.io/sysassets/mp4/0010-HelloWorld-v2.mp4"  type="video/mp4">
+                                </video>
                             </div>
                         </div>
                     </div>
