@@ -268,7 +268,7 @@ $(document).ready(function () {
                 ].join('\n');
             }
         }
-    }).on('typeahead:selected typeahead:autocompleted typeahead:uservalue', function (e, suggestion) {
+    }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
         playerTime = suggestion;
         console.log(playerTime);
         //for now suggestion is a time for proof of concept purposes
@@ -280,7 +280,6 @@ $(document).ready(function () {
     }).keypress(function (e) {
         if (e.which === 13) {
             // Enter key pressed
-            console.log(playerTime);
             player.currentTime(playerTime);
             player.play();
         } else {
