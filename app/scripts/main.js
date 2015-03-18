@@ -56,7 +56,7 @@ $(document).ready(function () {
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'sysassets/man_pages/sys_man_page_index.min.json'
+            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
         }
     });
 
@@ -67,7 +67,7 @@ $(document).ready(function () {
     var getManPageTabData = function (manPage) {
         var name = manPage.name;
         var section = manPage.section;
-        var url = 'https://angrave.github.io/sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
+        var url = 'https://cs-education.github.io/sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
         return {
             tabName: name + ' (' + section + ')',
             tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'
@@ -268,7 +268,7 @@ $(document).ready(function () {
                 ].join('\n');
             }
         }
-    }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
+    }).on('typeahead:selected typeahead:autocompleted typeahead:uservalue', function (e, suggestion) {
         playerTime = suggestion;
         console.log(playerTime);
         //for now suggestion is a time for proof of concept purposes
@@ -276,6 +276,7 @@ $(document).ready(function () {
     }).on('change', function(e) {                     // user typed their own value
         var value = $('#video-typeahead').val();
         playerTime = value;
+        console.log(playerTime);
     }).keypress(function (e) {
         if (e.which === 13) {
             // Enter key pressed
