@@ -88,7 +88,7 @@ $(document).ready(function () {
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'sysassets/man_pages/sys_man_page_index.min.json'
+            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
         }
     });
     manPageTokens.initialize();
