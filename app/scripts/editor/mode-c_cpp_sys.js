@@ -1,17 +1,17 @@
-/* global ace */
+/* jshint ignore:start */
 
-ace.define('ace/mode/c_cpp_sys', ['require', 'exports', 'ace/lib/oop', 'ace/mode/text', 'ace/mode/c_cpp_highlight_rules','ace/mode/matching_brace_outdent','ace/range','ace/mode/behaviour/cstyle','ace/mode/folding/cstyle'], function (require, exports) {
+ace.define('ace/mode/c_cpp_sys', ['require', 'exports', 'ace/lib/oop', 'ace/mode/text', 'ace/mode/c_cpp_highlight_rules', 'ace/mode/matching_brace_outdent', 'ace/range', 'ace/mode/behaviour/cstyle', 'ace/mode/folding/cstyle'], function (require, exports) {
     'use strict';
 
     var oop = require('../lib/oop');
     var textMode = require('./text').Mode;
-    var c_cppHighlightRules = require("./c_cpp_highlight_rules").c_cppHighlightRules;
-    var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
-    var CstyleBehaviour = require("./behaviour/cstyle").CstyleBehaviour;
-    var CStyleFoldMode = require("./folding/cstyle").FoldMode;
+    var cppHighlightRules = require('./c_cpp_highlight_rules').c_cppHighlightRules;
+    var MatchingBraceOutdent = require('./matching_brace_outdent').MatchingBraceOutdent;
+    var CstyleBehaviour = require('./behaviour/cstyle').CstyleBehaviour;
+    var CStyleFoldMode = require('./folding/cstyle').FoldMode;
 
     var Mode = function () {
-        this.HighlightRules = c_cppHighlightRules;
+        this.HighlightRules = cppHighlightRules;
 
         this.$outdent = new MatchingBraceOutdent();
         this.$behaviour = new CstyleBehaviour();
@@ -69,5 +69,5 @@ ace.define('ace/mode/c_cpp_sys', ['require', 'exports', 'ace/lib/oop', 'ace/mode
 
     exports.Mode = Mode;
 });
-
+/* jshint ignore:end */
 
