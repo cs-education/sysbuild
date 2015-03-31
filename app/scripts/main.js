@@ -231,11 +231,11 @@ $(document).ready(function () {
     //url will eventually hold the indexed transcripts to search
     //placeholder in meantime
     var videoSearch = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'summary'),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('videoIndex', 'snippet'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
+            url: 'sysbuild/app/scripts/reverse_index.json'
         }
     });
 
@@ -262,8 +262,8 @@ $(document).ready(function () {
             suggestion: function (context) {
                 return [
                     '<div>',
-                        '<p><strong>' + context.name + '</strong><span class="pull-right"> Section ' + context.section + '</span>' + '</p>',
-                        '<p>' + context.summary + '</p>',
+                        '<p><strong>' + context.videoIndex + '</strong><span class="pull-right"> Section ' + context.startTime + '</span>' + '</p>',
+                        '<p>' + context.snippet + '</p>',
                     '</div>'
                 ].join('\n');
             }
