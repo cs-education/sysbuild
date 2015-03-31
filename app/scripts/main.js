@@ -228,17 +228,14 @@ $(document).ready(function () {
 
     Router.getInstance().run();
 
-    //url will eventually hold the indexed transcripts to search
-    //placeholder in meantime
     var videoSearch = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('videoIndex', 'snippet'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 10,
+        limit: 25,
         prefetch: {
-            url: 'sysbuild/app/scripts/reverse_index.json'
+            url: 'http://jdtran23.github.io/sysassets/transcriptions/transcription_index.json'
         }
     });
-
     videoSearch.initialize();
 
 
@@ -248,7 +245,7 @@ $(document).ready(function () {
     $('#video-search-typeahead').children('.typeahead').typeahead({
         highlight: true
     }, {
-        displayKey: 'name',
+        displayKey: 'videoIndex',
         source: videoSearch.ttAdapter(),
         templates: {
             empty: [
@@ -262,7 +259,7 @@ $(document).ready(function () {
             suggestion: function (context) {
                 return [
                     '<div>',
-                        '<p><strong>' + context.videoIndex + '</strong><span class="pull-right"> Section ' + context.startTime + '</span>' + '</p>',
+                        '<p><strong> Video Index ' + context.videoIndex + '</strong><span class="pull-right"> Time ' + context.startTime + '</span>' + '</p>',
                         '<p>' + context.snippet + '</p>',
                     '</div>'
                 ].join('\n');
