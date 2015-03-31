@@ -124,11 +124,20 @@ window.Router = (function () {
                     height: 540,
                     poster: ''
                 }, function () {
+                    var videoName = videoActivity.file.replace('mp4/', '');
+                    this.addRemoteTextTrack({
+                        kind: 'captions',
+                        language: 'en',
+                        label: 'English track',
+                        src: 'http://scowalt.com/sysassets/transcripts/' + videoName + '.webvtt'
+                    });
                     this.src([
                         { type: 'video/mp4', src: currentVideoFilePrefix + '.mp4' },
                         { type: 'video/webm', src: currentVideoFilePrefix + '.webm' },
                         { type: 'video/ogg', src: currentVideoFilePrefix + '.ogv' }
                     ]);
+
+
                 });
             };
 
