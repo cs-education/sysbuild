@@ -15,8 +15,7 @@ sysbuild/
 │   ├── jor1k/                The jor1k project source copied by grunt during setup
 │   ├── jor1k_hd_images/      Disk images for the Virtual Machine
 │   ├── scripts/              Javascript files
-│   ├── styles/               SASS and CSS files
-│   └── sysassets/            Files from the sysassets project copied by grunt during setup
+│   └── styles/               SASS and CSS files
 ├── dist/                     The distributable application output by the build process
 ├── bower_components/         Dependencies installed by Bower
 ├── node_modules/             Dependencies installed by npm
@@ -128,7 +127,7 @@ You will need push access to the appropriate repository before you can deploy.
 
 ## Credits ##
 #### Creators ####
-Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
+Dr. Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
 
 #### 2014-15 Contributors - UIUC Students ####
 Anant Singh [github.com/anant-singh](https://github.com/anant-singh)  
@@ -143,9 +142,9 @@ Siddharth Seth [github.com/siddharth-seth](https://github.com/siddharth-seth)
 The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.  
 The code editor is powered by [Ace](http://ace.c9.io/).
 
-## Licence ##
-This project is licenced under a variant of the University of Illinois/NCSA Open Source License.  
-See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt).
+## License ##
+This project is licensed under a modified version of the University of Illinois/NCSA Open Source License.  
+See [LICENSE.txt](https://github.com/cs-education/sysbuild/blob/master/LICENSE.txt) for license, attribution and other legal information.
 
 #### Open source licences ####
 jor1k is distributed under the terms of the [Simplified BSD License](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
