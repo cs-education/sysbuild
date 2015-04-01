@@ -229,23 +229,54 @@ $(document).ready(function () {
     Router.getInstance().run();
 
     var videoSearch = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('videoIndex', 'snippet'),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title', 'snippet'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 25,
+        limit: 10,
         prefetch: {
             url: 'http://jdtran23.github.io/sysassets/transcriptions/transcription_index.json'
         }
     });
     videoSearch.initialize();
 
+    var stopVideo = function () {
+        if ($('#search-video').length > 0) {
+            videojs('search-video').dispose();
+        }
+    };
 
+    var loadVideo = function (resultVid) {
+        var $video = $('<video>').attr('id', 'search-video').
+            addClass('video-js vjs-default-skin vjs-big-play-centered');
+        stopVideo();
+        $('#search-video-container').width(640).append($video);
+        var vid = videojs('search-video', {
+                    controls: true,
+                    preload: 'none',
+                    width: 640,
+                    height: 264,
+                    poster: ''
+                }, function () {
+                    this.src([
+                        { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.mp4' },
+                        { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.webm' },
+                        { type: 'video/ogg', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.ogv' }
+                    ]);
+                });
+        vid.currentTime(resultVid['startTime']);
+        vid.play();
+    };
+
+    //loadVideo("0030-OpenCreateAFile-650kb", 60);
     var playerTime = 0;
-    var player = videojs("example-video");
+    //var player = videojs("search-video");
+    //player.currentTime(30);
+    //player.play();
 
+    var resultVideo = null;
     $('#video-search-typeahead').children('.typeahead').typeahead({
         highlight: true
     }, {
-        displayKey: 'videoIndex',
+        displayKey: 'title',
         source: videoSearch.ttAdapter(),
         templates: {
             empty: [
@@ -259,45 +290,40 @@ $(document).ready(function () {
             suggestion: function (context) {
                 return [
                     '<div>',
-                        '<p><strong> Video Index ' + context.videoIndex + '</strong><span class="pull-right"> Time ' + context.startTime + '</span>' + '</p>',
+                        '<p><strong>' + context.title + '</strong><span class="pull-right"> Time ' + context.startTime + '</span>' + '</p>',
                         '<p>' + context.snippet + '</p>',
                     '</div>'
                 ].join('\n');
             }
         }
     }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
-        playerTime = suggestion;
-        console.log(playerTime);
+        resultVideo = suggestion;
+        console.log(resultVideo);
         //for now suggestion is a time for proof of concept purposes
         //eventually it'll suggest an actually line from the transcripts
-    }).on('change', function(e) {                     // user typed their own value
-        var value = $('#video-typeahead').val();
-        playerTime = value;
-        console.log(playerTime);
     }).keypress(function (e) {
         if (e.which === 13) {
             // Enter key pressed
-            player.currentTime(playerTime);
-            player.play();
+            console.log(resultVideo);
+            loadVideo(resultVideo);
         } else {
             // User typed in something
             // Discard the last selected man page because it should be saved only when
             // the user autocompleted the typeahead hint or used a suggestion
-            playerTime = 0;
+            resultVideo = null;
         }
     }).keydown(function (e) {
         if (e.which === 8) {
             // Backspace pressed
             // keypress does not fire for Backspace in Chrome
             // (http://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
-            playerTime = 0;
+            resultVideo = null;
         }
     });
 
     $('#video-search-btn').click(function () {
-        console.log("click: " + playerTime);
-        player.currentTime(playerTime);
-        player.play();
+        console.log("click: " + resultVideo);
+        loadVideo(resultVideo);
     });
 
 

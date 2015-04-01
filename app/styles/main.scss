@@ -53,6 +53,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     margin: 0px auto;
 }
 
+#search-video-container {
+  margin: 0px auto;
+}
+
 .label-default-light {
     @include label-variant(lighten($label-default-bg, 25%));
 }
