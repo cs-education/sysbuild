@@ -89,7 +89,7 @@ window.Jor1kGUI = (function () {
             if (this.ignoreKeys()) {
                 return true;
             }
-            this.sendToWorker('keypress', {keyCode:event.keyCode, charCode:event.charCode});
+            this.sendToWorker('keypress', {keyCode: event.keyCode, charCode: event.charCode});
             if (this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyPress(event);
             } else if (this.lastMouseDownTarget === this.terminalcanvastwo) {
@@ -101,7 +101,7 @@ window.Jor1kGUI = (function () {
             if (this.ignoreKeys()) {
                 return true;
             }
-            this.sendToWorker('keydown', {keyCode:event.keyCode, charCode:event.charCode});
+            this.sendToWorker('keydown', {keyCode: event.keyCode, charCode: event.charCode});
             if (this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyDown(event);
             } else if (this.lastMouseDownTarget === this.terminalcanvastwo) {
@@ -113,7 +113,7 @@ window.Jor1kGUI = (function () {
             if (this.ignoreKeys()) {
                 return true;
             }
-            this.sendToWorker('keyup', {keyCode:event.keyCode, charCode:event.charCode});
+            this.sendToWorker('keyup', {keyCode: event.keyCode, charCode: event.charCode});
             if (this.lastMouseDownTarget === this.terminalcanvas) {
                 return this.terminput.OnKeyUp(event);
             } else if (this.lastMouseDownTarget === this.terminalcanvastwo) {
