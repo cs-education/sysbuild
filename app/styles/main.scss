@@ -60,3 +60,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 .label-default-light {
     @include label-variant(lighten($label-default-bg, 25%));
 }
+
+// Overriding jquery.notific8 font dir
+@font-face {
+    font-family: "notific8";
+    src:url("font/notific8.eot") !important;
+    src:url("font/notific8.eot?#iefix") format("embedded-opentype"),
+    url("font/notific8.woff") format("woff"),
+    url("font/notific8.ttf") format("truetype"),
+    url("font/notific8.svg#notific8") format("svg") !important;
+    font-weight: normal;
+    font-style: normal;
+
+}
