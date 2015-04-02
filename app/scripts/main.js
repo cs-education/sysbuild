@@ -256,6 +256,12 @@ $(document).ready(function () {
                     height: 264,
                     poster: ''
                 }, function () {
+                    this.addRemoteTextTrack({
+                        kind: 'captions',
+                        language: 'en',
+                        label: 'English track',
+                        src: 'http://scowalt.com/sysassets/transcripts/' + resultVid['source'] + '.webvtt'
+                    });
                     this.src([
                         { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.mp4' },
                         { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.webm' },
@@ -265,12 +271,6 @@ $(document).ready(function () {
         vid.currentTime(resultVid['startTime']);
         vid.play();
     };
-
-    //loadVideo("0030-OpenCreateAFile-650kb", 60);
-    var playerTime = 0;
-    //var player = videojs("search-video");
-    //player.currentTime(30);
-    //player.play();
 
     var resultVideo = null;
     $('#video-search-typeahead').children('.typeahead').typeahead({
@@ -298,13 +298,11 @@ $(document).ready(function () {
         }
     }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
         resultVideo = suggestion;
-        console.log(resultVideo);
         //for now suggestion is a time for proof of concept purposes
         //eventually it'll suggest an actually line from the transcripts
     }).keypress(function (e) {
         if (e.which === 13) {
             // Enter key pressed
-            console.log(resultVideo);
             loadVideo(resultVideo);
         } else {
             // User typed in something
