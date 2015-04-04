@@ -129,7 +129,7 @@ window.Router = (function () {
                         kind: 'captions',
                         language: 'en',
                         label: 'English track',
-                        src: 'http://scowalt.com/sysassets/transcripts/' + videoName + '.webvtt'
+                        src: 'http://cs-education.github.io/sysassets/transcriptions/' + videoName + '.webvtt'
                     });
                     this.src([
                         { type: 'video/mp4', src: currentVideoFilePrefix + '.mp4' },
