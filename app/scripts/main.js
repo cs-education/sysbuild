@@ -233,7 +233,7 @@ $(document).ready(function () {
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'http://jdtran23.github.io/sysassets/transcriptions/transcription_index.json'
+            url: 'https://cs-education.github.io/sysassets/transcriptions/transcription_index.min.json'
         }
     });
     videoSearch.initialize();
@@ -256,12 +256,6 @@ $(document).ready(function () {
                     height: 264,
                     poster: ''
                 }, function () {
-                    this.addRemoteTextTrack({
-                        kind: 'captions',
-                        language: 'en',
-                        label: 'English track',
-                        src: 'http://scowalt.com/sysassets/transcripts/' + resultVid['source'] + '.webvtt'
-                    });
                     this.src([
                         { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.mp4' },
                         { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.webm' },

@@ -3,9 +3,6 @@
     'use strict';
 
     xdomain.slaves({
-        'http://cs-education.github.io': '/sysassets/proxy.html',
-        'http://scowalt.com': '/sysassets/proxy.html'
+        'http://cs-education.github.io': '/sysassets/proxy.html'
     });
-
-    xdomain.debug = false;
 })();
