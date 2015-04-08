@@ -257,12 +257,12 @@ $(document).ready(function () {
                     poster: ''
                 }, function () {
                     this.src([
-                        { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.mp4' },
-                        { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.webm' },
-                        { type: 'video/ogg', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid['source'] + '.ogv' }
+                        { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.mp4' },
+                        { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.webm' },
+                        { type: 'video/ogg', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.ogv' }
                     ]);
                 });
-        vid.currentTime(resultVid['startTime']);
+        vid.currentTime(resultVid.startTime);
         vid.play();
     };
 
@@ -314,7 +314,6 @@ $(document).ready(function () {
     });
 
     $('#video-search-btn').click(function () {
-        console.log("click: " + resultVideo);
         loadVideo(resultVideo);
     });
 
