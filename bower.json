@@ -15,7 +15,6 @@
     "marked": "~0.3.3",
     "videojs": "~4.12.5",
     "typeahead.js": "~0.10.5",
-    "xdomain": "~0.6.17",
     "jquery-notific8": "~1.7.0"
   },
   "devDependencies": {}
