@@ -139,9 +139,9 @@ window.Router = (function () {
                     // so, let's use a hack!
                     // get the text track options in the DOM of the video player
                     $('div#lesson-video > div.vjs-control-bar > div.vjs-captions-button > div.vjs-control-content > ' +
-                        'div.vjs-menu > ul.vjs-menu-content > li.vjs-menu-item').each(function(index,element){
+                        'div.vjs-menu > ul.vjs-menu-content > li.vjs-menu-item').each(function (index, element) {
                         // find the option for our text track
-                        if (element.innerHTML === trackLabel){
+                        if (element.innerHTML === trackLabel) {
                             // click the caption option in the DOM
                             element.click();
                         }
