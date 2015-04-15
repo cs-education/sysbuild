@@ -1,7 +1,7 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 // bower:scss
-@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 @import "sysplayground";
 @import "typeahead";
@@ -51,6 +51,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 #lesson-video-container {
     margin: 0px auto;
+}
+
+#search-video-container {
+  margin: 20px auto;
 }
 
 .label-default-light {

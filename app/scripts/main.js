@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router */
+/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router, videojs*/
 
 $(document).ready(function () {
     'use strict';
@@ -227,4 +227,95 @@ $(document).ready(function () {
     });
 
     Router.getInstance().run();
+
+    var videoSearch = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title', 'snippet'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+            url: 'https://cs-education.github.io/sysassets/transcriptions/transcription_index.min.json'
+        }
+    });
+    videoSearch.initialize();
+
+    var stopVideo = function () {
+        if ($('#search-video').length > 0) {
+            videojs('search-video').dispose();
+        }
+    };
+
+    var loadVideo = function (resultVid) {
+        var $video = $('<video>').attr('id', 'search-video').
+            addClass('video-js vjs-default-skin vjs-big-play-centered');
+        stopVideo();
+        $('#search-video-container').width(640).append($video);
+        var vid = videojs('search-video', {
+                    controls: true,
+                    preload: 'none',
+                    width: 640,
+                    height: 264,
+                    poster: ''
+                }, function () {
+                    this.src([
+                        { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.mp4' },
+                        { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.webm' },
+                        { type: 'video/ogg', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.ogv' }
+                    ]);
+                });
+        vid.currentTime(resultVid.startTime);
+        vid.play();
+    };
+
+    var resultVideo = null;
+    $('#video-search-typeahead').children('.typeahead').typeahead({
+        highlight: true
+    }, {
+        displayKey: 'title',
+        source: videoSearch.ttAdapter(),
+        templates: {
+            empty: [
+                '<div class="empty-message">',
+                'unable to find any video lessons that match the current query',
+                '</div>'
+            ].join('\n'),
+            // Typeahead Docs (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets):
+            // "Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string."
+            // So instead of using some templating library, using a simple function to act as a compiled template
+            suggestion: function (context) {
+                return [
+                    '<div>',
+                        '<p><strong>' + context.title + '</strong><span class="pull-right"> Time ' + context.startTime + '</span>' + '</p>',
+                        '<p>' + context.snippet + '</p>',
+                    '</div>'
+                ].join('\n');
+            }
+        }
+    }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
+        resultVideo = suggestion;
+        //for now suggestion is a time for proof of concept purposes
+        //eventually it'll suggest an actually line from the transcripts
+    }).keypress(function (e) {
+        if (e.which === 13) {
+            // Enter key pressed
+            loadVideo(resultVideo);
+        } else {
+            // User typed in something
+            // Discard the last selected man page because it should be saved only when
+            // the user autocompleted the typeahead hint or used a suggestion
+            resultVideo = null;
+        }
+    }).keydown(function (e) {
+        if (e.which === 8) {
+            // Backspace pressed
+            // keypress does not fire for Backspace in Chrome
+            // (http://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
+            resultVideo = null;
+        }
+    });
+
+    $('#video-search-btn').click(function () {
+        loadVideo(resultVideo);
+    });
+
+
 });

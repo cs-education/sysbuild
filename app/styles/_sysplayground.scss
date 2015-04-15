@@ -202,6 +202,16 @@ body {
     height: 100%;
 }
 
+.video-search-tab {
+  width: 100%;
+  height: 100%;
+}
+
+.video-search-tab > iframe {
+  width: 100%;
+  height: 100%;
+}
+
 .compile-status-label-text-error {
     color: $brand-danger;
 }
