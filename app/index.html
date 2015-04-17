@@ -12,7 +12,7 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/jquery.layout/dist/layout-default-latest.css" />
         <link rel="stylesheet" href="../bower_components/videojs/dist/video-js/video-js.css" />
-        <link rel="stylesheet" href="../bower_components/jquery-notific8/src/css/jquery.notific8.css" />
+        <link rel="stylesheet" href="../bower_components/jquery-notific8/dist/jquery.notific8.min.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -151,6 +151,11 @@
                     <div id="editor-tabs-bar">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
+                            <li data-bind="css: { active: currentActiveTabIndex() === -3}">
+                                <a data-bind="click: function () { currentActiveTabIndex(-3); }" href="#video-search-page" role="tab" data-toggle="tab">
+                                    <span class="glyphicon glyphicon-globe"></span>&nbsp;Video Search
+                                </a>
+                            </li>
                             <li data-bind="css: { active: currentActiveTabIndex() === -2}">
                                 <a data-bind="click: function () { currentActiveTabIndex(-2); }" href="#editor-container" role="tab" data-toggle="tab">
                                     <span class="glyphicon glyphicon-file"></span>&nbsp;Code
@@ -243,6 +248,15 @@
                         <div class="tab-pane man-page-tab"
                              data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml, css: { active: $parent.currentActiveTabIndex() === $index()}"></div>
                         <!-- /ko -->
+
+                        <div class="tab-pane man-page-tab" id="video-search-index" data-bind="css: { active: currentActiveTabIndex() === -3}">
+                            <h3 id="video-search-title">Search Video</h3>
+                            <div id="video-search-typeahead">
+                                <input id="video-typeahead" class="typeahead" type="text" placeholder="Video Search">
+                            </div>
+                            <button type="button" id="video-search-btn" class="btn btn-lg btn-primary center-block">Search Video</button>
+                            <div id="search-video-container"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -325,6 +339,7 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
         <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
@@ -334,6 +349,7 @@
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
         <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
         <script src="../bower_components/jquery-notific8/src/js/jquery.notific8.js"></script>
+        <script src="../bower_components/jquery-notific8/dist/jquery.notific8.min.js"></script>
         <!-- endbower -->
         <script src="../bower_components/marked/lib/marked.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
