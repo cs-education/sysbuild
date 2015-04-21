@@ -25,8 +25,6 @@ window.videoPlayerConfig = (function () {
             }
         });
 
-        console.log(videoName === videoURL);
-
         player.src([
             { type: 'video/mp4', src: videoURL + '.mp4' },
             { type: 'video/webm', src: videoURL + '.webm' },
