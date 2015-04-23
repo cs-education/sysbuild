@@ -46,7 +46,45 @@ window.SysRuntime = (function () {
         // Wait for tty to be ready
         document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
-        this.jor1kgui = new Jor1kGUI('tty0', 'tty1', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
+        var MackeTerm = require('MackeTerm');
+        var Jor1k = require('Jor1k');
+
+        var jor1kparameters = {
+            system: {
+                kernelURL: "vmlinux.bin.bz2", // kernel image
+                memorysize: 32, // in MB, must be a power of two
+                cpu: "asm", // short name for the cpu to use
+                ncores: 1
+            },
+
+            fs: {
+                basefsURL: "basefs-compile.json", // json file with the basic filesystem configuration.
+                extendedfsURL: "../../jor1k-sysroot/fs.json", // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
+                earlyload: [
+                    "usr/bin/gcc",
+                    "usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1",
+                    "usr/libexec/gcc/or1k-linux-musl/4.9.0/collect2",
+                    "usr/lib/libbfd-2.24.51.20140817.so",
+                    "usr/lib/gcc/or1k-linux-musl/4.9.0/libgcc.a",
+                    "usr/bin/as",
+                    "usr/include/stdio.h"
+                ], // list of files which should be loaded immediately after they appear in the filesystem
+                lazyloadimages: [
+                ] // list of automatically loaded images after the basic filesystem has been loaded
+            },
+            term: new MackeTerm("tty0"),   // canvas id for the terminal
+            //fbid: "fb",     // canvas id for the framebuffer
+            //clipboardid: "clipboard",  // input id for the clipboard
+            //statsid: "stats",  // object id for the statistics test
+            //relayURL: "", // relay url for the network
+            //userid: userid, // unique user id string. Empty, choosen randomly, from a url, or from a cookie.
+            //syncURL: "http://jor1k.com/sync/upload.php", // url to sync a certain folder
+            //fps: 10, // update interval of framebuffer
+            memorysize: 32, // in MB, must be a power of two
+            path: "../jor1k/bin/"
+        };
+
+        this.jor1kgui = new Jor1k(jor1kparameters);
         this.sendKeys('tty0', '', 'root login on \'ttyS0\'', onTTYLogin1);
         this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTYLogin2);
         return this;
@@ -194,7 +232,7 @@ window.SysRuntime = (function () {
     SysRuntime.prototype.sendKeys = function (tty, text, expect, success, cancel) {
         /* jshint bitwise: false */
         var expectResult = null;
-        this.jor1kgui.pause(false);
+        this.jor1kgui.Pause(false);
 
         if (expect) {
             expectResult = new ExpectTTY(this, expect, success, cancel);
