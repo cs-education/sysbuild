@@ -13,6 +13,7 @@ sysbuild/
 ├── app/                      Application source code
 │   ├── images/               Images/pictures
 │   ├── jor1k/                The jor1k project source copied by grunt during setup
+│   ├── jor1k-sysroot/        The extended filesystem for jor1k copied by grunt during setup
 │   ├── jor1k_hd_images/      Disk images for the Virtual Machine
 │   ├── scripts/              Javascript files
 │   └── styles/               SASS and CSS files

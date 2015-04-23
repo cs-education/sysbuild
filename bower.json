@@ -7,6 +7,7 @@
     "jquery": "~2.1.3",
     "ace-builds": "~1.1.8",
     "jor1k": "https://github.com/cs-education/jor1k.git#fixes",
+    "jor1k-sysroot": "https://github.com/cs-education/jor1k-sysroot.git#master",
     "jquery.layout": "*",
     "knockout": "~3.3.0",
     "Blob": "*",
