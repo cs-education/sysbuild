@@ -1,4 +1,4 @@
-/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router, videojs*/
+/* global $, ko, saveAs, Bloodhound, SysViewModel, Editor, LiveEdit, SysRuntime, Router, videojs, videoPlayerConfig*/
 
 $(document).ready(function () {
     'use strict';
@@ -256,11 +256,8 @@ $(document).ready(function () {
                     height: 264,
                     poster: ''
                 }, function () {
-                    this.src([
-                        { type: 'video/mp4', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.mp4' },
-                        { type: 'video/webm', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.webm' },
-                        { type: 'video/ogg', src: 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source + '.ogv' }
-                    ]);
+                    var videoURL = 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source;
+                    videoPlayerConfig.configure(this, videoURL, resultVid.source);
                 });
         vid.currentTime(resultVid.startTime);
         vid.play();

@@ -1,4 +1,4 @@
-/* global $, Sammy, SysViewModel, marked, videojs, Tracker */
+/* global $, Sammy, SysViewModel, marked, videojs, videoPlayerConfig, Tracker */
 
 window.Router = (function () {
     'use strict';
@@ -124,11 +124,9 @@ window.Router = (function () {
                     height: 540,
                     poster: ''
                 }, function () {
-                    this.src([
-                        { type: 'video/mp4', src: currentVideoFilePrefix + '.mp4' },
-                        { type: 'video/webm', src: currentVideoFilePrefix + '.webm' },
-                        { type: 'video/ogg', src: currentVideoFilePrefix + '.ogv' }
-                    ]);
+                    // add the text track to the video
+                    var videoName = videoActivity.file.replace('mp4/', '');
+                    videoPlayerConfig.configure(this, currentVideoFilePrefix, videoName);
                 });
             };
 
