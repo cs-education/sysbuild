@@ -33,7 +33,7 @@ window.SysRuntime = (function () {
         }.bind(this);
 
         var onBootFinished = function () {
-            if (this.tty0ready/* && this.tty1ready*/) {
+            if (this.tty0ready && this.tty1ready) {
                 // LiveEdit uses the bootFinished value when sent the ready event,
                 // so bootFinished must be updated before broadcasting the event
                 this.bootFinished = true;
@@ -51,6 +51,12 @@ window.SysRuntime = (function () {
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
         }.bind(this);
 
+        var onTTY1RootLogin = function (completed) {
+            if (completed) {
+                this.sendKeys('tty1', 'login -f user\n', '~ $', onTTY1Ready); // login as user
+            }
+        }.bind(this);
+
         var onTTY0Login = function (completed) {
             if (completed) {
                 this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY0Ready);
@@ -59,7 +65,7 @@ window.SysRuntime = (function () {
 
         var onTTY1Login = function (completed) {
             if (completed) {
-                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1Ready);
+                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
             }
         }.bind(this);
 
@@ -103,12 +109,12 @@ window.SysRuntime = (function () {
 
         this.jor1kgui = new Jor1k(jor1kparameters);
 
-        // Wait for tty to be ready
         this.jor1kgui.terms[0].term.OnCharReceived = this.putCharTTY0Listener;
         this.jor1kgui.terms[1].term.OnCharReceived = this.putCharTTY1Listener;
 
-        this.sendKeys('tty0', '', 'root login on \'ttyS1\'', onTTY0Login);
-        this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTY1Login);
+        // Wait for terminal prompts
+        this.sendKeys('tty0', '', '~ $', onTTY0Login);
+        this.sendKeys('tty1', '', '~ #', onTTY1Login);
         return this;
     }
 
