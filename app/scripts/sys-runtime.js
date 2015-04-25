@@ -20,11 +20,16 @@ window.SysRuntime = (function () {
         this.gccExitCodeCaptureRe = /GCC_EXIT_CODE: (\d+)/;
 
         // Set up callbacks
-        this.putCharListener = function (character) {
+        this.putCharTTY0Listener = function (character) {
+            // capture output from tty0
             if (this.captureOutput) {
                 this.ttyOutput += character;
             }
-            this.notifyListeners('putchar', character);
+            this.notifyListeners('putchar-tty0', character);
+        }.bind(this);
+
+        this.putCharTTY1Listener = function (character) {
+            this.notifyListeners('putchar-tty1', character);
         }.bind(this);
 
         var onBootFinished = function () {
@@ -84,7 +89,7 @@ window.SysRuntime = (function () {
                 lazyloadimages: [
                 ] // list of automatically loaded images after the basic filesystem has been loaded
             },
-            term: new MackeTerm("tty0"),   // canvas id for the terminal
+            terms: [new MackeTerm("tty0"), new MackeTerm("tty1")],   // canvas ids for the terminals
             //fbid: "fb",     // canvas id for the framebuffer
             //clipboardid: "clipboard",  // input id for the clipboard
             //statsid: "stats",  // object id for the statistics test
@@ -99,10 +104,11 @@ window.SysRuntime = (function () {
         this.jor1kgui = new Jor1k(jor1kparameters);
 
         // Wait for tty to be ready
-        this.jor1kgui.terms[0].term.OnCharReceived = this.putCharListener;
+        this.jor1kgui.terms[0].term.OnCharReceived = this.putCharTTY0Listener;
+        this.jor1kgui.terms[1].term.OnCharReceived = this.putCharTTY1Listener;
 
         this.sendKeys('tty0', '', 'root login on \'ttyS1\'', onTTY0Login);
-        //this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTY1Login);
+        this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTY1Login);
         return this;
     }
 
@@ -251,7 +257,7 @@ window.SysRuntime = (function () {
         this.jor1kgui.Pause(false);
 
         if (expect) {
-            expectResult = new ExpectTTY(this, expect, success, cancel);
+            expectResult = new ExpectTTY(this, tty, expect, success, cancel);
         }
 
         for (var i = 0; i < text.length; i++) {
