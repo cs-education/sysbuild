@@ -1,4 +1,4 @@
-/* global Jor1kGUI, ExpectTTY, GccOutputParser */
+/* global ExpectTTY, GccOutputParser */
 
 // A singleton that encapsulates the virtual machine interface
 window.SysRuntime = (function () {
@@ -71,31 +71,33 @@ window.SysRuntime = (function () {
 
         var MackeTerm = require('MackeTerm');
         var Jor1k = require('Jor1k');
+        var termTTY0 = new MackeTerm('tty0');
+        var termTTY1 = new MackeTerm('tty1');
 
         var jor1kparameters = {
             system: {
-                kernelURL: "vmlinux.bin.bz2", // kernel image
+                kernelURL: 'vmlinux.bin.bz2', // kernel image
                 memorysize: 32, // in MB, must be a power of two
-                cpu: "asm", // short name for the cpu to use
+                cpu: 'asm', // short name for the cpu to use
                 ncores: 1
             },
 
             fs: {
-                basefsURL: "basefs-compile.json", // json file with the basic filesystem configuration.
-                extendedfsURL: "http://cs-education.github.io/jor1k-sysroot/fs.json", // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
+                basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
+                extendedfsURL: 'http://cs-education.github.io/jor1k-sysroot/fs.json', // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
                 earlyload: [
-                    "usr/bin/gcc",
-                    "usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1",
-                    "usr/libexec/gcc/or1k-linux-musl/4.9.0/collect2",
-                    "usr/lib/libbfd-2.24.51.20140817.so",
-                    "usr/lib/gcc/or1k-linux-musl/4.9.0/libgcc.a",
-                    "usr/bin/as",
-                    "usr/include/stdio.h"
+                    'usr/bin/gcc',
+                    'usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1',
+                    'usr/libexec/gcc/or1k-linux-musl/4.9.0/collect2',
+                    'usr/lib/libbfd-2.24.51.20140817.so',
+                    'usr/lib/gcc/or1k-linux-musl/4.9.0/libgcc.a',
+                    'usr/bin/as',
+                    'usr/include/stdio.h'
                 ], // list of files which should be loaded immediately after they appear in the filesystem
                 lazyloadimages: [
                 ] // list of automatically loaded images after the basic filesystem has been loaded
             },
-            terms: [new MackeTerm("tty0"), new MackeTerm("tty1")],   // canvas ids for the terminals
+            terms: [termTTY0, termTTY1],   // canvas ids for the terminals
             //fbid: "fb",     // canvas id for the framebuffer
             //clipboardid: "clipboard",  // input id for the clipboard
             //statsid: "stats",  // object id for the statistics test
@@ -104,13 +106,12 @@ window.SysRuntime = (function () {
             //syncURL: "http://jor1k.com/sync/upload.php", // url to sync a certain folder
             //fps: 10, // update interval of framebuffer
             memorysize: 32, // in MB, must be a power of two
-            path: "../jor1k/bin/"
+            path: '../jor1k/bin/'
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
-
-        this.jor1kgui.terms[0].term.OnCharReceived = this.putCharTTY0Listener;
-        this.jor1kgui.terms[1].term.OnCharReceived = this.putCharTTY1Listener;
+        termTTY0.SetCharReceiveListener(this.putCharTTY0Listener);
+        termTTY1.SetCharReceiveListener(this.putCharTTY1Listener);
 
         // Wait for terminal prompts
         this.sendKeys('tty0', '', '~ $', onTTY0Login);
