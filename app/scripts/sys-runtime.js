@@ -84,7 +84,8 @@ window.SysRuntime = (function () {
 
             fs: {
                 basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
-                extendedfsURL: 'http://cs-education.github.io/jor1k-sysroot/fs.json', // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
+                // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
+                extendedfsURL: 'http://cs-education.github.io/sysassets/jor1kfs/sysroot/fs.json',
                 earlyload: [
                     'usr/bin/gcc',
                     'usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1',
