@@ -71,7 +71,7 @@ window.SysRuntime = (function () {
 
             fs: {
                 basefsURL: "basefs-compile.json", // json file with the basic filesystem configuration.
-                extendedfsURL: "../../jor1k-sysroot/fs.json", // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
+                extendedfsURL: "http://cs-education.github.io/jor1k-sysroot/fs.json", // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
                 earlyload: [
                     "usr/bin/gcc",
                     "usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1",
@@ -99,7 +99,7 @@ window.SysRuntime = (function () {
         this.jor1kgui = new Jor1k(jor1kparameters);
 
         // Wait for tty to be ready
-        this.jor1kgui.term.term.OnCharReceived = this.putCharListener;
+        this.jor1kgui.terms[0].term.OnCharReceived = this.putCharListener;
 
         this.sendKeys('tty0', '', 'root login on \'ttyS1\'', onTTY0Login);
         //this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTY1Login);

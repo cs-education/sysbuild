@@ -368,12 +368,6 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: '<%= config.app %>/jor1k-sysroot/',
-                    src: ['**', '!.git'],
-                    dest: '<%= config.dist %>/jor1k-sysroot/'
-                }, {
-                    expand: true,
-                    dot: true,
                     cwd: './sys-gh-pages-config/',
                     src: ['README.md'],
                     dest: '<%= config.dist %>'
@@ -392,7 +386,6 @@ module.exports = function (grunt) {
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             },
-            // copy the jor1k and its sysroot downloaded by bower into the app directory
             jor1k: {
                 files: [{
                     expand: true,
@@ -400,12 +393,6 @@ module.exports = function (grunt) {
                     cwd: 'bower_components/jor1k/',
                     src: ['**', '!.git'],
                     dest: '<%= config.app %>/jor1k/'
-                }, {
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components/jor1k-sysroot/',
-                    src: ['**', '!.git'],
-                    dest: '<%= config.app %>/jor1k-sysroot/'
                 }]
             }
         },
