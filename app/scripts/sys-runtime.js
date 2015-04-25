@@ -7,6 +7,9 @@ window.SysRuntime = (function () {
     function SysRuntime() {
 
         this.bootFinished = false;
+        this.tty0ready = false;
+        this.tty1ready = false;
+
         this.listeners = {};
         this.ttyState = this.BOOT;
         this.ttyOutput = '';
@@ -17,34 +20,43 @@ window.SysRuntime = (function () {
         this.gccExitCodeCaptureRe = /GCC_EXIT_CODE: (\d+)/;
 
         // Set up callbacks
-        this.putCharListener = function (e) {
+        this.putCharListener = function (character) {
             if (this.captureOutput) {
-                this.ttyOutput += e.detail.character;
+                this.ttyOutput += character;
             }
-            this.notifyListeners('putchar', e);
+            this.notifyListeners('putchar', character);
         }.bind(this);
 
-        var onBootFinished = function (completed) {
-            if (completed && this.bootFinished) {
+        var onBootFinished = function () {
+            if (this.tty0ready/* && this.tty1ready*/) {
+                // LiveEdit uses the bootFinished value when sent the ready event,
+                // so bootFinished must be updated before broadcasting the event
+                this.bootFinished = true;
                 this.notifyListeners('ready', true);
             }
-            this.bootFinished = completed;
         }.bind(this);
 
-        var onTTYLogin1 = function (completed) {
+        var onTTY0Ready = function (completed) {
+            this.tty0ready = completed;
+            onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
+        }.bind(this);
+
+        var onTTY1Ready = function (completed) {
+            this.tty1ready = completed;
+            onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
+        }.bind(this);
+
+        var onTTY0Login = function (completed) {
             if (completed) {
-                this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY0Ready);
             }
         }.bind(this);
 
-        var onTTYLogin2 = function (completed) {
+        var onTTY1Login = function (completed) {
             if (completed) {
-                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1Ready);
             }
         }.bind(this);
-
-        // Wait for tty to be ready
-        document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
 
         var MackeTerm = require('MackeTerm');
         var Jor1k = require('Jor1k');
@@ -85,8 +97,12 @@ window.SysRuntime = (function () {
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
-        this.sendKeys('tty0', '', 'root login on \'ttyS0\'', onTTYLogin1);
-        this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTYLogin2);
+
+        // Wait for tty to be ready
+        this.jor1kgui.term.term.OnCharReceived = this.putCharListener;
+
+        this.sendKeys('tty0', '', 'root login on \'ttyS1\'', onTTY0Login);
+        //this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTY1Login);
         return this;
     }
 
@@ -239,7 +255,7 @@ window.SysRuntime = (function () {
         }
 
         for (var i = 0; i < text.length; i++) {
-            this.jor1kgui.sendToWorker(tty, text.charCodeAt(i) >>> 0);
+            this.jor1kgui.message.Send(tty, [text.charCodeAt(i) >>> 0]);
         }
 
         return expectResult;

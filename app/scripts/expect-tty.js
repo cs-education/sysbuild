@@ -7,8 +7,8 @@ window.ExpectTTY = (function () {
         this.expect = expectstring;
         this.sys = runtime;
         this.found = false;
-        this.expectPutCharListener = function (sys, e) {
-            this.output = this.output.substr(this.output.length === this.expect.length ? 1 : 0) + e.detail.character;
+        this.expectPutCharListener = function (sys, character) {
+            this.output = this.output.substr(this.output.length === this.expect.length ? 1 : 0) + character;
             if (this.output === this.expect) {
                 this._cleanup();
                 this.callback(true);
