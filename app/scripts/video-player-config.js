@@ -13,7 +13,7 @@ window.videoPlayerConfig = (function () {
         // It's very important that you wait for the video player to load before
         // adding remote text tracks. Source:
         // http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/adding-captions-to-videos.html
-        player.on('loadstart', function(){
+        player.on('loadstart', function () {
             var trackLabel = 'English';
             player.addRemoteTextTrack({
                 kind: 'captions',
