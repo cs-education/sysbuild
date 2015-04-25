@@ -123,6 +123,10 @@ window.SysRuntime = (function () {
         return this.bootFinished;
     };
 
+    SysRuntime.prototype.focusTerm = function (tty) {
+        this.jor1kgui.FocusTerm(tty);
+    };
+
     SysRuntime.prototype.startGccCompile = function (code, gccOptions, guiCallback) {
         if (!this.bootFinished) {
             return 0;
