@@ -11,7 +11,6 @@ window.SysRuntime = (function () {
         this.tty1ready = false;
 
         this.listeners = {};
-        this.ttyState = this.BOOT;
         this.ttyOutput = '';
         this.captureOutput = false;
         this.compileTicket = 0;
@@ -99,7 +98,7 @@ window.SysRuntime = (function () {
                 ] // list of automatically loaded images after the basic filesystem has been loaded
             },
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
-            statsid: "vm-stats",  // element id for displaying VM statistics
+            statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
             path: '../jor1k/bin/'
         };
@@ -258,18 +257,16 @@ window.SysRuntime = (function () {
     };
 
     SysRuntime.prototype.sendKeys = function (tty, text, expect, success, cancel) {
-        /* jshint bitwise: false */
         var expectResult = null;
+        var data = text.split('').map(function (c) {
+            /* jshint bitwise: false */
+            return c.charCodeAt(0) >>> 0;
+        });
         this.jor1kgui.Pause(false);
-
         if (expect) {
             expectResult = new ExpectTTY(this, tty, expect, success, cancel);
         }
-
-        for (var i = 0; i < text.length; i++) {
-            this.jor1kgui.message.Send(tty, [text.charCodeAt(i) >>> 0]);
-        }
-
+        this.jor1kgui.message.Send(tty, data);
         return expectResult;
     };
 

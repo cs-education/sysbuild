@@ -1,8 +1,6 @@
 # Gitignore file for the sysbuild project
 # Project-specific gitignores
 app/jor1k
-app/jor1k-sysroot
-app/sysassets
 
 # Created by the Yeoman webapp generator
 node_modules
