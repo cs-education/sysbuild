@@ -356,12 +356,6 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: '<%= config.app %>/jor1k_hd_images/',
-                    src: ['**'],
-                    dest: '<%= config.dist %>/jor1k_hd_images/'
-                }, {
-                    expand: true,
-                    dot: true,
                     cwd: '<%= config.app %>/jor1k/',
                     src: ['**', '!.git'],
                     dest: '<%= config.dist %>/jor1k/'
