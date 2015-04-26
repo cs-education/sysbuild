@@ -219,3 +219,8 @@ body {
 .compile-status-label-text-warning {
     color: darken($brand-warning, 20%);
 }
+
+.vm-state-span {
+    display: inline-block;
+    width: 70px;
+}

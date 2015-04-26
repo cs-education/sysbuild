@@ -91,7 +91,6 @@ window.SysViewModel = (function () {
         self.vmStateClass = ko.pureComputed(function () {
             return 'label label-' + vmStateToLabelClassMap[self.vmState()];
         });
-        self.vmMips = ko.observable(0);
 
         self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
         self.aceTheme = ko.observable(self.availableAceThemes()[0]);

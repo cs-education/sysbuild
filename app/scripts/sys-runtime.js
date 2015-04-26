@@ -99,13 +99,7 @@ window.SysRuntime = (function () {
                 ] // list of automatically loaded images after the basic filesystem has been loaded
             },
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
-            //fbid: "fb",     // canvas id for the framebuffer
-            //clipboardid: "clipboard",  // input id for the clipboard
-            //statsid: "stats",  // object id for the statistics test
-            //relayURL: "", // relay url for the network
-            //userid: userid, // unique user id string. Empty, choosen randomly, from a url, or from a cookie.
-            //syncURL: "http://jor1k.com/sync/upload.php", // url to sync a certain folder
-            //fps: 10, // update interval of framebuffer
+            statsid: "vm-stats",  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
             path: '../jor1k/bin/'
         };
