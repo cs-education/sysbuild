@@ -1,0 +1,47 @@
+//DROPDOWN SPECIFIC CSS
+
+.dropdownmux {
+    width: 100%;
+    height: 5%;
+}
+
+.dropdown {
+    width: 100%;
+    height: 100%;
+
+}
+
+.dropdown-menu {
+    width:100%;
+}
+
+.dropdown-toggle {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    font-size: 20px;
+}
+
+.module {
+    top: 5%;
+    position: absolute;
+    height: 95%;
+    width: 100%;
+    bottom: 0;
+}
+
+//MODULE SPECIFIC CSS
+
+#code {
+    position: absolute;
+    height: 90% !important;
+    width: 100%;
+    top: 0;
+}
+
+#compile-opts-container {
+    position: absolute;
+    height: 10%;
+    width: 100%;
+    bottom: 0;
+}

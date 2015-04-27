@@ -1,0 +1,277 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>System Programming</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../../bower_components/jquery.layout/dist/layout-default-latest.css" />
+    <link rel="stylesheet" href="../../bower_components/videojs/dist/video-js/video-js.css" />
+    <link rel="stylesheet" href="../../bower_components/jquery-notific8/src/css/jquery.notific8.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="../../bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    </script>
+    <!-- End Google Analytics -->
+</head>
+<body>
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Unsupported browser message -->
+<div>
+    <div id="no-js-msg">
+        To use this website you need to enable Javascript in your browser.
+    </div>
+    <div id="no-canvas-msg">
+        <p class="browsehappy">
+            Your browser does not support the HTML5 canvas.
+            Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+        </p>
+    </div>
+</div>
+
+<div class="show-if-supported">
+    <!-- Chapter index and video lession views -->
+
+    <!-- Code playground -->
+    <div id="layout" data-bind="visible: shownPage() === 'playground'">
+        <div id="navbar-container">
+            <!-- Fixed navbar -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">System Programming</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav" data-bind="visible: chapters().length > 0">
+                        <li data-bind="css: { active: playGroundNavPagerVisible }"><a href="#">Lessons</a></li>
+                        <li data-bind="css: { active: !playGroundNavPagerVisible() }"><a href="#playground">Playground</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" data-bind="visible: playGroundNavPagerVisible">
+                        <li class="previous">
+                            <a data-bind="attr: { href: getNavUrlPrev }">&larr; Previous</a>
+                        </li>
+                        <li class="next">
+                            <a data-bind="attr: { href: getNavUrlNext }">Next &rarr;</a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div id="left-pane">
+            <div class="dropdownmux">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" data-bind="foreach: uiModules">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-bind="text: name">Action</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="editor-module" class="module">
+                <div id="code">
+                </div>
+                <div id="compile-opts-container">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <label class="optlabel col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                                <div class="col-sm-11" data-bind="css: {'has-error': gccOptsError()}">
+                                    <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
+                                           data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                                           tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="optlabel col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                                <div class="col-sm-11">
+                                    <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                                </div>
+                            </div>
+                        </div>
+                        <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
+                                data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-2" disabled="disabled">
+                            Run It<br>
+                            <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="right-pane">
+            <div class="dropdownmux">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="terminals" class="module">
+                <div id="tty-container">
+                    <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
+                    <div class="tty-buttons">
+                        <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                            <span data-bind="css: ttyToggleBtnClass"></span>
+                        </button>
+                        <button data-bind="click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+                            <span data-bind="css: ttySwitchBtnClass"></span>
+                        </button>
+                    </div>
+                </div>
+                <div id="tty-container-two">
+                    <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
+                    <div class="tty-buttons">
+                        <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                            <span data-bind="css: ttyToggleBtnClass"></span>
+                        </button>
+                        <button data-bind="click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+                            <span data-bind="css: ttySwitchBtnClass"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-container">
+            <div class="footer" >
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <p>VM state:
+                                <span data-bind="text: vmState, css: vmStateClass">Booting</span>
+                                <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
+                            </p>
+                        </div>
+                        <div class="col-sm-7">
+                            <p>Compiler:
+                                <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
+                                <a href="#"
+                                   data-bind="html: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass"
+                                   data-toggle="modal" data-target="#gcc-error-window"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container col-sm-6 pull-right">
+                    <p class="text-muted pull-right"><img width="12px" src="../images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild#licence">Attribution and legal information</a></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GCC Error Modal -->
+    <div class="modal fade" id="gcc-error-window" tabindex="-1" role="dialog" aria-labelledby="gcc-error-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="gcc-error-label" data-bind="html: errorWarningLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <pre data-bind="text: lastGccOutput()"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/.show-if-supported -->
+
+<!-- ==================== Javascript ==================== -->
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="../../bower_components/jquery/dist/jquery.js"></script>
+<script src="../../bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="../../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
+<script src="../../bower_components/knockout/dist/knockout.js"></script>
+<script src="../../bower_components/Blob/Blob.js"></script>
+<script src="../../bower_components/FileSaver/FileSaver.js"></script>
+<script src="../../bower_components/sammy/lib/sammy.js"></script>
+<script src="../../bower_components/videojs/dist/video-js/video.js"></script>
+<script src="../../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+<script src="../../bower_components/jquery-notific8/src/js/jquery.notific8.js"></script>
+<!-- endbower -->
+<script src="../../bower_components/marked/lib/marked.js"></script>
+<script src="../../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+<script src="../../bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js"></script>
+<script src="../../bower_components/ace-builds/src-min-noconflict/theme-monokai.js"></script>
+<script src="../../bower_components/ace-builds/src-min-noconflict/theme-terminal.js"></script>
+<script src="../../bower_components/ace-builds/src-min-noconflict/theme-tomorrow.js"></script>
+<script src="../../bower_components/ace-builds/src-min-noconflict/theme-xcode.js"></script>
+<!-- endbuild -->
+
+<!-- build:js scripts/plugins.js -->
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/modal.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/transition.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/button.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/popover.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
+<script src="../../bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
+<!-- endbuild -->
+
+<!-- build:js scripts/jor1k.js -->
+<script src="../jor1k/js/master/terminal.js"></script>
+<script src="../jor1k/js/master/terminal-input.js"></script>
+<script src="../jor1k/js/master/ethernet.js"></script>
+<!-- endbuild -->
+
+<!-- build:js({app,.tmp}) scripts/main.js -->
+<script src="../scripts/ga-tracking.js"></script>
+<script src="../scripts/sys-view-model.js"></script>
+<script src="../scripts/preferences.js"></script>
+<script src="../scripts/jor1k-master.js"></script>
+<script src="../scripts/expect-tty.js"></script>
+<script src="../scripts/editor.js"></script>
+<script src="../scripts/gcc-output-parser.js"></script>
+<script src="../scripts/live-edit.js"></script>
+<script src="../scripts/sys-runtime.js"></script>
+<script src="../scripts/router.js"></script>
+<script src="ui-mux.js"></script>
+<script src="../scripts/main.js"></script>
+
+<!-- Do not write any js code in script tags here,
+     because it won't be included in the built code (the minified distribution code).
+     Instead, write it in main.js, some other file, or in script tags outside the build blocks -->
+<!-- endbuild -->
+</body>
+</html>
+
