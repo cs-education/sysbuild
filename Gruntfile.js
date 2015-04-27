@@ -339,7 +339,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: '.',
-                    src: ['bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'],
+                    src: ['bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*.*'],
                     dest: '<%= config.dist %>'
                 }, {
                     expand: true,
@@ -353,12 +353,6 @@ module.exports = function (grunt) {
                     cwd: '.',
                     src: ['LICENSE.txt'],
                     dest: '<%= config.dist %>'
-                }, {
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= config.app %>/jor1k_hd_images/',
-                    src: ['**'],
-                    dest: '<%= config.dist %>/jor1k_hd_images/'
                 }, {
                     expand: true,
                     dot: true,
@@ -386,13 +380,14 @@ module.exports = function (grunt) {
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             },
-            // copy the jor1k downloaded by bower into the app directory
             jor1k: {
-                expand: true,
-                dot: true,
-                cwd: 'bower_components/jor1k/',
-                src: ['**', '!.git'],
-                dest: '<%= config.app %>/jor1k/'
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: 'bower_components/jor1k/',
+                    src: ['**', '!.git'],
+                    dest: '<%= config.app %>/jor1k/'
+                }]
             }
         },
 

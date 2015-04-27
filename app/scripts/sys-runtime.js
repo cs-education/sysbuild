@@ -1,4 +1,4 @@
-/* global Jor1kGUI, ExpectTTY, GccOutputParser */
+/* global ExpectTTY, GccOutputParser */
 
 // A singleton that encapsulates the virtual machine interface
 window.SysRuntime = (function () {
@@ -7,8 +7,10 @@ window.SysRuntime = (function () {
     function SysRuntime() {
 
         this.bootFinished = false;
+        this.tty0ready = false;
+        this.tty1ready = false;
+
         this.listeners = {};
-        this.ttyState = this.BOOT;
         this.ttyOutput = '';
         this.captureOutput = false;
         this.compileTicket = 0;
@@ -17,43 +19,106 @@ window.SysRuntime = (function () {
         this.gccExitCodeCaptureRe = /GCC_EXIT_CODE: (\d+)/;
 
         // Set up callbacks
-        this.putCharListener = function (e) {
+        this.putCharTTY0Listener = function (character) {
+            // capture output from tty0
             if (this.captureOutput) {
-                this.ttyOutput += e.detail.character;
+                this.ttyOutput += character;
             }
-            this.notifyListeners('putchar', e);
+            this.notifyListeners('putchar-tty0', character);
         }.bind(this);
 
-        var onBootFinished = function (completed) {
-            if (completed && this.bootFinished) {
+        this.putCharTTY1Listener = function (character) {
+            this.notifyListeners('putchar-tty1', character);
+        }.bind(this);
+
+        var onBootFinished = function () {
+            if (this.tty0ready && this.tty1ready) {
+                // LiveEdit uses the bootFinished value when sent the ready event,
+                // so bootFinished must be updated before broadcasting the event
+                this.bootFinished = true;
                 this.notifyListeners('ready', true);
             }
-            this.bootFinished = completed;
         }.bind(this);
 
-        var onTTYLogin1 = function (completed) {
+        var onTTY0Ready = function (completed) {
+            this.tty0ready = completed;
+            onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
+        }.bind(this);
+
+        var onTTY1Ready = function (completed) {
+            this.tty1ready = completed;
+            onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
+        }.bind(this);
+
+        var onTTY1RootLogin = function (completed) {
             if (completed) {
-                this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('tty1', 'login -f user\n', '~ $', onTTY1Ready); // login as user
             }
         }.bind(this);
 
-        var onTTYLogin2 = function (completed) {
+        var onTTY0Login = function (completed) {
             if (completed) {
-                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onBootFinished);
+                this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY0Ready);
             }
         }.bind(this);
 
-        // Wait for tty to be ready
-        document.addEventListener('jor1k_terminal_put_char', this.putCharListener, false);
+        var onTTY1Login = function (completed) {
+            if (completed) {
+                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
+            }
+        }.bind(this);
 
-        this.jor1kgui = new Jor1kGUI('tty0', 'tty1', ['../../bin/vmlinux.bin.bz2', '../../../jor1k_hd_images/hdgcc-mod.bz2'], '');
-        this.sendKeys('tty0', '', 'root login on \'ttyS0\'', onTTYLogin1);
-        this.sendKeys('tty1', '', 'root login on \'ttyS1\'', onTTYLogin2);
+        var MackeTerm = require('MackeTerm');
+        var Jor1k = require('Jor1k');
+        var termTTY0 = new MackeTerm('tty0');
+        var termTTY1 = new MackeTerm('tty1');
+
+        var jor1kparameters = {
+            system: {
+                kernelURL: 'vmlinux.bin.bz2', // kernel image
+                memorysize: 32, // in MB, must be a power of two
+                cpu: 'asm', // short name for the cpu to use
+                ncores: 1
+            },
+
+            fs: {
+                basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
+                // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
+                extendedfsURL: 'http://cs-education.github.io/sysassets/jor1kfs/sysroot/fs.json',
+                earlyload: [
+                    'usr/bin/gcc',
+                    'usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1',
+                    'usr/libexec/gcc/or1k-linux-musl/4.9.0/collect2',
+                    'usr/lib/libbfd-2.24.51.20140817.so',
+                    'usr/lib/gcc/or1k-linux-musl/4.9.0/libgcc.a',
+                    'usr/bin/as',
+                    'usr/include/stdio.h'
+                ], // list of files which should be loaded immediately after they appear in the filesystem
+                lazyloadimages: [
+                ] // list of automatically loaded images after the basic filesystem has been loaded
+            },
+            terms: [termTTY0, termTTY1],   // canvas ids for the terminals
+            statsid: 'vm-stats',  // element id for displaying VM statistics
+            memorysize: 32, // in MB, must be a power of two
+            path: '../jor1k/bin/'
+        };
+
+        this.jor1kgui = new Jor1k(jor1kparameters);
+        termTTY0.SetCharReceiveListener(this.putCharTTY0Listener);
+        termTTY1.SetCharReceiveListener(this.putCharTTY1Listener);
+
+        // Wait for terminal prompts
+        this.sendKeys('tty0', '', '~ $', onTTY0Login);
+        this.sendKeys('tty1', '', '~ #', onTTY1Login);
         return this;
     }
 
     SysRuntime.prototype.ready = function () {
         return this.bootFinished;
+    };
+
+    SysRuntime.prototype.focusTerm = function (tty) {
+        this.jor1kgui.FocusTerm(tty);
     };
 
     SysRuntime.prototype.startGccCompile = function (code, gccOptions, guiCallback) {
@@ -192,18 +257,16 @@ window.SysRuntime = (function () {
     };
 
     SysRuntime.prototype.sendKeys = function (tty, text, expect, success, cancel) {
-        /* jshint bitwise: false */
         var expectResult = null;
-        this.jor1kgui.pause(false);
-
+        var data = text.split('').map(function (c) {
+            /* jshint bitwise: false */
+            return c.charCodeAt(0) >>> 0;
+        });
+        this.jor1kgui.Pause(false);
         if (expect) {
-            expectResult = new ExpectTTY(this, expect, success, cancel);
+            expectResult = new ExpectTTY(this, tty, expect, success, cancel);
         }
-
-        for (var i = 0; i < text.length; i++) {
-            this.jor1kgui.sendToWorker(tty, text.charCodeAt(i) >>> 0);
-        }
-
+        this.jor1kgui.message.Send(tty, data);
         return expectResult;
     };
 

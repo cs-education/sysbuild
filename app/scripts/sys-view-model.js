@@ -1,4 +1,4 @@
-/* global ko, $ */
+/* global ko, $, SysRuntime */
 
 window.SysViewModel = (function () {
     'use strict';
@@ -91,7 +91,6 @@ window.SysViewModel = (function () {
         self.vmStateClass = ko.pureComputed(function () {
             return 'label label-' + vmStateToLabelClassMap[self.vmState()];
         });
-        self.vmMips = ko.observable(0);
 
         self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
         self.aceTheme = ko.observable(self.availableAceThemes()[0]);
@@ -109,14 +108,17 @@ window.SysViewModel = (function () {
                 self.ttyContainer.appendTo('#tty-pane');
                 self.ttyContainerTwo.appendTo('#tty-pane');
             }
+            SysRuntime.getInstance().focusTerm(self.isPrimaryTTY() ? 'tty0' : 'tty1');
         });
         self.isPrimaryTTY = ko.observable(true);
         self.isPrimaryTTY.subscribe(function (newFrontTTY) {
             self.currentTTYContainer.hide();
             if (newFrontTTY) {
                 self.currentTTYContainer = self.ttyContainer;
+                SysRuntime.getInstance().focusTerm('tty0');
             } else {
                 self.currentTTYContainer = self.ttyContainerTwo;
+                SysRuntime.getInstance().focusTerm('tty1');
             }
             self.currentTTYContainer.show();
         });

@@ -294,8 +294,8 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <p>VM state:
-                                        <span data-bind="text: vmState, css: vmStateClass">Booting</span>
-                                        <span class="label label-info"><span data-bind="text: vmMips">0</span> MIPS</span>
+                                        <span data-bind="text: vmState, css: vmStateClass" class="vm-state-span">Booting</span>
+                                        <span id="vm-stats" class="label label-info vm-state-span"></span>
                                     </p>
                                 </div>
                                 <div class="col-sm-7">
@@ -339,7 +339,6 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
-        <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
         <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
@@ -374,21 +373,15 @@
         <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js scripts/jor1k.js -->
-        <script src="jor1k/js/master/terminal.js"></script>
-        <script src="jor1k/js/master/terminal-input.js"></script>
-        <script src="jor1k/js/master/ethernet.js"></script>
-        <!-- endbuild -->
-
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/ga-tracking.js"></script>
         <script src="scripts/sys-view-model.js"></script>
         <script src="scripts/preferences.js"></script>
-        <script src="scripts/jor1k-master.js"></script>
         <script src="scripts/expect-tty.js"></script>
         <script src="scripts/editor/token_highlighter.js"></script>
         <script src="scripts/editor/editor.js"></script>
         <script src="scripts/gcc-output-parser.js"></script>
+        <script src="jor1k/bin/jor1k-master-min.js"></script>
         <script src="scripts/live-edit.js"></script>
         <script src="scripts/sys-runtime.js"></script>
         <script src="scripts/video-player-config.js"></script>
