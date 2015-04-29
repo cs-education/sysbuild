@@ -196,9 +196,12 @@ window.Router = (function () {
 
                 var playActivity = {};
                 playActivity.doc =
-                    '<h2>Welcome</h2>' +
-                    '<p>Welcome to this tiny but fast linux virtual machine. ' +
-                    'Currently only Chrome is known to work. Other browsers will be supported in the future.</p>';
+                    '# Welcome\n' +
+                    'Welcome to this tiny but fast linux virtual machine. ' +
+                    'Write C code on the left and press the run button, or simply have fun with the linux command line below! Some things to try:\n' +
+                    '* Play battleship (type `bs` then enter), Solitaire (type `blue` then enter) or the famous Tower of Hanoi game (type `hanoi` then enter) in the terminal\n' +
+                    '* Destroy the system! Type `su`, press enter then type `rm -rf /` and watch the chaos! (Don\'t worry, it\'s safe. Simply refresh the page to start over)\n' +
+                    '\nOnce you are done playing, learn C and system programming! Go to the lessons page by clicking the link in the top navigation bar.';
 
                 playActivity.gccOptions = '-lm -Wall -fmax-errors=10 -Wextra';
                 playActivity.programCommandLineArgs = '';
