@@ -90,7 +90,7 @@ Wait for someone to review your code and merge your changes. Make sure you follo
 If you were working on an issue, you can have the issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
 
 ## Code guidelines ##
-* We have an [editor config](https://github.com/cs-education/sysbuild/blob/master/.editorconfig) file for maintaining a consistent coding style.
+* We have an [editor config](.editorconfig) file for maintaining a consistent coding style.
   Read more and download plugins at <http://editorconfig.org>.
 
 * Please include tests whenever possible.
@@ -143,4 +143,4 @@ The code editor is powered by [Ace](http://ace.c9.io/).
 
 ## License ##
 This project is licensed under a modified version of the University of Illinois/NCSA Open Source License.
-See [LICENSE.md](https://github.com/cs-education/sysbuild/blob/master/LICENSE.md) for license, attribution and other legal information.
+See [LICENSE.md](LICENSE.md) for license, attribution and other legal information.
