@@ -27,21 +27,16 @@ $(document).ready(function () {
             south__spacing_open: 0,
 
             onresizeall: function (layout, state) {
-                // make the layout responsive - close the east pane when the screen becomes too small,
-                // reopen it when the screen becomes wide again
-                // adapted from https://groups.google.com/forum/#!msg/jquery-ui-layout/69xyqoyqGcU/1XvjZSW9n4wJ
+                // Make the layout responsive - close the east pane when the screen becomes too small,
+                // reopen it when the screen becomes wide again.
+                // Adapted from https://groups.google.com/forum/#!msg/jquery-ui-layout/69xyqoyqGcU/1XvjZSW9n4wJ
                 var width = state.container.outerWidth;
-                if (width <= 800) {
-                    if (!state.east.isClosed) {
-                        layout.close('east');
-                        state.east.autoClosed = true; // CUSTOM state-data
-                    }
-                }
-                else {
-                    if (state.east.autoClosed) {
-                        layout.open('east');
-                        state.east.autoClosed = false; // CUSTOM state-data
-                    }
+                if (width <= 800 && !state.east.isClosed) {
+                    layout.close('east');
+                    state.east.autoClosed = true; // CUSTOM state-data
+                } else if (state.east.autoClosed) {
+                    layout.open('east');
+                    state.east.autoClosed = false;
                 }
             }
         });
