@@ -351,7 +351,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: '.',
-                    src: ['LICENSE.txt'],
+                    src: ['LICENSE.md'],
                     dest: '<%= config.dist %>'
                 }, {
                     expand: true,
