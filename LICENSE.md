@@ -30,8 +30,8 @@ licenses, and/or restrictions:
 * Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.
 
 ### Copyrights and Licenses for Third Party Content and Creative Works
-* The website logo, used as the website favicon ([favicon.ico](favicon.ico)) and the cs-education organization logo is Copyright (c) 2014-2015 Neelabh Gupta, and is based on the following works:
-  * The Linux Tux logo by Larry Ewing (<lewing@isc.tamu.edu>) and [The GIMP](http://isc.tamu.edu/~lewing/gimp/).
+* The "Linux in a browser" logo, used as the website favicon ([favicon.ico](favicon.ico)) and the cs-education organization logo is Copyright (c) 2014-2015 Neelabh Gupta, and is based on the following works:
+  * The [Linux Tux logo](http://isc.tamu.edu/~lewing/linux/) by Larry Ewing (<lewing@isc.tamu.edu>) and [The GIMP](http://isc.tamu.edu/~lewing/gimp/).
   * The "Google Chrome illustration logo in a browser window" image found [here](http://9to5google.com/2011/10/01/google-chrome-is-on-its-way-to-android-message-board-post-says/google-chrome-illustration-logo-in-a-browser-window-2/).
 
 ### The University of Illinois/NCSA Open Source License is reproduced below
