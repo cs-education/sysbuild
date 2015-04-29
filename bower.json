@@ -16,7 +16,8 @@
     "typeahead.js": "~0.10.5",
     "jquery-notific8": "~1.7.0",
     "jquery-ui-layout": "~1.4.3",
-    "jquery-ui": "~1.11.4"
+    "jquery-ui": "~1.11.4",
+    "jquery-fullscreen": "~1.1.4"
   },
   "devDependencies": {},
   "overrides": {
@@ -32,7 +33,12 @@
     },
     "bootstrap-sass-official": {
       "main": [
-          "assets/stylesheets/_bootstrap.scss"
+        "assets/stylesheets/_bootstrap.scss"
+      ]
+    },
+    "jquery-fullscreen": {
+      "main": [
+        "jquery.fullscreen-min.js"
       ]
     }
   }

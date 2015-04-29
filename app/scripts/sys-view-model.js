@@ -99,15 +99,10 @@ window.SysViewModel = (function () {
         self.ttyContainer = $('#tty-container');
         self.ttyContainerTwo = $('#tty-container-two');
         self.currentTTYContainer = self.ttyContainer;
+        self.fullScreenSupported = self.currentTTYContainer.fullScreen() !== null;
         self.ttyFullScreen = ko.observable(false);
         self.ttyFullScreen.subscribe(function (newTTYFullScreenStatus) {
-            if (newTTYFullScreenStatus) {
-                self.ttyContainer.appendTo('body');
-                self.ttyContainerTwo.appendTo('body');
-            } else {
-                self.ttyContainer.appendTo('#tty-pane');
-                self.ttyContainerTwo.appendTo('#tty-pane');
-            }
+            self.currentTTYContainer.fullScreen(newTTYFullScreenStatus);
             SysRuntime.getInstance().focusTerm(self.isPrimaryTTY() ? 'tty0' : 'tty1');
         });
         self.isPrimaryTTY = ko.observable(true);
