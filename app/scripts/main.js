@@ -13,10 +13,6 @@ $(document).ready(function () {
             east__paneSelector: '#doc-tty-container',
             south__paneSelector: '#footer-container',
 
-            // Hack to prevent editor toolbar from becoming too small.
-            // Better is to figure out how to fire a media query upon resize
-            center__minWidth: 700,
-
             east__size: '50%',
             spacing_open: 2,
 
@@ -28,7 +24,26 @@ $(document).ready(function () {
 
             south__resizable: false,
             south__size: 29,
-            south__spacing_open: 0
+            south__spacing_open: 0,
+
+            onresizeall: function (layout, state) {
+                // make the layout responsive - close the east pane when the screen becomes too small,
+                // reopen it when the screen becomes wide again
+                // adapted from https://groups.google.com/forum/#!msg/jquery-ui-layout/69xyqoyqGcU/1XvjZSW9n4wJ
+                var width = state.container.outerWidth;
+                if (width <= 800) {
+                    if (!state.east.isClosed) {
+                        layout.close('east');
+                        state.east.autoClosed = true; // CUSTOM state-data
+                    }
+                }
+                else {
+                    if (state.east.autoClosed) {
+                        layout.open('east');
+                        state.east.autoClosed = false; // CUSTOM state-data
+                    }
+                }
+            }
         });
 
         var ttyLayout = mainLayout.panes.east.layout({
