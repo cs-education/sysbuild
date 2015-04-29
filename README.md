@@ -144,8 +144,3 @@ The code editor is powered by [Ace](http://ace.c9.io/).
 ## License ##
 This project is licensed under a modified version of the University of Illinois/NCSA Open Source License.
 See [LICENSE.md](https://github.com/cs-education/sysbuild/blob/master/LICENSE.md) for license, attribution and other legal information.
-
-#### Open source licences ####
-jor1k is distributed under the terms of the [Simplified BSD License](https://github.com/cs-education/jor1k/blob/master/LICENSE.md).  
-Bootstrap is released under the [MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE) and is copyright 2014 Twitter.  
-Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.  
