@@ -65,7 +65,7 @@ window.LiveEdit = (function () {
         }).join('\n'));
 
         if (result.exitCode === 0) {
-            this.viewModel.compileStatus(result.stats.warning > 0 ? 'Warning' : 'Success');
+            this.viewModel.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
             this.runtime.startProgram('program', this.viewModel.programArgs());
         } else {
             this.viewModel.compileStatus('Failed');
