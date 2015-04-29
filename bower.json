@@ -7,7 +7,6 @@
     "jquery": "~2.1.3",
     "ace-builds": "~1.1.8",
     "jor1k": "https://github.com/cs-education/jor1k.git#sysbuild-stable",
-    "jquery.layout": "*",
     "knockout": "~3.3.0",
     "Blob": "*",
     "FileSaver": "*",
@@ -15,7 +14,32 @@
     "marked": "~0.3.3",
     "videojs": "~4.12.5",
     "typeahead.js": "~0.10.5",
-    "jquery-notific8": "~1.7.0"
+    "jquery-notific8": "~1.7.0",
+    "jquery-ui-layout": "~1.4.3",
+    "jquery-ui": "~1.11.4",
+    "jquery-fullscreen": "~1.1.4"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "overrides": {
+    "jquery-ui-layout": {
+      "main": [
+        "source/stable/jquery.layout_and_plugins.min.js",
+        "source/stable/layout-default.css"
+      ],
+      "dependencies": {
+        "jquery": "*",
+        "jquery-ui": "*"
+      }
+    },
+    "bootstrap-sass-official": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss"
+      ]
+    },
+    "jquery-fullscreen": {
+      "main": [
+        "jquery.fullscreen-min.js"
+      ]
+    }
+  }
 }

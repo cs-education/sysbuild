@@ -10,9 +10,9 @@
 
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="../bower_components/jquery.layout/dist/layout-default-latest.css" />
         <link rel="stylesheet" href="../bower_components/videojs/dist/video-js/video-js.css" />
         <link rel="stylesheet" href="../bower_components/jquery-notific8/dist/jquery.notific8.min.css" />
+        <link rel="stylesheet" href="../bower_components/jquery-ui-layout/source/stable/layout-default.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -63,6 +63,7 @@
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="#">Lessons</a></li>
                                 <li><a href="#playground">Playground</a></li>
+                                <li><a target="_blank" href="https://github.com/angrave/SystemProgramming/wiki">System Programming wiki-book</a></li>
                             </ul>
                         </div><!--/.nav-collapse -->
                     </div>
@@ -116,7 +117,7 @@
                 <div class="footer">
                     <div class="container">
                         <p class="text-muted">
-                            <img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild#licence">Attribution and legal information</a></small>
+                            <img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild/blob/master/LICENSE.md">Attribution and legal information</a></small>
                         </p>
                     </div>
                 </div>
@@ -134,6 +135,7 @@
                             <ul class="nav navbar-nav" data-bind="visible: chapters().length > 0">
                                 <li data-bind="css: { active: playGroundNavPagerVisible }"><a href="#">Lessons</a></li>
                                 <li data-bind="css: { active: !playGroundNavPagerVisible() }"><a href="#playground">Playground</a></li>
+                                <li><a target="_blank" href="https://github.com/angrave/SystemProgramming/wiki">System Programming wiki-book</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right" data-bind="visible: playGroundNavPagerVisible">
                                 <li class="previous">
@@ -266,10 +268,10 @@
                         <div id="tty-container">
                             <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
                             <div class="tty-buttons">
-                                <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                                <button data-bind="visible: fullScreenSupported, click: toggleFullScreen" class="btn btn-xs btn-default">
                                     <span data-bind="css: ttyToggleBtnClass"></span>
                                 </button>
-                                <button data-bind="click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+                                <button data-bind="visible: !ttyFullScreen(), click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
                                     <span data-bind="css: ttySwitchBtnClass"></span>
                                 </button>
                             </div>
@@ -277,14 +279,14 @@
                         <div id="tty-container-two">
                             <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
                             <div class="tty-buttons">
-                                <button data-bind="click: function () { ttyFullScreen(!ttyFullScreen()); }" class="btn btn-xs btn-default">
+                                <button data-bind="visible: fullScreenSupported, click: toggleFullScreen" class="btn btn-xs btn-default">
                                     <span data-bind="css: ttyToggleBtnClass"></span>
                                 </button>
-                                <button data-bind="click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+                                <button data-bind="visible: !ttyFullScreen(), click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
                                     <span data-bind="css: ttySwitchBtnClass"></span>
                                 </button>
-                                </div>
                             </div>
+                        </div>
                     </div>
                 </div>
 
@@ -309,7 +311,7 @@
                             </div>
                         </div>
                         <div class="container col-sm-6 pull-right">
-                            <p class="text-muted pull-right"><img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild#licence">Attribution and legal information</a></small></p>
+                            <p class="text-muted pull-right"><img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild/blob/master/LICENSE.md">Attribution and legal information</a></small></p>
                         </div>
                     </div>
                 </div>
@@ -339,17 +341,18 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
-        <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
-        <script src="../bower_components/jquery.layout/dist/jquery.layout-latest.js"></script>
         <script src="../bower_components/knockout/dist/knockout.js"></script>
         <script src="../bower_components/Blob/Blob.js"></script>
         <script src="../bower_components/FileSaver/FileSaver.js"></script>
         <script src="../bower_components/sammy/lib/sammy.js"></script>
+        <script src="../bower_components/marked/lib/marked.js"></script>
         <script src="../bower_components/videojs/dist/video-js/video.js"></script>
         <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
         <script src="../bower_components/jquery-notific8/dist/jquery.notific8.min.js"></script>
+        <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+        <script src="../bower_components/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min.js"></script>
+        <script src="../bower_components/jquery-fullscreen/jquery.fullscreen-min.js"></script>
         <!-- endbower -->
-        <script src="../bower_components/marked/lib/marked.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/theme-monokai.js"></script>
