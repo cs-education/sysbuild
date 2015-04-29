@@ -15,6 +15,12 @@ window.Editor = (function () {
 
         self.editorDivId = editorDivId;
         self.aceEditor = ace.edit(editorDivId);
+
+        // Fix for the following Ace warning:
+        // "Automatically scrolling cursor into view after selection change this will be disabled
+        // in the next version set editor.$blockScrolling = Infinity to disable this message"
+        self.aceEditor.$blockScrolling = Infinity;
+
         self.setMode('c_cpp');
         self.aceEditor.getSession().setTabSize(4);
         self.aceEditor.getSession().setUseSoftTabs(true);
