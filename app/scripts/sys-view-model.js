@@ -101,9 +101,14 @@ window.SysViewModel = (function () {
         self.currentTTYContainer = self.ttyContainer;
         self.fullScreenSupported = self.currentTTYContainer.fullScreen() !== null;
         self.ttyFullScreen = ko.observable(false);
-        self.ttyFullScreen.subscribe(function (newTTYFullScreenStatus) {
-            self.currentTTYContainer.fullScreen(newTTYFullScreenStatus);
+        self.toggleFullScreen = function () {
+            self.currentTTYContainer.toggleFullScreen();
+        };
+        self.ttyFullScreen.subscribe(function () {
             SysRuntime.getInstance().focusTerm(self.isPrimaryTTY() ? 'tty0' : 'tty1');
+        });
+        $(document).bind('fullscreenchange', function () {
+            self.ttyFullScreen(!!self.currentTTYContainer.fullScreen()); // coerce to boolean
         });
         self.isPrimaryTTY = ko.observable(true);
         self.isPrimaryTTY.subscribe(function (newFrontTTY) {
