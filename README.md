@@ -46,9 +46,10 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 `npm install`
 
 ## Useful commands ##
-* Run a development server. Automatically launches default browser. Also supports live reloading, which means
-  changes automatically show up without the need to refresh the page. Files are also watched for changes - 
-  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.  
+* Run a development server. Automatically launches default browser. Files are also watched for changes - 
+  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.
+  You do need to refresh the web page after making any changes (live reloading has been disabled
+  due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).  
   `grunt serve`
 
 * If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
