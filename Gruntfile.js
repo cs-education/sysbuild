@@ -104,7 +104,7 @@ module.exports = function (grunt) {
                 // Change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost'
             },
-            livereload: {
+            develop: {
                 options: {
                     middleware: function (connect) {
                         return [
@@ -112,7 +112,8 @@ module.exports = function (grunt) {
                             connect().use('/bower_components', connect.static('./bower_components')),
                             connect.static(config.app)
                         ];
-                    }
+                    },
+                    livereload: false
                 }
             },
             test: {
@@ -453,7 +454,7 @@ module.exports = function (grunt) {
             'clean:server',
             'concurrent:server',
             'autoprefixer',
-            'connect:livereload',
+            'connect:develop',
             'watch'
         ]);
     });
