@@ -17,21 +17,32 @@ Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for h
 ## Community and Collaboration
 * We have an official public chat room on [Gitter](https://gitter.im/). You can use it to chat with the project owners,
   discuss ideas, and ask for help. You can join the chat [here](https://gitter.im/cs-education/sysbuild) (the Gitter
-  badge at the top of the README provides a quick shortcut to the chat room).
+  badge at the top of this README provides a quick shortcut to the chat room).
+
 * The core team uses [HuBoard](https://huboard.com/) for task management. View the task board
   [here](https://huboard.com/cs-education/sysbuild) to see the status and progress of the project (the HuBoard badge at
-  the top of the README provides a quick shortcut to the board).
+  the top of this README provides a quick shortcut to the board).
 
 ## Contributing
-If you would like to work on this project, here is what you need to know to get started.
+Please read through our [contributing guidelines](CONTRIBUTING.md). Included are directions for opening issues, setting
+up your development environment, opening pull requests, coding standards, and notes on development.
 
+If you would like to work on this project, here is more information on what you need to know to get started.
+
+### Project organization
 This is the main repository for the project. Other repositories which are part of the project are:
-* cs-education/jor1k - Powers the virtual machine
-* cs-education/sysassets - Precompiled assets used in the project, such as lessons, videos, man pages, and the jor1k filesystem
-* cs-education/sys-staging - Staging deployment for the project, used for testing before deploying to production
-* cs-education/sys - Production deployment for the project
+* [cs-education/jor1k](https://github.com/cs-education/jor1k) - Powers the virtual machine
+* [cs-education/sysassets](https://github.com/cs-education/sysassets) - Pre-compiled assets used in the project, such
+  as lessons, videos, man pages, and the jor1k filesystem
 
-## Project folder structure
+We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
+The following repositories are used for deployment. You probably won't be committing changes directly to these
+repositories, but instead use automated deployment scripts (see [Deploying](#deploying) below):
+* [cs-education/sys-staging](https://github.com/cs-education/sys-staging) - Staging deployment for the project, used
+  for testing before deploying to production.
+* [cs-education/sys](https://github.com/cs-education/sys) - Production deployment for the project
+
+### Structure of this repository
 ```
 sysbuild/
 ├── app/                      Application source code
@@ -49,22 +60,20 @@ sysbuild/
 
 This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
 
-## Deploying
-We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
-The production repository is <https://github.com/cs-education/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
-You will need push access to the appropriate repository before you can deploy.
+### Deploying
+NOTE: You will need push access to the appropriate repository before you can deploy.
 
-1. Build the distributable project (output in the `dist/` folder).  
-`grunt build`
+1.  Build the distributable project (output in the `dist/` folder).  
+    `grunt build`
 
-2. Deploy to [staging](http://cs-education.github.io/sys-staging/).  
-`grunt deploy:staging`
+2.  Deploy to [staging](http://cs-education.github.io/sys-staging/).  
+    `grunt deploy:staging`
 
-4. Deploy to [production](http://cs-education.github.io/sys/).  
-`grunt deploy:prod`
+4.  Deploy to [production](http://cs-education.github.io/sys/).  
+    `grunt deploy:prod`
 
 ## Credits
-See CREDITS.md.
+See [CREDITS.md](CREDITS.md).
 
 ## License
 This project is licensed under a modified version of the University of Illinois/NCSA Open Source License.
