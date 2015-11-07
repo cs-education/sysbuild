@@ -1,4 +1,7 @@
 # Contributing to the project
+Thank you for taking the time to contribute! Please take a moment to review this document in order to make the
+contribution process easy and effective for everyone involved. These are just guidelines, not rules, so use your best
+judgment and feel free to propose changes to this document in a pull request or issue.
 
 ## Development environment set up
 1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [Node.js](https://nodejs.org/).
@@ -19,7 +22,7 @@
    `git remote add upstream https://github.com/cs-education/sysbuild.git`
 
 ## Pull requests
-Pull requests - patches, improvements, new features - are a fantastic help.
+Pull requests --- patches, improvements, new features --- are a fantastic help.
 
 Please ask first before embarking on any significant pull request.
 It is also a good idea to discuss your solution/changes/approach before starting any implementation.
@@ -54,9 +57,8 @@ Adhering to the following process is the best way to get your work included in t
     `git commit`
 
 7.  Locally [merge (or rebase)](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) the upstream development
-    branch into your topic branch:  
-    `git pull [--rebase] upstream master`  
-    Fix any merge conflicts that arise.
+    branch into your topic branch (if merge conflicts arise then please fix them):  
+    `git pull [--rebase] upstream master`
 
 8.  Push your topic branch up to your fork:  
     `git push origin <topic-branch-name>`
@@ -74,7 +76,7 @@ IMPORTANT: By submitting a patch, you agree to allow the project owners to licen
 mentioned [in the License section at the bottom](#license).
 
 ### After your pull request is merged
-Congratulations and thank you! After your pull request is merged, you can safely delete your branch and pull the
+Thank you and congratulations! After your pull request is merged, you can safely delete your branch and pull the
 changes from the main (upstream) repository:
 
 1.  Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:  
