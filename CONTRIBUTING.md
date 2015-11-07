@@ -32,10 +32,10 @@ Adhering to the following process is the best way to get your work included in t
 
 1.  [Set up your development environment](#development-environment-set-up) if not done already.
 
-2.  [Sync your fork locally](https://help.github.com/articles/syncing-a-fork/) with the upstream repository and then
-    update your fork on GitHub:  
+2.  [Sync your local `master` branch](https://help.github.com/articles/syncing-a-fork/) with the upstream repository
+    and then update your fork on GitHub:  
     `git checkout master`  
-    `git pull upstream/master`  
+    `git pull upstream master`  
     `git push origin master`
 
 3.  Make sure all the dependencies are installed and up-to-date:  
@@ -73,6 +73,20 @@ Adhering to the following process is the best way to get your work included in t
 IMPORTANT: By submitting a patch, you agree to allow the project owners to license your work as
 mentioned [in the License section at the bottom](#license).
 
+### After your pull request is merged
+Congratulations and thank you! After your pull request is merged, you can safely delete your branch and pull the
+changes from the main (upstream) repository:
+1.  Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:  
+    `git push origin --delete <topic-branch-name>`
+2.  Check out the master branch:  
+    `git checkout master`
+3.  Delete the local branch:  
+    `git branch -D my-fix-branch`
+4.  Update your local `master` branch with the latest upstream version:  
+    `git pull upstream master`
+5.  Update your fork on GitHub:  
+    `git push origin master`
+
 ## Code guidelines
 * Please include tests whenever possible.
 * Make sure all tests pass. Use the command `grunt test` to run the tests.
@@ -91,10 +105,12 @@ mentioned [in the License section at the bottom](#license).
 * When feasible, default color palettes should comply with
   [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
 
-### JS
+### JavaScript
 * We use [JSHint](http://jshint.com/about/) to detect errors and potential problems in JavaScript code. Use
   `grunt jshint` to run JSHint on your code. The file [.jshintrc](.jshintrc) contains the configuration used for JSHint.
-  JSHint errors can be suppressed when necessary.
+
+* [JSHint can be suppressed](http://jshint.com/docs/#inline-configuration) in particular parts of code when necessary.
+  Use this sparingly, though.
 
 * We use [JSCS](http://jscs.info/) for code style linting. Use `grunt jscs` to run JSCS on your code.
   The file [.jscsrc](.jscsrc) contains the configuration used for JSCS. Currently we use
