@@ -47,6 +47,12 @@ Please adhere to the [coding guidelines](#code-guidelines).
 7. Push your topic branch up to your fork:  
    `git push origin my_awesome_feature_branch`
 
+8. We use [Travis CI](https://travis-ci.org/) for continuous integration.
+   Every time a pull request is opened or updated with more commits, a build is triggered.
+   It is a good idea to test your code locally before opening a pull request, so as to avoid failed builds
+   and needing to revise the pull request. Use the following command to run the tests exactly as they are run by Travis CI:
+   `grunt travis`
+
 8. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master` branch.
    Wait for someone to review your code and merge your changes.
 
@@ -84,26 +90,22 @@ Please adhere to the [coding guidelines](#code-guidelines).
   Currently we use [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
 
 ## Useful tools and tips for development
-* Run a development server. Automatically launches default browser. Files are also watched for changes - 
-  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.
-  You do need to refresh the web page after making any changes (live reloading has been disabled
-  due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).  
-  `grunt serve`
+* Run `grunt serve` to start a development server. It will automatically launch the default browser and navigate to the local application.
+  It will also watch files for changes - automatically running JSHint on changed JS files, automatically compiling changed SASS files, etc.
+  You do need to refresh the web page after making any changes (live reloading has been disabled due to
+  [this issue](https://github.com/cs-education/sysbuild/issues/115)).
 
-* If you add a new Bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
-  `grunt bowerInstall`
+* If you add a new Bower component to the project, run `grunt bowerInstall` to automatically inject tags for *supported* Bower components into the HTML file.
 
-* Run a local test server, to run the tests in a browser. Navigate to `http://localhost:9001` after running the following.  
-  `grunt testserver`
-  
-* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
-  Your fork's `master` should always be in sync with `upstream/master`. If you made your changes in your `master` branch and your pull request gets rejected,
-  your `master` branch will be ahead of `upstream/master` and it is [hard to cleanup](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
+* If you want to run the tests in a browser, run `grunt testserver` to start a local test server, then navigate to `http://localhost:9001`.
+
+* Avoid pushing changes to the `master` branch of your fork. Changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
+  Your fork's `master` branch should always be in sync with `upstream/master`. If you open a pull request with changes made directly on your `master` branch,
+  and your pull request happens to get rejected, your fork's `master` branch will remain ahead of `upstream/master`,
+  which is a [messy situation to fix](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
   Therefore, always make changes in a new branch.
 
-* We use [Travis CI](https://travis-ci.org/) for continuous integration. Every time you open a pull request and make commits onto it, a build is triggered.
-  Sometimes you will make commits which do not need a build to be created (for example, editing the README or non-code changes). In that case, just add
-  `[skip ci]` somewhere in your commit message. [Learn more](http://docs.travis-ci.com/user/how-to-skip-a-build/).
+* You can [skip a Travis CI build](http://docs.travis-ci.com/user/customizing-the-build/#Skipping-a-build) if a build is unnecessary for a particular commit.
 
 * If your pull request contains a fix for a bug or implements a new feature, you can have the corresponding
   issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
