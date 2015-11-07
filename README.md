@@ -32,10 +32,10 @@ If you would like to work on this project, here is more information on what you 
 ### Project organization
 This is the main repository for the project. Other repositories which are part of the project are:
 
-* [cs-education/jor1k](https://github.com/cs-education/jor1k) - Powers the virtual machine
+* [cs-education/jor1k](https://github.com/cs-education/jor1k) - The virtual machine embedded into the browser
 
 * [cs-education/sysassets](https://github.com/cs-education/sysassets) - Pre-compiled assets used in the project, such
-  as lessons, videos, man pages, and the jor1k filesystem
+  as lecture videos, lessons, man pages, and the jor1k filesystem
 
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application. The
 repositories used for deployment are separate from this repository, to keep this repository small. You probably won't
@@ -43,7 +43,7 @@ be committing changes directly to these repositories, but instead use automated 
 [Deploying](#deploying) below). The following repositories are used for deployment:  
 
 * [cs-education/sys-staging](https://github.com/cs-education/sys-staging) - Staging deployment for the project, used
-  for testing before deploying to production.
+  for testing before deploying to production
 
 * [cs-education/sys](https://github.com/cs-education/sys) - Production deployment for the project
 
@@ -76,12 +76,18 @@ to your repository's `gh-pages` branch or to the web folder on your server.
 2.  Deploy to [staging](http://cs-education.github.io/sys-staging/):  
     `grunt deploy:staging`
 
+3.  Test out the application in staging and ensure things work as expected. Once things look good, please announce in
+    the chat room that you are going to deploy to production.
+
 4.  Deploy to [production](http://cs-education.github.io/sys/):  
     `grunt deploy:prod`
+
+### Further documentation
+See the [Wiki](https://github.com/cs-education/sysbuild/wiki) for information about the technology stack used,
+project road maps, learning resources, and other information.
 
 ## Credits
 See [CREDITS.md](CREDITS.md).
 
 ## License
-This project is licensed under a modified version of the University of Illinois/NCSA Open Source License.
-See [LICENSE.md](LICENSE.md) for license, attribution and other legal information.
+See [LICENSE.md](LICENSE.md) for copyright, license, attribution and other legal information.
