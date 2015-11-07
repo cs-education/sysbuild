@@ -1,4 +1,4 @@
-# sysbuild #
+# sysbuild
 [![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild)
 [![Dependency Status](https://gemnasium.com/cs-education/sysbuild.svg)](https://gemnasium.com/cs-education/sysbuild)
 [![HuBoard task board for this project](https://img.shields.io/badge/Hu-Board-7965cc.svg)](https://huboard.com/cs-education/sysbuild)
@@ -8,18 +8,30 @@ This is the main repository for the browser-based system programming learning en
 Also known as the Linux-in-a-browser project, this tool is used in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
 at the University.
 
-View the project live [here](http://cs-education.github.io/sys/).
+View the project running live [here](http://cs-education.github.io/sys/).
 
-Other repositories which are part of the project are:
+## Bugs and feature requests
+Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
+Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for helpful information.
+
+## Community and Collaboration
+* We have an official public chat room on [Gitter](https://gitter.im/). You can use it to chat with the project owners,
+  discuss ideas, and ask for help. You can join the chat [here](https://gitter.im/cs-education/sysbuild) (the Gitter
+  badge at the top of the README provides a quick shortcut to the chat room).
+* The core team uses [HuBoard](https://huboard.com/) for task management. View the task board
+  [here](https://huboard.com/cs-education/sysbuild) to see the status and progress of the project (the HuBoard badge at
+  the top of the README provides a quick shortcut to the board).
+
+## Contributing
+If you would like to work on this project, here is what you need to know to get started.
+
+This is the main repository for the project. Other repositories which are part of the project are:
 * cs-education/jor1k - Powers the virtual machine
 * cs-education/sysassets - Precompiled assets used in the project, such as lessons, videos, man pages, and the jor1k filesystem
 * cs-education/sys-staging - Staging deployment for the project, used for testing before deploying to production
 * cs-education/sys - Production deployment for the project
 
-Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
-If you would like to work on this project, continue reading to get started.
-
-## Project folder structure ##
+## Project folder structure
 ```
 sysbuild/
 ├── app/                      Application source code
@@ -37,9 +49,7 @@ sysbuild/
 
 This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
 
-## Contributing ##
-
-## Deploying ##
+## Deploying
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
 The production repository is <https://github.com/cs-education/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
 You will need push access to the appropriate repository before you can deploy.

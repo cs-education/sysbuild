@@ -3,6 +3,8 @@ Thank you for taking the time to contribute! Please take a moment to review this
 contribution process easy and effective for everyone involved. These are just guidelines, not rules, so use your best
 judgment and feel free to propose changes to this document in a pull request or issue.
 
+## Using the issue tracker
+
 ## Development environment set up
 1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [Node.js](https://nodejs.org/).
    Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
@@ -24,9 +26,10 @@ judgment and feel free to propose changes to this document in a pull request or 
 ## Pull requests
 Pull requests --- patches, improvements, new features --- are a fantastic help.
 
-Please ask first before embarking on any significant pull request.
-It is also a good idea to discuss your solution/changes/approach before starting any implementation.
-You can comment on the relevant issue, post in the chat room or open a new issue to start or join a discussion.
+[The README contains](README.md#community-and-collaboration) ways to contact and collaborate with the project team.
+Please ask first before embarking on any significant pull request. It is also a good idea to discuss your
+solution/changes/approach before starting any implementation. You can comment on the relevant issue, post in the chat
+room or open a new issue to start or join a discussion.
 
 Pull requests should remain focused in scope and avoid containing unrelated commits.
 They should also adhere to the [coding guidelines](#code-guidelines) used throughout the project.
