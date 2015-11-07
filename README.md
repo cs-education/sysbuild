@@ -54,9 +54,6 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 5. Configure Git to sync your fork with the original repository.  
 `git remote add upstream https://github.com/cs-education/sysbuild.git`
 
-6. Install dependencies and set up the project.  
-`npm install`
-
 ## Useful commands ##
 * Run a development server. Automatically launches default browser. Files are also watched for changes - 
   JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.
@@ -80,48 +77,6 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
   `grunt testserver`
 
 ## Contributing ##
-1. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
-`git fetch upstream`  
-`git checkout master`  
-`git merge upstream/master`  
-`git push origin master`
-
-2. Create a new branch to make changes or add a new feature.  
-`git checkout -b my_awesome_feature_branch`
-
-3. Stage your changes before committing. Type the following for every added/modified/deleted file.  
-`git add path/to/modified_file`
-
-4. Commit your changes. Do this often.  
-`git commit -m "I changed this to that and fixed bla."`
-
-5. Push the branch to origin so that others can see it.  
-`git push origin my_awesome_feature_branch`
-
-6. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master`.
-Wait for someone to review your code and merge your changes. Make sure you followed the code guidelines below.
-If you were working on an issue, you can have the issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
-
-## Code guidelines ##
-* We have an [editor config](.editorconfig) file for maintaining a consistent coding style.
-  Read more and download plugins at <http://editorconfig.org>.
-
-* Please include tests whenever possible.
-
-* Keep accessibility in mind when writing HTML.
-
-* Make sure there are no JSHint/JSCS errors.
-
-* Make sure all tests pass.
-
-* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
-  Your fork's `master` should always be in sync with `upstream/master`. If you made your changes in your `master` branch and your pull request gets rejected,
-  your `master` branch will be ahead of `upstream/master` and it is [hard to cleanup](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
-  Therefore, always make changes in a new branch.
-
-* We use [Travis CI](https://travis-ci.org/) for continuous integration. Every time you open a pull request and make commits onto it, a build is triggered.
-  Sometimes you will make commits which do not need a build to be created (for example, editing the README or non-code changes). In that case, just add
-  `[skip ci]` somewhere in your commit message. [Learn more](http://docs.travis-ci.com/user/how-to-skip-a-build/).
 
 ## Deploying ##
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
