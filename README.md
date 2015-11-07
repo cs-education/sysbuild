@@ -31,15 +31,20 @@ If you would like to work on this project, here is more information on what you 
 
 ### Project organization
 This is the main repository for the project. Other repositories which are part of the project are:
+
 * [cs-education/jor1k](https://github.com/cs-education/jor1k) - Powers the virtual machine
+
 * [cs-education/sysassets](https://github.com/cs-education/sysassets) - Pre-compiled assets used in the project, such
   as lessons, videos, man pages, and the jor1k filesystem
 
-We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
-The following repositories are used for deployment. You probably won't be committing changes directly to these
-repositories, but instead use automated deployment scripts (see [Deploying](#deploying) below):
+We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application. The
+repositories used for deployment are separate from this repository, to keep this repository small. You probably won't
+be committing changes directly to these repositories, but instead use automated deployment scripts (see
+[Deploying](#deploying) below). The following repositories are used for deployment:  
+
 * [cs-education/sys-staging](https://github.com/cs-education/sys-staging) - Staging deployment for the project, used
   for testing before deploying to production.
+
 * [cs-education/sys](https://github.com/cs-education/sys) - Production deployment for the project
 
 ### Structure of this repository
@@ -61,15 +66,17 @@ sysbuild/
 This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
 
 ### Deploying
-NOTE: You will need push access to the appropriate repository before you can deploy.
+NOTE: You will need push access to the appropriate repository before you can deploy to an official URL. If you want
+to deploy to your own repository or server, only perform the first (build) step and upload the contents of `dist/`
+to your repository's `gh-pages` branch or to the web folder on your server.
 
-1.  Build the distributable project (output in the `dist/` folder).  
+1.  Build the distributable project (output in the `dist/` folder):  
     `grunt build`
 
-2.  Deploy to [staging](http://cs-education.github.io/sys-staging/).  
+2.  Deploy to [staging](http://cs-education.github.io/sys-staging/):  
     `grunt deploy:staging`
 
-4.  Deploy to [production](http://cs-education.github.io/sys/).  
+4.  Deploy to [production](http://cs-education.github.io/sys/):  
     `grunt deploy:prod`
 
 ## Credits
