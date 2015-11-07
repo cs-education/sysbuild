@@ -19,7 +19,7 @@ Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for h
   discuss ideas, and ask for help. You can join the chat [here](https://gitter.im/cs-education/sysbuild) (the Gitter
   badge at the top of this README provides a quick shortcut to the chat room).
 
-* The core team uses [HuBoard](https://huboard.com/) for task management. View the task board
+* The project team uses [HuBoard](https://huboard.com/) for task management. View the task board
   [here](https://huboard.com/cs-education/sysbuild) to see the status and progress of the project (the HuBoard badge at
   the top of this README provides a quick shortcut to the board).
 
@@ -66,7 +66,7 @@ sysbuild/
 This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
 
 ### Deploying
-NOTE: You will need push access to the appropriate repository before you can deploy to an official URL. If you want
+**NOTE**: You will need push access to the appropriate repository before you can deploy to an official URL. If you want
 to deploy to your own repository or server, only perform the first (build) step and upload the contents of `dist/`
 to your repository's `gh-pages` branch or to the web folder on your server.
 
