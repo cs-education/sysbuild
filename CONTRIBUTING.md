@@ -68,7 +68,7 @@ Adhering to the following process is the best way to get your work included in t
     `grunt travis`
 
 10. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the
-    upstream `master` branch. Wait for someone to review your code and merge your changes.
+    upstream `master` branch. You're all set! Now wait for someone to review your code and merge your changes.
 
 IMPORTANT: By submitting a patch, you agree to allow the project owners to license your work as
 mentioned [in the License section at the bottom](#license).
@@ -76,14 +76,19 @@ mentioned [in the License section at the bottom](#license).
 ### After your pull request is merged
 Congratulations and thank you! After your pull request is merged, you can safely delete your branch and pull the
 changes from the main (upstream) repository:
+
 1.  Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:  
     `git push origin --delete <topic-branch-name>`
+
 2.  Check out the master branch:  
     `git checkout master`
+
 3.  Delete the local branch:  
     `git branch -D my-fix-branch`
+
 4.  Update your local `master` branch with the latest upstream version:  
     `git pull upstream master`
+
 5.  Update your fork on GitHub:  
     `git push origin master`
 
@@ -91,17 +96,20 @@ changes from the main (upstream) repository:
 * Please include tests whenever possible.
 * Make sure all tests pass. Use the command `grunt test` to run the tests.
 * We have an [editor config](.editorconfig) file for maintaining a consistent coding style. Read more and download
-  plugins at <http://editorconfig.org>. Using EditorConfig can help you adhere to the code guidelines.
+  plugins at <http://editorconfig.org>. Using EditorConfig will considerably help you to adhere to the code style
+  guidelines below.
 
 ### HTML
-* [Adhere to the Code Guide by @mdo](http://codeguide.co/#html).
+* [Adhere to the Code Guide by @mdo](http://codeguide.co/#html) (however, use soft tabs with **four** spaces instead
+  of two).
 * Use tags and elements appropriate for an HTML5 doctype (e.g., self-closing tags).
 * Download JS scripts using Bower to be included in the distribution, instead of loading them from third-party URLs.
 * If you have to use third-party JS, use CDNs and HTTPS when possible.
 * Use [WAI-ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) attributes to promote accessibility.
 
 ### CSS
-* [Adhere to the Code Guide by @mdo](http://codeguide.co/#css).
+* [Adhere to the Code Guide by @mdo](http://codeguide.co/#css) (however, use soft tabs with **four** spaces instead
+  of two).
 * When feasible, default color palettes should comply with
   [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
 
@@ -116,7 +124,16 @@ changes from the main (upstream) repository:
   The file [.jscsrc](.jscsrc) contains the configuration used for JSCS. Currently we use
   [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
 
+NOTE: If you encounter any code not adhering to these guidelines, feel free to open an issue, or better, open a
+(separate) pull request fixing the violations. Also feel free to discuss changing/adding/removing any guideline if you
+have a compelling reason for it.
+
 ## Git and GitHub guidelines and tips
+* Please adhere to the guidelines mentioned in the excellent post
+  [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/). The post
+  [5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message)
+  also contains helpful guidelines.
+
 * Avoid pushing changes to the `master` branch of your fork. Changes should be in their own branch, which should then
   be merged into `upstream/master` through a pull request. Your fork's `master` branch should always be in sync
   with `upstream/master`. If you open a pull request with changes made directly on your `master` branch, and your pull
