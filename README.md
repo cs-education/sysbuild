@@ -37,45 +37,6 @@ sysbuild/
 
 This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
 
-## Development environment set up ##
-1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [node.js](http://nodejs.org/). Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
-
-2. Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/).
-You might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
-because of the [location npm installs global packages](https://www.npmjs.org/doc/files/npm-folders.html) in.  
-`npm install -g bower grunt-cli`
-
-3. [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository.  
-`git clone https://github.com/YOUR-USERNAME/sysbuild.git`
-
-4. Change to the project directory.  
-`cd sysbuild/`
-
-5. Configure Git to sync your fork with the original repository.  
-`git remote add upstream https://github.com/cs-education/sysbuild.git`
-
-## Useful commands ##
-* Run a development server. Automatically launches default browser. Files are also watched for changes - 
-  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.
-  You do need to refresh the web page after making any changes (live reloading has been disabled
-  due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).  
-  `grunt serve`
-
-* If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
-  `grunt bowerInstall`
-
-* Run [JSHint](http://www.jshint.com/about/).  
-  `grunt jshint`
-
-* Run [JSCS](http://jscs.info/).  
-  `grunt jscs`
-
-* Run tests.  
-  `grunt test`
-
-* Run a local test server, to run the tests in a browser. Navigate to `http://localhost:9001` after running the following.  
-  `grunt testserver`
-
 ## Contributing ##
 
 ## Deploying ##
