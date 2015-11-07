@@ -19,12 +19,16 @@
    `git remote add upstream https://github.com/cs-education/sysbuild.git`
 
 ## Pull requests
-Good pull requests - patches, improvements, new features - are a fantastic help.
-They should remain focused in scope and avoid containing unrelated commits.
+Pull requests - patches, improvements, new features - are a fantastic help.
 
 Please ask first before embarking on any significant pull request.
-Please adhere to the [coding guidelines](#code-guidelines).
+It is also a good idea to discuss your solution to a bug or feature before implementing it.
+You can comment on the relevant issue, post in the chat room or open a new issue to join a start a discussion.
 
+Pull requests should remain focused in scope and avoid containing unrelated commits.
+They should also adhere to the [coding guidelines](#code-guidelines) used throughout the project.
+
+Adhering to the following process is the best way to get your work included in the project:
 1. [Set up your development environment](#development-environment-set-up) if not done already.
 
 2. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
@@ -56,7 +60,9 @@ Please adhere to the [coding guidelines](#code-guidelines).
 8. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master` branch.
    Wait for someone to review your code and merge your changes.
 
-## Code guidelines ##
+IMPORTANT: By submitting a patch, you agree to allow the project owners to license your work as mentioned [at the bottom](#license).
+
+## Code guidelines
 * Please include tests whenever possible.
 
 * Make sure all tests pass. Use the command `grunt test` to run the tests.
@@ -102,10 +108,13 @@ Please adhere to the [coding guidelines](#code-guidelines).
 * Avoid pushing changes to the `master` branch of your fork. Changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
   Your fork's `master` branch should always be in sync with `upstream/master`. If you open a pull request with changes made directly on your `master` branch,
   and your pull request happens to get rejected, your fork's `master` branch will remain ahead of `upstream/master`,
-  which is a [messy situation to fix](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
+  which is a [messy situation to fix](https://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
   Therefore, always make changes in a new branch.
 
 * You can [skip a Travis CI build](http://docs.travis-ci.com/user/customizing-the-build/#Skipping-a-build) if a build is unnecessary for a particular commit.
 
 * If your pull request contains a fix for a bug or implements a new feature, you can have the corresponding
   issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
+
+## License
+By contributing your code, you agree to license your contribution under the terms of the [project's license](LICENSE.md).
