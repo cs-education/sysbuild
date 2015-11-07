@@ -30,52 +30,56 @@ They should also adhere to the [coding guidelines](#code-guidelines) used throug
 
 Adhering to the following process is the best way to get your work included in the project:
 
-1. [Set up your development environment](#development-environment-set-up) if not done already.
+1.  [Set up your development environment](#development-environment-set-up) if not done already.
 
-2. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
-   `git checkout master`  
-   `git pull upstream/master`  
-   `git push origin master`
+2.  Make sure your fork is up to date with the upstream repository.
+    See https://help.github.com/articles/syncing-a-fork/.  
+    `git checkout master`  
+    `git pull upstream/master`  
+    `git push origin master`
 
-3. Make sure all the dependencies are installed and up-to-date:  
-   `npm install`
+3.  Make sure all the dependencies are installed and up-to-date:  
+    `npm install`
 
-4. Create a new topic branch (off the main project development branch) to contain your feature, change, or fix:  
-   `git checkout -b my_awesome_feature_branch`
+4.  Create a new topic branch (off the main project development branch) to contain your feature, change, or fix:  
+    `git checkout -b my_awesome_feature_branch`
 
-5. Stage your changes before committing. Type the following for every individual added/modified/deleted file
-   (instead of staging all changes in one go, to ensure you do not accidentally add any sensitive or unnecessary files):  
-   `git add path/to/modified_file`
+5.  Stage your changes before committing. Type the following for every individual added/modified/deleted file
+    (instead of staging all changes in one go, to ensure you do not accidentally add any sensitive or
+    unnecessary files):  
+    `git add path/to/modified_file`
 
-6. Commit your changes in logical chunks. Please adhere to [these git commit message guidelines](#git-commit-messages).  
-   `git commit`
+6.  Commit your changes in logical chunks. Please adhere to the git commit message guidelines in the
+    [Git and GitHub guidelines and tips](#git-and-github-guidelines-and-tips) section.  
+    `git commit`
 
-7. Locally [merge (or rebase)](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) the upstream development
-   branch into your topic branch:  
-   `git pull [--rebase] upstream master`
-   Fix any merge conflicts that arise.
+7.  Locally [merge (or rebase)](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) the upstream development
+    branch into your topic branch:  
+    `git pull [--rebase] upstream master`  
+    Fix any merge conflicts that arise.
 
-8. Push your topic branch up to your fork:  
-   `git push origin my_awesome_feature_branch`
+8.  Push your topic branch up to your fork:  
+    `git push origin my_awesome_feature_branch`
 
-9. We use [Travis CI](https://travis-ci.org/) for continuous integration.
-   Every time a pull request is opened or updated with more commits, a build is triggered.
-   It is a good idea to test your code locally before opening a pull request, so as to avoid failed builds
-   and needing to revise the pull request. Use the following command to run the tests exactly as they are run by Travis CI:
-   `grunt travis`
+9.  We use [Travis CI](https://travis-ci.org/) for continuous integration. Every time a pull request is opened or
+    updated with more commits, a build is triggered. It is a good idea to test your code locally before opening a
+    pull request, so as to avoid failed builds and needing to revise the pull request. Use the following command to
+    run the tests exactly as they are run by Travis CI:  
+    `grunt travis`
 
-10.[Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master` branch.
-   Wait for someone to review your code and merge your changes.
+10. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the
+    upstream `master` branch. Wait for someone to review your code and merge your changes.
 
-IMPORTANT: By submitting a patch, you agree to allow the project owners to license your work as mentioned [at the bottom](#license).
+IMPORTANT: By submitting a patch, you agree to allow the project owners to license your work as
+mentioned [at the bottom](#license).
 
 ## Code guidelines
 * Please include tests whenever possible.
 
 * Make sure all tests pass. Use the command `grunt test` to run the tests.
 
-* We have an [editor config](.editorconfig) file for maintaining a consistent coding style.
-  Read more and download plugins at <http://editorconfig.org>. Using EditorConfig can help you adhere to the code guidelines.
+* We have an [editor config](.editorconfig) file for maintaining a consistent coding style. Read more and download
+  plugins at <http://editorconfig.org>. Using EditorConfig can help you adhere to the code guidelines.
 
 ### HTML
 * [Adhere to the Code Guide by @mdo](http://codeguide.co/#html).
@@ -95,36 +99,40 @@ IMPORTANT: By submitting a patch, you agree to allow the project owners to licen
   [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
 
 ### JS
-* We use [JSHint](http://jshint.com/about/) to detect errors and potential problems in JavaScript code.
-  Use `grunt jshint` to run JSHint on your code. The file [.jshintrc](.jshintrc) contains the configuration used for JSHint.
+* We use [JSHint](http://jshint.com/about/) to detect errors and potential problems in JavaScript code. Use
+  `grunt jshint` to run JSHint on your code. The file [.jshintrc](.jshintrc) contains the configuration used for JSHint.
   JSHint errors can be suppressed when necessary.
 
-* We use [JSCS](http://jscs.info/) for code style linting.
-  Use `grunt jscs` to run JSCS on your code. The file [.jscsrc](.jscsrc) contains the configuration used for JSCS.
-  Currently we use [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
+* We use [JSCS](http://jscs.info/) for code style linting. Use `grunt jscs` to run JSCS on your code.
+  The file [.jscsrc](.jscsrc) contains the configuration used for JSCS. Currently we use
+  [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
 
-### Git commit messages
-
-## Useful tools and tips for development
-* Run `grunt serve` to start a development server. It will automatically launch the default browser and navigate to the local application.
-  It will also watch files for changes - automatically running JSHint on changed JS files, automatically compiling changed SASS files, etc.
-  You do need to refresh the web page after making any changes (live reloading has been disabled due to
-  [this issue](https://github.com/cs-education/sysbuild/issues/115)).
-
-* If you add a new Bower component to the project, run `grunt bowerInstall` to automatically inject tags for *supported* Bower components into the HTML file.
-
-* If you want to run the tests in a browser, run `grunt testserver` to start a local test server, then navigate to `http://localhost:9001`.
-
-* Avoid pushing changes to the `master` branch of your fork. Changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
-  Your fork's `master` branch should always be in sync with `upstream/master`. If you open a pull request with changes made directly on your `master` branch,
-  and your pull request happens to get rejected, your fork's `master` branch will remain ahead of `upstream/master`,
-  which is a [messy situation to fix](https://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
+## Git and GitHub guidelines and tips
+* Avoid pushing changes to the `master` branch of your fork. Changes should be in their own branch, which should then
+  be merged into `upstream/master` through a pull request. Your fork's `master` branch should always be in sync
+  with `upstream/master`. If you open a pull request with changes made directly on your `master` branch, and your pull
+  request happens to get rejected, your fork's `master` branch will remain ahead of `upstream/master`, which is a
+  [messy situation to fix](https://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
   Therefore, always make changes in a new branch.
 
-* You can [skip a Travis CI build](http://docs.travis-ci.com/user/customizing-the-build/#Skipping-a-build) if a build is unnecessary for a particular commit.
+* You can [skip a Travis CI build](http://docs.travis-ci.com/user/customizing-the-build/#Skipping-a-build) if a build
+  is unnecessary for a particular commit.
 
-* If your pull request contains a fix for a bug or implements a new feature, you can have the corresponding
-  issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
+* If your pull request contains a fix for a bug or implements a new feature, you can have the corresponding issue
+  [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
+
+## Useful tools and tips for development
+* Run `grunt serve` to start a development server. It will automatically launch the default browser and navigate to
+  the local application. It will also watch files for changes - automatically running JSHint on changed JS files,
+  automatically compiling changed SASS files, etc. You do need to refresh the web page after making any changes
+  (live reloading has been disabled due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).
+
+* If you add a new Bower component to the project, run `grunt bowerInstall` to automatically inject tags
+  for *supported* Bower components into the HTML file.
+
+* If you want to run the tests in a browser, run `grunt testserver` to start a local test server, then
+  navigate to `http://localhost:9001`.
 
 ## License
-By contributing your code, you agree to license your contribution under the terms of the [project's license](LICENSE.md).
+By contributing your code, you agree to license your contribution under the terms of the
+[project's license](LICENSE.md).
