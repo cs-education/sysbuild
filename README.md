@@ -1,12 +1,20 @@
 # sysbuild #
 [![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild)
 [![Dependency Status](https://gemnasium.com/cs-education/sysbuild.svg)](https://gemnasium.com/cs-education/sysbuild)
-[![Join the chat at https://gitter.im/cs-education/sysbuild](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cs-education/sysbuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![HuBoard task board for this project](https://img.shields.io/badge/Hu-Board-7965cc.svg)](https://huboard.com/cs-education/sysbuild)
+[![Join the chat at https://gitter.im/cs-education/sysbuild](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cs-education/sysbuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Source code for the Linux-In-The-Browser project used
-in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
-at [UIUC](http://illinois.edu/). View it live [here](http://cs-education.github.io/sys/).
+This is the main repository for the browser-based system programming learning environment developed at the [University of Illinois](http://illinois.edu/).
+Also known as the Linux-in-a-browser project, this tool is used in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
+at the University.
+
+View the project live [here](http://cs-education.github.io/sys/).
+
+Other repositories which are part of the project are:
+* cs-education/jor1k - Powers the virtual machine
+* cs-education/sysassets - Precompiled assets used in the project, such as lessons, videos, man pages, and the jor1k filesystem
+* cs-education/sys-staging - Staging deployment for the project, used for testing before deploying to production
+* cs-education/sys - Production deployment for the project
 
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
 If you would like to work on this project, continue reading to get started.
