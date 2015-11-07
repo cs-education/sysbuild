@@ -52,14 +52,38 @@ Wait for someone to review your code and merge your changes.
 If you were working on an issue, you can have the issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
 
 ## Code guidelines ##
+
+### HTML
+
+* [Adhere to the Code Guide by @mdo.](http://codeguide.co/#html)
+* Use tags and elements appropriate for an HTML5 doctype (e.g., self-closing tags).
+* Download JS scripts using Bower to be included in the distribution, instead of loading them from third-party URLs.
+* If you have to use third-party JS, use CDNs and HTTPS when possible.
+* Use [WAI-ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) attributes to promote accessibility.
+
+
+### CSS
+
+* [Adhere to the Code Guide by @mdo.](http://codeguide.co/#css)
+* When feasible, default color palettes should comply with [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
+
+### JS
+
+* We use [JSHint](http://jshint.com/about/) to detect errors and potential problems in JavaScript code.
+  Use `grunt jshint` to run JSHint on your code. The file [.jshintrc](.jshintrc) contains the configuration used for JSHint.
+  JSHint errors can be suppressed when necessary.
+* We use [JSCS](http://jscs.info/) for code style linting.
+  Use `grunt jscs` to run JSCS on your code. The file [.jscsrc](.jscsrc) contains the configuration used for JSCS.
+  Currently we use [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
+
+### Checking coding style
+
+Run `grunt test` before committing to ensure your changes follow our coding standards.
+
 * We have an [editor config](.editorconfig) file for maintaining a consistent coding style.
   Read more and download plugins at <http://editorconfig.org>.
 
 * Please include tests whenever possible.
-
-* Keep accessibility in mind when writing HTML.
-
-* Make sure there are no JSHint/JSCS errors.
 
 * Make sure all tests pass. Use the command `grunt test` to run the tests.
 
@@ -81,12 +105,6 @@ If you were working on an issue, you can have the issue [closed automatically](h
 
 * If you add a new Bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
   `grunt bowerInstall`
-
-* Run [JSHint](http://www.jshint.com/about/).  
-  `grunt jshint`
-
-* Run [JSCS](http://jscs.info/).  
-  `grunt jscs`
 
 * Run a local test server, to run the tests in a browser. Navigate to `http://localhost:9001` after running the following.  
   `grunt testserver`
