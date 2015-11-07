@@ -35,10 +35,10 @@ It also contains details on the project team's workflow.
 ## Pull requests
 Pull requests --- patches, improvements, new features --- are a fantastic help.
 
-[The README contains](README.md#community-and-collaboration) ways to contact and collaborate with the project team.
-Please ask first before embarking on any significant pull request. It is also a good idea to discuss your
-solution/changes/approach before starting any implementation. You can comment on the relevant issue, post in the chat
-room or open a new issue to start or join a discussion.
+Please ask first before embarking on any significant pull request.
+[The README contains](README.md#community-and-collaboration) ways to contact and collaborate with the project team ---
+You can comment on the relevant issue, post in the chat room, or open a new issue to start or join a discussion.
+It is also a good idea to discuss your solution/changes/approach before starting any implementation.
 
 Pull requests should remain focused in scope and avoid containing unrelated commits.
 They should also adhere to the [coding guidelines](#code-guidelines) used throughout the project.

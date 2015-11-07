@@ -23,6 +23,16 @@ Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for h
   [here](https://huboard.com/cs-education/sysbuild) to see the status and progress of the project (the HuBoard badge at
   the top of this README provides a quick shortcut to the board).
 
+* The [Project development workflow Wiki page](https://github.com/cs-education/sysbuild/wiki/Project-development-workflow)
+  contains information on how the project team works and collaborates.
+
+* If you want to talk to a project team member privately, click on any member in the Gitter chat room and choose
+  "Chat Privately". Please feel free to reach out to the project owners if you want to discuss large collaborations
+  or adopting the project for your own use.
+
+* Please do not hesitate to reach out to the project owners directly to report any kind of abuse, harassment,
+  or other concerns.
+
 ## Contributing
 Please read through our [contributing guidelines](CONTRIBUTING.md). Included are directions for opening issues, setting
 up your development environment, opening pull requests, coding standards, and notes on development.
