@@ -15,20 +15,21 @@
 4. Navigate to the newly cloned directory:  
    `cd sysbuild/`
 
-5. Configure Git to sync your fork with the original repository:  
+5. Configure Git to be able to update your fork with the changes from the original repository:  
    `git remote add upstream https://github.com/cs-education/sysbuild.git`
 
 ## Pull requests
 Pull requests - patches, improvements, new features - are a fantastic help.
 
 Please ask first before embarking on any significant pull request.
-It is also a good idea to discuss your solution to a bug or feature before implementing it.
-You can comment on the relevant issue, post in the chat room or open a new issue to join a start a discussion.
+It is also a good idea to discuss your solution/changes/approach before starting any implementation.
+You can comment on the relevant issue, post in the chat room or open a new issue to start or join a discussion.
 
 Pull requests should remain focused in scope and avoid containing unrelated commits.
 They should also adhere to the [coding guidelines](#code-guidelines) used throughout the project.
 
 Adhering to the following process is the best way to get your work included in the project:
+
 1. [Set up your development environment](#development-environment-set-up) if not done already.
 
 2. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
@@ -42,22 +43,28 @@ Adhering to the following process is the best way to get your work included in t
 4. Create a new topic branch (off the main project development branch) to contain your feature, change, or fix:  
    `git checkout -b my_awesome_feature_branch`
 
-5. Stage your changes before committing. Type the following for every added/modified/deleted file:  
+5. Stage your changes before committing. Type the following for every individual added/modified/deleted file
+   (instead of staging all changes in one go, to ensure you do not accidentally add any sensitive or unnecessary files):  
    `git add path/to/modified_file`
 
-6. Commit your changes. Do this often.  
-   `git commit -m "I changed this to that and fixed bla."`
+6. Commit your changes in logical chunks. Please adhere to [these git commit message guidelines](#git-commit-messages).  
+   `git commit`
 
-7. Push your topic branch up to your fork:  
+7. Locally [merge (or rebase)](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) the upstream development
+   branch into your topic branch:  
+   `git pull [--rebase] upstream master`
+   Fix any merge conflicts that arise.
+
+8. Push your topic branch up to your fork:  
    `git push origin my_awesome_feature_branch`
 
-8. We use [Travis CI](https://travis-ci.org/) for continuous integration.
+9. We use [Travis CI](https://travis-ci.org/) for continuous integration.
    Every time a pull request is opened or updated with more commits, a build is triggered.
    It is a good idea to test your code locally before opening a pull request, so as to avoid failed builds
    and needing to revise the pull request. Use the following command to run the tests exactly as they are run by Travis CI:
    `grunt travis`
 
-8. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master` branch.
+10.[Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master` branch.
    Wait for someone to review your code and merge your changes.
 
 IMPORTANT: By submitting a patch, you agree to allow the project owners to license your work as mentioned [at the bottom](#license).
@@ -84,7 +91,8 @@ IMPORTANT: By submitting a patch, you agree to allow the project owners to licen
 ### CSS
 * [Adhere to the Code Guide by @mdo](http://codeguide.co/#css).
 
-* When feasible, default color palettes should comply with [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
+* When feasible, default color palettes should comply with
+  [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
 
 ### JS
 * We use [JSHint](http://jshint.com/about/) to detect errors and potential problems in JavaScript code.
@@ -94,6 +102,8 @@ IMPORTANT: By submitting a patch, you agree to allow the project owners to licen
 * We use [JSCS](http://jscs.info/) for code style linting.
   Use `grunt jscs` to run JSCS on your code. The file [.jscsrc](.jscsrc) contains the configuration used for JSCS.
   Currently we use [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
+
+### Git commit messages
 
 ## Useful tools and tips for development
 * Run `grunt serve` to start a development server. It will automatically launch the default browser and navigate to the local application.
