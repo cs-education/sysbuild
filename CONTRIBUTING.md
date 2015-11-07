@@ -15,22 +15,28 @@ You can also post on the chat room or reach out to the project team directly if 
 It also contains details on the project team's workflow.
 
 ## Development environment set up
-1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [Node.js](https://nodejs.org/).
-   Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
+1.  [Set up Git](https://help.github.com/articles/set-up-git/) and install [Node.js](https://nodejs.org/).
+    Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
 
-2. Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/)
-   (you might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
-   because of the [location npm installs global packages](https://www.npmjs.org/doc/files/npm-folders.html) in):  
-   `npm install -g bower grunt-cli`
+2.  Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/)
+    (you might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
+    because of the [location npm installs global packages](https://www.npmjs.org/doc/files/npm-folders.html) in):  
+    `npm install -g bower grunt-cli`
 
-3. [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository:  
-   `git clone https://github.com/YOUR-USERNAME/sysbuild.git`
+3.  [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository:  
+    `git clone https://github.com/<your-username>/sysbuild.git`
 
-4. Navigate to the newly cloned directory:  
-   `cd sysbuild/`
+4.  Navigate to the newly cloned directory:  
+    `cd sysbuild/`
 
-5. Configure Git to be able to update your fork with the changes from the original repository:  
-   `git remote add upstream https://github.com/cs-education/sysbuild.git`
+5.  Configure Git to be able to update your fork with the changes from the original repository:  
+    `git remote add upstream https://github.com/cs-education/sysbuild.git`
+
+6.  Install dependencies and set up the project:  
+    `npm install`
+
+7.  Start a local development server and launch the application:  
+    `grunt serve`
 
 ## Pull requests
 Pull requests --- patches, improvements, new features --- are a fantastic help.
@@ -162,7 +168,7 @@ have a compelling reason for it.
   [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
 
 ## Useful tools and tips for development
-* Run `grunt serve` to start a development server. It will automatically launch the default browser and navigate to
+* Run `grunt serve` to start a local development server. It will automatically launch the default browser and navigate to
   the local application. It will also watch files for changes - automatically running JSHint on changed JS files,
   automatically compiling changed SASS files, etc. You do need to refresh the web page after making any changes
   (live reloading has been disabled due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).
