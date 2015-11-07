@@ -1,5 +1,7 @@
 # sysbuild [![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild) [![Dependency Status](https://gemnasium.com/cs-education/sysbuild.svg)](https://gemnasium.com/cs-education/sysbuild) #
 
+[![Join the chat at https://gitter.im/cs-education/sysbuild](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cs-education/sysbuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Source code for the Linux-In-The-Browser project used
 in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
 at [UIUC](http://illinois.edu/). View it live [here](http://cs-education.github.io/sys/).
@@ -46,9 +48,10 @@ because of the [location npm installs global packages](https://www.npmjs.org/doc
 `npm install`
 
 ## Useful commands ##
-* Run a development server. Automatically launches default browser. Also supports live reloading, which means
-  changes automatically show up without the need to refresh the page. Files are also watched for changes - 
-  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.  
+* Run a development server. Automatically launches default browser. Files are also watched for changes - 
+  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.
+  You do need to refresh the web page after making any changes (live reloading has been disabled
+  due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).  
   `grunt serve`
 
 * If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
