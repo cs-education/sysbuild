@@ -104,7 +104,7 @@ changes from the main (upstream) repository:
     `git checkout master`
 
 3.  Delete the local branch:  
-    `git branch -D my-fix-branch`
+    `git branch -D <topic-branch-name>`
 
 4.  Update your local `master` branch with the latest upstream version:  
     `git pull upstream master`
