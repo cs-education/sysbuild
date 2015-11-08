@@ -1,15 +1,63 @@
-# sysbuild [![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild) [![Dependency Status](https://gemnasium.com/cs-education/sysbuild.svg)](https://gemnasium.com/cs-education/sysbuild) #
-
+# sysbuild
+[![Build Status](https://travis-ci.org/cs-education/sysbuild.svg?branch=master)](https://travis-ci.org/cs-education/sysbuild)
+[![Dependency Status](https://gemnasium.com/cs-education/sysbuild.svg)](https://gemnasium.com/cs-education/sysbuild)
+[![HuBoard task board for this project](https://img.shields.io/badge/Hu-Board-7965cc.svg)](https://huboard.com/cs-education/sysbuild)
 [![Join the chat at https://gitter.im/cs-education/sysbuild](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cs-education/sysbuild?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Source code for the Linux-In-The-Browser project used
-in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
-at [UIUC](http://illinois.edu/). View it live [here](http://cs-education.github.io/sys/).
+This is the main repository for the browser-based system programming learning environment developed at the [University of Illinois](http://illinois.edu/).
+Also known as the Linux-in-a-browser project, this tool is used in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
+at the University.
 
+View the project running live [here](http://cs-education.github.io/sys/).
+
+## Bugs and feature requests
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
-If you would like to work on this project, continue reading to get started.
+Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for helpful information.
 
-## Project folder structure ##
+## Community and Collaboration
+* We have an official public chat room on [Gitter](https://gitter.im/). You can use it to chat with the project team,
+  discuss ideas, and ask for help. You can join the chat [here](https://gitter.im/cs-education/sysbuild) (the Gitter
+  badge at the top of this README provides a quick shortcut to the chat room).
+
+* The project team uses [HuBoard](https://huboard.com/) for task management. View the task board
+  [here](https://huboard.com/cs-education/sysbuild) to see the status and progress of the project (the HuBoard badge at
+  the top of this README provides a quick shortcut to the board).
+
+* The [Project development workflow Wiki page](https://github.com/cs-education/sysbuild/wiki/Project-development-workflow)
+  contains information on how the project team works and collaborates.
+
+* If you want to talk to a project team member privately, click on any member in the Gitter chat room and choose
+  "Chat Privately". Please feel free to reach out to the [project leaders](PEOPLE.md#project-leaders) if you want to
+  discuss large collaborations or adopting the project for your own use.
+
+* Please do not hesitate to reach out to the project leaders directly to report any kind of abuse, harassment,
+  or other concerns.
+
+## Contributing
+Please read through our [contributing guidelines](CONTRIBUTING.md). Included are directions for opening issues, setting
+up your development environment, opening pull requests, coding standards, and notes on development.
+
+If you would like to work on this project, here is more information on what you need to know to get started.
+
+### Project organization
+This is the main repository for the project. Other repositories which are part of the project are:
+
+* [cs-education/jor1k](https://github.com/cs-education/jor1k) - The virtual machine embedded into the browser
+
+* [cs-education/sysassets](https://github.com/cs-education/sysassets) - Pre-compiled assets used in the project, such
+  as lecture videos, lessons, man pages, and the jor1k filesystem
+
+We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application. The
+repositories used for deployment are separate from this repository, to keep this repository small. You probably won't
+be committing changes directly to these repositories, but instead use automated deployment scripts (see
+[Deploying](#deploying) below). The following repositories are used for deployment:  
+
+* [cs-education/sys-staging](https://github.com/cs-education/sys-staging) - Staging deployment for the project, used
+  for testing before deploying to production
+
+* [cs-education/sys](https://github.com/cs-education/sys) - Production deployment for the project
+
+### Structure of this repository
 ```
 sysbuild/
 ├── app/                      Application source code
@@ -27,123 +75,29 @@ sysbuild/
 
 This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
 
-## Development environment set up ##
-1. [Set up Git](https://help.github.com/articles/set-up-git/) and install [node.js](http://nodejs.org/). Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
+### Deploying
+**NOTE**: You will need push access to the appropriate repository before you can deploy to an official URL. If you want
+to deploy to your own repository or server, only perform the first (build) step and upload the contents of `dist/`
+to your repository's `gh-pages` branch or to the web folder on your server.
 
-2. Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/).
-You might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
-because of the [location npm installs global packages](https://www.npmjs.org/doc/files/npm-folders.html) in.  
-`npm install -g bower grunt-cli`
+1.  Build the distributable project (output in the `dist/` folder):  
+    `grunt build`
 
-3. [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository.  
-`git clone https://github.com/YOUR-USERNAME/sysbuild.git`
+2.  Deploy to [staging](http://cs-education.github.io/sys-staging/):  
+    `grunt deploy:staging`
 
-4. Change to the project directory.  
-`cd sysbuild/`
+3.  Test out the application in staging and ensure things work as expected. Once things look good, please announce in
+    the chat room that you are going to deploy to production.
 
-5. Configure Git to sync your fork with the original repository.  
-`git remote add upstream https://github.com/cs-education/sysbuild.git`
+4.  Deploy to [production](http://cs-education.github.io/sys/):  
+    `grunt deploy:prod`
 
-6. Install dependencies and set up the project.  
-`npm install`
+### Further documentation
+See the [Wiki](https://github.com/cs-education/sysbuild/wiki) for information about the technology stack used,
+project road maps, learning resources, and other information.
 
-## Useful commands ##
-* Run a development server. Automatically launches default browser. Files are also watched for changes - 
-  JSHint is automatically run on the changed JS files, changed SASS files are automatically compiled, etc.
-  You do need to refresh the web page after making any changes (live reloading has been disabled
-  due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).  
-  `grunt serve`
+## Credits
+See [PEOPLE.md](PEOPLE.md).
 
-* If you add a new bower component, you might want to automatically inject *supported* Bower components into the HTML file.  
-  `grunt bowerInstall`
-
-* Run [JSHint](http://www.jshint.com/about/).  
-  `grunt jshint`
-
-* Run [JSCS](http://jscs.info/).  
-  `grunt jscs`
-
-* Run tests.  
-  `grunt test`
-
-* Run a local test server, to run the tests in a browser. Navigate to `http://localhost:9001` after running the following.  
-  `grunt testserver`
-
-## Contributing ##
-1. Make sure your fork is up to date with the upstream repository. See https://help.github.com/articles/syncing-a-fork/.  
-`git fetch upstream`  
-`git checkout master`  
-`git merge upstream/master`  
-`git push origin master`
-
-2. Create a new branch to make changes or add a new feature.  
-`git checkout -b my_awesome_feature_branch`
-
-3. Stage your changes before committing. Type the following for every added/modified/deleted file.  
-`git add path/to/modified_file`
-
-4. Commit your changes. Do this often.  
-`git commit -m "I changed this to that and fixed bla."`
-
-5. Push the branch to origin so that others can see it.  
-`git push origin my_awesome_feature_branch`
-
-6. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the upstream `master`.
-Wait for someone to review your code and merge your changes. Make sure you followed the code guidelines below.
-If you were working on an issue, you can have the issue [closed automatically](https://github.com/blog/1506-closing-issues-via-pull-requests) when the pull request is merged.
-
-## Code guidelines ##
-* We have an [editor config](.editorconfig) file for maintaining a consistent coding style.
-  Read more and download plugins at <http://editorconfig.org>.
-
-* Please include tests whenever possible.
-
-* Keep accessibility in mind when writing HTML.
-
-* Make sure there are no JSHint/JSCS errors.
-
-* Make sure all tests pass.
-
-* Avoid pushing changes to `master`. Most changes should be in their own branch, which should then be merged into `upstream/master` through a pull request.
-  Your fork's `master` should always be in sync with `upstream/master`. If you made your changes in your `master` branch and your pull request gets rejected,
-  your `master` branch will be ahead of `upstream/master` and it is [hard to cleanup](http://stackoverflow.com/questions/5916329/cleanup-git-master-branch-and-move-some-commit-to-new-branch).
-  Therefore, always make changes in a new branch.
-
-* We use [Travis CI](https://travis-ci.org/) for continuous integration. Every time you open a pull request and make commits onto it, a build is triggered.
-  Sometimes you will make commits which do not need a build to be created (for example, editing the README or non-code changes). In that case, just add
-  `[skip ci]` somewhere in your commit message. [Learn more](http://docs.travis-ci.com/user/how-to-skip-a-build/).
-
-## Deploying ##
-We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application.
-The production repository is <https://github.com/cs-education/sys> and the staging repository is <https://github.com/cs-education/sys-staging>.
-You will need push access to the appropriate repository before you can deploy.
-
-1. Build the distributable project (output in the `dist/` folder).  
-`grunt build`
-
-2. Deploy to [staging](http://cs-education.github.io/sys-staging/).  
-`grunt deploy:staging`
-
-4. Deploy to [production](http://cs-education.github.io/sys/).  
-`grunt deploy:prod`
-
-## Credits ##
-#### Creators ####
-Dr. Lawrence Angrave [github.com/angrave](http://github.com/angrave)  
-
-#### 2014-15 Contributors - UIUC Students ####
-Anant Singh [github.com/anant-singh](https://github.com/anant-singh)  
-Eric Ahn [github.com/wchill](https://github.com/wchill)  
-Joseph Tran [github.com/jdtran23](https://github.com/jdtran23)  
-Keagan McClelland [github.com/CaptJakk](https://github.com/CaptJakk)  
-Neelabh Gupta [github.com/neelabhg](http://github.com/neelabhg)  
-Scott Walters [github.com/scowalt](https://github.com/scowalt)  
-Siddharth Seth [github.com/siddharth-seth](https://github.com/siddharth-seth)
-
-#### Open source projects ####
-The Virtual Machine is powered by the [jor1k](https://github.com/cs-education/jor1k) project.  
-The code editor is powered by [Ace](http://ace.c9.io/).
-
-## License ##
-This project is licensed under a modified version of the University of Illinois/NCSA Open Source License.
-See [LICENSE.md](LICENSE.md) for license, attribution and other legal information.
+## License
+See [LICENSE.md](LICENSE.md) for copyright, license, attribution and other legal information.
