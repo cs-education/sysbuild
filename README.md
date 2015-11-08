@@ -15,7 +15,7 @@ Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to subm
 Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for helpful information.
 
 ## Community and Collaboration
-* We have an official public chat room on [Gitter](https://gitter.im/). You can use it to chat with the project owners,
+* We have an official public chat room on [Gitter](https://gitter.im/). You can use it to chat with the project team,
   discuss ideas, and ask for help. You can join the chat [here](https://gitter.im/cs-education/sysbuild) (the Gitter
   badge at the top of this README provides a quick shortcut to the chat room).
 
@@ -27,10 +27,10 @@ Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for h
   contains information on how the project team works and collaborates.
 
 * If you want to talk to a project team member privately, click on any member in the Gitter chat room and choose
-  "Chat Privately". Please feel free to reach out to the project owners if you want to discuss large collaborations
-  or adopting the project for your own use.
+  "Chat Privately". Please feel free to reach out to the [project leaders](PEOPLE.md#project-leaders) if you want to
+  discuss large collaborations or adopting the project for your own use.
 
-* Please do not hesitate to reach out to the project owners directly to report any kind of abuse, harassment,
+* Please do not hesitate to reach out to the project leaders directly to report any kind of abuse, harassment,
   or other concerns.
 
 ## Contributing
