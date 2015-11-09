@@ -179,6 +179,17 @@ have a compelling reason for it.
 * If you want to run the tests in a browser, run `grunt testserver` to start a local test server, then
   navigate to `http://localhost:9001`.
 
+## Development notes
+### Travis CI configuration.
+* [We cache](.travis.yml) Bower and npm dependencies to speed up builds. The caches can be accessed
+  [on the web](https://travis-ci.org/cs-education/sysbuild/caches), which gives us a means to
+  [delete the caches](http://docs.travis-ci.com/user/caching/#Clearing-Caches) in case they are spoiled
+  by storing bad data in one of the cached directories.
+
+* You can [validate the .travis.yml file](http://docs.travis-ci.com/user/travis-lint/) before committing it to reduce
+  common build errors. Travis has a convenient [web-based tool](https://lint.travis-ci.org/) where you can paste the
+  contents of .travis.yml for validation.
+
 ## License
 By contributing your code, you agree to license your contribution under the terms of the
 [project's license](LICENSE.md).
