@@ -180,8 +180,7 @@ window.Editor = (function () {
     };
 
     Editor.prototype.setTokenHighlighter = function (tokens, cb) {
-        var tokenHighlighter = new TokenHighlighter(this, tokens, cb);
-        this.tokenHiglighter = tokenHighlighter;
+        this.tokenHighlighter = new TokenHighlighter(this, tokens, cb);
     };
 
     Editor.prototype.resize = function (resizeAfter) {
@@ -249,8 +248,8 @@ window.Editor = (function () {
                     thisLine = thisLineIndent + thisLine.trim();
                 }
 
-                text.insertLines(currentRow, [thisLine]);
-                text.removeLines(currentRow + 1, currentRow + 1);
+                text.insertFullLines(currentRow, [thisLine]);
+                text.removeFullLines(currentRow + 1, currentRow + 1);
 
                 mode.autoOutdent(
                     editSession.getState(currentRow),
