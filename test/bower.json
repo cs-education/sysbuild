@@ -2,8 +2,8 @@
   "name": "sysbuild",
   "private": true,
   "dependencies": {
-    "chai": "~2.2.0",
-    "mocha": "~2.1.0"
+    "chai": "~3.4.1",
+    "mocha": "~2.3.3"
   },
   "devDependencies": {}
 }
