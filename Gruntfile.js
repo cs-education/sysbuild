@@ -347,7 +347,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: 'bower_components/videojs/dist/video-js/font/',
+                    cwd: 'bower_components/videojs/dist/font/',
                     src: ['*.*'],
                     dest: '<%= config.dist %>/styles/font/'
                 }, {
