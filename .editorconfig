@@ -19,3 +19,6 @@ insert_final_newline = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+[{bower.json,package.json,.travis.yml}]
+indent_size = 2

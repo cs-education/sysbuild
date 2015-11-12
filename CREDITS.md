@@ -3,7 +3,7 @@ The project was initiated by Dr. Lawrence Angrave in 2014 and has been continuou
 students and faculty at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).
 
 ## Project Leaders
-Dr. Lawrence Angrave [![GitHub][github]](http://github.com/angrave)  
+Dr. Lawrence Angrave [![GitHub][github]](https://github.com/angrave)  
 Neelabh Gupta [![GitHub][github]](https://github.com/neelabhg) [![Twitter][twitter]](https://twitter.com/neelabhg)
 
 ## University of Illinois Students and Researchers
@@ -29,7 +29,7 @@ Siddharth Seth [![GitHub][github]](https://github.com/siddharth-seth)
 See the list of GitHub contributors for the [sysbuild](https://github.com/cs-education/sysbuild/graphs/contributors)
 and [sysassets](https://github.com/cs-education/sysassets/graphs/contributors) repositories.
 
-## Open source projects
+# Open source projects
 Amazing projects without which this project would not have been possible:
 
 * The virtual machine embedded in the browser is forked from the [jor1k](https://github.com/s-macke/jor1k) project.

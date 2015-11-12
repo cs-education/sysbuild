@@ -12,14 +12,14 @@ window.videoPlayerConfig = (function () {
 
         // It's very important that you wait for the video player to load before
         // adding remote text tracks. Source:
-        // http://docs.brightcove.com/en/video-cloud/brightcove-player/guides/adding-captions-to-videos.html
+        // https://docs.brightcove.com/en/video-cloud/brightcove-player/guides/adding-captions-to-videos.html
         player.on('loadstart', function () {
             var trackLabel = 'English';
             player.addRemoteTextTrack({
                 kind: 'captions',
                 language: 'en',
                 label: trackLabel,
-                src: 'http://cs-education.github.io/sysassets/transcriptions/' + videoName + '.webvtt'
+                src: 'https://cs-education.github.io/sysassets/transcriptions/' + videoName + '.webvtt'
             });
 
             // now I want to activate the track I just added

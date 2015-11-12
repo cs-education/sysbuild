@@ -96,7 +96,7 @@ window.Editor = (function () {
             )
         );
 
-        // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
+        // https://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
         var $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
             title: function () {
@@ -116,7 +116,7 @@ window.Editor = (function () {
             $('#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox').prop('checked', self.aceEditor.getShowInvisibles());
         });
 
-        // http://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
+        // https://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
         var $body = $('body');
         $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
@@ -180,8 +180,7 @@ window.Editor = (function () {
     };
 
     Editor.prototype.setTokenHighlighter = function (tokens, cb) {
-        var tokenHighlighter = new TokenHighlighter(this, tokens, cb);
-        this.tokenHiglighter = tokenHighlighter;
+        this.tokenHighlighter = new TokenHighlighter(this, tokens, cb);
     };
 
     Editor.prototype.resize = function (resizeAfter) {
@@ -209,7 +208,7 @@ window.Editor = (function () {
         // If readOnly param is not passed in, then default to true, else coerce the passed in value to boolean and use
         readOnly = (typeof readOnly === 'undefined') ? true : !!readOnly;
 
-        // http://ace.c9.io/#nav=howto
+        // https://ace.c9.io/#nav=howto
         this.aceEditor.commands.addCommand({
             name: cmdName,
             bindKey: keyBindings,
@@ -249,8 +248,8 @@ window.Editor = (function () {
                     thisLine = thisLineIndent + thisLine.trim();
                 }
 
-                text.insertLines(currentRow, [thisLine]);
-                text.removeLines(currentRow + 1, currentRow + 1);
+                text.insertFullLines(currentRow, [thisLine]);
+                text.removeFullLines(currentRow + 1, currentRow + 1);
 
                 mode.autoOutdent(
                     editSession.getState(currentRow),

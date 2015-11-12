@@ -84,7 +84,7 @@ window.SysRuntime = (function () {
             fs: {
                 basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
                 // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
-                extendedfsURL: 'http://cs-education.github.io/sysassets/jor1kfs/sysroot/fs.json',
+                extendedfsURL: 'https://cs-education.github.io/sysassets/jor1kfs/sysroot/fs.json',
                 earlyload: [
                     'usr/bin/gcc',
                     'usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1',
@@ -273,7 +273,7 @@ window.SysRuntime = (function () {
     var instance;
     return {
         getInstance: function () {
-            // http://stackoverflow.com/a/4842961
+            // https://stackoverflow.com/a/4842961
             if (!instance) {
                 instance = new SysRuntime();
                 // hide the constructor so the returned object cannot be

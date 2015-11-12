@@ -66,7 +66,7 @@ $(document).ready(function () {
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
+            url: 'https://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
         }
     });
 
@@ -98,7 +98,7 @@ $(document).ready(function () {
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
         prefetch: {
-            url: 'http://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
+            url: 'https://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
         }
     });
     manPageTokens.initialize();
@@ -143,7 +143,7 @@ $(document).ready(function () {
         if (e.which === 8) {
             // Backspace pressed
             // keypress does not fire for Backspace in Chrome
-            // (http://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
+            // (https://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
             lastSelectedManPage = null;
         }
     });
@@ -315,7 +315,7 @@ $(document).ready(function () {
         if (e.which === 8) {
             // Backspace pressed
             // keypress does not fire for Backspace in Chrome
-            // (http://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
+            // (https://stackoverflow.com/questions/4690330/jquery-keypress-backspace-wont-fire)
             resultVideo = null;
         }
     });

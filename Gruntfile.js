@@ -6,6 +6,8 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var serveStatic = require('serve-static');
+
 module.exports = function (grunt) {
 
     // Load grunt tasks automatically
@@ -108,9 +110,10 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                            connect.static('.tmp'),
-                            connect().use('/bower_components', connect.static('./bower_components')),
-                            connect.static(config.app)
+                            serveStatic('.tmp'),
+                            connect().use('/bower_components', serveStatic('./bower_components')),
+                            serveStatic(config.app),
+                            connect().use('/LICENSE.md', serveStatic('./LICENSE.md'))
                         ];
                     },
                     livereload: false
@@ -122,10 +125,10 @@ module.exports = function (grunt) {
                     port: 9001,
                     middleware: function (connect) {
                         return [
-                            connect.static('.tmp'),
-                            connect.static('test'),
-                            connect().use('/bower_components', connect.static('./bower_components')),
-                            connect.static(config.app)
+                            serveStatic('.tmp'),
+                            serveStatic('test'),
+                            connect().use('/bower_components', serveStatic('./bower_components')),
+                            serveStatic(config.app)
                         ];
                     }
                 }
@@ -250,7 +253,6 @@ module.exports = function (grunt) {
                         '<%= config.dist %>/scripts/{,*/}*.js',
                         '<%= config.dist %>/styles/{,*/}*.css',
                         '<%= config.dist %>/images/{,*/}*.*',
-                        '<%= config.dist %>/styles/fonts/{,*/}*.*',
                         '<%= config.dist %>/*.{ico,png}'
                     ]
                 }
@@ -345,7 +347,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: 'bower_components/videojs/dist/video-js/font/',
+                    cwd: 'bower_components/videojs/dist/font/',
                     src: ['*.*'],
                     dest: '<%= config.dist %>/styles/font/'
                 }, {
@@ -371,7 +373,7 @@ module.exports = function (grunt) {
                     dot: true,
                     cwd: 'bower_components/jquery-notific8/dist/fonts/',
                     src: ['*.*'],
-                    dest: '<%= config.dist %>/styles/font/'
+                    dest: '<%= config.dist %>/styles/fonts/'
                 }]
             },
             styles: {

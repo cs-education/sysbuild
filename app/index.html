@@ -10,7 +10,7 @@
 
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="../bower_components/videojs/dist/video-js/video-js.css" />
+        <link rel="stylesheet" href="../bower_components/videojs/dist/video-js.min.css" />
         <link rel="stylesheet" href="../bower_components/jquery-notific8/dist/jquery.notific8.min.css" />
         <link rel="stylesheet" href="../bower_components/jquery-ui-layout/source/stable/layout-default.css" />
         <!-- endbower -->
@@ -117,7 +117,11 @@
                 <div class="footer">
                     <div class="container">
                         <p class="text-muted">
-                            <img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild/blob/master/LICENSE.md">Attribution and legal information</a></small>
+                            <img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon">
+                            <small>
+                                <span>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois.</span>
+                                <a href="#" data-toggle="modal" data-target="#project-license-window">Attribution and legal information</a>
+                            </small>
                         </p>
                     </div>
                 </div>
@@ -311,7 +315,13 @@
                             </div>
                         </div>
                         <div class="container col-sm-6 pull-right">
-                            <p class="text-muted pull-right"><img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon"><small>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois. <a target="_blank" href="https://github.com/cs-education/sysbuild/blob/master/LICENSE.md">Attribution and legal information</a></small></p>
+                            <p class="text-muted pull-right">
+                                <img width="12px" src="images/imark_bold.gif" alt="University of Illinois icon">
+                                <small>
+                                    <span>&nbsp;Copyright &copy; 2015 The Board of Trustees at the University of Illinois.</span>
+                                    <a href="#" data-toggle="modal" data-target="#project-license-window">Attribution and legal information</a>
+                                </small>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -334,6 +344,23 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Project License Modal -->
+            <div class="modal fade" id="project-license-window" tabindex="-1" role="dialog" aria-labelledby="project-license-window-title" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="project-license-window-title">Attribution and legal information</h4>
+                            <span>(<a target="_blank" href="https://github.com/cs-education/sysbuild/blob/master/LICENSE.md">See latest project license on GitHub</a>)</span>
+                        </div>
+                        <div class="modal-body" data-bind="html: projectLicense"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div><!--/.show-if-supported -->
 
         <!-- ==================== Javascript ==================== -->
@@ -341,24 +368,25 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
-        <script src="../bower_components/knockout/dist/knockout.js"></script>
-        <script src="../bower_components/Blob/Blob.js"></script>
-        <script src="../bower_components/FileSaver/FileSaver.js"></script>
-        <script src="../bower_components/sammy/lib/sammy.js"></script>
-        <script src="../bower_components/marked/lib/marked.js"></script>
-        <script src="../bower_components/videojs/dist/video-js/video.js"></script>
-        <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
-        <script src="../bower_components/jquery-notific8/dist/jquery.notific8.min.js"></script>
-        <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
-        <script src="../bower_components/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min.js"></script>
-        <script src="../bower_components/jquery-fullscreen/jquery.fullscreen-min.js"></script>
-        <!-- endbower -->
         <script src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/theme-monokai.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/theme-terminal.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/theme-tomorrow.js"></script>
         <script src="../bower_components/ace-builds/src-min-noconflict/theme-xcode.js"></script>
+        <script src="../bower_components/jor1k/bin/jor1k-master-min.js"></script>
+        <script src="../bower_components/knockout/dist/knockout.js"></script>
+        <script src="../bower_components/Blob/Blob.js"></script>
+        <script src="../bower_components/FileSaver/FileSaver.js"></script>
+        <script src="../bower_components/sammy/lib/sammy.js"></script>
+        <script src="../bower_components/marked/lib/marked.js"></script>
+        <script src="../bower_components/videojs/dist/video.min.js"></script>
+        <script src="../bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+        <script src="../bower_components/jquery-notific8/dist/jquery.notific8.min.js"></script>
+        <script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+        <script src="../bower_components/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min.js"></script>
+        <script src="../bower_components/jquery-fullscreen/jquery.fullscreen-min.js"></script>
+        <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
@@ -384,7 +412,6 @@
         <script src="scripts/editor/token_highlighter.js"></script>
         <script src="scripts/editor/editor.js"></script>
         <script src="scripts/gcc-output-parser.js"></script>
-        <script src="jor1k/bin/jor1k-master-min.js"></script>
         <script src="scripts/live-edit.js"></script>
         <script src="scripts/sys-runtime.js"></script>
         <script src="scripts/video-player-config.js"></script>
