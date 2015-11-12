@@ -21,6 +21,16 @@
   },
   "devDependencies": {},
   "overrides": {
+    "ace-builds": {
+      "main": [
+        "src-min-noconflict/ace.js",
+        "src-min-noconflict/mode-c_cpp.js",
+        "src-min-noconflict/theme-monokai.js",
+        "src-min-noconflict/theme-terminal.js",
+        "src-min-noconflict/theme-tomorrow.js",
+        "src-min-noconflict/theme-xcode.js"
+      ]
+    },
     "jquery-ui-layout": {
       "main": [
         "source/stable/jquery.layout_and_plugins.min.js",
