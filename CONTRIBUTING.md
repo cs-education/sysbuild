@@ -213,13 +213,13 @@ to your repository's `gh-pages` branch or to the web folder on your server.
 1.  Build the distributable project (output in the `dist/` folder):  
     `grunt build`
 
-2.  Deploy to [staging](http://cs-education.github.io/sys-staging/):  
+2.  Deploy to [staging](https://cs-education.github.io/sys-staging/):  
     `grunt deploy:staging`
 
 3.  Test out the application in staging and ensure things work as expected. Once things look good, please announce in
     the chat room that you are going to deploy to production.
 
-4.  Deploy to [production](http://cs-education.github.io/sys/):  
+4.  Deploy to [production](https://cs-education.github.io/sys/):  
     `grunt deploy:prod`
 
 ## Development notes

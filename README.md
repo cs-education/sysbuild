@@ -8,7 +8,7 @@ This is the main repository for the browser-based system programming learning en
 Also known as the Linux-in-a-browser project, this tool is used in the [CS 241 (System Programming)](https://courses.engr.illinois.edu/cs241/) course
 at the University.
 
-View the project running live [here](http://cs-education.github.io/sys/).
+View the project running live [here](https://cs-education.github.io/sys/).
 
 ## Bugs and feature requests
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.

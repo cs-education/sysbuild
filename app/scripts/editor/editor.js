@@ -96,7 +96,7 @@ window.Editor = (function () {
             )
         );
 
-        // http://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
+        // https://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
         var $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
             title: function () {
@@ -116,7 +116,7 @@ window.Editor = (function () {
             $('#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox').prop('checked', self.aceEditor.getShowInvisibles());
         });
 
-        // http://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
+        // https://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
         var $body = $('body');
         $body.on('change', '#' + self.elementIdPrefix + 'autoindent-checkbox', function () {
             self.backgroundAutoIndent = this.checked;
@@ -208,7 +208,7 @@ window.Editor = (function () {
         // If readOnly param is not passed in, then default to true, else coerce the passed in value to boolean and use
         readOnly = (typeof readOnly === 'undefined') ? true : !!readOnly;
 
-        // http://ace.c9.io/#nav=howto
+        // https://ace.c9.io/#nav=howto
         this.aceEditor.commands.addCommand({
             name: cmdName,
             bindKey: keyBindings,

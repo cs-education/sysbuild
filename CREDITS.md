@@ -3,7 +3,7 @@ The project was initiated by Dr. Lawrence Angrave in 2014 and has been continuou
 students and faculty at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).
 
 ## Project Leaders
-Dr. Lawrence Angrave [![GitHub][github]](http://github.com/angrave)  
+Dr. Lawrence Angrave [![GitHub][github]](https://github.com/angrave)  
 Neelabh Gupta [![GitHub][github]](https://github.com/neelabhg) [![Twitter][twitter]](https://twitter.com/neelabhg)
 
 ## University of Illinois Students and Researchers
