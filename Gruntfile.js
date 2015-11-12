@@ -113,7 +113,7 @@ module.exports = function (grunt) {
                             serveStatic('.tmp'),
                             connect().use('/bower_components', serveStatic('./bower_components')),
                             serveStatic(config.app),
-                            connect().use('/LICENSE.md', serveStatic('./LICENSE.md')),
+                            connect().use('/LICENSE.md', serveStatic('./LICENSE.md'))
                         ];
                     },
                     livereload: false
