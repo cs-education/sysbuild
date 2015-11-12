@@ -1,4 +1,4 @@
-Copyright (c) 2014-2015 Lawrence Angrave  
+Copyright &copy; 2014-2015 Lawrence Angrave  
 Version 0.0.2  
 All Rights Reserved.
 
