@@ -4,7 +4,7 @@ contribution process easy and effective for everyone involved. These are just gu
 judgment and feel free to propose changes to this document in a pull request or issue.
 
 ## Using the issue tracker
-The [issue tracker](https://github.com/twbs/bootstrap/issues) is the preferred channel for bug reports, feature
+The [issue tracker](https://github.com/cs-education/sysbuild/issues) is the preferred channel for bug reports, feature
 requests and [submitting pull requests](#pull-requests).
 
 Bug reports are extremely helpful, and are encouraged! Information about your environment, such as your browser and
