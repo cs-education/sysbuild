@@ -31,6 +31,11 @@
         "src-min-noconflict/theme-xcode.js"
       ]
     },
+    "jor1k": {
+      "main": [
+        "bin/jor1k-master-min.js"
+      ]
+    },
     "jquery-ui-layout": {
       "main": [
         "source/stable/jquery.layout_and_plugins.min.js",
