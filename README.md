@@ -44,7 +44,7 @@ See the [Wiki](https://github.com/cs-education/sysbuild/wiki) for information ab
 project road maps, learning resources, and other information.
 
 ## Credits
-See [PEOPLE.md](PEOPLE.md).
+See [CREDITS.md](CREDITS.md).
 
 ## License
 See [LICENSE.md](LICENSE.md) for copyright, license, attribution and other legal information.

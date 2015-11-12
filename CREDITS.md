@@ -29,7 +29,7 @@ Siddharth Seth [![GitHub][github]](https://github.com/siddharth-seth)
 See the list of GitHub contributors for the [sysbuild](https://github.com/cs-education/sysbuild/graphs/contributors)
 and [sysassets](https://github.com/cs-education/sysassets/graphs/contributors) repositories.
 
-## Open source projects
+# Open source projects
 Amazing projects without which this project would not have been possible:
 
 * The virtual machine embedded in the browser is forked from the [jor1k](https://github.com/s-macke/jor1k) project.
