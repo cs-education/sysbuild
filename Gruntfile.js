@@ -253,7 +253,6 @@ module.exports = function (grunt) {
                         '<%= config.dist %>/scripts/{,*/}*.js',
                         '<%= config.dist %>/styles/{,*/}*.css',
                         '<%= config.dist %>/images/{,*/}*.*',
-                        '<%= config.dist %>/styles/fonts/{,*/}*.*',
                         '<%= config.dist %>/*.{ico,png}'
                     ]
                 }
@@ -374,7 +373,7 @@ module.exports = function (grunt) {
                     dot: true,
                     cwd: 'bower_components/jquery-notific8/dist/fonts/',
                     src: ['*.*'],
-                    dest: '<%= config.dist %>/styles/font/'
+                    dest: '<%= config.dist %>/styles/fonts/'
                 }]
             },
             styles: {
