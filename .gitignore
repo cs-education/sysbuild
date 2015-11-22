@@ -2,6 +2,14 @@
 # Project-specific gitignores
 app/jor1k
 
+# Created by the Yeoman knockout generator
+.DS_Store
+node_modules/
+bower_modules/
+
+# Don't track build output
+dist/
+
 # Created by the Yeoman webapp generator
 node_modules
 dist
