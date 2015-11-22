@@ -1,5 +1,5 @@
 // Node modules
-var fs = require('fs'), vm = require('vm'), merge = require('deeply'), chalk = require('chalk'), es = require('event-stream'), path = require('path'), url = require('url');
+var fs = require('fs'), vm = require('vm'), merge = require('deeply'), chalk = require('chalk'), es = require('event-stream'), path = require('path'), url = require('url'), slash = require('slash');
 
 // Gulp and plugins
 var gulp = require('gulp'), rjs = require('gulp-requirejs-bundler'), concat = require('gulp-concat'), clean = require('gulp-clean'), filter = require('gulp-filter'),
@@ -64,7 +64,7 @@ gulp.task('js:optimize', ['js:babel'], function() {
     var config = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
     return rjs(config)
         .pipe(uglify({ preserveComments: 'some' }))
-        .pipe(gulp.dest('./dist/'));    
+        .pipe(gulp.dest('./dist/'));
 })
 
 // Builds the distributable .js files by calling Babel then the r.js optimizer
@@ -106,7 +106,7 @@ gulp.task('serve:src', function() {
         root: transpilationConfig.root,
         middleware: function(connect, opt) {
             return [
-                 function (req, res, next) {                     
+                 function (req, res, next) {
                      var pathname = path.normalize(url.parse(req.url).pathname);
                      babelTranspile(pathname, function(err, result) {
                         if (err) {
@@ -130,6 +130,7 @@ gulp.task('serve:dist', ['default'], function() {
 });
 
 function babelTranspile(pathname, callback) {
+    pathname = slash(pathname);
     if (babelIgnoreRegexes.some(function (re) { return re.test(pathname); })) return callback();
     if (!babelCore.canCompile(pathname)) return callback();
     var src  = path.join(transpilationConfig.root, pathname);
