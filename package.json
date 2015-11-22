@@ -31,7 +31,7 @@
     "chalk": "~0.4.0"
   },
   "scripts": {
-    "postinstall": "bower install && grunt setupJor1k && cd test/ && bower install",
+    "postinstall": "bower install && cd test/ && bower install",
     "test": "grunt travis"
   }
 }
