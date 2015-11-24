@@ -1,6 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./activity-page.html';
-import * as lesson from 'app/lessons'
+import lessons from 'app/lessons'
 
 const activityTypeToComponentNameMap = {
     'video': 'video-activity-page',
@@ -9,13 +9,16 @@ const activityTypeToComponentNameMap = {
 
 class ActivityPage {
     constructor(params) {
-        var activity = lesson.getActivity(params.chapterIdx, params.sectionIdx, params.activityIdx);
-        if (!activity) {
-            this.activityComponent = '404'; // TODO
-        } else {
-            this.activityComponent = activityTypeToComponentNameMap[activity.type];
-            this.activityParams = activity;
-        }
+        var activity = lessons.getActivity(params.chapterIdx, params.sectionIdx, params.activityIdx);
+        this.activityComponent = ko.pureComputed(() => {
+            var activityObj = activity();
+            if (!activityObj)
+                return { name: '404', params: {} };
+            return {
+                name: activityTypeToComponentNameMap[activityObj.type],
+                params: activityObj
+            };
+        });
     }
 
     dispose() {
