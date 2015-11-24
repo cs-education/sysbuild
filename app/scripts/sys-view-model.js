@@ -168,43 +168,6 @@ window.SysViewModel = (function () {
             }
         });
 
-        self.getNavUrlPrev = ko.pureComputed(function () {
-            var currentChapter = self.currentChapter(),
-                currentSectionIdx = parseInt(self.currentSectionIdx(), 10),
-                currentActivityIdx = parseInt(self.currentActivityIdx(), 10),
-                prevSection = currentChapter ? currentChapter.sections[currentSectionIdx - 1] : null,
-                prevSectionNumActivities = prevSection ? prevSection.activities.length : 1,
-                prevSectionIdx = currentSectionIdx,
-                prevActivityIdx = currentActivityIdx - 1;
-
-            if (prevActivityIdx < 0) {
-                prevSectionIdx -= 1;
-                prevActivityIdx = prevSectionNumActivities - 1;
-            }
-
-            return '#chapter/' + self.currentChapterIdx() +
-                '/section/' + prevSectionIdx +
-                '/activity/' + prevActivityIdx;
-        });
-
-        self.getNavUrlNext = ko.pureComputed(function () {
-            var currentSection = self.currentSection(),
-                currentSectionIdx = parseInt(self.currentSectionIdx(), 10),
-                currentActivityIdx = parseInt(self.currentActivityIdx(), 10),
-                numActivities = currentSection ? currentSection.activities.length : 1,
-                nextSectionIdx = currentSectionIdx,
-                nextActivityIdx = currentActivityIdx + 1;
-
-            if (nextActivityIdx >= numActivities) {
-                nextSectionIdx += 1;
-                nextActivityIdx = 0;
-            }
-
-            return '#chapter/' + self.currentChapterIdx() +
-                '/section/' + nextSectionIdx +
-                '/activity/' + nextActivityIdx;
-        });
-
         self.playGroundNavPagerVisible = ko.observable();
 
         self.projectLicense = ko.observable();

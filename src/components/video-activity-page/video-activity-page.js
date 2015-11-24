@@ -5,13 +5,14 @@ import videojs from 'videojs';
 
 class VideoActivityPage {
     constructor(params) {
-        var videoUrlPrefix = 'https://cs-education.github.io/sysassets/' + params.file;
-        var videoName = params.file.replace('mp4/', '');
+        var videoActivity = params.activity;
+        var videoUrlPrefix = 'https://cs-education.github.io/sysassets/' + videoActivity.file;
+        var videoName = videoActivity.file.replace('mp4/', '');
 
-        this.topics = params.topics || '';
-        this.doc = ko.observable(marked(params.doc || ''));
-        if (params.docFile) {
-            $.get('https://cs-education.github.io/sysassets/' + params.docFile, (data) => {
+        this.topics = videoActivity.topics || '';
+        this.doc = ko.observable(marked(videoActivity.doc || ''));
+        if (videoActivity.docFile) {
+            $.get('https://cs-education.github.io/sysassets/' + videoActivity.docFile, (data) => {
                 this.doc(marked(data));
             });
         }

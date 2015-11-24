@@ -16,6 +16,7 @@ ko.components.register('about-page', {
 ko.components.register('lessons-page', { require: 'components/lessons-page/lessons-page' });
 ko.components.register('activity-page', { require: 'components/activity-page/activity-page' });
 ko.components.register('video-activity-page', { require: 'components/video-activity-page/video-activity-page' });
+ko.components.register('lesson-navigation-pager', { require: 'components/lesson-navigation-pager/lesson-navigation-pager' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application
