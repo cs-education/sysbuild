@@ -11,9 +11,13 @@ var require = {
         "signals":              "bower_modules/js-signals/dist/signals.min",
         "text":                 "bower_modules/requirejs-text/text",
         "marked":               "bower_modules/marked/marked.min",
-        "videojs":              "bower_modules/videojs/dist/video.min"
+        "videojs":              "bower_modules/videojs/dist/video.min",
+        "jquery-ui":            "bower_modules/jquery-ui/jquery-ui.min",
+        "jquery-ui-layout":     "bower_modules/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min"
     },
     shim: {
-        "bootstrap": { deps: ["jquery"] }
+        "bootstrap": { deps: ["jquery"] },
+        "jquery-ui": { deps: ["jquery"] },
+        "jquery-ui-layout": { deps: ["jquery", "jquery-ui"] }
     }
 };

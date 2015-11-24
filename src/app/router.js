@@ -40,6 +40,10 @@ class Router {
             this.currentRoute(ko.utils.extend(requestParams, { page: 'activity-page' }));
         });
 
+        crossroads.addRoute('playground', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'play-activity-page' }));
+        });
+
         // Activate Crossroads
         crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
         hasher.initialized.add(hash => crossroads.parse(hash));
