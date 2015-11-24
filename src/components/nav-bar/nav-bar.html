@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">sysbuild</a>
+      <a class="navbar-brand" href="#">System Programming</a>
     </div>
     <div class="collapse navbar-collapse">
 
@@ -25,9 +25,18 @@
           <a href="#lessons">Lessons</a>
         </li>
 
+        <li data-bind="css: { active: route().page === 'play-activity-page' }">
+          <a href="#playground">Playground</a>
+        </li>
+
         <li data-bind="css: { active: route().page === 'about-page' }">
           <a href="#about">About</a>
         </li>
+
+        <li>
+          <a target="_blank" href="https://github.com/angrave/SystemProgramming/wiki">System Programming wiki-book</a>
+        </li>
+
       </ul>
 
     </div>

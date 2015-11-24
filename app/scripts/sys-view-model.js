@@ -170,10 +170,7 @@ window.SysViewModel = (function () {
 
         self.playGroundNavPagerVisible = ko.observable();
 
-        self.projectLicense = ko.observable();
-        $.get('LICENSE.md', function (data) {
-            self.projectLicense(marked(data));
-        });
+        
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {
