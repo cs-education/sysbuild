@@ -16,10 +16,28 @@ class Router {
         this.currentRoute = ko.observable({});
 
         // Configure Crossroads route handlers
-        ko.utils.arrayForEach(config.routes, (route) => {
-            crossroads.addRoute(route.url, (requestParams) => {
-                this.currentRoute(ko.utils.extend(requestParams, route.params));
-            });
+        crossroads.addRoute('', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'home-page' }));
+        });
+
+        crossroads.addRoute('about', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'about-page' }));
+        });
+
+        crossroads.addRoute('lessons', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'lessons-page' }));
+        });
+
+        crossroads.addRoute('chapter/{chapterIdx}', (requestParams) => {
+            hasher.replaceHash(`chapter/${requestParams.chapterIdx}/section/0/activity/0`);
+        });
+
+        crossroads.addRoute('chapter/{chapterIdx}/section/{sectionIdx}', (requestParams) => {
+            hasher.replaceHash(`chapter/${requestParams.chapterIdx}/section/${requestParams.sectionIdx}/activity/0`);
+        });
+
+        crossroads.addRoute('chapter/{chapterIdx}/section/{sectionIdx}/activity/{activityIdx}', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'activity-page' }));
         });
 
         // Activate Crossroads
@@ -31,12 +49,6 @@ class Router {
 }
 
 // Create and export router instance
-var routerInstance = new Router({
-    routes: [
-        { url: '',          params: { page: 'home-page' } },
-        { url: 'about',     params: { page: 'about-page' } },
-        { url: 'lessons',     params: { page: 'lessons-page' } }
-    ]
-});
+var routerInstance = new Router();
 
 export default routerInstance;
