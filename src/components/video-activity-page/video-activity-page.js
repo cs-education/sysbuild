@@ -9,7 +9,12 @@ class VideoActivityPage {
         var videoName = params.file.replace('mp4/', '');
 
         this.topics = params.topics || '';
-        this.doc = marked(params.doc || '');
+        this.doc = ko.observable(marked(params.doc || ''));
+        if (params.docFile) {
+            $.get('https://cs-education.github.io/sysassets/' + params.docFile, (data) => {
+                this.doc(marked(data));
+            });
+        }
 
         var $video = $('<video>').attr('id', 'lesson-video').
             addClass('video-js vjs-default-skin vjs-big-play-centered');
