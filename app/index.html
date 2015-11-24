@@ -70,27 +70,6 @@
                 </div>
 
                 <div class="container">
-                    <!-- Chapter index -->
-                    <div data-bind="visible: shownPage() === 'chapter_index'">
-                        <div>
-                            <h1>An introduction to system programming and C</h1>
-                            <p class="lead">By Lawrence Angrave at the University of Illinois at Urbana-Champaign 2014</p>
-                        </div>
-                        <div data-bind="foreach: chapters">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4><a data-bind="text: name, attr: { href: '#chapter/' + $index() }"></a></h4>
-                                </div>
-                                <div class="panel-body">
-                                    <p data-bind="text: description"></p>
-                                    <h5>Sections:</h5>
-                                    <ol data-bind="foreach: sections">
-                                        <li><a data-bind="text: name, attr: { href: '#chapter/' + $parentContext.$index() + '/section/' + $index() }"></a></li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Video Lesson -->
                     <div data-bind="visible: shownPage() === 'video'">
