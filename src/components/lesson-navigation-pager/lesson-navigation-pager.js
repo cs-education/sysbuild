@@ -14,13 +14,20 @@ class LessonNavigationPager {
         this.currentSectionName = currentSection.name;
 
         this.prevActivityUrl = ko.pureComputed(() => {
-            var prevSection = currentChapter ? currentChapter.sections[currentSectionIdx - 1] : null,
-                prevSectionNumActivities = prevSection ? prevSection.activities.length : 1,
-                prevSectionIdx = currentSectionIdx,
+            var prevSectionIdx = currentSectionIdx,
                 prevActivityIdx = currentActivityIdx - 1;
 
             if (prevActivityIdx < 0) {
+                // we were already at first activity of current section,
+                // so go to last activity of previous section
                 prevSectionIdx -= 1;
+                if (prevSectionIdx < 0) {
+                    // we were already at first section of current chapter,
+                    // so go to chapter listing
+                    return '#lessons';
+                }
+                var prevSection = currentChapter.sections[prevSectionIdx],
+                    prevSectionNumActivities = prevSection.activities.length;
                 prevActivityIdx = prevSectionNumActivities - 1;
             }
 
@@ -28,12 +35,20 @@ class LessonNavigationPager {
         });
 
         this.nextActivityUrl = ko.pureComputed(() => {
-            var numActivities = currentSection ? currentSection.activities.length : 1,
+            var currentSectionNumActivities = currentSection.activities.length,
                 nextSectionIdx = currentSectionIdx,
                 nextActivityIdx = currentActivityIdx + 1;
 
-            if (nextActivityIdx >= numActivities) {
+            if (nextActivityIdx >= currentSectionNumActivities) {
+                // we were already at last activity of current section,
+                // so go to first activity of next section
                 nextSectionIdx += 1;
+                var currentChapterNumSections = currentChapter.sections.length;
+                if (nextSectionIdx >= currentChapterNumSections) {
+                    // we were already at last section of current chapter,
+                    // so go to chapter listing
+                    return '#lessons';
+                }
                 nextActivityIdx = 0;
             }
 
