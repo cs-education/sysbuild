@@ -6,7 +6,7 @@
         <a data-bind="attr: { href: '#tab-' + $index() }" role="tab" data-toggle="tab">
             <span data-bind="css: tabIconClass"></span>
             &nbsp;<span data-bind="text: tabTitle"></span>&nbsp;
-            <!-- ko if: isClosable -->
+            <!-- ko if: closable -->
               <button class="close" data-bind="click: $parent.closeTab.bind($parent), clickBubble: false">&times;</button>
             <!-- /ko -->
         </a>

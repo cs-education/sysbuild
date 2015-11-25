@@ -9,7 +9,7 @@ class EditorPane {
         this.editorPaneTabs = this.sourceTabArray.map((tab) => ({
             tabTitle: tab.title,
             tabIconClass: 'glyphicon glyphicon-' + (tab.icon || 'globe'),
-            isClosable: tab.closable || true,
+            closable: (typeof tab.closable === 'undefined') ? true : !!tab.closable,
             tabContentClasses: tab.contentCssClasses || '',
             tabComponent: tab.component
         }));
@@ -28,7 +28,7 @@ class EditorPane {
         if (index <= newActiveTabIndex) {
             newActiveTabIndex = newActiveTabIndex - 1;
         }
-        
+
         this.currentActiveTabIndex(newActiveTabIndex);
     };
 

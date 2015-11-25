@@ -18,6 +18,7 @@ class PlaygroundLayout {
         this.editorPaneTabs.push({
             title: 'Code',
             icon: 'file',
+            closable: false,
             component: {
                 name: 'editor-compiler-tab',
                 params: {
@@ -45,6 +46,7 @@ class PlaygroundLayout {
     createManPageSearchTab() {
         this.editorPaneTabs.push({
             title: 'Man page search',
+            closable: false,
             contentCssClasses: 'man-page-tab',
             component: {
                 name: 'manpages-search-tab',
@@ -58,6 +60,7 @@ class PlaygroundLayout {
     createVideoSearchTab() {
         this.editorPaneTabs.push({
             title: 'Video Search',
+            closable: false,
             contentCssClasses: 'man-page-tab',
             component: {
                 name: 'video-search-tab'

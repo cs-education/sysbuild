@@ -4,7 +4,6 @@ import ace from 'ace/ace';
 
 class Editor {
     constructor(params) {
-        console.log(params);
         // all the preferences are ko observables
         var prefs = {};
         prefs.backgroundAutoIndent = params.autoindent;
