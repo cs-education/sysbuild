@@ -89,13 +89,8 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane man-page-tab" id="man-pages-index" data-bind="css: { active: currentActiveTabIndex() === -1}">
-                            
-                        </div>
-                        <!-- ko foreach: openManPageTabs -->
-                        <div class="tab-pane man-page-tab"
-                             data-bind="attr: { id: 'man-page-tab-' + $index() }, html: tabHtml, css: { active: $parent.currentActiveTabIndex() === $index()}"></div>
-                        <!-- /ko -->
+
+                        
 
                         <div class="tab-pane man-page-tab" id="video-search-index" data-bind="css: { active: currentActiveTabIndex() === -3}">
                             <h3 id="video-search-title">Search Video</h3>

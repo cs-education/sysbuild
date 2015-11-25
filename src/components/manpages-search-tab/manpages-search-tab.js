@@ -75,17 +75,22 @@ class ManpagesSearchTab {
     }
 
     openManPage(selectedManPage) {
-        if (selectedManPage) {
-            this.addEditorPaneTab(this.getManPageTabData(selectedManPage.name, selectedManPage.section));
-        }
-    }
+        if (!selectedManPage)
+            return;
 
-    getManPageTabData(name, section) {
-        var url = 'https://cs-education.github.io/sysassets/man_pages/html/man' + section + '/' + name + '.' + section + '.html';
-        return {
-            tabName: name + ' (' + section + ')',
-            tabHtml: '<iframe style="width: 100%; height: 100%" src="' + url + '"></iframe>'
-        };
+        var name = selectedManPage.name,
+            section = selectedManPage.section;
+
+        this.addEditorPaneTab({
+            title: `${name} (${section})`,
+            component: {
+                name: 'manpage-tab',
+                params: {
+                    manPageName: name,
+                    manPageSection: section
+                }
+            }
+        });
     }
 
     dispose() {

@@ -22,13 +22,10 @@ ko.components.register('play-activity-page', { require: 'components/play-activit
 ko.components.register('playground-layout', { require: 'components/playground-layout/playground-layout' });
 ko.components.register('editor', { require: 'components/editor/editor' });
 ko.components.register('editor-pane', { require: 'components/editor-pane/editor-pane' });
-
 ko.components.register('compiler-controls', { require: 'components/compiler-controls/compiler-controls' });
-
 ko.components.register('editor-compiler-tab', { require: 'components/editor-compiler-tab/editor-compiler-tab' });
-
 ko.components.register('manpages-search-tab', { require: 'components/manpages-search-tab/manpages-search-tab' });
-
+ko.components.register('manpage-tab', { require: 'components/manpage-tab/manpage-tab' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application

@@ -40,7 +40,7 @@ class PlaygroundLayout {
             component: {
                 name: 'manpages-search-tab',
                 params: {
-                    addEditorPaneTab: (data) => { console.log(data); }
+                    addEditorPaneTab: (tab) => { this.editorPaneTabs.push(tab); }
                 }
             }
         });
