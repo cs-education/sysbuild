@@ -59,37 +59,6 @@
                 </div>
 
                 <div id="code-container">
-                    <div id="editor-tabs-bar">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li data-bind="css: { active: currentActiveTabIndex() === -3}">
-                                <a data-bind="click: function () { currentActiveTabIndex(-3); }" href="#video-search-page" role="tab" data-toggle="tab">
-                                    <span class="glyphicon glyphicon-globe"></span>&nbsp;Video Search
-                                </a>
-                            </li>
-                            <li data-bind="css: { active: currentActiveTabIndex() === -2}">
-                                <a data-bind="click: function () { currentActiveTabIndex(-2); }" href="#editor-container" role="tab" data-toggle="tab">
-                                    <span class="glyphicon glyphicon-file"></span>&nbsp;Code
-                                </a>
-                            </li>
-                            <li data-bind="css: { active: currentActiveTabIndex() === -1}">
-                                <a data-bind="click: function () { currentActiveTabIndex(-1); }" href="#man-pages-index" role="tab" data-toggle="tab">
-                                    <span class="glyphicon glyphicon-globe"></span>&nbsp;Man page search
-                                </a>
-                            </li>
-                            <!-- ko foreach: openManPageTabs -->
-                            <li data-bind="css: { active: $parent.currentActiveTabIndex() === $index()}, click: function () { $parent.currentActiveTabIndex($index()); }">
-                                <a data-bind="attr: { href: '#man-page-tab-' + $index() }" role="tab" data-toggle="tab">
-                                    <span class="glyphicon glyphicon-globe"></span>
-                                    &nbsp;<span data-bind="text: tabName"></span>&nbsp;
-                                    <button class="close" data-bind="click: $parent.closeManPageTab, clickBubble: false">&times;</button>
-                                </a>
-                            </li>
-                            <!-- /ko -->
-                        </ul>
-                    </div>
-                    <div class="tab-content">
-                    </div>
                 </div>
 
                 <div id="doc-tty-container">

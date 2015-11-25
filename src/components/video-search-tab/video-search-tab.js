@@ -1,6 +1,8 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./video-search-tab.html';
 import videojs from 'videojs';
+import 'typeahead-jquery';
+import 'bloodhound';
 
 class VideoSearchTab {
     constructor(params) {

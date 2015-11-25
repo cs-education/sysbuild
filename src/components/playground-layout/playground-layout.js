@@ -6,9 +6,15 @@ class PlaygroundLayout {
     constructor(params) {
         this.activityData = params.activityData;
         this.showLessonNavigation = this.activityData && this.activityData();
-        this.initLayout();
-
         this.editorPaneTabs = ko.observableArray();
+
+        this.initLayout();
+        this.createVideoSearchTab();
+        this.createEditorTab();
+        this.createManPageSearchTab();
+    }
+
+    createEditorTab() {
         this.editorPaneTabs.push({
             title: 'Code',
             component: {
@@ -33,7 +39,9 @@ class PlaygroundLayout {
                 }
             }
         });
+    }
 
+    createManPageSearchTab() {
         this.editorPaneTabs.push({
             title: 'Man page search',
             contentCssClasses: 'man-page-tab',
@@ -44,19 +52,16 @@ class PlaygroundLayout {
                 }
             }
         });
+    }
 
+    createVideoSearchTab() {
         this.editorPaneTabs.push({
             title: 'Video Search',
             contentCssClasses: 'man-page-tab',
             component: {
                 name: 'video-search-tab'
             }
-        })
-    }
-
-    dispose() {
-        // This runs when the component is torn down. Put here any logic necessary to clean up,
-        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+        });
     }
 
     initLayout() {
@@ -117,7 +122,12 @@ class PlaygroundLayout {
             mainLayout: mainLayout,
             ttyLayout: ttyLayout
         };
-    };
+    }
+
+    dispose() {
+        // This runs when the component is torn down. Put here any logic necessary to clean up,
+        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+    }
 }
 
 export default { viewModel: PlaygroundLayout, template: templateMarkup };

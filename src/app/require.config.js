@@ -21,6 +21,7 @@ var require = {
     shim: {
         "bootstrap": { deps: ["jquery"] },
         "jquery-ui": { deps: ["jquery"] },
-        "jquery-ui-layout": { deps: ["jquery", "jquery-ui"] }
+        "jquery-ui-layout": { deps: ["jquery", "jquery-ui"] },
+        "typeahead-jquery": { deps: ["jquery"] }
     }
 };
