@@ -1,0 +1,9 @@
+/* Editor tabs bar */
+#editor-tabs-bar {
+    padding: 2px 2px 0px 2px;
+    border: 0px;
+}
+
+#editor-tabs-bar a {
+    padding: 2px 10px;
+}

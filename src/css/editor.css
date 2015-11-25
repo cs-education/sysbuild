@@ -1,0 +1,71 @@
+/* Editor options toolbar */
+#editor-opts-container .navbar {
+    min-height: 26px !important;
+    padding: 2px;
+    margin-bottom: 0px;
+    border: 0px;
+    border-radius: 0px;
+}
+
+#editor-opts-container .navbar-form {
+    margin: 0px;
+}
+
+#editor-opts-container .navbar-form > div,
+#editor-opts-container .row {
+    padding: 0 2px;
+}
+
+#editor-opts-container .form-control,
+#editor-opts-container .btn-sm {
+    padding: 1px 5px;
+    height: 22px;
+    width: 100%;
+}
+
+#editor-font-size {
+    padding-right: 0px !important;
+}
+
+/* hack for the gcc options + program args + compile button toolbar */
+#compile-opts-container .col-sm-1,
+#compile-opts-container .col-sm-10,
+#compile-opts-container .col-sm-11 {
+    padding: 1px;
+}
+
+#compile-opts-container .row {
+    margin: 0px;
+    padding: 1px;
+}
+
+#compile-opts-container .btn-xs{
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 3px;
+}
+
+#compile-opts-container input {
+    padding: 2px;
+    height: 20px;
+}
+
+#compile-opts-container .control-label {
+    padding-right: 2px;
+}
+
+/* The Ace search field somehow inherited a white font on a white background,
+ * so reverting it.
+ */
+.ace-search-field {
+    color: initial;
+}
+
+.token-highlight {
+    margin: -1px 0 0 -1px;
+    border: 1px solid #49483E;
+    background-color: #00b3ee;
+    opacity: 0.6;
+    position: absolute;
+    z-index: 6;
+}

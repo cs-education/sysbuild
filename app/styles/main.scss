@@ -49,13 +49,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     border-radius: 0px;
 }
 
-#lesson-video-container {
-    margin: 0px auto;
-}
 
-#search-video-container {
-  margin: 20px auto;
-}
+
+
 
 .label-default-light {
     @include label-variant(lighten($label-default-bg, 25%));

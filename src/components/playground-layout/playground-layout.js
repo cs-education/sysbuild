@@ -17,6 +17,7 @@ class PlaygroundLayout {
     createEditorTab() {
         this.editorPaneTabs.push({
             title: 'Code',
+            icon: 'file',
             component: {
                 name: 'editor-compiler-tab',
                 params: {
