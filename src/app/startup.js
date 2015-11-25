@@ -23,6 +23,10 @@ ko.components.register('playground-layout', { require: 'components/playground-la
 ko.components.register('editor', { require: 'components/editor/editor' });
 ko.components.register('editor-pane', { require: 'components/editor-pane/editor-pane' });
 
+ko.components.register('compiler-controls', { require: 'components/compiler-controls/compiler-controls' });
+
+ko.components.register('editor-compiler-tab', { require: 'components/editor-compiler-tab/editor-compiler-tab' });
+
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application

@@ -12,15 +12,24 @@ class PlaygroundLayout {
         this.editorPaneTabs.push({
             title: 'Code',
             component: {
-                name: 'editor',
+                name: 'editor-compiler-tab',
                 params: {
-                    autoindent: ko.observable(true),
-                    highlightLine: ko.observable(true),
-                    showInvisibles: ko.observable(false),
-                    theme: ko.observable('monokai'),
-                    fontSize: ko.observable(12),
-                    availableAceThemes: ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']),
-                    initialEditorText: 'INITIAL EDITOR TEXT'
+                    editorParams: {
+                        autoindent: ko.observable(true),
+                        highlightLine: ko.observable(true),
+                        showInvisibles: ko.observable(false),
+                        theme: ko.observable('monokai'),
+                        fontSize: ko.observable(12),
+                        availableAceThemes: ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']),
+                        initialEditorText: 'INITIAL EDITOR TEXT'
+                    },
+                    compilerParams: {
+                        gccOptsError: ko.observable(''),
+                        gccOptions: ko.observable(''),
+                        programArgs: ko.observable(''),
+                        compileBtnEnable: ko.observable(false),
+                        compileBtnTooltip: ko.observable('')
+                    }
                 }
             }
         });
