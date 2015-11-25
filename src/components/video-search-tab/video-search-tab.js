@@ -36,7 +36,7 @@ class VideoSearchTab {
                 // Typeahead Docs (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets):
                 // "Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string."
                 // So instead of using some templating library, using a simple function to act as a compiled template
-                suggestion: function (context) {
+                suggestion: (context) => {
                     return [
                         '<div>',
                             '<p><strong>' + context.title + '</strong><span class="pull-right"> Time ' + context.startTime + '</span>' + '</p>',
@@ -45,7 +45,7 @@ class VideoSearchTab {
                     ].join('\n');
                 }
             }
-        }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
+        }).on('typeahead:selected typeahead:autocompleted', (e, suggestion) => {
             resultVideo = suggestion;
             //for now suggestion is a time for proof of concept purposes
             //eventually it'll suggest an actually line from the transcripts
@@ -59,7 +59,7 @@ class VideoSearchTab {
                 // the user autocompleted the typeahead hint or used a suggestion
                 resultVideo = null;
             }
-        }).keydown(function (e) {
+        }).keydown((e) => {
             if (e.which === 8) {
                 // Backspace pressed
                 // keypress does not fire for Backspace in Chrome

@@ -39,7 +39,7 @@ class ManpagesSearchTab {
                 // Typeahead Docs (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets):
                 // "Note a precompiled template is a function that takes a JavaScript object as its first argument and returns a HTML string."
                 // So instead of using some templating library, using a simple function to act as a compiled template
-                suggestion: function (context) {
+                suggestion: (context) => {
                     return [
                         '<div>',
                         '<p><strong>' + context.name + '</strong><span class="pull-right"> Section ' + context.section + '</span>' + '</p>',
@@ -48,19 +48,19 @@ class ManpagesSearchTab {
                     ].join('\n');
                 }
             }
-        }).on('typeahead:selected typeahead:autocompleted', function (e, suggestion) {
+        }).on('typeahead:selected typeahead:autocompleted', (e, suggestion) => {
             lastSelectedManPage = suggestion;
-        }).keypress(function (e) {
+        }).keypress((e) => {
             if (e.which === 13) {
                 // Enter key pressed
-                openManPage(lastSelectedManPage);
+                this.openManPage(lastSelectedManPage);
             } else {
                 // User typed in something
                 // Discard the last selected man page because it should be saved only when
                 // the user autocompleted the typeahead hint or used a suggestion
                 lastSelectedManPage = null;
             }
-        }).keydown(function (e) {
+        }).keydown((e) => {
             if (e.which === 8) {
                 // Backspace pressed
                 // keypress does not fire for Backspace in Chrome
