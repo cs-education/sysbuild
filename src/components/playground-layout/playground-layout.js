@@ -8,6 +8,9 @@ class PlaygroundLayout {
         this.showLessonNavigation = this.activityData && this.activityData();
         this.editorPaneTabs = ko.observableArray();
 
+        // TODO: for testing only
+        this.docFile = 'https://cs-education.github.io/sysassets/chapters/chapter01/play-1-1.md';
+
         this.initLayout();
         this.createVideoSearchTab();
         this.createEditorTab();
