@@ -33,6 +33,17 @@ class PlaygroundLayout {
                 }
             }
         });
+
+        this.editorPaneTabs.push({
+            title: 'Man page search',
+            contentCssClasses: 'man-page-tab',
+            component: {
+                name: 'manpages-search-tab',
+                params: {
+                    addEditorPaneTab: (data) => { console.log(data); }
+                }
+            }
+        });
     }
 
     dispose() {
