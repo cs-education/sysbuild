@@ -13,7 +13,8 @@ var require = {
         "marked":               "bower_modules/marked/marked.min",
         "videojs":              "bower_modules/videojs/dist/video.min",
         "jquery-ui":            "bower_modules/jquery-ui/jquery-ui.min",
-        "jquery-ui-layout":     "bower_modules/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min"
+        "jquery-ui-layout":     "bower_modules/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min",
+        "ace":                  "bower_modules/ace-builds/src/"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },

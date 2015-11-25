@@ -5,6 +5,16 @@ import 'jquery-ui-layout';
 class PlaygroundLayout {
     constructor(params) {
         this.initLayout();
+
+        this.editorParams = {
+            autoindent: ko.observable(true),
+            highlightLine: ko.observable(true),
+            showInvisibles: ko.observable(false),
+            theme: ko.observable('monokai'),
+            fontSize: ko.observable(12),
+            availableAceThemes: ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']),
+            initialEditorText: 'INITIAL EDITOR TEXT'
+        };
     }
 
     dispose() {

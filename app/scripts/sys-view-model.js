@@ -92,10 +92,6 @@ window.SysViewModel = (function () {
             return 'label label-' + vmStateToLabelClassMap[self.vmState()];
         });
 
-        self.availableAceThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
-        self.aceTheme = ko.observable(self.availableAceThemes()[0]);
-        self.aceFontSize = ko.observable();
-
         self.ttyContainer = $('#tty-container');
         self.ttyContainerTwo = $('#tty-container-two');
         self.currentTTYContainer = self.ttyContainer;
@@ -170,7 +166,7 @@ window.SysViewModel = (function () {
 
         self.playGroundNavPagerVisible = ko.observable();
 
-        
+
     }
 
     SysViewModel.prototype.setSysPlayGroundState = function (state) {
