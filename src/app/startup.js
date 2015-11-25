@@ -26,6 +26,7 @@ ko.components.register('compiler-controls', { require: 'components/compiler-cont
 ko.components.register('editor-compiler-tab', { require: 'components/editor-compiler-tab/editor-compiler-tab' });
 ko.components.register('manpages-search-tab', { require: 'components/manpages-search-tab/manpages-search-tab' });
 ko.components.register('manpage-tab', { require: 'components/manpage-tab/manpage-tab' });
+ko.components.register('video-search-tab', { require: 'components/video-search-tab/video-search-tab' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application

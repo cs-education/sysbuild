@@ -44,6 +44,14 @@ class PlaygroundLayout {
                 }
             }
         });
+
+        this.editorPaneTabs.push({
+            title: 'Video Search',
+            contentCssClasses: 'man-page-tab',
+            component: {
+                name: 'video-search-tab'
+            }
+        })
     }
 
     dispose() {
