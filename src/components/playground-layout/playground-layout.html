@@ -1,5 +1,12 @@
 <div id="layout">
   <div id="navbar-container">
+    <div class="navbar navbar-default" role="navigation" data-bind="style: { marginTop: navbarTopMargin }">
+        <div data-bind="if: showLessonNavigation" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right"> <!-- TODO: Add these classes to lesson-navigation-pager -->
+            </ul>
+            <lesson-navigation-pager params="activityData: activityData"></lesson-navigation-pager>
+        </div>
+    </div>
   </div>
 
   <div id="code-container">

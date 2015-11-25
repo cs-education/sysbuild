@@ -4,6 +4,8 @@ import 'jquery-ui-layout';
 
 class PlaygroundLayout {
     constructor(params) {
+        this.activityData = params.activityData;
+        this.showLessonNavigation = this.activityData && this.activityData();
         this.initLayout();
 
         this.editorParams = {
@@ -24,6 +26,12 @@ class PlaygroundLayout {
 
     initLayout() {
         const mainNavBarHeightPx = 51;
+        this.navbarTopMargin = mainNavBarHeightPx + 'px';
+
+        var navBarHeightPx = 33;
+        if (!this.showLessonNavigation)
+            navBarHeightPx = 0;
+
         var mainLayout = $('#layout').layout({
             livePaneResizing: true,
 
@@ -36,7 +44,7 @@ class PlaygroundLayout {
             spacing_open: 2,
 
             north__resizable: false,
-            north__size: mainNavBarHeightPx + 33,
+            north__size: mainNavBarHeightPx + navBarHeightPx,
             north__spacing_open: 0,
             north__spacing_closed: 0,
             north__showOverflowOnHover: true,
