@@ -21,6 +21,7 @@ class Editor {
 
         this.initAce('code', params.initialEditorText);
         this.initSettingsDialog();
+        this.resize(); // TODO: listen to global resize events and respond
     }
 
     initAce(editorDivId, initialEditorText) {
