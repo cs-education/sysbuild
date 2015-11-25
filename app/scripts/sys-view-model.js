@@ -126,20 +126,7 @@ window.SysViewModel = (function () {
             return 'glyphicon ' + (self.isPrimaryTTY() ? 'glyphicon-chevron-right' : 'glyphicon-chevron-left');
         });
 
-        self.openManPageTabs = ko.observableArray();
-        self.currentActiveTabIndex = ko.observable(-2);
-        self.closeManPageTab = function (tab) {
-            var newActiveTabIndex = self.currentActiveTabIndex(),
-                index = self.openManPageTabs.indexOf(tab);
-
-            self.openManPageTabs.splice(index, 1);
-
-            if (index <= newActiveTabIndex) {
-                newActiveTabIndex = newActiveTabIndex - 1;
-            }
-            self.currentActiveTabIndex(newActiveTabIndex);
-
-        };
+        
 
         self.chapters = ko.observableArray([]);
         self.currentChapterIdx = ko.observable(0);
