@@ -1,0 +1,7 @@
+#doc-container {
+    padding: 5px;
+}
+
+#doc-container > h3 {
+    margin-top: 0px;
+}
