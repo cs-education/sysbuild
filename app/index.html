@@ -66,49 +66,11 @@
                 </div>
 
                 <div id="footer-container">
-                    <div class="footer" >
-                        <div class="col-sm-6">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <p>VM state:
-                                        <span data-bind="text: vmState, css: vmStateClass" class="vm-state-span">Booting</span>
-                                        <span id="vm-stats" class="label label-info vm-state-span"></span>
-                                    </p>
-                                </div>
-                                <div class="col-sm-7">
-                                    <p>Compiler:
-                                        <span data-bind="text: compileStatus, css: compileStatusClass, visible: !showErrorWarningLabel()">Idle</span>
-                                        <a href="#"
-                                           data-bind="html: errorWarningLabel, visible: showErrorWarningLabel, css: compileStatusClass"
-                                           data-toggle="modal" data-target="#gcc-error-window"></a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container col-sm-6 pull-right">
 
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- GCC Error Modal -->
-            <div class="modal fade" id="gcc-error-window" tabindex="-1" role="dialog" aria-labelledby="gcc-error-label" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title" id="gcc-error-label" data-bind="html: errorWarningLabel"></h4>
-                        </div>
-                        <div class="modal-body">
-                            <pre data-bind="text: lastGccOutput()"></pre>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
 
         </div><!--/.show-if-supported -->

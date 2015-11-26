@@ -29,6 +29,9 @@ ko.components.register('manpage-tab', { require: 'components/manpage-tab/manpage
 ko.components.register('video-search-tab', { require: 'components/video-search-tab/video-search-tab' });
 ko.components.register('playground-doc-pane', { require: 'components/playground-doc-pane/playground-doc-pane' });
 ko.components.register('playground-term-pane', { require: 'components/playground-term-pane/playground-term-pane' });
+ko.components.register('playground-footer', { require: 'components/playground-footer/playground-footer' });
+ko.components.register('vm-state-label', { require: 'components/vm-state-label/vm-state-label' });
+ko.components.register('compiler-state-label', { require: 'components/compiler-state-label/compiler-state-label' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application

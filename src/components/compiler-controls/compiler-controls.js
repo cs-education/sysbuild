@@ -8,6 +8,19 @@ class CompilerControls {
         this.programArgs = params.programArgs;
         this.compileBtnEnable = params.compileBtnEnable;
         this.compileBtnTooltip = params.compileBtnTooltip;
+
+        /* TODO
+        this.compileStatus = params.compileStatus();
+
+        this.compileBtnEnable = ko.pureComputed(() => {
+            var ready = !(this.compileStatus() === 'Waiting' || this.compileStatus() === 'Compiling');
+            if (ready) {
+                $.notific8('The compiler is now online', confirmNotific8Options);
+            } else {
+                $.notific8('The compiler is currently busy', busyNotific8Options);
+            }
+            return ready;
+        });*/
     }
 
     dispose() {
