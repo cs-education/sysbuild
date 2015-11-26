@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./compiler-state-label.html';
+import { notify } from 'app/notifications';
 
 const compileStatusToLabelClassMap = {
     'Waiting': 'default',
@@ -25,8 +26,7 @@ class CompilerStateLabel {
         this.showErrorWarningLabel = ko.pureComputed(() => {
             var unsuccessful = (this.compileStatus() === 'Warnings' || this.compileStatus() === 'Failed');
             if (unsuccessful) {
-                // TODO
-                //$.notific8('There were errors or warnings during compilation', warningNotific8Options);
+                notify('There were errors or warnings during compilation', 'red');
             }
             return unsuccessful;
         });
@@ -43,10 +43,6 @@ class CompilerStateLabel {
             }
             return str;
         });
-    }
-
-    notify(message, level) {
-
     }
 
     dispose() {

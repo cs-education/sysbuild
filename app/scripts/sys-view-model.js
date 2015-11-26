@@ -7,28 +7,12 @@ window.SysViewModel = (function () {
     function SysViewModel() {
         var self = this;
 
-        var warningNotific8Options = {
-            life: 5000,
-            theme: 'ruby',
-            icon: 'exclamation-triangle'
-        };
-
-        var busyNotific8Options = {
-            life: 5000,
-            theme: 'lemon',
-            icon: 'info-circled'
-        };
-
-        var confirmNotific8Options = {
-            life: 5000,
-            theme: 'lime',
-            icon: 'check-mark-2'
-        };
+        
 
         self.challengeDoc = ko.observable('');
         self.editorText = ko.observable('');
 
-        
+
         self.gccOptions = ko.observable('');
         self.gccOptsError = ko.observable('');
 

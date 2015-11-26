@@ -38,7 +38,7 @@ class PlaygroundLayout {
                         gccOptsError: ko.observable(''),
                         gccOptions: ko.observable(''),
                         programArgs: ko.observable(''),
-                        compileBtnEnable: ko.observable(false),
+                        compileStatus: ko.observable('Waiting'),
                         compileBtnTooltip: ko.observable('')
                     }
                 }
