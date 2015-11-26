@@ -28,6 +28,7 @@ ko.components.register('manpages-search-tab', { require: 'components/manpages-se
 ko.components.register('manpage-tab', { require: 'components/manpage-tab/manpage-tab' });
 ko.components.register('video-search-tab', { require: 'components/video-search-tab/video-search-tab' });
 ko.components.register('playground-doc-pane', { require: 'components/playground-doc-pane/playground-doc-pane' });
+ko.components.register('playground-term-pane', { require: 'components/playground-term-pane/playground-term-pane' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application
