@@ -2,9 +2,9 @@
     <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
     <div class="tty-buttons">
         <button data-bind="visible: fullScreenSupported, click: toggleFullScreen" class="btn btn-xs btn-default">
-            <span data-bind="css: ttyToggleBtnClass"></span>
+            <span data-bind="css: fullScreenToggleBtnClass"></span>
         </button>
-        <button data-bind="visible: !ttyFullScreen(), click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+        <button data-bind="visible: !isFullScreenActive(), click: switchTerminal" class="btn btn-xs btn-default">
             <span data-bind="css: ttySwitchBtnClass"></span>
         </button>
     </div>
@@ -13,9 +13,9 @@
     <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
     <div class="tty-buttons">
         <button data-bind="visible: fullScreenSupported, click: toggleFullScreen" class="btn btn-xs btn-default">
-            <span data-bind="css: ttyToggleBtnClass"></span>
+            <span data-bind="css: fullScreenToggleBtnClass"></span>
         </button>
-        <button data-bind="visible: !ttyFullScreen(), click: function () { isPrimaryTTY(!isPrimaryTTY()); }" class="btn btn-xs btn-default">
+        <button data-bind="visible: !isFullScreenActive(), click: switchTerminal" class="btn btn-xs btn-default">
             <span data-bind="css: ttySwitchBtnClass"></span>
         </button>
     </div>

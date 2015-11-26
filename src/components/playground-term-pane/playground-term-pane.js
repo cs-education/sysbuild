@@ -4,44 +4,48 @@ import 'jquery-fullscreen';
 
 class PlaygroundTermPane {
     constructor(params) {
-        this.ttyContainer = $('#tty-container');
-        this.ttyContainerTwo = $('#tty-container-two');
-        this.currentTTYContainer = this.ttyContainer;
-        this.fullScreenSupported = this.currentTTYContainer.fullScreen() !== null;
-        this.ttyFullScreen = ko.observable(false);
+        this.ttyContainers = [$('#tty-container'), $('#tty-container-two')];
+        this.ttys = ['tty0', 'tty1'];
+        this.activeTerminal = ko.observable(0);
+        this.ttySwitchBtnClass = ko.pureComputed(() =>
+            'glyphicon glyphicon-chevron-' + (this.activeTerminal() == 0 ? 'right' : 'left'));
 
-        this.ttyFullScreen.subscribe(function () {
-            //SysRuntime.getInstance().focusTerm(self.isPrimaryTTY() ? 'tty0' : 'tty1');
-        });
-
+        // https://github.com/kayahr/jquery-fullscreen-plugin#querying-fullscreen-mode
+        this.fullScreenSupported = this.currentFullScreenState() !== null;
+        this.isFullScreenActive = ko.observable(false);
         $(document).bind('fullscreenchange', () => {
-            this.ttyFullScreen(!!this.currentTTYContainer.fullScreen()); // coerce to boolean
+            var currentState = !!this.currentFullScreenState(); // coerce to boolean
+            this.isFullScreenActive(currentState);
+            this.focusTerminal(this.activeTerminal());
         });
+        this.fullScreenToggleBtnClass = ko.pureComputed(() =>
+            'glyphicon glyphicon-resize-' + (this.isFullScreenActive() ? 'small' : 'full'));
+    }
 
-        this.isPrimaryTTY = ko.observable(true);
-        this.isPrimaryTTY.subscribe((newFrontTTY) => {
-            this.currentTTYContainer.hide();
-            if (newFrontTTY) {
-                this.currentTTYContainer = this.ttyContainer;
-                //SysRuntime.getInstance().focusTerm('tty0');
-            } else {
-                this.currentTTYContainer = this.ttyContainerTwo;
-                //SysRuntime.getInstance().focusTerm('tty1');
-            }
-            this.currentTTYContainer.show();
-        });
+    currentTerminalContainer() {
+        return this.ttyContainers[this.activeTerminal()];
+    }
 
-        this.ttyToggleBtnClass = ko.pureComputed(() => {
-            return 'glyphicon ' + (this.ttyFullScreen() ? 'glyphicon-resize-small' : 'glyphicon-resize-full');
-        });
-
-        this.ttySwitchBtnClass = ko.pureComputed(() => {
-            return 'glyphicon ' + (this.isPrimaryTTY() ? 'glyphicon-chevron-right' : 'glyphicon-chevron-left');
-        });
+    currentFullScreenState() {
+        return this.currentTerminalContainer().fullScreen();
     }
 
     toggleFullScreen() {
-        this.currentTTYContainer.toggleFullScreen();
+        this.currentTerminalContainer().toggleFullScreen();
+    }
+
+    switchTerminal() {
+        var current = this.activeTerminal(),
+            other = 1 - current;
+        this.ttyContainers[current].hide();
+        this.activeTerminal(other);
+        this.ttyContainers[other].show();
+        this.focusTerminal(other);
+    }
+
+    focusTerminal(n) {
+        // TODO
+        //SysRuntime.getInstance().focusTerm(this.ttys[n]);
     }
 
     dispose() {

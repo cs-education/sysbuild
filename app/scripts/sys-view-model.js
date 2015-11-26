@@ -92,41 +92,9 @@ window.SysViewModel = (function () {
             return 'label label-' + vmStateToLabelClassMap[self.vmState()];
         });
 
-        self.ttyContainer = $('#tty-container');
-        self.ttyContainerTwo = $('#tty-container-two');
-        self.currentTTYContainer = self.ttyContainer;
-        self.fullScreenSupported = self.currentTTYContainer.fullScreen() !== null;
-        self.ttyFullScreen = ko.observable(false);
-        self.toggleFullScreen = function () {
-            self.currentTTYContainer.toggleFullScreen();
-        };
-        self.ttyFullScreen.subscribe(function () {
-            SysRuntime.getInstance().focusTerm(self.isPrimaryTTY() ? 'tty0' : 'tty1');
-        });
-        $(document).bind('fullscreenchange', function () {
-            self.ttyFullScreen(!!self.currentTTYContainer.fullScreen()); // coerce to boolean
-        });
-        self.isPrimaryTTY = ko.observable(true);
-        self.isPrimaryTTY.subscribe(function (newFrontTTY) {
-            self.currentTTYContainer.hide();
-            if (newFrontTTY) {
-                self.currentTTYContainer = self.ttyContainer;
-                SysRuntime.getInstance().focusTerm('tty0');
-            } else {
-                self.currentTTYContainer = self.ttyContainerTwo;
-                SysRuntime.getInstance().focusTerm('tty1');
-            }
-            self.currentTTYContainer.show();
-        });
-        self.ttyToggleBtnClass = ko.pureComputed(function () {
-            return 'glyphicon ' + (self.ttyFullScreen() ? 'glyphicon-resize-small' : 'glyphicon-resize-full');
-        });
-
-        self.ttySwitchBtnClass = ko.pureComputed(function () {
-            return 'glyphicon ' + (self.isPrimaryTTY() ? 'glyphicon-chevron-right' : 'glyphicon-chevron-left');
-        });
-
         
+
+
 
         self.chapters = ko.observableArray([]);
         self.currentChapterIdx = ko.observable(0);
