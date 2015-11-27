@@ -3,7 +3,7 @@ import templateMarkup from 'text!./lesson-navigation-pager.html';
 
 class LessonNavigationPager {
     constructor(params) {
-        var activityData = params.activityData(),
+        var activityData = params.activityData,
             currentChapter = activityData.chapter,
             currentChapterIdx = currentChapter.index,
             currentSection = activityData.section,

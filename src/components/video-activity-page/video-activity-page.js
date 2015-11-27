@@ -5,7 +5,8 @@ import videojs from 'videojs';
 
 class VideoActivityPage {
     constructor(params) {
-        var videoActivity = params.activity;
+        this.activityData = params.activityData;
+        var videoActivity = this.activityData.activity;
         var videoUrlPrefix = 'https://cs-education.github.io/sysassets/' + videoActivity.file;
         var videoName = videoActivity.file.replace('mp4/', '');
 

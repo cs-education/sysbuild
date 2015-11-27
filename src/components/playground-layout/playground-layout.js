@@ -5,7 +5,7 @@ import 'jquery-ui-layout';
 class PlaygroundLayout {
     constructor(params) {
         this.activityData = params.activityData;
-        this.showLessonNavigation = this.activityData && this.activityData();
+        this.showLessonNavigation = !!this.activityData; // coerce to boolean
         this.editorPaneTabs = ko.observableArray();
 
         // TODO: for testing only
