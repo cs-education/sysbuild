@@ -5,9 +5,14 @@ import marked from 'marked';
 class PlaygroundDocPane {
     constructor(params) {
         this.docHtml = ko.observable('');
-        $.get(params.docFile, (data) => {
-            this.docHtml(marked(data));
-        });
+        var processFunc = params.doc.format === 'markdown' ? marked : (data) => data;
+        if (params.doc.url) {
+            $.get(params.doc.url, (data) => {
+                this.docHtml(processFunc(data));
+            });
+        } else {
+            this.docHtml(processFunc(params.doc.text));
+        }
     }
 
     dispose() {
