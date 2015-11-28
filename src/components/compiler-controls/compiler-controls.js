@@ -19,6 +19,10 @@ class CompilerControls {
             }
             return ready;
         });
+
+        $('#compile-btn').click(() => {
+            params.compileCallback();
+        });
     }
 
     dispose() {

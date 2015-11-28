@@ -8,10 +8,11 @@ class PlayActivityPage {
         this.setEditorParams();
         this.setCompilerParams();
         this.setVmParams();
+        this.setupCompileCallbacks();
         if (this.activityData) {
             this.setParamsFromActivity(this.activityData.activity);
         } else {
-            this.setDefaultPlaygroundParams();
+            this.setParamsFromDefaults();
         }
     }
 
@@ -33,7 +34,7 @@ class PlayActivityPage {
         }
     }
 
-    setDefaultPlaygroundParams() {
+    setParamsFromDefaults() {
         this.editorParams.initialEditorText = '/*Write your C code here*/\n' +
             '#include <stdio.h>\n' +
             '\n' +
@@ -83,7 +84,8 @@ class PlayActivityPage {
             highlightLine: highlightLine,
             showInvisibles: showInvisibles,
             theme: theme,
-            fontSize: fontSize
+            fontSize: fontSize,
+            keyboardShortcuts: []
         };
     }
 
@@ -104,9 +106,38 @@ class PlayActivityPage {
             lastGccOutput: lastGccOutput,
             gccOptsError: gccOptsError,
             gccErrorCount: gccErrorCount,
-            gccWarningCount: gccWarningCount,
-            compileBtnTooltip: ko.observable('')
+            gccWarningCount: gccWarningCount
         };
+    }
+
+    setupCompileCallbacks() {
+        var compileShortcut = {
+            win: 'Ctrl-Return',
+            mac: 'Command-Return'
+        };
+
+        var platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
+        var shortcut = platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win;
+        this.compilerParams.compileBtnTooltip = `Compile and Run (${shortcut} in code editor)`;
+
+        // the editor will set the value of this observable to a function which returns the editor text
+        this.editorParams.editorTextGetter = ko.observable(() => '');
+
+        var compile = () => {
+            var code = (this.editorParams.editorTextGetter())();
+            var gccOptions = this.compilerParams.gccOptions();
+            //liveEdit.runCode(code, gccOptions);
+            console.log(code, gccOptions);
+        };
+
+        this.compilerParams.compileCallback = compile;
+
+        this.editorParams.keyboardShortcuts.push([
+            'compileAndRunShortcut',
+            compileShortcut,
+            compile,
+            true // the compile command should work in readOnly mode
+        ]);
     }
 
     setVmParams() {

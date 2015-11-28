@@ -15,6 +15,9 @@ class Editor {
 
         this.availableThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
 
+        this.annotations = params.annotations;
+        this.keyboardShortcuts = params.keyboardShortcuts;
+
         this.editorId = 0;
         this.elementIdPrefix = 'editor' + this.editorId + '-';
 
@@ -38,6 +41,8 @@ class Editor {
         });
 
         this.resize(); // TODO: listen to global resize events and respond
+
+        params.editorTextGetter(this.getText.bind(this));
     }
 
     initAce(editorDivId, initialEditorText) {
@@ -66,6 +71,11 @@ class Editor {
 
         this.setAceShowInvisbles(this.prefs.showInvisibles());
         this.prefs.showInvisibles.subscribe((newVal) => { this.setAceShowInvisbles(newVal); });
+
+        this.setAceAnnotations(this.annotations());
+        this.annotations.subscribe((newVal) => { this.setAceAnnotations(newVal); });
+
+        this.keyboardShortcuts.forEach((shortcutArgs) => this.addKeyboardCommand(...shortcutArgs));
 
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
         this.aceEditor.on('change', () => {

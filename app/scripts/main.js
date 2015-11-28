@@ -48,35 +48,9 @@ $(document).ready(function () {
         }
     });
 
-    var compileShortcut = { // used for text and for binding
-        win: 'Ctrl-Return',
-        mac: 'Command-Return'
-    };
-
-    var platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
-    var compileBtnTooltip = 'Compile and Run (' +
-        (platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win) +
-        ' in code editor)';
-    viewModel.compileBtnTooltip(compileBtnTooltip);
-
-    var compile = function () {
-        var code = editor.getText();
-        var gccOptions = viewModel.gccOptions();
-        liveEdit.runCode(code, gccOptions);
-    };
-
-    $('#compile-btn').click(function () {
-        compile();
-    });
-
-    editor.addKeyboardCommand(
-        'compileAndRunShortcut',
-        compileShortcut,
-        compile,
-        true // the compile command should work in readOnly mode
-    );
-
     
+
+
 
 
 
