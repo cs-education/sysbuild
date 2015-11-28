@@ -48,22 +48,4 @@ $(document).ready(function () {
         }
     });
 
-    
-
-
-
-
-
-    ko.applyBindings(viewModel);
-    viewModel.shownPage.subscribe(function (newPage) {
-        if (newPage === 'playground') {
-            if (!window.layouts) {
-                window.layouts = initLayout();
-            }
-            $(window).trigger('resize');
-        }
-    });
-
-    Router.getInstance().run();
-
 });
