@@ -76,28 +76,9 @@ $(document).ready(function () {
         true // the compile command should work in readOnly mode
     );
 
-    // Initialize Bootstrap tooltip and popover
-    $('[data-toggle=tooltip]').tooltip();
-    $('[data-toggle=popover]')
-        .popover()
-        .click(function (e) {
-            e.preventDefault();
-        });
+    
 
-    $('#editor-opts-container').find('form').submit(function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    });
 
-    $('#download-file-btn').click(function () {
-        var text = editor.getText();
-        var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
-        saveAs(blob, 'program.c');
-    });
-
-    $('#autoindent-code-btn').click(function () {
-        editor.autoIndentCode();
-    });
 
     ko.applyBindings(viewModel);
     viewModel.shownPage.subscribe(function (newPage) {

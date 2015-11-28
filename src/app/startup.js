@@ -34,5 +34,9 @@ ko.components.register('vm-state-label', { require: 'components/vm-state-label/v
 ko.components.register('compiler-state-label', { require: 'components/compiler-state-label/compiler-state-label' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
+// Initialize Bootstrap tooltip and popover
+$('[data-toggle=tooltip]').tooltip();
+$('[data-toggle=popover]').popover().click((e) => { e.preventDefault(); });
+
 // Start the application
 ko.applyBindings({ route: router.currentRoute });

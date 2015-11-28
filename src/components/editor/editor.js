@@ -20,6 +20,23 @@ class Editor {
 
         this.initAce('code', params.initialEditorText);
         this.initSettingsDialog();
+
+        // Prevent page navigation when hitting enter/return inside the font size box
+        $('#editor-opts-container').find('form').submit((e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $('#download-file-btn').click(() => {
+            var text = this.getText();
+            var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+            saveAs(blob, 'program.c');
+        });
+
+        $('#autoindent-code-btn').click(() => {
+            this.autoIndentCode();
+        });
+
         this.resize(); // TODO: listen to global resize events and respond
     }
 
