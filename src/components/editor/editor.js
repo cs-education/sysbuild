@@ -128,16 +128,16 @@ class Editor {
 
         // https://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
         var $body = $('body');
-        $body.on('change', '#' + this.elementIdPrefix + 'autoindent-checkbox', () => {
-            this.prefs.backgroundAutoIndent(this.checked);
+        $body.on('change', '#' + this.elementIdPrefix + 'autoindent-checkbox', (e) => {
+            this.prefs.backgroundAutoIndent(e.currentTarget.checked);
         });
 
-        $body.on('change', '#' + self.elementIdPrefix + 'ace-highlight-active-lines-checkbox', function () {
-            this.prefs.highlightLine(this.checked);
+        $body.on('change', '#' + this.elementIdPrefix + 'ace-highlight-active-lines-checkbox', (e) => {
+            this.prefs.highlightLine(e.currentTarget.checked);
         });
 
-        $body.on('change', '#' + self.elementIdPrefix + 'ace-show-invisibles-checkbox', function () {
-            this.prefs.showInvisibles(this.checked);
+        $body.on('change', '#' + this.elementIdPrefix + 'ace-show-invisibles-checkbox', (e) => {
+            this.prefs.showInvisibles(e.currentTarget.checked);
         });
 
         // The following three click handlers achieve toggling the settings popover when clicking the settings button
@@ -156,6 +156,7 @@ class Editor {
         $settingsPopover.on('click', (e) => {
             $settingsPopover.popover('toggle');
             e.stopPropagation();
+            e.preventDefault();
         });
     }
 
