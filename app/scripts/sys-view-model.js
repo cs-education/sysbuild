@@ -5,16 +5,7 @@ window.SysViewModel = (function () {
     var instance;
 
     function SysViewModel() {
-        var self = this;
-
-        self.shownPage = ko.observable();
-        self.shownPage.subscribe(function (newPage) {
-            if (newPage === 'playground') {
-                $('body').css('overflow', 'hidden');
-            } else {
-                $('body').css('overflow', 'auto');
-            }
-        });
+        
     }
 
     return {
