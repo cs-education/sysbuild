@@ -8,16 +8,15 @@ class PlaygroundLayout {
         this.showLessonNavigation = !!this.activityData; // coerce to boolean
         this.editorPaneTabs = ko.observableArray();
 
-        // TODO: for testing only
-        this.docFile = 'https://cs-education.github.io/sysassets/chapters/chapter01/play-1-1.md';
+        this.docParams = params.docParams;
 
         this.initLayout();
         this.createVideoSearchTab();
-        this.createEditorTab();
+        this.createEditorTab(params.editorParams, params.compilerParams);
         this.createManPageSearchTab();
     }
 
-    createEditorTab() {
+    createEditorTab(editorParams, compilerParams) {
         this.editorPaneTabs.push({
             title: 'Code',
             icon: 'file',
@@ -25,22 +24,8 @@ class PlaygroundLayout {
             component: {
                 name: 'editor-compiler-tab',
                 params: {
-                    editorParams: {
-                        autoindent: ko.observable(true),
-                        highlightLine: ko.observable(true),
-                        showInvisibles: ko.observable(false),
-                        theme: ko.observable('monokai'),
-                        fontSize: ko.observable(12),
-                        availableAceThemes: ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']),
-                        initialEditorText: 'INITIAL EDITOR TEXT'
-                    },
-                    compilerParams: {
-                        gccOptsError: ko.observable(''),
-                        gccOptions: ko.observable(''),
-                        programArgs: ko.observable(''),
-                        compileStatus: ko.observable('Waiting'),
-                        compileBtnTooltip: ko.observable('')
-                    }
+                    editorParams: editorParams,
+                    compilerParams: compilerParams
                 }
             }
         });
