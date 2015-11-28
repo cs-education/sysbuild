@@ -3,6 +3,8 @@ import templateMarkup from 'text!./lesson-navigation-pager.html';
 
 class LessonNavigationPager {
     constructor(params) {
+        this.listCssClass = params.listCssClass;
+
         var activityData = params.activityData,
             currentChapter = activityData.chapter,
             currentChapterIdx = currentChapter.index,
