@@ -13,7 +13,7 @@ class Editor {
         prefs.fontSize = params.fontSize;
         this.prefs = prefs;
 
-        this.availableThemes = params.availableAceThemes;
+        this.availableThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
 
         this.editorId = 0;
         this.elementIdPrefix = 'editor' + this.editorId + '-';

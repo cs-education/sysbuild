@@ -4,7 +4,7 @@ import 'knockout-projections'
 
 class EditorPane {
     constructor(params) {
-        this.currentActiveTabIndex = ko.observable(0);
+        this.currentActiveTabIndex = ko.observable(params.initialTabIndex || 0);
         this.sourceTabArray = params.editorPaneTabs;
         this.editorPaneTabs = this.sourceTabArray.map((tab) => ({
             tabTitle: tab.title,

@@ -9,8 +9,7 @@ class PlayActivityPage {
             highlightLine: ko.observable(true),
             showInvisibles: ko.observable(false),
             theme: ko.observable('monokai'),
-            fontSize: ko.observable(12),
-            availableAceThemes: ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode'])
+            fontSize: ko.observable(12)
         };
 
         this.compilerParams = {
