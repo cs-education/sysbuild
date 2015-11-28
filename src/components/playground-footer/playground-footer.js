@@ -3,9 +3,10 @@ import templateMarkup from 'text!./playground-footer.html';
 
 class PlaygroundFooter {
     constructor(params) {
-        this.message = ko.observable('Hello from the playground-footer component!');
+        this.vmState = params.vmState;
+        this.compilerStateParams = params.compilerStateParams;
     }
-    
+
     dispose() {
         // This runs when the component is torn down. Put here any logic necessary to clean up,
         // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.

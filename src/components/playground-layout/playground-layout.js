@@ -9,10 +9,18 @@ class PlaygroundLayout {
         this.editorPaneTabs = ko.observableArray();
 
         this.docParams = params.docParams;
+        this.vmState = params.vmParams.vmState;
+        this.compilerParams = params.compilerParams;
+        this.compilerStateParams = {
+            compileStatus: this.compilerParams.compileStatus,
+            lastGccOutput: this.compilerParams.lastGccOutput,
+            gccErrorCount: this.compilerParams.gccErrorCount,
+            gccWarningCount: this.compilerParams.gccWarningCount,
+        }
 
         this.initLayout();
         this.createVideoSearchTab();
-        this.createEditorTab(params.editorParams, params.compilerParams);
+        this.createEditorTab(params.editorParams, this.compilerParams);
         this.createManPageSearchTab();
     }
 

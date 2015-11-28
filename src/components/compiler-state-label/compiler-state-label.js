@@ -14,11 +14,10 @@ const compileStatusToLabelClassMap = {
 
 class CompilerStateLabel {
     constructor(params) {
-        // TODO: Wire these from parent component
-        this.compileStatus = ko.observable('Warnings');
-        this.gccErrorCount = ko.observable(1);
-        this.gccWarningCount = ko.observable(1);
-        this.lastGccOutput = ko.observable('TEST');
+        this.compileStatus = params.compilerState.compileStatus;
+        this.gccErrorCount = params.compilerState.gccErrorCount;
+        this.gccWarningCount = params.compilerState.gccWarningCount;
+        this.lastGccOutput = params.compilerState.lastGccOutput;
 
         this.compileStatusClass = ko.pureComputed(() =>
             'label label-' + compileStatusToLabelClassMap[this.compileStatus()]);

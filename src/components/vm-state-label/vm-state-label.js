@@ -10,7 +10,7 @@ const vmStateToLabelClassMap = {
 
 class VmStateLabel {
     constructor(params) {
-        this.vmState = ko.observable('Stopped');
+        this.vmState = params.vmState;
         this.vmStateClass = ko.pureComputed(() =>
             'label label-' + vmStateToLabelClassMap[this.vmState()]);
     }

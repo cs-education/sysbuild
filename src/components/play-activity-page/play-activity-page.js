@@ -5,17 +5,9 @@ import Preferences from 'app/preferences';
 class PlayActivityPage {
     constructor(params) {
         this.activityData = params.activityData;
-
         this.setEditorParams();
-
-        this.compilerParams = {
-            gccOptsError: ko.observable(''),
-            gccOptions: ko.observable(''),
-            programArgs: ko.observable(''),
-            compileStatus: ko.observable('Waiting'),
-            compileBtnTooltip: ko.observable('')
-        };
-
+        this.setCompilerParams();
+        this.setVmParams();
         if (this.activityData) {
             this.setParamsFromActivity(this.activityData.activity);
         } else {
@@ -66,6 +58,8 @@ class PlayActivityPage {
     }
 
     setEditorParams() {
+        var editorAnnotations = ko.observableArray([]); // TODO: Wire this with the VM/Runtime
+
         var editorPrefs = Preferences.getPreferenceManager('editor');
 
         var autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true'));
@@ -84,12 +78,43 @@ class PlayActivityPage {
         fontSize.subscribe((newSetting) => editorPrefs.setItem('fontsize', newSetting));
 
         this.editorParams = {
+            annotations: editorAnnotations,
             autoIndent: autoIndent,
             highlightLine: highlightLine,
             showInvisibles: showInvisibles,
             theme: theme,
             fontSize: fontSize
         };
+    }
+
+    setCompilerParams() {
+        // TODO: Wire these with the VM/Runtime
+        var gccOptions = ko.observable('');
+        var programArgs = ko.observable('');
+        var compileStatus = ko.observable('Waiting');
+        var lastGccOutput = ko.observable('');
+        var gccOptsError =  ko.observable('');
+        var gccErrorCount = ko.observable(0);
+        var gccWarningCount = ko.observable(0);
+
+        this.compilerParams = {
+            gccOptions: gccOptions,
+            programArgs: programArgs,
+            compileStatus: compileStatus,
+            lastGccOutput: lastGccOutput,
+            gccOptsError: gccOptsError,
+            gccErrorCount: gccErrorCount,
+            gccWarningCount: gccWarningCount,
+            compileBtnTooltip: ko.observable('')
+        };
+    }
+
+    setVmParams() {
+        // TODO: Wire this with the VM/Runtime
+        var vmState = ko.observable('Booting');
+        this.vmParams = {
+            vmState: vmState
+        }
     }
 
     dispose() {
