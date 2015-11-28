@@ -1,23 +1,16 @@
-
-window.Preferences = (function () {
-    'use strict';
-    var instance;
-    var namedinstances = [];
-
-    function Preferences() {
-        var self = this;
-
+class Preferences {
+    constructor() {
         // check if local storage supported
         try {
-            self.useLocalStorage = (localStorage !== 'undefined');
+            this.useLocalStorage = (localStorage !== 'undefined');
         } catch (e) {
             // error accessing local storage (user may have blocked access)
             console.log(e);
-            self.useLocalStorage = false;
+            this.useLocalStorage = false;
         }
     }
 
-    Preferences.prototype.setItem = function (key, value) {
+    setItem(key, value) {
         if (this.useLocalStorage) {
             try {
                 localStorage.setItem(key, value);
@@ -26,9 +19,9 @@ window.Preferences = (function () {
                 console.log(e);
             }
         }
-    };
+    }
 
-    Preferences.prototype.getItem = function (key, defaultValue) {
+    getItem(key, defaultValue) {
         if (this.useLocalStorage) {
             try {
                 var result = localStorage.getItem(key);
@@ -41,9 +34,9 @@ window.Preferences = (function () {
         } else {
             return defaultValue;
         }
-    };
+    }
 
-    Preferences.prototype.removeItem = function (key) {
+    removeItem(key) {
         if (this.useLocalStorage) {
             try {
                 localStorage.removeItem(key);
@@ -52,9 +45,9 @@ window.Preferences = (function () {
                 console.log(e);
             }
         }
-    };
+    }
 
-    Preferences.prototype.clear = function () {
+    clear() {
         if (this.useLocalStorage) {
             try {
                 localStorage.clear();
@@ -63,36 +56,35 @@ window.Preferences = (function () {
                 console.log(e);
             }
         }
-    };
+    }
+}
 
-    function NamedPreferences(namespace, preferenceManager) {
-        var self = this;
-        self.manager = preferenceManager;
-        self.prefix = 'preferences/' + namespace;
+class NamedPreferences {
+    constructor(namespace, preferenceManager) {
+        this.manager = preferenceManager;
+        this.prefix = 'preferences/' + namespace;
     }
 
-    NamedPreferences.prototype.setItem = function (key, value) {
+    setItem(key, value) {
         this.manager.setItem(this.prefix + '/' + key, value);
     };
 
-    NamedPreferences.prototype.getItem = function (key, defaultValue) {
+    getItem(key, defaultValue) {
         return this.manager.getItem(this.prefix + '/' + key, defaultValue);
     };
 
-    NamedPreferences.prototype.removeItem = function (key) {
+    removeItem(key) {
         this.manager.removeItem(this.prefix + '/' + key);
     };
+}
 
-    return {
-        getInstance: function (namespace) {
-            if (!instance) {
-                instance = new Preferences();
-                instance.constructor = null;
-            }
-            if (!namedinstances[namespace]) {
-                namedinstances[namespace] = new NamedPreferences(namespace, instance);
-            }
-            return namedinstances[namespace];
+var instance = new Preferences();
+var namedInstances = [];
+export default {
+    getPreferenceManager: (namespace) => {
+        if (!namedInstances[namespace]) {
+            namedInstances[namespace] = new NamedPreferences(namespace, instance);
         }
-    };
-})();
+        return namedInstances[namespace];
+    }
+}

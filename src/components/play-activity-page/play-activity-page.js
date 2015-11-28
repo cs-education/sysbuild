@@ -1,16 +1,12 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./play-activity-page.html';
+import Preferences from 'app/preferences';
 
 class PlayActivityPage {
     constructor(params) {
         this.activityData = params.activityData;
-        this.editorParams = {
-            autoindent: ko.observable(true),
-            highlightLine: ko.observable(true),
-            showInvisibles: ko.observable(false),
-            theme: ko.observable('monokai'),
-            fontSize: ko.observable(12)
-        };
+
+        this.setEditorParams();
 
         this.compilerParams = {
             gccOptsError: ko.observable(''),
@@ -67,6 +63,33 @@ class PlayActivityPage {
                 '\nOnce you are done playing, learn C and system programming! Go to the lessons page by clicking the link in the top navigation bar.',
             format: 'markdown'
         }
+    }
+
+    setEditorParams() {
+        var editorPrefs = Preferences.getPreferenceManager('editor');
+
+        var autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true'));
+        autoIndent.subscribe((newSetting) => editorPrefs.setItem('autoindent', newSetting));
+
+        var highlightLine = ko.observable(editorPrefs.getItem('highlightline', 'true'));
+        highlightLine.subscribe((newSetting) => editorPrefs.setItem('highlightline', newSetting));
+
+        var showInvisibles = ko.observable(editorPrefs.getItem('showinvisibles', 'false'));
+        showInvisibles.subscribe((newSetting) => editorPrefs.setItem('showinvisibles', newSetting));
+
+        var theme = ko.observable(editorPrefs.getItem('theme', 'monokai'));
+        theme.subscribe((newSetting) => editorPrefs.setItem('theme', newSetting));
+
+        var fontSize = ko.observable(editorPrefs.getItem('fontsize', 12));
+        fontSize.subscribe((newSetting) => editorPrefs.setItem('fontsize', newSetting));
+
+        this.editorParams = {
+            autoIndent: autoIndent,
+            highlightLine: highlightLine,
+            showInvisibles: showInvisibles,
+            theme: theme,
+            fontSize: fontSize
+        };
     }
 
     dispose() {

@@ -6,7 +6,7 @@ class Editor {
     constructor(params) {
         // all the preferences are ko observables
         var prefs = {};
-        prefs.backgroundAutoIndent = params.autoindent;
+        prefs.backgroundAutoIndent = params.autoIndent;
         prefs.highlightLine = params.highlightLine;
         prefs.showInvisibles = params.showInvisibles;
         prefs.theme = params.theme;
