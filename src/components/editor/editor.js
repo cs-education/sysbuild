@@ -3,6 +3,8 @@ import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
 import 'bloodhound';
 import TokenHighlighter from 'components/editor/token-highlighter'
+import 'Blob';
+import 'FileSaver';
 
 class Editor {
     constructor(params) {

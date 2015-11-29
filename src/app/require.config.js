@@ -18,8 +18,10 @@ var require = {
         "jquery-notific8":      "bower_modules/jquery-notific8/dist/jquery.notific8.min",
         "ace":                  "bower_modules/ace-builds/src/",
         "typeahead-jquery":     "bower_modules/typeahead.js/dist/typeahead.jquery.min",
-        "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // TODO: this leaks a "Bloodhound" global
-        "jor1k":                "bower_modules/jor1k/bin/jor1k-master-min"
+        "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // exports window global "Bloodhound"
+        "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
+        "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
+        "jor1k":                "bower_modules/jor1k/bin/jor1k-master-min" // exports window global "require" (from Browserify)
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },
