@@ -1,6 +1,8 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
+import 'bloodhound';
+import TokenHighlighter from 'components/editor/token-highlighter'
 
 class Editor {
     constructor(params) {
@@ -21,8 +23,10 @@ class Editor {
         this.editorId = 0;
         this.elementIdPrefix = 'editor' + this.editorId + '-';
 
-        this.initAce('code', params.initialEditorText);
+        this.initAce('code');
         this.initSettingsDialog();
+        this.initTokenHighlighting();
+        this.setAceText(params.initialEditorText);
 
         // Prevent page navigation when hitting enter/return inside the font size box
         $('#editor-opts-container').find('form').submit((e) => {
@@ -46,7 +50,7 @@ class Editor {
         params.editorTextGetter(this.getText.bind(this));
     }
 
-    initAce(editorDivId, initialEditorText) {
+    initAce(editorDivId) {
         this.editorDivId = editorDivId;
         this.aceEditor = ace.edit(editorDivId);
 
@@ -54,8 +58,6 @@ class Editor {
         // "Automatically scrolling cursor into view after selection change this will be disabled
         // in the next version set editor.$blockScrolling = Infinity to disable this message"
         this.aceEditor.$blockScrolling = Infinity;
-
-        this.setAceText(initialEditorText);
 
         this.setAceMode('c_cpp');
         this.aceEditor.getSession().setTabSize(4);
@@ -171,6 +173,20 @@ class Editor {
         });
     }
 
+    initTokenHighlighting() {
+        var manPageTokens = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            limit: 10,
+            prefetch: {
+                url: 'https://cs-education.github.io/sysassets/man_pages/sys_man_page_index.min.json'
+            }
+        });
+        manPageTokens.initialize();
+        var openManPage = (data) => { console.log(data); }; // TODO
+        this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, openManPage);
+    }
+
     /**
      * @param size A valid CSS font size string, for example '12px'.
      */
@@ -200,10 +216,6 @@ class Editor {
 
     setAceAnnotations(annotations) {
         this.aceEditor.getSession().setAnnotations(annotations);
-    };
-
-    setAceTokenHighlighter(tokens, cb) {
-        this.tokenHighlighter = new TokenHighlighter(this, tokens, cb);
     };
 
     getText() {

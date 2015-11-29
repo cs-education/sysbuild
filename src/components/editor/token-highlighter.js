@@ -1,11 +1,9 @@
-/* global ace */
+import ace from 'ace/ace';
+var Range = ace.require('ace/range').Range;
 
-window.TokenHighlighter = (function () {
-    'use strict';
+class TokenHighlighter {
 
-    var Range = ace.require('ace/range').Range;
-
-    function TokenHighlighter(editor, tokens, cb) {
+    constructor(editor, tokens, cb) {
         var self = this;
 
         self.aceEditor = editor.aceEditor;
@@ -31,13 +29,13 @@ window.TokenHighlighter = (function () {
         var keyShortcutExec = function (aceEditor) {
             var pos = aceEditor.getCursorPosition();
             var token = aceEditor.session.getTokenAt(pos.row, pos.column);
-            aceEditor.TokenHighlighter.eventHandler(token);
+            self.eventHandler(token);
         };
         editor.addKeyboardCommand('tokenHighlightShortcut', {win: 'Ctrl-I', mac: 'Command-I'}, keyShortcutExec);
         self.aceEditor.on('click', self.onClick.bind(self));
     }
 
-    TokenHighlighter.prototype.highlightTokens = function () {
+    highlightTokens() {
         var self = this;
 
         self.busy = true;
@@ -79,9 +77,9 @@ window.TokenHighlighter = (function () {
             tokens.forEach(searchAndHighlight);
         }
         self.busy = false;
-    };
+    }
 
-    TokenHighlighter.prototype.onClick = function (e) {
+    onClick(e) {
         var aceEditor = e.editor;
         var r = aceEditor.renderer;
         var canvasPos = r.rect || (r.rect = r.scroller.getBoundingClientRect());
@@ -93,17 +91,17 @@ window.TokenHighlighter = (function () {
         if (token && this.supportedTypes[token.type]) {
             this.eventHandler(token);
         }
-    };
+    }
 
-    TokenHighlighter.prototype.eventHandler = function (token) {
-        if (this.tokenStore[token.value]) {
+    eventHandler(token) {
+        if (token && this.tokenStore[token.value]) {
             this.eventCallback(this.tokenStore[token.value]);
         }
-    };
+    }
 
-    TokenHighlighter.prototype.destroy = function () {
+    destroy() {
         delete this.aceEditor.TokenHighlighter;
-    };
+    }
+}
 
-    return TokenHighlighter;
-})();
+export default TokenHighlighter;
