@@ -1,10 +1,6 @@
-/* global ExpectTTY, GccOutputParser */
-
-// A singleton that encapsulates the virtual machine interface
-window.SysRuntime = (function () {
-    'use strict';
-
-    function SysRuntime() {
+// Encapsulates the virtual machine interface
+class SysRuntime {
+    constructor() {
 
         this.bootFinished = false;
         this.tty0ready = false;
@@ -19,7 +15,7 @@ window.SysRuntime = (function () {
         this.gccExitCodeCaptureRe = /GCC_EXIT_CODE: (\d+)/;
 
         // Set up callbacks
-        this.putCharTTY0Listener = function (character) {
+        this.putCharTTY0Listener = (character) => {
             // capture output from tty0
             if (this.captureOutput) {
                 this.ttyOutput += character;
@@ -27,11 +23,11 @@ window.SysRuntime = (function () {
             this.notifyListeners('putchar-tty0', character);
         }.bind(this);
 
-        this.putCharTTY1Listener = function (character) {
+        this.putCharTTY1Listener = (character) => {
             this.notifyListeners('putchar-tty1', character);
         }.bind(this);
 
-        var onBootFinished = function () {
+        var onBootFinished = () => {
             if (this.tty0ready && this.tty1ready) {
                 // LiveEdit uses the bootFinished value when sent the ready event,
                 // so bootFinished must be updated before broadcasting the event
@@ -40,29 +36,29 @@ window.SysRuntime = (function () {
             }
         }.bind(this);
 
-        var onTTY0Ready = function (completed) {
+        var onTTY0Ready = (completed) => {
             this.tty0ready = completed;
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
         }.bind(this);
 
-        var onTTY1Ready = function (completed) {
+        var onTTY1Ready = (completed) => {
             this.tty1ready = completed;
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
         }.bind(this);
 
-        var onTTY1RootLogin = function (completed) {
+        var onTTY1RootLogin = (completed) => {
             if (completed) {
                 this.sendKeys('tty1', 'login -f user\n', '~ $', onTTY1Ready); // login as user
             }
         }.bind(this);
 
-        var onTTY0Login = function (completed) {
+        var onTTY0Login = (completed) => {
             if (completed) {
                 this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY0Ready);
             }
         }.bind(this);
 
-        var onTTY1Login = function (completed) {
+        var onTTY1Login = (completed) => {
             if (completed) {
                 this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
             }
@@ -113,15 +109,15 @@ window.SysRuntime = (function () {
         return this;
     }
 
-    SysRuntime.prototype.ready = function () {
+    ready() {
         return this.bootFinished;
-    };
+    }
 
-    SysRuntime.prototype.focusTerm = function (tty) {
+    focusTerm(tty) {
         this.jor1kgui.FocusTerm(tty);
-    };
+    }
 
-    SysRuntime.prototype.startGccCompile = function (code, gccOptions, guiCallback) {
+    startGccCompile(code, gccOptions, guiCallback) {
         if (!this.bootFinished) {
             return 0;
         }
@@ -134,7 +130,7 @@ window.SysRuntime = (function () {
         this.captureOutput = true;
         ++this.compileTicket;
 
-        var compileCb = function (completed) {
+        var compileCb = (completed) => {
             var result = null;
             this.expecting = undefined;
             if (completed) {
@@ -152,7 +148,7 @@ window.SysRuntime = (function () {
 
                 var annotations = this.getErrorAnnotations(gccOutput);
 
-                annotations.forEach(function (note) {
+                annotations.forEach((note) => {
                     stats[note.type] += 1;
                 });
 
@@ -179,11 +175,11 @@ window.SysRuntime = (function () {
         this.expecting = this.sendKeys('tty0', cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
 
         return this.compileTicket;
-    };
+    }
 
-    SysRuntime.prototype.getErrorAnnotations = function (gccOutputStr) {
+    getErrorAnnotations(gccOutputStr) {
         var errors = (new GccOutputParser()).parse(gccOutputStr);
-        return errors.map(function (error) {
+        return errors.map((error) => {
             var aceAnnotationType;
 
             // Determine the type of editor annotation. ace supports error, warning or info.
@@ -210,9 +206,9 @@ window.SysRuntime = (function () {
                 text: error.text
             };
         });
-    };
+    }
 
-    SysRuntime.prototype.startProgram = function (filename, cmdargs) {
+    startProgram(filename, cmdargs) {
         if (!filename) {
             return;
         }
@@ -222,30 +218,30 @@ window.SysRuntime = (function () {
         cmdargs = cmdargs.replace('\\', '\\\\').replace('\n', '\\n');
         // Don't \x03 ; it interrupts the clear command
         this.sendKeys('tty0', '\n' + filename + ' ' + cmdargs + '\n');
-    };
+    }
 
-    SysRuntime.prototype.sendTextFile = function (filename, contents) {
+    sendTextFile(filename, contents) {
         this.sendKeys('tty0', '\nstty raw\ndd ibs=1 of=' + filename + ' count=' + contents.length + '\n' + contents + '\nstty -raw\n');
-    };
+    }
 
     // Used to broadcast 'putchar' and 'ready' events
-    SysRuntime.prototype.addListener = function (eventname, fn) {
+    addListener(eventname, fn) {
         var ary = this.listeners[eventname];
         if (ary) {
             ary.push(fn);
         } else {
             this.listeners[eventname] = [fn];
         }
-    };
+    }
 
-    SysRuntime.prototype.removeListener = function (eventname, fn) {
+    removeListener(eventname, fn) {
         var ary = this.listeners[eventname];
-        this.listeners[eventname] = ary.filter(function (el) {
+        this.listeners[eventname] = ary.filter((el) => {
             return el !== fn;
         });
-    };
+    }
 
-    SysRuntime.prototype.notifyListeners = function (eventname, data) {
+    notifyListeners(eventname, data) {
         var ary = this.listeners[eventname];
         if (!ary) {
             return;
@@ -254,11 +250,11 @@ window.SysRuntime = (function () {
         for (var i = 0; ary && i < ary.length; i++) {
             ary[i](this, data);
         }
-    };
+    }
 
-    SysRuntime.prototype.sendKeys = function (tty, text, expect, success, cancel) {
+    sendKeys(tty, text, expect, success, cancel) {
         var expectResult = null;
-        var data = text.split('').map(function (c) {
+        var data = text.split('').map((c) => {
             /* jshint bitwise: false */
             return c.charCodeAt(0) >>> 0;
         });
@@ -268,19 +264,8 @@ window.SysRuntime = (function () {
         }
         this.jor1kgui.message.Send(tty, data);
         return expectResult;
-    };
+    }
+}
 
-    var instance;
-    return {
-        getInstance: function () {
-            // https://stackoverflow.com/a/4842961
-            if (!instance) {
-                instance = new SysRuntime();
-                // hide the constructor so the returned object cannot be
-                // used to create more instances
-                instance.constructor = null;
-            }
-            return instance;
-        }
-    };
-})();
+// SysRuntime is meant to be used as a singleton
+export default (new SysRuntime());

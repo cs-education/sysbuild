@@ -1,16 +1,14 @@
 /* global ga */
 
-// A singleton encapsulating Google Analytics tracking
-window.Tracker = (function () {
-    'use strict';
-    var instance;
+// Encapsulates Google Analytics tracking
+class Tracker {
 
     var angraveOldProdGaWebPropertyId = 'UA-42515111-2',
         neelabhgOldProdGaWebPropertyId = 'UA-39700861-4',
         neelabhgStagingGaWebPropertyId = 'UA-39700861-5',
         neelabhgProdGaWebPropertyId = 'UA-39700861-6';
 
-    var getEnvironment = function () {
+    var getEnvironment = () => {
         var loc = window.location.hostname + window.location.pathname;
         if (loc === 'cs-education.github.io/sys/') {
             return 'prod';
@@ -23,7 +21,7 @@ window.Tracker = (function () {
         }
     };
 
-    function Tracker() {
+    constructor() {
         var env = getEnvironment();
         // Disable tracking if the opt-out cookie exists.
         if (document.cookie.indexOf('disableTracking=true') > -1) {
@@ -45,22 +43,21 @@ window.Tracker = (function () {
      * Disable tracking on the current page
      * https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#optout
      */
-    Tracker.prototype.disableTracking = function () {
+    disableTracking() {
         window['ga-disable-' + angraveOldProdGaWebPropertyId] = true;
         window['ga-disable-' + neelabhgOldProdGaWebPropertyId] = true;
         window['ga-disable-' + neelabhgStagingGaWebPropertyId] = true;
         window['ga-disable-' + neelabhgProdGaWebPropertyId] = true;
-    };
+    }
 
-    Tracker.prototype.isTrackingEnabled = function () {
+    isTrackingEnabled() {
         return !(window['ga-disable-' + angraveOldProdGaWebPropertyId] &&
                  window['ga-disable-' + neelabhgOldProdGaWebPropertyId] &&
                  window['ga-disable-' + neelabhgStagingGaWebPropertyId] &&
                  window['ga-disable-' + neelabhgProdGaWebPropertyId]);
-    };
+    }
 
-    // Opt-out function
-    Tracker.prototype.optout = function () {
+    optout() {
         // https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#optout
         document.cookie = 'disableTracking' + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
         this.disableTracking();
@@ -74,7 +71,7 @@ window.Tracker = (function () {
      * When calling this function, do not include the command and hit type parameters.
      * These parameters are automatically set to 'send' and 'event' respectively.
      */
-    Tracker.prototype.trackEvent = function () {
+    trackEvent() {
         var args = Array.prototype.slice.call(arguments);
         args.unshift('event');
         ga(function () {
@@ -82,7 +79,7 @@ window.Tracker = (function () {
                 tracker.send.apply(tracker, args);
             });
         });
-    };
+    }
 
     /**
      * Track a page view
@@ -90,7 +87,7 @@ window.Tracker = (function () {
      * @param title optional If not set, the analytics.js library will
      *        set the title value using the document.title browser property
      */
-    Tracker.prototype.trackPageView = function (page, title) {
+    trackPageView(page, title) {
         // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
         var properties = {
             page: page || window.location.pathname + window.location.search + window.location.hash
@@ -98,20 +95,13 @@ window.Tracker = (function () {
         if (title) {
             properties.title = title;
         }
-        ga(function () {
-            ga.getAll().forEach(function (tracker) {
+        ga(() => {
+            ga.getAll().forEach((tracker) => {
                 tracker.send('pageview', properties);
             });
         });
-    };
+    }
+}
 
-    return {
-        getInstance: function () {
-            if (!instance) {
-                instance = new Tracker();
-                instance.constructor = null;
-            }
-            return instance;
-        }
-    };
-})();
+// Tracker is meant to be used as a singleton
+export default (new Tracker());

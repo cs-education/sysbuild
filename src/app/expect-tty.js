@@ -1,14 +1,12 @@
-window.ExpectTTY = (function () {
-    'use strict';
-
-    function ExpectTTY(runtime, tty, expectstring, callbackFn) {
+class ExpectTTY {
+    constructor(runtime, tty, expectstring, callbackFn) {
         this.output = '';
         this.callback = callbackFn;
         this.putCharEventName = 'putchar-' + tty;
         this.expect = expectstring;
         this.sys = runtime;
         this.found = false;
-        this.expectPutCharListener = function (sys, character) {
+        this.expectPutCharListener = (sys, character) => {
             this.output = this.output.substr(this.output.length === this.expect.length ? 1 : 0) + character;
             if (this.output === this.expect) {
                 this._cleanup();
@@ -19,14 +17,14 @@ window.ExpectTTY = (function () {
         this.sys.addListener(this.putCharEventName, this.expectPutCharListener);
     }
 
-    ExpectTTY.prototype._cleanup = function () {
+    _cleanup() {
         this.sys.removeListener(this.putCharEventName, this.expectPutCharListener);
-    };
+    }
 
-    ExpectTTY.prototype.cancel = function () {
+    cancel() {
         this._cleanup();
         this.callback(false);
-    };
+    }
+}
 
-    return ExpectTTY;
-})();
+export default ExpectTTY;

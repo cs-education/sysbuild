@@ -3,6 +3,7 @@ import 'bootstrap';
 import ko from 'knockout';
 import 'knockout-projections'
 import * as router from './router';
+import 'app/sys-runtime';
 
 // Components can be packaged as AMD modules, such as the following:
 ko.components.register('nav-bar', { require: 'components/nav-bar/nav-bar' });

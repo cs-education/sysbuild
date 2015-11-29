@@ -1,15 +1,12 @@
 /* global SysViewModel */
 
-window.LiveEdit = (function () {
-    'use strict';
-
-    // LiveEdit class.
-    function LiveEdit(editor, _runtime) {
+class LiveEdit {
+    constructor(editor, _runtime) {
         this.runtime = _runtime;
         this.editor = editor;
         this.viewModel = SysViewModel.getInstance();
 
-        var updateCompileButton = function () {
+        var updateCompileButton = () => {
             var ready = this.runtime.ready();
             this.viewModel.vmState(ready ? 'Running' : 'Booting');
             this.viewModel.compileStatus(ready ? 'Ready' : 'Waiting');
@@ -17,12 +14,12 @@ window.LiveEdit = (function () {
 
         updateCompileButton(); // Maybe sys is already up and running
 
-        this.runtime.addListener('ready', function () {
+        this.runtime.addListener('ready', () => {
             updateCompileButton();
         }.bind(this));
     }
 
-    LiveEdit.prototype.escapeHtml = function (unsafe) {
+    escapeHtml(unsafe) {
         /*stackoverflow.com/questions/6234773/*/
         return unsafe
              .replace(/&/g, '&amp;')
@@ -30,9 +27,9 @@ window.LiveEdit = (function () {
              .replace(/>/g, '&gt;')
              .replace(/"/g, '&quot;')
              .replace(/'/g, '&#039;');
-    };
+    }
 
-    LiveEdit.prototype.processGccCompletion = function (result) {
+    processGccCompletion(result) {
         this.viewModel.gccErrorCount(0);
         this.viewModel.gccWarningCount(0);
 
@@ -48,7 +45,7 @@ window.LiveEdit = (function () {
         this.runtime.sendKeys('tty0', 'clear\n');
 
         var aceAnnotations = [], gccOptsErrors = [];
-        result.annotations.forEach(function (annotation) {
+        result.annotations.forEach((annotation) => {
             if (annotation.isGccOptsError) {
                 gccOptsErrors.push(annotation);
             } else {
@@ -70,9 +67,9 @@ window.LiveEdit = (function () {
         } else {
             this.viewModel.compileStatus('Failed');
         }
-    };
+    }
 
-    LiveEdit.prototype.runCode = function (code, gccOptions) {
+    runCode(code, gccOptions) {
         if (code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0) {
             return;
         }
@@ -81,7 +78,6 @@ window.LiveEdit = (function () {
         this.viewModel.compileStatus('Compiling');
 
         this.runtime.startGccCompile(code, gccOptions, callback);
-    };
+    }
 
-    return LiveEdit;
-})();
+export default LiveEdit;

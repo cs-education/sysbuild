@@ -1,23 +1,22 @@
-window.GccOutputParser = (function () {
-    'use strict';
-
-    var gccOutputParseRe = /(.+?):\s*(.+)\s*:\s*(.+)\s*/;
-    var gccRowColTypeParseRe = /(\d+):(\d+):\s*(.+)/;
-    var gccOutputTypeTextSplitRe = /\s*(.+)\s*:\s*(.+)\s*/;
-    var errorTypeMap = {
+class GccOutputParser {
+    const gccOutputParseRe = /(.+?):\s*(.+)\s*:\s*(.+)\s*/;
+    const gccRowColTypeParseRe = /(\d+):(\d+):\s*(.+)/;
+    const gccOutputTypeTextSplitRe = /\s*(.+)\s*:\s*(.+)\s*/;
+    const errorTypeMap = {
         'program.c': 'compile',
         'gcc': 'gcc',
         'cc1': 'gcc',
         'collect2': 'linker'
     };
 
-    function GccOutputParser() {
+    constructor() {
+        // empty
     }
 
-    GccOutputParser.prototype.parse = function (gccOutputStr) {
+    parse(gccOutputStr) {
         var match, lineColTypeMatch, typeTextSplitMatch, row, col, gccErrorType, text, errors = [];
 
-        gccOutputStr.split('\n').forEach(function (errorLine) {
+        gccOutputStr.split('\n').forEach((errorLine) => {
             match = gccOutputParseRe.exec(errorLine);
 
             if (match) {
@@ -58,7 +57,6 @@ window.GccOutputParser = (function () {
         });
 
         return errors;
-    };
+    }
 
-    return GccOutputParser;
-})();
+export default GccOutputParser;
