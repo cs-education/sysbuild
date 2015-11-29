@@ -1,7 +1,9 @@
+import ExpectTTY from 'app/expect-tty';
+import 'jor1k';
+
 // Encapsulates the virtual machine interface
 class SysRuntime {
     constructor() {
-
         this.bootFinished = false;
         this.tty0ready = false;
         this.tty1ready = false;
@@ -64,8 +66,23 @@ class SysRuntime {
             }
         }.bind(this);
 
+        // TODO
         var MackeTerm = require('MackeTerm');
         var Jor1k = require('Jor1k');
+        /*var MackeTerm = function () {
+            this.SetCharReceiveListener = () => {};
+        };
+        var Jor1k = function () {
+            this.Pause = () => {};
+            this.message = {
+                Send: () => {}
+            };
+        };*/
+
+        //
+        //this.bootFinished = true;
+        //this.notifyListeners('ready', true);
+        $('')
         var termTTY0 = new MackeTerm('tty0');
         var termTTY1 = new MackeTerm('tty1');
 

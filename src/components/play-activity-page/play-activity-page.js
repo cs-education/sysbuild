@@ -1,6 +1,7 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./play-activity-page.html';
 import Preferences from 'app/preferences';
+import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class PlayActivityPage {
     constructor(params) {
@@ -59,8 +60,6 @@ class PlayActivityPage {
     }
 
     setEditorParams() {
-        var editorAnnotations = ko.observableArray([]); // TODO: Wire this with the VM/Runtime
-
         var editorPrefs = Preferences.getPreferenceManager('editor');
 
         var autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true'));
@@ -79,7 +78,7 @@ class PlayActivityPage {
         fontSize.subscribe((newSetting) => editorPrefs.setItem('fontsize', newSetting));
 
         this.editorParams = {
-            annotations: editorAnnotations,
+            annotations: SysGlobalObservables.editorAnnotations,
             autoIndent: autoIndent,
             highlightLine: highlightLine,
             showInvisibles: showInvisibles,
@@ -90,23 +89,14 @@ class PlayActivityPage {
     }
 
     setCompilerParams() {
-        // TODO: Wire these with the VM/Runtime
-        var gccOptions = ko.observable('');
-        var programArgs = ko.observable('');
-        var compileStatus = ko.observable('Waiting');
-        var lastGccOutput = ko.observable('');
-        var gccOptsError =  ko.observable('');
-        var gccErrorCount = ko.observable(0);
-        var gccWarningCount = ko.observable(0);
-
         this.compilerParams = {
-            gccOptions: gccOptions,
-            programArgs: programArgs,
-            compileStatus: compileStatus,
-            lastGccOutput: lastGccOutput,
-            gccOptsError: gccOptsError,
-            gccErrorCount: gccErrorCount,
-            gccWarningCount: gccWarningCount
+            gccOptions: SysGlobalObservables.gccOptions,
+            programArgs: SysGlobalObservables.programArgs,
+            compileStatus: SysGlobalObservables.compileStatus,
+            lastGccOutput: SysGlobalObservables.lastGccOutput,
+            gccOptsError: SysGlobalObservables.gccOptsError,
+            gccErrorCount: SysGlobalObservables.gccErrorCount,
+            gccWarningCount: SysGlobalObservables.gccWarningCount
         };
     }
 
@@ -126,8 +116,7 @@ class PlayActivityPage {
         var compile = () => {
             var code = (this.editorParams.editorTextGetter())();
             var gccOptions = this.compilerParams.gccOptions();
-            //liveEdit.runCode(code, gccOptions);
-            console.log(code, gccOptions);
+            (SysGlobalObservables.runCode())(code, gccOptions);
         };
 
         this.compilerParams.compileCallback = compile;
@@ -141,10 +130,8 @@ class PlayActivityPage {
     }
 
     setVmParams() {
-        // TODO: Wire this with the VM/Runtime
-        var vmState = ko.observable('Booting');
         this.vmParams = {
-            vmState: vmState
+            vmState: SysGlobalObservables.vmState
         }
     }
 

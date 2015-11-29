@@ -1,15 +1,13 @@
-/* global SysViewModel */
+import * as SysGlobalObservables from 'app/sys-global-observables'
 
 class LiveEdit {
-    constructor(editor, _runtime) {
+    constructor(_runtime) {
         this.runtime = _runtime;
-        this.editor = editor;
-        this.viewModel = SysViewModel.getInstance();
 
         var updateCompileButton = () => {
             var ready = this.runtime.ready();
-            this.viewModel.vmState(ready ? 'Running' : 'Booting');
-            this.viewModel.compileStatus(ready ? 'Ready' : 'Waiting');
+            SysGlobalObservables.vmState(ready ? 'Running' : 'Booting');
+            SysGlobalObservables.compileStatus(ready ? 'Ready' : 'Waiting');
         }.bind(this);
 
         updateCompileButton(); // Maybe sys is already up and running
@@ -17,6 +15,8 @@ class LiveEdit {
         this.runtime.addListener('ready', () => {
             updateCompileButton();
         }.bind(this));
+
+        SysGlobalObservables.runCode(this.runCode.bind(this));
     }
 
     escapeHtml(unsafe) {
@@ -30,12 +30,12 @@ class LiveEdit {
     }
 
     processGccCompletion(result) {
-        this.viewModel.gccErrorCount(0);
-        this.viewModel.gccWarningCount(0);
+        SysGlobalObservables.gccErrorCount(0);
+        SysGlobalObservables.gccWarningCount(0);
 
         if (!result) {
             // cancelled
-            this.viewModel.compileStatus('Cancelled');
+            SysGlobalObservables.compileStatus('Cancelled');
             return;
         }
 
@@ -75,9 +75,10 @@ class LiveEdit {
         }
         var callback = this.processGccCompletion.bind(this);
 
-        this.viewModel.compileStatus('Compiling');
+        SysGlobalObservables.compileStatus('Compiling');
 
         this.runtime.startGccCompile(code, gccOptions, callback);
     }
+}
 
 export default LiveEdit;

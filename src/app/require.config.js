@@ -18,7 +18,8 @@ var require = {
         "jquery-notific8":      "bower_modules/jquery-notific8/dist/jquery.notific8.min",
         "ace":                  "bower_modules/ace-builds/src/",
         "typeahead-jquery":     "bower_modules/typeahead.js/dist/typeahead.jquery.min",
-        "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min" // TODO: this leaks a "Bloodhound" global
+        "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // TODO: this leaks a "Bloodhound" global
+        "jor1k":                "bower_modules/jor1k/bin/jor1k-master-min"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },
