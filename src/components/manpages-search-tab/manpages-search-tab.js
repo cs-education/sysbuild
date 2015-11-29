@@ -5,7 +5,7 @@ import 'bloodhound';
 
 class ManpagesSearchTab {
     constructor(params) {
-        this.addEditorPaneTab = params.addEditorPaneTab;
+        this.openManPage = params.openManPage;
         this.initBloodhound();
         this.initTypeahead();
     }
@@ -71,25 +71,6 @@ class ManpagesSearchTab {
 
         $('#man-page-open-btn').click(() => {
             this.openManPage(lastSelectedManPage);
-        });
-    }
-
-    openManPage(selectedManPage) {
-        if (!selectedManPage)
-            return;
-
-        var name = selectedManPage.name,
-            section = selectedManPage.section;
-
-        this.addEditorPaneTab({
-            title: `${name} (${section})`,
-            component: {
-                name: 'manpage-tab',
-                params: {
-                    manPageName: name,
-                    manPageSection: section
-                }
-            }
         });
     }
 

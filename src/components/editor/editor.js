@@ -25,7 +25,10 @@ class Editor {
 
         this.initAce('code');
         this.initSettingsDialog();
+
+        this.openManPage = params.openManPage;
         this.initTokenHighlighting();
+
         this.setAceText(params.initialEditorText);
 
         // Prevent page navigation when hitting enter/return inside the font size box
@@ -183,8 +186,7 @@ class Editor {
             }
         });
         manPageTokens.initialize();
-        var openManPage = (data) => { console.log(data); }; // TODO
-        this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, openManPage);
+        this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, this.openManPage);
     }
 
     /**

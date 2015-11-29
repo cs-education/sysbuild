@@ -10,20 +10,24 @@ class PlaygroundLayout {
 
         this.docParams = params.docParams;
         this.vmState = params.vmParams.vmState;
-        this.compilerParams = params.compilerParams;
+        var compilerParams = params.compilerParams;
         this.compilerStateParams = {
-            compileStatus: this.compilerParams.compileStatus,
-            lastGccOutput: this.compilerParams.lastGccOutput,
-            gccErrorCount: this.compilerParams.gccErrorCount,
-            gccWarningCount: this.compilerParams.gccWarningCount,
+            compileStatus: compilerParams.compileStatus,
+            lastGccOutput: compilerParams.lastGccOutput,
+            gccErrorCount: compilerParams.gccErrorCount,
+            gccWarningCount: compilerParams.gccWarningCount,
         }
+
+        var editorParams = params.editorParams;
+        var openManPageCallback = this.openManPage.bind(this);
+        editorParams.openManPage = openManPageCallback;
 
         this.initLayout();
         $('body').css('overflow', 'hidden');
 
         this.createVideoSearchTab();
-        this.createEditorTab(params.editorParams, this.compilerParams);
-        this.createManPageSearchTab();
+        this.createEditorTab(editorParams, compilerParams);
+        this.createManPageSearchTab(openManPageCallback);
     }
 
     createEditorTab(editorParams, compilerParams) {
@@ -41,14 +45,14 @@ class PlaygroundLayout {
         });
     }
 
-    createManPageSearchTab() {
+    createManPageSearchTab(openManPageCallback) {
         this.editorPaneTabs.push({
             title: 'Man page search',
             closable: false,
             component: {
                 name: 'manpages-search-tab',
                 params: {
-                    addEditorPaneTab: (tab) => { this.editorPaneTabs.push(tab); }
+                    openManPage: openManPageCallback
                 }
             }
         });
@@ -60,6 +64,26 @@ class PlaygroundLayout {
             closable: false,
             component: {
                 name: 'video-search-tab'
+            }
+        });
+    }
+
+    // Callback used by the manpages-search-tab and editor components
+    openManPage(manPage) {
+        if (!manPage)
+            return;
+
+        var name = manPage.name,
+            section = manPage.section;
+
+        this.editorPaneTabs.push({
+            title: `${name} (${section})`,
+            component: {
+                name: 'manpage-tab',
+                params: {
+                    manPageName: name,
+                    manPageSection: section
+                }
             }
         });
     }
