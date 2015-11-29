@@ -82,7 +82,7 @@ class SysRuntime {
         //
         //this.bootFinished = true;
         //this.notifyListeners('ready', true);
-        $('')
+        //$('')
         var termTTY0 = new MackeTerm('tty0');
         var termTTY1 = new MackeTerm('tty1');
 
@@ -113,7 +113,7 @@ class SysRuntime {
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
-            path: '../jor1k/bin/'
+            path: 'bower_modules/jor1k/bin/'
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);

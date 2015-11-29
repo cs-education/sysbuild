@@ -32,5 +32,9 @@
     <nav-bar params="route: route"></nav-bar>
     <div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
     <div class="footer"><div class="container"><copyright-line></copyright-line></div></div>
+    <div id="hidden-term-container" class="hidden">
+      <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
+      <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
+    </div>
   </body>
 </html>
