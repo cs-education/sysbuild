@@ -1,13 +1,3 @@
-.man-page-tab {
-  width: 100%;
-  height: 100%;
-}
-
-.man-page-tab > iframe {
-  width: 100%;
-  height: 100%;
-}
-
 /**
 * Styles for the man page typeahead search box
 *

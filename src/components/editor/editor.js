@@ -40,7 +40,8 @@ class Editor {
             this.autoIndentCode();
         });
 
-        this.resize(); // TODO: listen to global resize events and respond
+        this.resize();
+        $(window).resize(this.resize.bind(this));
 
         params.editorTextGetter(this.getText.bind(this));
     }
@@ -209,25 +210,22 @@ class Editor {
         return this.aceEditor.getSession().getValue();
     };
 
-    resize(resizeAfter) {
-        var self = this;
-        resizeAfter = resizeAfter || 200;
-
+    resize() {
         // We resize after a timeout because when the window resize handler is called,
         // the window may not have resized completely, and hence the calculation below would
         // be made with old values. The timeout helps to make sure the resize is complete before
         // reading size values.
         // TODO: remove reliance on specific div ids, and cache the jQuery selectors
-        window.setTimeout(function () {
-            $('#' + self.editorDivId).height(
+        window.setTimeout(() => {
+            $('#' + this.editorDivId).height(
                 $('#code-container').height() -
                 $('#editor-tabs-bar').height() -
                 $('#editor-opts-container').height() -
                 $('#compile-opts-container').height() -
                 2
             );
-            self.aceEditor.resize();
-        }, resizeAfter);
+            this.aceEditor.resize();
+        }, 500);
     };
 
     addKeyboardCommand(cmdName, keyBindings, execFunc, readOnly) {

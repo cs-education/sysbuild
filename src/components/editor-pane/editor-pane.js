@@ -13,16 +13,29 @@ class EditorPane {
             tabContentClasses: tab.contentCssClasses || '',
             tabComponent: tab.component
         }));
+
+        this.resize();
+        $(window).resize(this.resize.bind(this));
+    }
+
+    resize() {
+        window.setTimeout(() => {
+            $('.tab-content').height(
+                $('#code-container').height() -
+                $('#editor-tabs-bar').height() -
+                5
+            );
+        }, 500);
     }
 
     closeTab(tab) {
         var newActiveTabIndex = this.currentActiveTabIndex(),
             index = this.editorPaneTabs().indexOf(tab);
 
-        // remove from the original array passed to this component,
-        // so that the other observers also get the update
+        // Remove from the original array passed to this component,
+        // so that the other observers also get the update.
         // editorPaneTabs will update automatically, thanks to
-        // knockout-projections
+        // knockout-projections.
         this.sourceTabArray.splice(index, 1);
 
         if (index <= newActiveTabIndex) {

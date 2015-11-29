@@ -22,30 +22,4 @@ $(document).ready(function () {
     });
     manPageTokens.initialize();
     editor.setTokenHighlighter(manPageTokens, openManPage);
-
-
-
-    var resizeTabs = function () {
-        window.setTimeout(function () {
-            $('.tab-content').height(
-                $('#code-container').height() -
-                $('#editor-tabs-bar').height() -
-                5
-            );
-        }, 500);
-    };
-
-    $(window).resize(function () {
-        editor.resize(500);
-        resizeTabs();
-    });
-
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        if ($(e.target).attr('href') === '#editor-container') {
-            editor.resize();
-        } else {
-            resizeTabs();
-        }
-    });
-
 });

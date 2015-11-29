@@ -15,9 +15,9 @@
 </div>
 <!-- Tab content -->
 <div class="tab-content" data-bind="foreach: editorPaneTabs">
-  <div class="tab-pane"
+  <div class="tab-pane" style="width: 100%; height: 100%"
     data-bind="attr: { id: 'tab-' + $index() },
                css: { active: $parent.currentActiveTabIndex() === $index() }">
-    <div data-bind="css: tabContentClasses, component: tabComponent"></div>
+    <div style="width: 100%; height: 100%" data-bind="css: tabContentClasses, component: tabComponent"></div>
   </div>
 </div>
