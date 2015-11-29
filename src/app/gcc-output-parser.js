@@ -1,14 +1,14 @@
-class GccOutputParser {
-    const gccOutputParseRe = /(.+?):\s*(.+)\s*:\s*(.+)\s*/;
-    const gccRowColTypeParseRe = /(\d+):(\d+):\s*(.+)/;
-    const gccOutputTypeTextSplitRe = /\s*(.+)\s*:\s*(.+)\s*/;
-    const errorTypeMap = {
-        'program.c': 'compile',
-        'gcc': 'gcc',
-        'cc1': 'gcc',
-        'collect2': 'linker'
-    };
+const gccOutputParseRe = /(.+?):\s*(.+)\s*:\s*(.+)\s*/;
+const gccRowColTypeParseRe = /(\d+):(\d+):\s*(.+)/;
+const gccOutputTypeTextSplitRe = /\s*(.+)\s*:\s*(.+)\s*/;
+const errorTypeMap = {
+    'program.c': 'compile',
+    'gcc': 'gcc',
+    'cc1': 'gcc',
+    'collect2': 'linker'
+};
 
+class GccOutputParser {
     constructor() {
         // empty
     }
@@ -58,5 +58,6 @@ class GccOutputParser {
 
         return errors;
     }
+}
 
 export default GccOutputParser;

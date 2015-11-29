@@ -53,19 +53,17 @@ class LiveEdit {
             }
         });
 
-        this.editor.setAnnotations(aceAnnotations);
-        this.viewModel.lastGccOutput(result.gccOutput);
-        this.viewModel.gccErrorCount(result.stats.error);
-        this.viewModel.gccWarningCount(result.stats.warning);
-        this.viewModel.gccOptsError(gccOptsErrors.map(function (error) {
-            return error.text;
-        }).join('\n'));
+        SysGlobalObservables.editorAnnotations(aceAnnotations);
+        SysGlobalObservables.lastGccOutput(result.gccOutput);
+        SysGlobalObservables.gccErrorCount(result.stats.error);
+        SysGlobalObservables.gccWarningCount(result.stats.warning);
+        SysGlobalObservables.gccOptsError(gccOptsErrors.map((error) => error.text).join('\n'));
 
         if (result.exitCode === 0) {
-            this.viewModel.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
-            this.runtime.startProgram('program', this.viewModel.programArgs());
+            SysGlobalObservables.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
+            this.runtime.startProgram('program', SysGlobalObservables.programArgs());
         } else {
-            this.viewModel.compileStatus('Failed');
+            SysGlobalObservables.compileStatus('Failed');
         }
     }
 
@@ -74,9 +72,7 @@ class LiveEdit {
             return;
         }
         var callback = this.processGccCompletion.bind(this);
-
         SysGlobalObservables.compileStatus('Compiling');
-
         this.runtime.startGccCompile(code, gccOptions, callback);
     }
 }
