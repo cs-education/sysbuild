@@ -27,51 +27,5 @@
     "jquery-fullscreen": "~1.1.4",
     "cjs": "*"
   },
-  "devDependencies": {},
-  "overrides": {
-    "ace-builds": {
-      "main": [
-        "src-min-noconflict/ace.js",
-        "src-min-noconflict/mode-c_cpp.js",
-        "src-min-noconflict/theme-monokai.js",
-        "src-min-noconflict/theme-terminal.js",
-        "src-min-noconflict/theme-tomorrow.js",
-        "src-min-noconflict/theme-xcode.js"
-      ]
-    },
-    "jor1k": {
-      "main": [
-        "bin/jor1k-master-min.js"
-      ]
-    },
-    "jquery-ui-layout": {
-      "main": [
-        "source/stable/jquery.layout_and_plugins.min.js",
-        "source/stable/layout-default.css"
-      ],
-      "dependencies": {
-        "jquery": "*",
-        "jquery-ui": "*"
-      }
-    },
-    "bootstrap-sass-official": {
-      "main": [
-        "assets/stylesheets/_bootstrap.scss"
-      ]
-    },
-    "jquery-fullscreen": {
-      "main": [
-        "jquery.fullscreen-min.js"
-      ]
-    },
-    "videojs": {
-      "main": [
-        "dist/video.min.js",
-        "dist/video-js.min.css"
-      ]
-    }
-  },
-  "resolutions": {
-    "knockout": "~3.3.0-alpha"
-  }
+  "devDependencies": {}
 }
