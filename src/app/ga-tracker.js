@@ -1,26 +1,24 @@
 /* global ga */
+const angraveOldProdGaWebPropertyId = 'UA-42515111-2',
+      neelabhgOldProdGaWebPropertyId = 'UA-39700861-4',
+      neelabhgStagingGaWebPropertyId = 'UA-39700861-5',
+      neelabhgProdGaWebPropertyId = 'UA-39700861-6';
+
+var getEnvironment = () => {
+    var loc = window.location.hostname + window.location.pathname;
+    if (loc === 'cs-education.github.io/sys/') {
+        return 'prod';
+    } else if (loc === 'angrave.github.io/sys/') {
+        return 'angraveprod';
+    } else if (loc === 'cs-education.github.io/sys-staging/') {
+        return 'staging';
+    } else {
+        return 'dev';
+    }
+};
 
 // Encapsulates Google Analytics tracking
 class Tracker {
-
-    var angraveOldProdGaWebPropertyId = 'UA-42515111-2',
-        neelabhgOldProdGaWebPropertyId = 'UA-39700861-4',
-        neelabhgStagingGaWebPropertyId = 'UA-39700861-5',
-        neelabhgProdGaWebPropertyId = 'UA-39700861-6';
-
-    var getEnvironment = () => {
-        var loc = window.location.hostname + window.location.pathname;
-        if (loc === 'cs-education.github.io/sys/') {
-            return 'prod';
-        } else if (loc === 'angrave.github.io/sys/') {
-            return 'angraveprod';
-        } else if (loc === 'cs-education.github.io/sys-staging/') {
-            return 'staging';
-        } else {
-            return 'dev';
-        }
-    };
-
     constructor() {
         var env = getEnvironment();
         // Disable tracking if the opt-out cookie exists.
