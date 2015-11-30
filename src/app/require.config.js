@@ -21,7 +21,8 @@ var require = {
         "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // exports window global "Bloodhound"
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
-        "jor1k":                "bower_modules/jor1k/bin/jor1k-master-min" // exports window global "require" (from Browserify)
+        "cjs":                  "bower_modules/cjs/cjs",
+        "amd-loader":           "bower_modules/amd-loader/amd-loader"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },
@@ -29,5 +30,11 @@ var require = {
         "jquery-ui-layout": { deps: ["jquery", "jquery-ui"] },
         "jquery-fullscreen": { deps: ["jquery"] },
         "typeahead-jquery": { deps: ["jquery"] }
-    }
+    },
+    packages: [
+        {
+            name: "jor1k",
+            location: "bower_modules/jor1k/js"
+        }
+    ]
 };

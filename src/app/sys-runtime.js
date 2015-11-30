@@ -1,6 +1,7 @@
 import ExpectTTY from 'app/expect-tty';
 import GccOutputParser from 'app/gcc-output-parser';
-import 'jor1k';
+import * as Jor1k from 'cjs!jor1k/master/master';
+import MackeTerm from 'cjs!jor1k/plugins/terminal-macke';
 
 // Encapsulates the virtual machine interface
 class SysRuntime {
@@ -66,9 +67,6 @@ class SysRuntime {
                 this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
             }
         }.bind(this);
-
-        var MackeTerm = require('MackeTerm');
-        var Jor1k = require('Jor1k');
 
         var termTTY0 = new MackeTerm('tty0');
         var termTTY1 = new MackeTerm('tty1');
