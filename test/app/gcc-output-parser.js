@@ -1,6 +1,6 @@
 /* global assert, beforeEach, describe, GccOutputParser, it */
 
-(function () {
+define(['app/gcc-output-parser'], function (GccOutputParser) {
     'use strict';
 
     describe('GccOutputParser', function () {
@@ -144,4 +144,4 @@
             });
         });
     });
-})();
+});

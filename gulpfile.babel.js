@@ -4,6 +4,7 @@ import clean from 'gulp-clean';
 import './gulp-tasks/build-js';
 import './gulp-tasks/build-assets';
 import './gulp-tasks/serve';
+import './gulp-tasks/test';
 
 // Removes all files from ./dist/
 gulp.task('clean', () => {

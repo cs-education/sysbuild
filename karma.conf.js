@@ -11,6 +11,9 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
+    // {included: false} for a pattern means that those files matching the pattern
+    // will not be included in the browser using <script> tags - they will be loaded
+    // manually (using Require.js).
     files: [
       'src/app/require.config.js',
       'test/require.config.js',
@@ -23,9 +26,9 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      
+
     ],
-    
+
     plugins: [
         'karma-jasmine',
         'karma-requirejs',
@@ -38,13 +41,12 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
         '**/require.config.js': ['requireglobal'],
-        'src/app/router.js': ['babel'],
-        'src/app/startup.js': ['babel'],
+        'src/app/{!(require.config), **/*}.js': ['babel'],
         'src/components/**/*.js': ['babel']
     },
-    
+
     babelPreprocessor: {
-        options: { modules: 'amd' }  
+        options: { modules: 'amd' }
     },
 
 
