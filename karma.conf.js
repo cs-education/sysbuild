@@ -42,7 +42,9 @@ module.exports = function(config) {
     preprocessors: {
         '**/require.config.js': ['requireglobal'],
         'src/app/{!(require.config), **/*}.js': ['babel'],
-        'src/components/**/*.js': ['babel']
+        'src/components/**/*.js': ['babel'],
+        'test/app/**/*.js': ['babel'],
+        'test/components/**/*.js': ['babel']
     },
 
     babelPreprocessor: {

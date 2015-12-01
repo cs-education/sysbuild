@@ -245,6 +245,10 @@ to your repository's `gh-pages` branch or to the web folder on your server.
   common build errors. Travis has a convenient [web-based tool](https://lint.travis-ci.org/) where you can paste the
   contents of .travis.yml for validation.
 
+### Gotchas
+* Do not wrap your AMD modules in `define` calls, as Babel automatically does that. In fact, doing so will cause errors.
+  Use ES6 `import` statements for specifying dependencies.
+
 ## License
 By contributing your code, you agree to license your contribution under the terms of the
 [project's license](LICENSE.md).
