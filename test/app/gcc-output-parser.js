@@ -1,5 +1,3 @@
-/* global assert, beforeEach, describe, GccOutputParser, it */
-
 define(['app/gcc-output-parser'], function (GccOutputParser) {
     'use strict';
 
@@ -15,8 +13,7 @@ define(['app/gcc-output-parser'], function (GccOutputParser) {
             });
 
             it('should return no information', function () {
-                assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 0);
+                expect(this.results).toEqual([]);
             });
         });
 
@@ -30,14 +27,15 @@ define(['app/gcc-output-parser'], function (GccOutputParser) {
             });
 
             it('should return the correct error information', function () {
-                assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 1); // one error
-                var error = this.results[0];
-                assert.propertyVal(error, 'column', '2');
-                assert.propertyVal(error, 'gccErrorType', 'error');
-                assert.propertyVal(error, 'row', '6');
-                assert.propertyVal(error, 'text', 'expected \';\' before \'return\'');
-                assert.propertyVal(error, 'type', 'compile');
+                expect(this.results).toEqual(jasmine.any(Array));
+                expect(this.results.length).toEqual(1); // one error
+                expect(this.results[0]).toEqual(jasmine.objectContaining({
+                    column: 2,
+                    gccErrorType: 'error',
+                    row: 6,
+                    text: 'expected \';\' before \'return\'',
+                    type: 'compile'
+                }));
             });
         });
 
@@ -51,25 +49,28 @@ define(['app/gcc-output-parser'], function (GccOutputParser) {
             });
 
             it('should return the correct error information', function () {
-                assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 2); // two errors
+                expect(this.results).toEqual(jasmine.any(Array));
+                expect(this.results.length).toEqual(2); // two errors
 
                 // error one
-                var error = this.results[0];
-                assert.propertyVal(error, 'column', 0);
-                // TODO: currently the gccErrorType returned is incorrect, so the assertion is commented out
-                //assert.propertyVal(error, 'gccErrorType', 'error');
-                assert.propertyVal(error, 'row', 0);
-                assert.propertyVal(error, 'text', 'undefined reference to \'nonExistentFunction\'');
-                assert.propertyVal(error, 'type', 'compile');
+                expect(this.results[0]).toEqual(jasmine.objectContaining({
+                    column: 0,
+                    /* TODO: currently the gccErrorType returned is incorrect,
+                       but functionality is not affected */
+                    //gccErrorType: 'error',
+                    row: 0,
+                    text: 'undefined reference to \'nonExistentFunction\'',
+                    type: 'compile'
+                }));
 
                 // error two
-                error = this.results[1];
-                assert.propertyVal(error, 'column', 0);
-                assert.propertyVal(error, 'gccErrorType', 'error');
-                assert.propertyVal(error, 'row', 0);
-                assert.propertyVal(error, 'text', 'ld returned 1 exit status');
-                assert.propertyVal(error, 'type', 'linker');
+                expect(this.results[1]).toEqual(jasmine.objectContaining({
+                    column: 0,
+                    gccErrorType: 'error',
+                    row: 0,
+                    text: 'ld returned 1 exit status',
+                    type: 'linker'
+                }));
             });
         });
 
@@ -81,14 +82,15 @@ define(['app/gcc-output-parser'], function (GccOutputParser) {
             });
 
             it('should return the correct error information', function () {
-                assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 1); // one error
-                var error = this.results[0];
-                assert.propertyVal(error, 'column', 0);
-                assert.propertyVal(error, 'gccErrorType', 'error');
-                assert.propertyVal(error, 'row', 0);
-                assert.propertyVal(error, 'text', 'unrecognized command line option \'-asdfasdf\'');
-                assert.propertyVal(error, 'type', 'gcc');
+                expect(this.results).toEqual(jasmine.any(Array));
+                expect(this.results.length).toEqual(1); // one error
+                expect(this.results[0]).toEqual(jasmine.objectContaining({
+                    column: 0,
+                    gccErrorType: 'error',
+                    row: 0,
+                    text: 'unrecognized command line option \'-asdfasdf\'',
+                    type: 'gcc'
+                }));
             });
         });
 
@@ -100,14 +102,15 @@ define(['app/gcc-output-parser'], function (GccOutputParser) {
             });
 
             it('should return the correct error information', function () {
-                assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 1); // one error
-                var error = this.results[0];
-                assert.propertyVal(error, 'column', 0);
-                assert.propertyVal(error, 'gccErrorType', 'error');
-                assert.propertyVal(error, 'row', 0);
-                assert.propertyVal(error, 'text', 'unrecognised debug output level "aslkdfjalksjd"');
-                assert.propertyVal(error, 'type', 'gcc');
+                expect(this.results).toEqual(jasmine.any(Array));
+                expect(this.results.length).toEqual(1); // one error
+                expect(this.results[0]).toEqual(jasmine.objectContaining({
+                    column: 0,
+                    gccErrorType: 'error',
+                    row: 0,
+                    text: 'unrecognised debug output level "aslkdfjalksjd"',
+                    type: 'gcc'
+                }));
             });
         });
 
@@ -123,24 +126,26 @@ define(['app/gcc-output-parser'], function (GccOutputParser) {
             });
 
             it('should return the correct error information', function () {
-                assert.typeOf(this.results, 'Array');
-                assert.lengthOf(this.results, 2); // two errors
+                expect(this.results).toEqual(jasmine.any(Array));
+                expect(this.results.length).toEqual(2); // two errors
 
                 // error one
-                var error = this.results[0];
-                assert.propertyVal(error, 'column', '5');
-                assert.propertyVal(error, 'gccErrorType', 'warning');
-                assert.propertyVal(error, 'row', '10');
-                assert.propertyVal(error, 'text', 'return makes integer from pointer without a cast [enabled by default]');
-                assert.propertyVal(error, 'type', 'compile');
+                expect(this.results[0]).toEqual(jasmine.objectContaining({
+                    column: 5,
+                    gccErrorType: 'warning',
+                    row: 10,
+                    text: 'return makes integer from pointer without a cast [enabled by default]',
+                    type: 'compile'
+                }));
 
                 // error two
-                error = this.results[1];
-                assert.propertyVal(error, 'column', '1');
-                assert.propertyVal(error, 'gccErrorType', 'error');
-                assert.propertyVal(error, 'row', '11');
-                assert.propertyVal(error, 'text', 'expected \';\' before \'}\' token');
-                assert.propertyVal(error, 'type', 'compile');
+                expect(this.results[1]).toEqual(jasmine.objectContaining({
+                    column: 1,
+                    gccErrorType: 'error',
+                    row: 11,
+                    text: 'expected \';\' before \'}\' token',
+                    type: 'compile'
+                }));
             });
         });
     });

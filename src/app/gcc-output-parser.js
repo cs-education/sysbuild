@@ -23,8 +23,8 @@ class GccOutputParser {
                 lineColTypeMatch = gccRowColTypeParseRe.exec(match[2]);
 
                 if (lineColTypeMatch) {
-                    row = lineColTypeMatch[1];
-                    col = lineColTypeMatch[2];
+                    row = parseInt(lineColTypeMatch[1], 10);
+                    col = parseInt(lineColTypeMatch[2], 10);
                     typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(lineColTypeMatch[3]);
                     if (typeTextSplitMatch) {
                         gccErrorType = typeTextSplitMatch[1];
