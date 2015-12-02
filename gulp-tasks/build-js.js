@@ -1,14 +1,13 @@
 import fs from 'fs';
 import vm from 'vm';
 import merge from 'deeply';
-import es from 'event-stream';
 import objectAssign from 'object-assign';
 
 import gulp from 'gulp';
 import rjs from 'gulp-requirejs-bundler';
 import uglify from 'gulp-uglify';
 import clean from 'gulp-clean';
-import { babelTranspile } from './babel-transpile';
+import BabelTranspiler from './babel-transpiler';
 
 // Config
 const requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;'),
@@ -42,7 +41,8 @@ const requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/requi
             'components/playground-term-pane/playground-term-pane',
             'components/playground-footer/playground-footer',
             'components/vm-state-label/vm-state-label',
-            'components/compiler-state-label/compiler-state-label'
+            'components/compiler-state-label/compiler-state-label',
+            'components/not-found-page/not-found-page'
         ],
         insertRequire: ['app/startup'],
         bundles: {
@@ -56,18 +56,7 @@ const requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/requi
 // Pushes all the source files through Babel for transpilation
 gulp.task('js:babel', () => {
     return gulp.src(requireJsOptimizerConfig.baseUrl + '/**')
-        .pipe(es.map((data, cb) => {
-            if (!data.isNull()) {
-                babelTranspile(data.relative, (err, res) => {
-                    if (res) {
-                        data.contents = new Buffer(res.code);
-                    }
-                    cb(err, data);
-                });
-            } else {
-                cb(null, data);
-            }
-        }))
+        .pipe((new BabelTranspiler('src')).stream())
         .pipe(gulp.dest('./temp'));
 });
 
