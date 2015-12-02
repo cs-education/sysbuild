@@ -36,6 +36,7 @@ ko.components.register('playground-term-pane', { require: 'components/playground
 ko.components.register('playground-footer', { require: 'components/playground-footer/playground-footer' });
 ko.components.register('vm-state-label', { require: 'components/vm-state-label/vm-state-label' });
 ko.components.register('compiler-state-label', { require: 'components/compiler-state-label/compiler-state-label' });
+ko.components.register('not-found-page', { require: 'components/not-found-page/not-found-page' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Initialize Bootstrap tooltip and popover

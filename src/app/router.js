@@ -44,6 +44,10 @@ class Router {
             this.currentRoute(ko.utils.extend(requestParams, { page: 'play-activity-page' }));
         });
 
+        crossroads.bypassed.add(() => {
+            this.currentRoute({ page: 'not-found-page' });
+        });
+
         // Activate Crossroads
         crossroads.normalizeFn = crossroads.NORM_AS_OBJECT;
         hasher.initialized.add(hash => crossroads.parse(hash));

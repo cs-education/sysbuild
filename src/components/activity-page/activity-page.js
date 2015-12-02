@@ -13,7 +13,7 @@ class ActivityPage {
         this.activityComponent = ko.pureComputed(() => {
             var activityDataObj = lessons.getActivityData(chapterIdx, sectionIdx, activityIdx)();
             if (!activityDataObj)
-                return { name: '404-page', params: {} }; // not implemented yet
+                return { name: 'not-found-page', params: {} };
             return {
                 name: activityTypeToComponentNameMap[activityDataObj.activity.type],
                 params: {
