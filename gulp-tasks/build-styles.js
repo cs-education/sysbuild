@@ -6,6 +6,7 @@ import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import replace from 'gulp-replace';
 import concat from 'gulp-concat';
+import minifyCss from 'gulp-minify-css';
 
 gulp.task('sass', () => {
     // main.scss imports all other style files
@@ -35,5 +36,6 @@ gulp.task('fonts', () => {
 gulp.task('css', ['sass'], () => {
     return gulp.src('src/styles.css')
         .pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/'))
+        .pipe(minifyCss({compatibility: '*'}))
         .pipe(gulp.dest('./dist/'));
 });
