@@ -1,7 +1,0 @@
-#page {
-	margin-top: 80px;
-}
-
-.label-default-light {
-    @include label-variant(lighten($label-default-bg, 25%));
-}

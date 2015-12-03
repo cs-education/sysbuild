@@ -1,0 +1,28 @@
+// paths can be relative to project root as well as this file itself
+@import "src/bower_modules/jquery-ui-layout/source/stable/layout-default";
+@import "src/bower_modules/components-bootstrap/css/bootstrap.min";
+@import "src/bower_modules/videojs/dist/video-js.min";
+@import "src/bower_modules/jquery-notific8/dist/jquery.notific8.min";
+@import "lesson-navigation-pager";
+@import "not-found-page";
+@import "video-activity-page";
+@import "playground-layout";
+@import "editor-pane";
+@import "manpages-search-tab";
+@import "video-search-tab";
+@import "editor";
+@import "playground-doc-pane";
+@import "playground-term-pane";
+@import "compiler-state-label";
+@import "vm-state-label";
+@import "footer";
+
+#page {
+	margin-top: 80px;
+}
+/* TODO: Uncomment once Sass version of Bootstrap is included, to prevent Sass compiler error */
+/*
+.label-default-light {
+    @include label-variant(lighten($label-default-bg, 25%));
+}
+*/
