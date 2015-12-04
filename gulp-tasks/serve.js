@@ -28,3 +28,5 @@ gulp.task('serve:test', () => {
 gulp.task('serve:dist', () => {
     return connect.server({ root: './dist' });
 });
+
+gulp.task('serve', ['serve:src']);

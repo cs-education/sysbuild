@@ -20,5 +20,5 @@ gulp.task('build', ['html', 'js', 'css:dist', 'fonts', 'images', 'extras'], (cal
 
 gulp.task('default', (callback) => {
     callback();
-    console.log('\nPlease use one of these tasks: clean, build, test, deploy\n');
+    console.log('\nPlease specify a task: serve, test, clean, build, deploy\n');
 });
