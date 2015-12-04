@@ -3,10 +3,11 @@
 
 // CSS imports will be inlined during distribution build
 @import "bower_modules/jquery-ui-layout/source/stable/layout-default.css";
-@import "bower_modules/components-bootstrap/css/bootstrap.min.css";
 @import "bower_modules/videojs/dist/video-js.min.css";
 @import "bower_modules/jquery-notific8/dist/jquery.notific8.min.css";
 
+$icon-font-path: 'bower_modules/bootstrap-sass/assets/fonts/bootstrap/';
+@import "bower_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "styles/unsupported-browser-message";
 @import "styles/lesson-navigation-pager";
 @import "styles/not-found-page";

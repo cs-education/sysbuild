@@ -50,7 +50,7 @@ gulp.task('css:dist', () => {
             }
         })
         // rewrite relative links to Bootstrap fonts
-        .pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/'))
+        .pipe(replace(/url\((['"])?bower_modules\/bootstrap-sass\/assets\/fonts\/bootstrap\//g, 'url($1fonts/'))
         // jquery-notific8 font URLs are already as desired
         .pipe(minifyCss({compatibility: '*'}))
         .pipe(gulp.dest('./dist/'));
@@ -58,9 +58,9 @@ gulp.task('css:dist', () => {
 
 // Copies fonts
 gulp.task('fonts', () => {
-    const bootstrapFonts = gulp.src('./src/bower_modules/components-bootstrap/fonts/*', { base: './src/bower_modules/components-bootstrap/' }),
-          notific8Fonts = gulp.src('./src/bower_modules/jquery-notific8/dist/fonts/*', { base: './src/bower_modules/jquery-notific8/dist/' });
-          // VideoJS font files do not need to be copied, because its CSS file embeds the fonts using a Data-URI.
+    const bootstrapFonts = gulp.src('./src/bower_modules/bootstrap-sass/assets/fonts/bootstrap/*', { base: './src/bower_modules/bootstrap-sass/assets/fonts/bootstrap/' }),
+          notific8Fonts = gulp.src('./src/bower_modules/jquery-notific8/dist/fonts/*', { base: './src/bower_modules/jquery-notific8/dist/fonts/' });
+          // VideoJS font files do not need to be copied, because its stylesheet embeds the font using a Data-URI.
     return es.concat(bootstrapFonts, notific8Fonts)
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest('./dist/fonts/'));
 });
