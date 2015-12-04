@@ -1,8 +1,7 @@
 .compile-status-label-text-error {
-    /* TODO: Uncomment once Sass version of Bootstrap is included, to prevent Sass compiler error */
-    /*color: $brand-danger;*/
+    color: $brand-danger;
 }
 
 .compile-status-label-text-warning {
-    /*color: darken($brand-warning, 20%);*/
+    color: darken($brand-warning, 20%);
 }

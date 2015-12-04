@@ -1,3 +1,4 @@
+import 'modernizr';
 import 'jquery';
 import 'bootstrap';
 import ko from 'knockout';

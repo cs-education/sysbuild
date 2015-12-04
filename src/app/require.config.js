@@ -3,6 +3,7 @@ var require = {
     baseUrl: ".",
     paths: {
         "bootstrap":            "bower_modules/bootstrap-sass/assets/javascripts/bootstrap.min",
+        "modernizr":            "bower_modules/modernizr/modernizr",
         "crossroads":           "bower_modules/crossroads/dist/crossroads.min",
         "hasher":               "bower_modules/hasher/dist/js/hasher.min",
         "jquery":               "bower_modules/jquery/dist/jquery",

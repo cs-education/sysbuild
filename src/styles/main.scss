@@ -26,9 +26,7 @@ $icon-font-path: 'bower_modules/bootstrap-sass/assets/fonts/bootstrap/';
 #page {
 	margin-top: 80px;
 }
-/* TODO: Uncomment once Sass version of Bootstrap is included, to prevent Sass compiler error */
-/*
+
 .label-default-light {
     @include label-variant(lighten($label-default-bg, 25%));
 }
-*/
