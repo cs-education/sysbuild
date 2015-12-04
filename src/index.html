@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,17 +8,37 @@
       <link href="styles.css" rel="stylesheet">
     <!-- endbuild -->
     <!-- build:js -->
+      <script src="bower_modules/modernizr/modernizr.js"></script>
       <script src="app/require.config.js"></script>
       <script data-main="app/startup" src="bower_modules/requirejs/require.js"></script>
     <!-- endbuild -->
   </head>
   <body>
-    <nav-bar params="route: route"></nav-bar>
-    <div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
-    <div class="footer"><div class="container"><copyright-line></copyright-line></div></div>
-    <div id="hidden-term-container" class="hidden">
-      <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
-      <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser.
+      Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Unsupported browser message -->
+    <div>
+      <div id="no-js-msg">
+        To use this website you need to enable JavaScript in your browser.
+      </div>
+      <div id="no-canvas-msg">
+        <p class="browsehappy">
+          Your browser does not support the HTML5 canvas.
+          Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+        </p>
+      </div>
+    </div>
+    <div class="show-if-supported">
+      <nav-bar params="route: route"></nav-bar>
+      <div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
+      <div class="footer"><div class="container"><copyright-line></copyright-line></div></div>
+      <div id="hidden-term-container" class="hidden">
+        <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
+        <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
+      </div>
     </div>
   </body>
 </html>
