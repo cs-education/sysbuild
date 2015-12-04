@@ -3,7 +3,7 @@ import connect from 'gulp-connect';
 import BabelTranspiler from './babel-transpiler';
 
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
-gulp.task('serve:src', () => {
+gulp.task('serve:src', ['css:watch'], () => {
     var root = 'src'; // this is relative to project root
     return connect.server({
         root: root,
@@ -24,7 +24,7 @@ gulp.task('serve:test', () => {
     });
 });
 
-// After building, starts a trivial static file server
-gulp.task('serve:dist', ['build'], () => {
+// Starts a trivial static file server
+gulp.task('serve:dist', () => {
     return connect.server({ root: './dist' });
 });

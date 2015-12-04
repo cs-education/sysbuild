@@ -31,12 +31,16 @@ function compiledCssStream(options={}) {
         .pipe(concat('styles.css')); // rename file
 }
 
-gulp.task('styles:src', () => {
+gulp.task('css:src', () => {
     return compiledCssStream()
         .pipe(gulp.dest('src/'));
 });
 
-gulp.task('styles:dist', () => {
+gulp.task('css:watch', ['css:src'], () => {
+    gulp.watch('src/styles/**/*.scss', ['css:src']);
+});
+
+gulp.task('css:dist', () => {
     return compiledCssStream({
             sassImportPathModifier: (url, prev) => {
                 // inline CSS imports

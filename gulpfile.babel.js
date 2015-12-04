@@ -13,7 +13,7 @@ gulp.task('clean', () => {
         .pipe(clean());
 });
 
-gulp.task('build', ['html', 'js', 'css', 'fonts', 'images', 'extras'], (callback) => {
+gulp.task('build', ['html', 'js', 'css:dist', 'fonts', 'images', 'extras'], (callback) => {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
 });
