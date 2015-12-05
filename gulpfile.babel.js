@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import gulp from 'gulp';
 import clean from 'gulp-clean';
 import uglify from 'gulp-uglify';
+import size from 'gulp-size';
 
 import './gulp-tasks/build-js';
 import './gulp-tasks/build-assets';
@@ -30,9 +31,9 @@ gulp.task('jor1k', () => {
         .pipe(gulp.dest('./dist/bower_modules/jor1k/bin/'));
 });
 
-gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras', 'jor1k'], (callback) => {
-    callback();
+gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras', 'jor1k'], () => {
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
+    return gulp.src('dist/**/*').pipe(size({title: 'build'}));
 });
 
 gulp.task('default', (callback) => {

@@ -21,5 +21,8 @@ gulp.task('lint:js:test:watch', () => {
 gulp.task('lint:src', ['lint:js:src']);
 gulp.task('lint:test', ['lint:js:test']);
 gulp.task('lint:test:watch', ['lint:js:test:watch']);
+gulp.task('lint:gulptasks',
+    lintJs(['gulpfile.babel.js', 'gulp-tasks/**/*.js'],
+    { env: { node: true } }));
 
-gulp.task('lint', ['lint:src']);
+gulp.task('lint', ['lint:src', 'lint:test', 'lint:gulptasks']);

@@ -25,6 +25,7 @@
     "gulp-replace": "~0.2.0",
     "gulp-requirejs-bundler": "^0.1.1",
     "gulp-sass": "^2.0.0",
+    "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.5.0",
     "gulp-uglify": "~0.2.1",
     "jasmine-core": "^2.3.4",
