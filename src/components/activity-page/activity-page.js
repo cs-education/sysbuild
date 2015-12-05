@@ -1,6 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./activity-page.html';
-import lessons from 'app/lessons'
+import lessons from 'app/lessons';
 
 const activityTypeToComponentNameMap = {
     'video': 'video-activity-page',

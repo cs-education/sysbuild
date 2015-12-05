@@ -25,11 +25,11 @@ class SysRuntime {
                 this.ttyOutput += character;
             }
             this.notifyListeners('putchar-tty0', character);
-        }.bind(this);
+        };
 
         this.putCharTTY1Listener = (character) => {
             this.notifyListeners('putchar-tty1', character);
-        }.bind(this);
+        };
 
         var onBootFinished = () => {
             if (this.tty0ready && this.tty1ready) {
@@ -38,35 +38,35 @@ class SysRuntime {
                 this.bootFinished = true;
                 this.notifyListeners('ready', true);
             }
-        }.bind(this);
+        };
 
         var onTTY0Ready = (completed) => {
             this.tty0ready = completed;
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
-        }.bind(this);
+        };
 
         var onTTY1Ready = (completed) => {
             this.tty1ready = completed;
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
-        }.bind(this);
+        };
 
         var onTTY1RootLogin = (completed) => {
             if (completed) {
                 this.sendKeys('tty1', 'login -f user\n', '~ $', onTTY1Ready); // login as user
             }
-        }.bind(this);
+        };
 
         var onTTY0Login = (completed) => {
             if (completed) {
                 this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY0Ready);
             }
-        }.bind(this);
+        };
 
         var onTTY1Login = (completed) => {
             if (completed) {
                 this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
             }
-        }.bind(this);
+        };
 
         var termTTY0 = new MackeTerm('tty0');
         var termTTY1 = new MackeTerm('tty1');
@@ -164,7 +164,7 @@ class SysRuntime {
 
             guiCallback(result);
 
-        }.bind(this);
+        };
 
         this.sendKeys('tty0', '\x03\ncd ~;rm program.c program 2>/dev/null\n');
 

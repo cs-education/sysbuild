@@ -1,3 +1,4 @@
+/*eslint quotes: [2, "double"]*/
 // require.js looks for the following global when initializing
 var require = {
     baseUrl: ".",

@@ -26,12 +26,12 @@ class PlayActivityPage {
             this.doc = {
                 url: 'https://cs-education.github.io/sysassets/' + playActivity.docFile,
                 format: 'markdown'
-            }
+            };
         } else {
             this.doc = {
                 text: playActivity.doc || '',
                 format: 'markdown'
-            }
+            };
         }
     }
 
@@ -56,7 +56,7 @@ class PlayActivityPage {
                 '* Destroy the system! Type `su`, press enter then type `rm -rf /` and watch the chaos! (Don\'t worry, it\'s safe. Simply refresh the page to start over)\n' +
                 '\nOnce you are done playing, learn C and system programming! Go to the lessons page by clicking the link in the top navigation bar.',
             format: 'markdown'
-        }
+        };
     }
 
     setEditorParams() {
@@ -132,7 +132,7 @@ class PlayActivityPage {
     setVmParams() {
         this.vmParams = {
             vmState: SysGlobalObservables.vmState
-        }
+        };
     }
 
     dispose() {

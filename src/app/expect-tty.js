@@ -12,7 +12,7 @@ class ExpectTTY {
                 this._cleanup();
                 this.callback(true);
             }
-        }.bind(this);
+        };
 
         this.sys.addListener(this.putCharEventName, this.expectPutCharListener);
     }

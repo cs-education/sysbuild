@@ -1,6 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./editor-pane.html';
-import 'knockout-projections'
+import 'knockout-projections';
 
 class EditorPane {
     constructor(params) {
@@ -43,7 +43,7 @@ class EditorPane {
         }
 
         this.currentActiveTabIndex(newActiveTabIndex);
-    };
+    }
 
     dispose() {
         // This runs when the component is torn down. Put here any logic necessary to clean up,

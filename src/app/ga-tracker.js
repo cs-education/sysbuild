@@ -59,7 +59,7 @@ class Tracker {
         // https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#optout
         document.cookie = 'disableTracking' + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
         this.disableTracking();
-    };
+    }
 
     /**
      * Track an event. This function is a wrapper to the analytics.js event tracking implementation

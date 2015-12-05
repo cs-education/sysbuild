@@ -1,5 +1,6 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./copyright-line.html';
+import marked from 'marked';
 
 class CopyrightLine {
     constructor(params) {

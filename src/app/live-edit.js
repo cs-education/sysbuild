@@ -1,4 +1,4 @@
-import * as SysGlobalObservables from 'app/sys-global-observables'
+import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class LiveEdit {
     constructor(_runtime) {
@@ -8,13 +8,13 @@ class LiveEdit {
             var ready = this.runtime.ready();
             SysGlobalObservables.vmState(ready ? 'Running' : 'Booting');
             SysGlobalObservables.compileStatus(ready ? 'Ready' : 'Waiting');
-        }.bind(this);
+        };
 
         updateCompileButton(); // Maybe sys is already up and running
 
         this.runtime.addListener('ready', () => {
             updateCompileButton();
-        }.bind(this));
+        });
 
         SysGlobalObservables.runCode(this.runCode.bind(this));
     }

@@ -1,8 +1,9 @@
+/*global Bloodhound:false, saveAs:false*/
 import ko from 'knockout';
 import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
 import 'bloodhound';
-import TokenHighlighter from 'components/editor/token-highlighter'
+import TokenHighlighter from 'components/editor/token-highlighter';
 import 'Blob';
 import 'FileSaver';
 
@@ -196,19 +197,19 @@ class Editor {
      */
     setAceFontSize(size) {
         document.getElementById(this.editorDivId).style.fontSize = size;
-    };
+    }
 
     setAceTheme(theme) {
         this.aceEditor.setTheme('ace/theme/' + theme);
-    };
+    }
 
     setAceMode(mode) {
         this.aceEditor.getSession().setMode('ace/mode/' + mode);
-    };
+    }
 
     setAceText(text) {
         return this.aceEditor.getSession().setValue(text);
-    };
+    }
 
     setAceHighlightActiveLine(val) {
         this.aceEditor.setHighlightActiveLine(val);
@@ -220,11 +221,11 @@ class Editor {
 
     setAceAnnotations(annotations) {
         this.aceEditor.getSession().setAnnotations(annotations);
-    };
+    }
 
     getText() {
         return this.aceEditor.getSession().getValue();
-    };
+    }
 
     resize() {
         // We resize after a timeout because when the window resize handler is called,
@@ -242,7 +243,7 @@ class Editor {
             );
             this.aceEditor.resize();
         }, 500);
-    };
+    }
 
     addKeyboardCommand(cmdName, keyBindings, execFunc, readOnly) {
         // If readOnly param is not passed in, then default to true, else coerce the passed in value to boolean and use
@@ -255,7 +256,7 @@ class Editor {
             exec: execFunc,
             readOnly: readOnly // false if this command should not apply in readOnly mode
         });
-    };
+    }
 
     autoIndentCode() {
         // Implementation taken from the javaplayland project
@@ -303,7 +304,7 @@ class Editor {
         editor.clearSelection();
 
         this.reIndenting = false;
-    };
+    }
 
     dispose() {
         // This runs when the component is torn down. Put here any logic necessary to clean up,

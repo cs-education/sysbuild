@@ -67,15 +67,15 @@ class NamedPreferences {
 
     setItem(key, value) {
         this.manager.setItem(this.prefix + '/' + key, value);
-    };
+    }
 
     getItem(key, defaultValue) {
         return this.manager.getItem(this.prefix + '/' + key, defaultValue);
-    };
+    }
 
     removeItem(key) {
         this.manager.removeItem(this.prefix + '/' + key);
-    };
+    }
 }
 
 var instance = new Preferences();
@@ -87,4 +87,4 @@ export default {
         }
         return namedInstances[namespace];
     }
-}
+};

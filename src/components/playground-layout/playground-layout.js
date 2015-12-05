@@ -15,8 +15,8 @@ class PlaygroundLayout {
             compileStatus: compilerParams.compileStatus,
             lastGccOutput: compilerParams.lastGccOutput,
             gccErrorCount: compilerParams.gccErrorCount,
-            gccWarningCount: compilerParams.gccWarningCount,
-        }
+            gccWarningCount: compilerParams.gccWarningCount
+        };
 
         var editorParams = params.editorParams;
         var openManPageCallback = this.openManPage.bind(this);

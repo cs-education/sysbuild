@@ -1,3 +1,4 @@
+/*global Bloodhound:false*/
 import ko from 'knockout';
 import templateMarkup from 'text!./manpages-search-tab.html';
 import 'typeahead-jquery';

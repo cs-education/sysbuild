@@ -1,3 +1,4 @@
+/*global Bloodhound:false*/
 import ko from 'knockout';
 import templateMarkup from 'text!./video-search-tab.html';
 import videojs from 'videojs';
@@ -99,7 +100,7 @@ class VideoSearchTab {
         });
         vid.currentTime(resultVid.startTime);
         vid.play();
-    };
+    }
 
     configurePlayer(player, videoURL, videoName) {
         player.src([
