@@ -62,13 +62,13 @@ class PlayActivityPage {
     setEditorParams() {
         var editorPrefs = Preferences.getPreferenceManager('editor');
 
-        var autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true'));
+        var autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true') === 'true');
         autoIndent.subscribe((newSetting) => editorPrefs.setItem('autoindent', newSetting));
 
-        var highlightLine = ko.observable(editorPrefs.getItem('highlightline', 'true'));
+        var highlightLine = ko.observable(editorPrefs.getItem('highlightline', 'true') === 'true');
         highlightLine.subscribe((newSetting) => editorPrefs.setItem('highlightline', newSetting));
 
-        var showInvisibles = ko.observable(editorPrefs.getItem('showinvisibles', 'false'));
+        var showInvisibles = ko.observable(editorPrefs.getItem('showinvisibles', 'false') === 'true');
         showInvisibles.subscribe((newSetting) => editorPrefs.setItem('showinvisibles', newSetting));
 
         var theme = ko.observable(editorPrefs.getItem('theme', 'monokai'));
