@@ -19,16 +19,13 @@ gulp.task('html', () => {
 });
 
 gulp.task('images', () => {
-  return gulp.src('src/images/**/*')
-    .pipe(gulp.dest('dist/images'));
+    return gulp.src('src/images/**/*')
+        .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('extras', () => {
-  return gulp.src([
-    'src/*.*',
-    '!src/*.html',
-    '!src/styles.css'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist'));
+    const remainingSrcFiles = gulp.src(['src/*.*', '!src/*.html', '!src/styles.css'], { dot: true });
+    const documentation = gulp.src(['LICENSE.md', 'sys-gh-pages-config/README.md']);
+    return es.concat(remainingSrcFiles, documentation)
+        .pipe(gulp.dest('dist'));
 });
