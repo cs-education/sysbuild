@@ -7,7 +7,7 @@ const karmaConfPath = __dirname + '/../karma.conf.js';
 /**
  * Run test once and exit
  */
-gulp.task('test', (done) => {
+gulp.task('test', ['lint:test'], (done) => {
   new KarmaServer({
     configFile: karmaConfPath,
     singleRun: true
@@ -17,7 +17,7 @@ gulp.task('test', (done) => {
 /**
  * Watch for file changes and re-run tests on each change
  */
-gulp.task('tdd', (done) => {
+gulp.task('tdd', ['lint:test:watch'], (done) => {
   new KarmaServer({
     configFile: karmaConfPath
   }, done).start();

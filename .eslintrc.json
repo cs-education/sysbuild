@@ -1,0 +1,15 @@
+{
+    "ecmaFeatures": {
+        "modules": true,
+        "classes": true,
+        "blockBindings": true,
+        "arrowFunctions": true,
+        "templateStrings": true,
+        "spread": true,
+        "destructuring": true
+    },
+    "rules": {
+        "semi": 2,
+        "quotes": [2, "single"]
+    }
+}

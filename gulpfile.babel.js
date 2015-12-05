@@ -9,6 +9,7 @@ import './gulp-tasks/build-assets';
 import './gulp-tasks/build-styles';
 import './gulp-tasks/serve';
 import './gulp-tasks/test';
+import './gulp-tasks/lint';
 
 // Removes all files from ./dist/
 gulp.task('clean', () => {
@@ -25,7 +26,7 @@ gulp.task('jor1k', () => {
         .pipe(gulp.dest('./dist/bower_modules/jor1k/bin/'));
 });
 
-gulp.task('build', ['html', 'js', 'css:dist', 'fonts', 'images', 'extras', 'jor1k'], (callback) => {
+gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras', 'jor1k'], (callback) => {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
 });

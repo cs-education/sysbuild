@@ -14,7 +14,7 @@ gulp.task('serve:src', ['css:watch'], () => {
 });
 
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
-gulp.task('serve:test', () => {
+gulp.task('serve:test', ['lint:test:watch'], () => {
     var root = '.'; // this is relative to project root
     return connect.server({
         root: root,
