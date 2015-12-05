@@ -20,12 +20,14 @@ class CompilerControls {
             return ready;
         });
 
-        $('#compile-btn').click(() => {
+        const $compileBtn = $('#compile-btn');
+        $compileBtn.click(() => {
             params.compileCallback();
+            $compileBtn.popover('hide');
         });
 
         // Initialize Bootstrap popovers
-        $('#compile-btn').popover();
+        $compileBtn.popover();
         // We don't want the "gcc opts errors" popover to be dismissed when clicked
         $('#gccoptions').popover().click((e) => { e.preventDefault(); });
     }
