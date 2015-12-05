@@ -7,11 +7,16 @@ class CopyrightLine {
         $.get('LICENSE.md', function (data) {
             this.projectLicense(marked(data));
         });
+
+        // The modal needs to be "outside" the layout if used on the playground page
+        // https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
+        $('a[data-target=#project-license-window]').click(() => {
+            $('#project-license-window').appendTo('body');
+        });
     }
 
     dispose() {
-        // This runs when the component is torn down. Put here any logic necessary to clean up,
-        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+        $('#project-license-window').remove();
     }
 }
 

@@ -42,11 +42,16 @@ class CompilerStateLabel {
             }
             return str;
         });
+
+        // The modal needs to be "outside" the layout if used on the playground page
+        // https://stackoverflow.com/questions/10636667/bootstrap-modal-appearing-under-background
+        $('a[data-target=#gcc-error-window]').click(() => {
+            $('#gcc-error-window').appendTo('body');
+        });
     }
 
     dispose() {
-        // This runs when the component is torn down. Put here any logic necessary to clean up,
-        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
+        $('#gcc-error-window').remove();
     }
 }
 

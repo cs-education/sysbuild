@@ -23,6 +23,11 @@ class CompilerControls {
         $('#compile-btn').click(() => {
             params.compileCallback();
         });
+
+        // Initialize Bootstrap popovers
+        $('#compile-btn').popover();
+        // We don't want the "gcc opts errors" popover to be dismissed when clicked
+        $('#gccoptions').popover().click((e) => { e.preventDefault(); });
     }
 
     dispose() {

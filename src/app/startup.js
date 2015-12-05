@@ -40,9 +40,5 @@ ko.components.register('compiler-state-label', { require: 'components/compiler-s
 ko.components.register('not-found-page', { require: 'components/not-found-page/not-found-page' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
-// Initialize Bootstrap tooltip and popover
-$('[data-toggle=tooltip]').tooltip();
-$('[data-toggle=popover]').popover().click((e) => { e.preventDefault(); });
-
 // Start the application
 ko.applyBindings({ route: router.currentRoute });

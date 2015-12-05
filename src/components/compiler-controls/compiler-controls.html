@@ -16,8 +16,10 @@
                 </div>
             </div>
         </div>
-        <button id="compile-btn" data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { title: compileBtnTooltip }"
-                data-toggle="tooltip" data-container="body" type="button" class="btn btn-xs pull-right col-sm-2" disabled="disabled">
+        <button id="compile-btn"
+          data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { 'data-content': compileBtnTooltip }"
+          data-toggle="popover" data-placement="top" data-trigger="hover focus" data-container="body"
+          type="button" class="btn btn-xs pull-right col-sm-2" disabled="disabled">
             Run It<br>
             <span class="glyphicon glyphicon-play"></span>
         </button>
