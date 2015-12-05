@@ -31,14 +31,16 @@
     "karma-babel-preprocessor": "^5.2.2",
     "karma-chrome-launcher": "^0.2.1",
     "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
     "karma-requireglobal-preprocessor": "^0.0.0",
     "karma-requirejs": "^0.2.2",
     "object-assign": "^4.0.1",
+    "phantomjs": "^1.9.19",
     "requirejs": "^2.1.11",
     "slash": "^1.0.0"
   },
   "scripts": {
     "postinstall": "bower install && cd test/ && bower install",
-    "test": "grunt travis"
+    "test": "gulp ci"
   }
 }

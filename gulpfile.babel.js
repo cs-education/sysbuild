@@ -11,6 +11,9 @@ import './gulp-tasks/serve';
 import './gulp-tasks/test';
 import './gulp-tasks/lint';
 
+// Run by Travis CI
+gulp.task('ci', ['lint', 'test:headless']);
+
 // Removes all files from ./dist/
 gulp.task('clean', () => {
     return gulp.src('./dist/**/*', { read: false })

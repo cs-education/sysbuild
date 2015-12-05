@@ -34,7 +34,8 @@ module.exports = function(config) {
         'karma-requirejs',
         'karma-babel-preprocessor',
         'karma-requireglobal-preprocessor',
-        'karma-chrome-launcher'
+        'karma-chrome-launcher',
+        'karma-phantomjs-launcher'
     ],
 
     // preprocess matching files before serving them to the browser
