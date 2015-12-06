@@ -1,6 +1,7 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./playground-term-pane.html';
 import 'jquery-fullscreen';
+import { focusTerm } from 'app/sys-global-observables';
 
 class PlaygroundTermPane {
     constructor(params) {
@@ -70,8 +71,7 @@ class PlaygroundTermPane {
     }
 
     focusTerminal(n) {
-        // TODO
-        //SysRuntime.getInstance().focusTerm(this.ttys[n]);
+        focusTerm()(this.ttys[n]);
     }
 
     dispose() {

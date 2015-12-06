@@ -16,6 +16,9 @@ class LiveEdit {
             updateCompileButton();
         });
 
+        // Setup callbacks so that the UI can invoke functions on this class
+        // as well as on the runtime.
+        SysGlobalObservables.focusTerm(this.runtime.focusTerm.bind(this.runtime));
         SysGlobalObservables.runCode(this.runCode.bind(this));
     }
 

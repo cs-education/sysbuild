@@ -6,6 +6,7 @@ export var compileStatus = ko.observable('');
 export var gccOptions = ko.observable('');
 export var programArgs = ko.observable('');
 
+export var focusTerm = ko.observable((tty) => {});
 export var runCode = ko.observable((code, gccOptions) => {});
 
 export var lastGccOutput = ko.observable('');
