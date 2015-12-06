@@ -44,7 +44,13 @@ Amazing projects without which this project would not have been possible:
 
 * [Knockout.js](http://knockoutjs.com/) has been very helpful in managing the complexity of the code base.
 
-* [Yeoman](http://yeoman.io/) saved a lot of time and effort in bootstrapping the project.
+* [Yeoman](http://yeoman.io/) saved a lot of time and effort in bootstrapping the project and configuring the tools used.
+  In particular, the [webapp](https://github.com/yeoman/generator-webapp#readme),
+  [gulp-webapp](https://github.com/yeoman/generator-gulp-webapp#readme), and the
+  [ko](https://github.com/stevesanderson/generator-ko#readme) generators were used.
+
+* [RequireJS](http://requirejs.org/) and [Babel](https://babeljs.io/) have been extremely helpful in keeping the code base
+  modular and maintainable.
 
 * Have a look at our [Bower](bower.json) and [npm](package.json) dependencies for a list of the many other libraries
   and tools that have made this project possible.

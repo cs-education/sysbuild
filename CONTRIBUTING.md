@@ -14,15 +14,18 @@ You can also post on the chat room or reach out to the project team directly if 
 [Community and Collaboration](README.md#community-and-collaboration) section in the README for directions.
 It also contains details on the project team's workflow.
 
-If you would like to work on this project, see the information below to get started.
+If you would like to work on this project, see the information below to get started. Please read the whole
+document carefully before starting.
 
 ## Project organization
 This is the main repository for the project. Other repositories which are part of the project are:
 
-* [cs-education/jor1k](https://github.com/cs-education/jor1k) - The virtual machine embedded into the browser
+* [cs-education/jor1k](https://github.com/cs-education/jor1k) - Our fork of the Jor1k project, that powers the virtual
+  machine embedded into the browser. This project uses the [sysbuild-stable](https://github.com/cs-education/jor1k/tree/sysbuild-stable)
+  branch in that repository as a dependency.
 
 * [cs-education/sysassets](https://github.com/cs-education/sysassets) - Pre-compiled assets used in the project, such
-  as lecture videos, lessons, man pages, and the jor1k filesystem
+  as lecture videos, lessons, man pages, and the jor1k filesystem.
 
 We use [GitHub Pages](https://help.github.com/articles/what-are-github-pages) for hosting the application. The
 repositories used for deployment are separate from this repository, to keep this repository small. You probably won't
@@ -37,29 +40,31 @@ be committing changes directly to these repositories, but instead use automated 
 ## Structure of this repository
 ```
 sysbuild/
-├── app/                      Application source code
-│   ├── images/               Images/pictures
-│   ├── jor1k/                The jor1k project source copied by grunt during setup
-│   ├── scripts/              Javascript files
-│   └── styles/               SASS and CSS files
+├── src/                      Application source code and other assets
+│   ├── app/                  Core application modules
+│   ├── bower_modules/        (Runtime) dependencies installed by Bower
+│   ├── components/           KnockoutJS components the UI is composed of
+│   ├── images/               Image/picture files
+│   └── styles/               Sass and CSS files
+├── test/                     Test cases, code and configuration
 ├── dist/                     The distributable application output by the build process
-├── bower_components/         Dependencies installed by Bower
-├── node_modules/             Dependencies installed by npm
+├── node_modules/             (Development process) dependencies installed by npm
 ├── sys-gh-pages-config/      Config for the application deployed on production
-└── test/                     Tests
-    └── spec/
+└── gulp-tasks/               Modules containing build tasks and their helpers
 ```
 
-This project was scaffolded using the [Yeoman webapp generator](https://github.com/yeoman/generator-webapp).
+This project was scaffolded using the Yeoman [Knockout](https://github.com/stevesanderson/generator-ko#readme)
+generator, with configuration ideas and code adapted from the [gulp-webapp](https://github.com/yeoman/generator-gulp-webapp#readme)
+and [webapp](https://github.com/yeoman/generator-webapp) generators.
 
 ## Development environment set up
 1.  [Set up Git](https://help.github.com/articles/set-up-git/) and install [Node.js](https://nodejs.org/).
     Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
 
-2.  Globally install [Bower](http://bower.io/) and [Grunt](http://gruntjs.com/)
+2.  Globally install [Bower](http://bower.io/) and [gulp](http://gulpjs.com/)
     (you might need to use `sudo` or run the command as an Administrator if it fails due to missing permissions,
     because of the [location npm installs global packages](https://www.npmjs.org/doc/files/npm-folders.html) in):  
-    `npm install -g bower grunt-cli`
+    `npm install -g bower gulp`
 
 3.  [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository:  
     `git clone https://github.com/<your-username>/sysbuild.git`
@@ -73,8 +78,10 @@ This project was scaffolded using the [Yeoman webapp generator](https://github.c
 6.  Install dependencies and set up the project:  
     `npm install`
 
-7.  Start a local development server and launch the application:  
-    `grunt serve`
+7.  Start a local development server:  
+    `gulp serve`
+
+8.  Navigate to <http://localhost:8080> in your preferred web browser.
 
 ## Pull requests
 Pull requests --- patches, improvements, new features --- are a fantastic help.
@@ -123,7 +130,7 @@ Adhering to the following process is the best way to get your work included in t
     updated with more commits, a build is triggered. It is a good idea to test your code locally before opening a
     pull request, so as to avoid failed builds and needing to revise the pull request. Use the following command to
     run the tests exactly as they are run by Travis CI:  
-    `grunt travis`
+    `gulp ci`
 
 10. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the
     upstream `master` branch. You're all set! Now wait for someone to review your code and merge your changes.
@@ -152,35 +159,30 @@ changes from the main (upstream) repository:
 
 ## Code guidelines
 * Please include tests whenever possible.
-* Make sure all tests pass. Use the command `grunt test` to run the tests.
+* Make sure all tests pass.
 * We have an [editor config](.editorconfig) file for maintaining a consistent coding style. Read more and download
   plugins at <http://editorconfig.org>. Using EditorConfig will considerably help you to adhere to the code style
   guidelines below.
 
 ### HTML
-* [Adhere to the Code Guide by @mdo](http://codeguide.co/#html) (however, use soft tabs with **four** spaces instead
-  of two).
+* [Adhere to the Code Guide by @mdo](http://codeguide.co/#html).
 * Use tags and elements appropriate for an HTML5 doctype (e.g., self-closing tags).
 * Download JS scripts using Bower to be included in the distribution, instead of loading them from third-party URLs.
 * If you have to use third-party JS, use CDNs and HTTPS when possible.
 * Use [WAI-ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) attributes to promote accessibility.
 
 ### CSS
-* [Adhere to the Code Guide by @mdo](http://codeguide.co/#css) (however, use soft tabs with **four** spaces instead
-  of two).
+* [Adhere to the Code Guide by @mdo](http://codeguide.co/#css).
 * When feasible, default color palettes should comply with
   [WCAG color contrast guidelines](http://www.w3.org/TR/WCAG20/#visual-audio-contrast).
 
 ### JavaScript
-* We use [JSHint](http://jshint.com/about/) to detect errors and potential problems in JavaScript code. Use
-  `grunt jshint` to run JSHint on your code. The file [.jshintrc](.jshintrc) contains the configuration used for JSHint.
+* We use [ESLint](http://eslint.org/) to detect errors and potential problems in JavaScript code. Use
+  `gulp lint` to run ESLint on your code. The file [.eslintrc.yml](.eslintrc.yml) contains the configuration used by
+  ESLint.
 
-* [JSHint can be suppressed](http://jshint.com/docs/#inline-configuration) in particular parts of code when necessary.
-  Use this sparingly, though.
-
-* We use [JSCS](http://jscs.info/) for code style linting. Use `grunt jscs` to run JSCS on your code.
-  The file [.jscsrc](.jscsrc) contains the configuration used for JSCS. Currently we use
-  [Douglas Crockford's style guide](http://javascript.crockford.com/code.html) with some overrides.
+* [ESLint can be suppressed](http://eslint.org/docs/user-guide/configuring#configuring-rules) in particular parts of
+  code when necessary. Use this sparingly, though.
 
 **NOTE**: If you encounter any code not adhering to these guidelines, feel free to open an issue, or better, open a
 (separate) pull request fixing the violations. Also feel free to discuss changing/adding/removing any guideline if you
@@ -211,39 +213,52 @@ to deploy to your own repository or server, only perform the first (build) step 
 to your repository's `gh-pages` branch or to the web folder on your server.
 
 1.  Build the distributable project (output in the `dist/` folder):  
-    `grunt build`
+    `gulp build`
 
-2.  Deploy to [staging](https://cs-education.github.io/sys-staging/):  
-    `grunt deploy:staging`
+2.  Test the built application locally by running the following command and then navigating to <http://localhost:8080>
+    in your web browser.:  
+    `gulp serve:dist`
 
-3.  Test out the application in staging and ensure things work as expected. Once things look good, please announce in
+3.  Deploy to [staging](https://cs-education.github.io/sys-staging/):  
+    `gulp deploy:staging`
+
+4.  Test out the application in staging and ensure things work as expected. Once things look good, please announce in
     the chat room that you are going to deploy to production.
 
-4.  Deploy to [production](https://cs-education.github.io/sys/):  
-    `grunt deploy:prod`
+5.  Deploy to [production](https://cs-education.github.io/sys/):  
+    `gulp deploy:prod`
 
 ## Development notes
 ### Useful commands
-* Run `grunt serve` to start a local development server. It will automatically launch the default browser and navigate to
-  the local application. It will also watch files for changes - automatically running JSHint on changed JS files,
-  automatically compiling changed SASS files, etc. You do need to refresh the web page after making any changes
-  (live reloading has been disabled due to [this issue](https://github.com/cs-education/sysbuild/issues/115)).
+* Run `gulp serve` to start a local development server, which makes the application available at <http://localhost:8080>.
 
-* If you add a new Bower component to the project, run `grunt bowerInstall` to automatically inject tags
-  for *supported* Bower components into the HTML file.
+* `gulp clean` can be used to delete the `dist/` folder (recommended before building the project).
 
-* If you want to run the tests in a browser, run `grunt testserver` to start a local test server, then
-  navigate to `http://localhost:9001`.
+### Testing
+We use [Karma](https://karma-runner.github.io/0.13/index.html) for running tests. It has been configured to run tests in
+the [Chrome web browser](https://www.google.com/chrome/), so you need to have Chrome installed. If you would like to use
+another browser, either [configure Karma to use a different launcher](https://karma-runner.github.io/0.13/config/browsers.html),
+or [open an issue](#using-the-issue-tracker).
+
+* Run `gulp test` to run the tests once. It will launch an instance of the Chrome browser, run tests in it, and close it
+  automatically. If you do not want to launch a GUI browser, run `gulp test:headless` to use [PhantomJS](http://phantomjs.org/)
+  instead.
+
+* Run `gulp tdd` to make Karma watch for changes and automatically run tests whenever source or test files are modified.
+  Until you terminate the process, Karma will keep an instance of Chrome running.
+
+* If you want to run the tests in a browser manually instead of using Karma, run `gulp serve:test` to start a local test
+  server, then navigate to <http://localhost:8080>.
 
 ### Travis CI configuration.
 * [We cache](.travis.yml) Bower and npm dependencies to speed up builds. The caches can be accessed
   [on the web](https://travis-ci.org/cs-education/sysbuild/caches), which gives us a means to
-  [delete the caches](http://docs.travis-ci.com/user/caching/#Clearing-Caches) in case they are spoiled
-  by storing bad data in one of the cached directories.
+  [clear them](http://docs.travis-ci.com/user/caching/#Clearing-Caches) in case they are spoiled
+  (for example, by storing bad data in one of the cached directories).
 
 * You can [validate the .travis.yml file](http://docs.travis-ci.com/user/travis-lint/) before committing it to reduce
   common build errors. Travis has a convenient [web-based tool](https://lint.travis-ci.org/) where you can paste the
-  contents of .travis.yml for validation.
+  contents of `.travis.yml` for validation.
 
 ### Gotchas
 * Do not wrap your AMD modules in `define` calls, as Babel automatically does that. In fact, doing so will cause errors.
