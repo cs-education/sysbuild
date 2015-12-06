@@ -1,3 +1,5 @@
+import fs from 'fs';
+import cp from 'child_process';
 import es from 'event-stream';
 import chalk from 'chalk';
 import gulp from 'gulp';
@@ -33,7 +35,22 @@ gulp.task('jor1k', () => {
 
 gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras', 'jor1k'], () => {
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
-    return gulp.src('dist/**/*').pipe(size({title: 'build'}));
+    const buildStampFile = 'dist/build-stamp.txt';
+    const recentCommitsFile = 'dist/publish-recentcommits.txt';
+
+    const s = size({title: 'dist'});
+    const buildStamp = gulp.src('dist/**/*').pipe(s).on('end', () => {
+            fs.writeFileSync(buildStampFile, `Build date: ${(new Date()).toUTCString()}\nBuilt size: ${s.prettySize}\n`);
+            console.log('Build stamp written to ' + chalk.magenta(buildStampFile));
+        });
+
+    const recentCommitLog = cp.exec('git log -n 5 --oneline', (err, stdout) => {
+        if (err) throw err;
+        fs.writeFileSync(recentCommitsFile, stdout);
+        console.log('Log of recent commits in distribution written to ' + chalk.magenta(recentCommitsFile));
+    }).stdout;
+
+    return es.concat(buildStamp, recentCommitLog);
 });
 
 gulp.task('default', (callback) => {
