@@ -18,7 +18,7 @@ var require = {
         "jquery-ui-layout":     "bower_modules/jquery-ui-layout/source/stable/jquery.layout_and_plugins.min",
         "jquery-fullscreen":    "bower_modules/jquery-fullscreen/jquery.fullscreen-min",
         "jquery-notific8":      "bower_modules/jquery-notific8/dist/jquery.notific8.min",
-        "ace":                  "bower_modules/ace-builds/src/",
+        "ace":                  "bower_modules/ace/lib/ace",
         "typeahead-jquery":     "bower_modules/typeahead.js/dist/typeahead.jquery.min",
         "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // exports window global "Bloodhound"
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"

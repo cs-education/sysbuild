@@ -12,7 +12,6 @@
     "bootstrap-sass": "~3.3.6",
     "modernizr": "~2.8.3",
     "jquery": "~2.1.4",
-    "ace-builds": "~1.2.2",
     "jor1k": "https://github.com/cs-education/jor1k.git#sysbuild-stable",
     "Blob": "*",
     "FileSaver": "*",
@@ -24,7 +23,8 @@
     "jquery-ui-layout": "~1.4.3",
     "jquery-ui": "~1.11.4",
     "jquery-fullscreen": "~1.1.4",
-    "cjs": "*"
+    "cjs": "*",
+    "ace": "~1.2.2"
   },
   "devDependencies": {}
 }

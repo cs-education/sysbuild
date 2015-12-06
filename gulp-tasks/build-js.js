@@ -42,7 +42,12 @@ const requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/requi
             'components/playground-footer/playground-footer',
             'components/vm-state-label/vm-state-label',
             'components/compiler-state-label/compiler-state-label',
-            'components/not-found-page/not-found-page'
+            'components/not-found-page/not-found-page',
+            'ace/mode/c_cpp',
+            'ace/theme/monokai',
+            'ace/theme/terminal',
+            'ace/theme/tomorrow',
+            'ace/theme/xcode'
         ],
         insertRequire: ['app/startup'],
         bundles: {
