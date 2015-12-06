@@ -13,3 +13,5 @@ export var gccOptsError =  ko.observable('');
 export var gccErrorCount = ko.observable(0);
 export var gccWarningCount = ko.observable(0);
 export var editorAnnotations = ko.observableArray([]);
+
+export var projectLicense = ko.observable('');
