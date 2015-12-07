@@ -16,7 +16,9 @@ import './gulp-tasks/lint';
 import './gulp-tasks/deploy';
 
 // Run by Travis CI
-gulp.task('ci', ['lint', 'test:headless']);
+gulp.task('ci', ['lint'], () => {
+    gulp.start('test:headless');
+});
 
 // Removes all files from ./dist/
 gulp.task('clean', () => {

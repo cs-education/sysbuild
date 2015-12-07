@@ -49,7 +49,7 @@ class Router {
 
         crossroads.routed.add(() => {
             tracker.trackPageView();
-        })
+        });
 
         crossroads.bypassed.add(() => {
             tracker.trackPageView();
