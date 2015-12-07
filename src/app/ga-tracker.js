@@ -35,6 +35,12 @@ class Tracker {
         } else if (env === 'staging') {
             ga('create', neelabhgStagingGaWebPropertyId, 'auto', {'name': 'neelabhgStaging'});
         }
+
+        if (env === 'dev') {
+            this.debug = console.log.bind(console);
+        } else {
+            this.debug = () => {};
+        }
     }
 
     /**
@@ -98,6 +104,8 @@ class Tracker {
                 tracker.send('pageview', properties);
             });
         });
+
+        this.debug('pageview', properties, 'sent to', ga.getAll());
     }
 }
 

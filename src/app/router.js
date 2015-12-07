@@ -1,6 +1,7 @@
 import ko from 'knockout';
 import crossroads from 'crossroads';
 import hasher from 'hasher';
+import tracker from 'app/ga-tracker';
 
 // This module configures crossroads.js, a routing library. If you prefer, you
 // can use any other routing library (or none at all) as Knockout is designed to
@@ -46,7 +47,12 @@ class Router {
             this.currentRoute(ko.utils.extend(requestParams, { page: 'play-activity-page' }));
         });
 
+        crossroads.routed.add(() => {
+            tracker.trackPageView();
+        })
+
         crossroads.bypassed.add(() => {
+            tracker.trackPageView();
             this.currentRoute({ page: 'not-found-page' });
         });
 
