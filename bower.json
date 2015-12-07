@@ -26,5 +26,8 @@
     "cjs": "*",
     "ace": "~1.2.2"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "knockout": "~3.3.0"
+  }
 }
