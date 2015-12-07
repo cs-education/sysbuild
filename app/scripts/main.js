@@ -165,6 +165,15 @@ $(document).ready(function () {
     $(window).resize(function () {
         editor.resize(500);
         resizeTabs();
+    }).on('keydown', function (e) {
+        // prevent accidental backward navigation
+        var keyCode = {
+            backspace: 8
+        };
+
+        if (e.keyCode === keyCode.backspace) {
+            e.preventDefault();
+        }
     });
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
