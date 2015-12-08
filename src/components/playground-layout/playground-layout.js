@@ -25,6 +25,20 @@ class PlaygroundLayout {
         this.initLayout();
         $('body').css('overflow', 'hidden');
 
+        // Prevent accidental backward navigation.
+        // The event name is namespaced so that its handler can be safely removed
+        // when this component is disposed, as we want backspace to work properly
+        // when the user is not in the playground.
+        $(window).on('keydown.playground', (e) => {
+            var keyCode = {
+                backspace: 8
+            };
+
+            if (e.keyCode === keyCode.backspace) {
+                e.preventDefault();
+            }
+        });
+
         this.createVideoSearchTab();
         this.createEditorTab(editorParams, compilerParams);
         this.createManPageSearchTab(openManPageCallback);
@@ -149,9 +163,8 @@ class PlaygroundLayout {
     }
 
     dispose() {
-        // This runs when the component is torn down. Put here any logic necessary to clean up,
-        // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
         $('body').css('overflow', 'auto');
+        $(window).off('keydown.playground');
     }
 }
 
