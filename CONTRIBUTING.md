@@ -216,7 +216,7 @@ to your repository's `gh-pages` branch or to the web folder on your server.
     `gulp build`
 
 2.  Test the built application locally by running the following command and then navigating to <http://localhost:8080>
-    in your web browser.:  
+    in your web browser:  
     `gulp serve:dist`
 
 3.  Deploy to [staging](https://cs-education.github.io/sys-staging/):  
@@ -249,6 +249,27 @@ or [open an issue](#using-the-issue-tracker).
 
 * If you want to run the tests in a browser manually instead of using Karma, run `gulp serve:test` to start a local test
   server, then navigate to <http://localhost:8080>.
+
+### Creating components
+To create a new [Knockout component](http://knockoutjs.com/documentation/component-overview.html) called "my-component",
+the following steps need to be followed:
+
+1.  Create the following files:
+    * `src/components/my-component/my-component.html`: The HTML template for the component
+    * `src/components/my-component/my-component.js`: The ViewModel for the component
+    * `src/styles/_my-component.scss`: The Sass partial containing styles for the component
+
+2.  Register the component with Knockout by adding the following line to `src/app/startup.js`:  
+    `ko.components.register('my-component', { require: 'components/my-component/my-component' });`
+
+3.  Include the component styles by importing the Sass partial into `src/styles/main.scss`:  
+    `@import "styles/my-component";`
+
+4.  Update the build configuration in `gulp-tasks/build-js.js` so that the new component is included
+    in the distribution bundle, by adding `'components/my-component/my-component'` to the include list.
+
+5.  Use the component as needed, usually as a custom HTML element. For example:  
+    `<my-component params="..."></my-component>`
 
 ### Travis CI configuration.
 * [We cache](.travis.yml) Bower and npm dependencies to speed up builds. The caches can be accessed
