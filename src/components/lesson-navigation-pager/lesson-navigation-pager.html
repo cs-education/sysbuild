@@ -1,0 +1,11 @@
+<ul class="row" data-bind="css: listCssClass">
+  <li class="col-sm-3 previous">
+    <a data-bind="visible: prevActivityUrl() !== '#lessons', attr: { href: prevActivityUrl }">&larr; Previous</a>
+  </li>
+  <li class="col-sm-6 text-center">
+    <h3 style="display: inline"><span data-bind="text: currentSectionName"></span></h3>
+  </li>
+  <li class="col-sm-3 next">
+    <a class="pull-right" data-bind="visible: nextActivityUrl() !== '#lessons', attr: { href: nextActivityUrl }">Next &rarr;</a>
+  </li>
+</ul>

@@ -1,13 +1,18 @@
 {
   "name": "sysbuild",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "bootstrap-sass-official": "~3.3.5",
+    "crossroads": "~0.12.0",
+    "hasher": "~1.2.0",
+    "requirejs": "~2.1.11",
+    "requirejs-text": "~2.0.10",
+    "knockout": "~3.3.0",
+    "knockout-projections": "~1.1.0",
+    "bootstrap-sass": "~3.3.6",
     "modernizr": "~2.8.3",
     "jquery": "~2.1.4",
-    "ace-builds": "~1.2.2",
     "jor1k": "https://github.com/cs-education/jor1k.git#sysbuild-stable",
-    "knockout": "~3.3.0",
     "Blob": "*",
     "FileSaver": "*",
     "sammy": "~0.7.6",
@@ -17,50 +22,12 @@
     "jquery-notific8": "~2.3.0",
     "jquery-ui-layout": "~1.4.3",
     "jquery-ui": "~1.11.4",
-    "jquery-fullscreen": "~1.1.4"
+    "jquery-fullscreen": "~1.1.4",
+    "cjs": "*",
+    "ace": "~1.2.2"
   },
   "devDependencies": {},
-  "overrides": {
-    "ace-builds": {
-      "main": [
-        "src-min-noconflict/ace.js",
-        "src-min-noconflict/mode-c_cpp.js",
-        "src-min-noconflict/theme-monokai.js",
-        "src-min-noconflict/theme-terminal.js",
-        "src-min-noconflict/theme-tomorrow.js",
-        "src-min-noconflict/theme-xcode.js"
-      ]
-    },
-    "jor1k": {
-      "main": [
-        "bin/jor1k-master-min.js"
-      ]
-    },
-    "jquery-ui-layout": {
-      "main": [
-        "source/stable/jquery.layout_and_plugins.min.js",
-        "source/stable/layout-default.css"
-      ],
-      "dependencies": {
-        "jquery": "*",
-        "jquery-ui": "*"
-      }
-    },
-    "bootstrap-sass-official": {
-      "main": [
-        "assets/stylesheets/_bootstrap.scss"
-      ]
-    },
-    "jquery-fullscreen": {
-      "main": [
-        "jquery.fullscreen-min.js"
-      ]
-    },
-    "videojs": {
-      "main": [
-        "dist/video.min.js",
-        "dist/video-js.min.css"
-      ]
-    }
+  "resolutions": {
+    "knockout": "~3.3.0"
   }
 }

@@ -1,0 +1,27 @@
+<div id="compile-opts-container">
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="row">
+                <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                <div class="col-sm-11" data-bind="css: {'has-error': gccOptsError()}">
+                    <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
+                        data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                        tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                <div class="col-sm-11">
+                    <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                </div>
+            </div>
+        </div>
+        <button id="compile-btn"
+          data-bind="enable: compileBtnEnable, css: { 'btn-success': compileBtnEnable }, attr: { 'data-content': compileBtnTooltip }"
+          data-toggle="popover" data-placement="top" data-trigger="hover focus" data-container="body"
+          type="button" class="btn btn-xs pull-right col-sm-2" disabled="disabled">
+            Run It<br>
+            <span class="glyphicon glyphicon-play"></span>
+        </button>
+    </div>
+</div>

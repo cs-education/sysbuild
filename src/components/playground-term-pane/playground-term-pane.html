@@ -1,0 +1,20 @@
+<div id="tty-container">
+    <div class="tty-buttons">
+        <button data-bind="visible: fullScreenSupported, click: toggleFullScreen" class="btn btn-xs btn-default">
+            <span data-bind="css: fullScreenToggleBtnClass"></span>
+        </button>
+        <button data-bind="visible: !isFullScreenActive(), click: switchTerminal" class="btn btn-xs btn-default">
+            <span data-bind="css: ttySwitchBtnClass"></span>
+        </button>
+    </div>
+</div>
+<div id="tty-container-two">
+    <div class="tty-buttons">
+        <button data-bind="visible: fullScreenSupported, click: toggleFullScreen" class="btn btn-xs btn-default">
+            <span data-bind="css: fullScreenToggleBtnClass"></span>
+        </button>
+        <button data-bind="visible: !isFullScreenActive(), click: switchTerminal" class="btn btn-xs btn-default">
+            <span data-bind="css: ttySwitchBtnClass"></span>
+        </button>
+    </div>
+</div>

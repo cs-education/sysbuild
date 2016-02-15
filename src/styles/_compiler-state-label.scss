@@ -1,0 +1,7 @@
+.compile-status-label-text-error {
+    color: $brand-danger;
+}
+
+.compile-status-label-text-warning {
+    color: darken($brand-warning, 20%);
+}

@@ -30,17 +30,20 @@ licenses, and/or restrictions:
 * Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.
 
 ### Copyrights and Licenses for Third Party Content and Creative Works
-* The "Linux in a browser" logo, used as the website favicon ([favicon.ico](favicon.ico)) and the cs-education organization logo is Copyright (c) 2014-2015 Neelabh Gupta, and is based on the following works:
-  * The [Linux Tux logo](http://isc.tamu.edu/~lewing/linux/) by Larry Ewing (<lewing@isc.tamu.edu>) and [The GIMP](http://isc.tamu.edu/~lewing/gimp/).
-  * The "Google Chrome illustration logo in a browser window" image found [here](http://9to5google.com/2011/10/01/google-chrome-is-on-its-way-to-android-message-board-post-says/google-chrome-illustration-logo-in-a-browser-window-2/).
+* The "Linux in a browser" logo, used as the website favicon ([favicon.ico](src/favicon.ico)) is Copyright (c) 2014 Neelabh Gupta,
+  and is based on the following works:
+  - The [Linux Tux logo](http://isc.tamu.edu/~lewing/linux/) by Larry Ewing (<lewing@isc.tamu.edu>) and
+    [The GIMP](http://isc.tamu.edu/~lewing/gimp/).
+  - The "Google Chrome illustration logo in a browser window" image found
+    [here](http://9to5google.com/2011/10/01/google-chrome-is-on-its-way-to-android-message-board-post-says/google-chrome-illustration-logo-in-a-browser-window-2/).
 
 ### The University of Illinois/NCSA Open Source License is reproduced below
 > All rights reserved.
-> 
+>
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal with the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-> 
+>
 > * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimers.
 > * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimers in the documentation and/or other materials provided with the distribution.
 > * Neither the names of the University of Illinois, nor the names of its contributors may be used to endorse or promote products derived from this Software without specific prior written permission.
-> 
+>
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.

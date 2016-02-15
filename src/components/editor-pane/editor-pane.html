@@ -1,0 +1,23 @@
+<!-- Tab headers -->
+<div id="editor-tabs-bar">
+  <ul class="nav nav-tabs" role="tablist" data-bind="foreach: editorPaneTabs">
+    <li data-bind="css: { active: $parent.currentActiveTabIndex() === $index()},
+                   click: function () { $parent.currentActiveTabIndex($index()); }">
+        <a data-bind="attr: { href: '#tab-' + $index() }" role="tab" data-toggle="tab">
+            <span data-bind="css: tabIconClass"></span>
+            &nbsp;<span data-bind="text: tabTitle"></span>&nbsp;
+            <!-- ko if: closable -->
+              <button class="close" data-bind="click: $parent.closeTab.bind($parent), clickBubble: false">&times;</button>
+            <!-- /ko -->
+        </a>
+    </li>
+  </ul>
+</div>
+<!-- Tab content -->
+<div class="tab-content" data-bind="foreach: editorPaneTabs">
+  <div class="tab-pane" style="width: 100%; height: 100%"
+    data-bind="attr: { id: 'tab-' + $index() },
+               css: { active: $parent.currentActiveTabIndex() === $index() }">
+    <div style="width: 100%; height: 100%" data-bind="css: tabContentClasses, component: tabComponent"></div>
+  </div>
+</div>

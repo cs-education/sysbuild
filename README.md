@@ -35,7 +35,7 @@ Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for h
 
 ## Contributing
 Please read through our [contributing guidelines](CONTRIBUTING.md). Included are guidelines for opening issues,
-information about the organization of the project as well as this repository, directions for setting up your
+information about the organization of this repository as well as the overall project, directions for setting up your
 development environment, opening pull requests, coding standards, notes on development, and directions for
 deploying the application.
 

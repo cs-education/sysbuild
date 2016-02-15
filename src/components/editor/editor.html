@@ -1,0 +1,32 @@
+<div id="editor-opts-container">
+    <div class="navbar navbar-default">
+        <form class="navbar-form row">
+            <div class="col-md-2">
+                <label class="control-label sr-only" for="editor-theme">Theme</label>
+                <select data-bind="options: availableThemes, value: prefs.theme" id="editor-theme" class="form-control input-sm"></select>
+            </div>
+            <div class="col-md-2">
+                <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
+                <input data-bind="value: prefs.fontSize" id="editor-font-size" type="number" class="form-control input-sm">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
+                    <span class="glyphicon glyphicon-indent-left"></span> Indent code
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button id="download-file-btn" type="button" class="btn btn-default btn-sm center-block">
+                    <span class="glyphicon glyphicon-save"></span> Download file
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a href="#" tabindex="0" id="editor-settings-btn" type="button" class="btn btn-default btn-sm center-block"
+                   data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="bottom">
+                    <span class="glyphicon glyphicon-cog"></span> Settings
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="code"></div>
