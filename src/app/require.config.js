@@ -24,7 +24,9 @@ var require = {
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
         "cjs":                  "bower_modules/cjs/cjs",
-        "amd-loader":           "bower_modules/amd-loader/amd-loader"
+        "amd-loader":           "bower_modules/amd-loader/amd-loader",
+        "worker":               "bower_modules/requirejs-web-workers/src/worker",
+        "jor1k-worker":         "app/jor1k-worker-wrapper.js"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },
@@ -38,5 +40,28 @@ var require = {
             name: "jor1k",
             location: "bower_modules/jor1k/js"
         }
-    ]
+    ],
+    map: {
+        // The 'system.js' file in the jor1k worker source 'require()'s the 'or1k' and 'riscv'
+        // directories to load 'or1k/index.js' and 'riscv/index.js', respectively. Such a require
+        // call is supported in CommonJS environments, but not in AMD/RequireJS. The following
+        // mapping rules convert the directory requires into the correct module IDs to be loaded.
+        "jor1k/worker/system": {
+            // the following rule ensures that require('./or1k') will load './or1k/index.js'
+            "jor1k/worker/or1k": "jor1k/worker/or1k/index",
+
+            // this following rule overrides the above rule when the 'jor1k/worker/or1k/index'
+            // module ID is normalized, to prevent 'jor1k/worker/or1k/index' being incorrectly
+            // mapped to 'jor1k/worker/or1k/index/index'
+            "jor1k/worker/or1k/index": "jor1k/worker/or1k/index",
+
+             // similar to above
+            "jor1k/worker/riscv": "jor1k/worker/riscv/index",
+            "jor1k/worker/riscv/index": "jor1k/worker/riscv/index",
+
+            // the following rule prevents 'jor1k/worker/riscv/htif' from being incorrectly
+            // mapped to 'jor1k/worker/riscv/index/htif'
+            "jor1k/worker/riscv/htif": "jor1k/worker/riscv/htif"
+        }
+    }
 };

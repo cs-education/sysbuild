@@ -2,6 +2,7 @@ import ExpectTTY from 'app/expect-tty';
 import GccOutputParser from 'app/gcc-output-parser';
 import * as Jor1k from 'cjs!jor1k/master/master';
 import LinuxTerm from 'cjs!jor1k/plugins/terminal-linux';
+import jor1kWorker from 'worker!jor1k-worker';
 
 // Encapsulates the virtual machine interface
 class SysRuntime {
@@ -99,10 +100,11 @@ class SysRuntime {
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
             path: 'bower_modules/jor1k/demos/',
-            worker: new Worker('bower_modules/jor1k/demos/jor1k-worker-min.js')
+            worker: jor1kWorker
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
+
         termTTY0.SetCharReceiveListener(this.putCharTTY0Listener);
         termTTY1.SetCharReceiveListener(this.putCharTTY1Listener);
 
