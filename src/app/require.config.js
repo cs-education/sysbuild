@@ -24,9 +24,7 @@ var require = {
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
         "cjs":                  "bower_modules/cjs/cjs",
-        "amd-loader":           "bower_modules/amd-loader/amd-loader",
-        "worker":               "bower_modules/requirejs-web-workers/src/worker",
-        "jor1k-worker":         "app/jor1k-worker-wrapper.js"
+        "amd-loader":           "bower_modules/amd-loader/amd-loader"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },
