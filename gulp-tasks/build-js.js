@@ -1,6 +1,6 @@
+import es from 'event-stream';
 import fs from 'fs';
 import vm from 'vm';
-import merge from 'deeply';
 import objectAssign from 'object-assign';
 
 import gulp from 'gulp';
@@ -10,8 +10,8 @@ import clean from 'gulp-clean';
 import BabelTranspiler from './babel-transpiler';
 
 // Config
-const requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;'),
-      requireJsOptimizerConfig = merge(requireJsRuntimeConfig, {
+const requireJsOptimizerConfig = {
+        mainConfigFile: 'src/app/require.config.js',
         out: 'scripts.js',
         baseUrl: './src',
         name: 'app/startup',
@@ -49,14 +49,22 @@ const requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/requi
             'ace/theme/tomorrow',
             'ace/theme/xcode'
         ],
-        insertRequire: ['app/startup'],
-        bundles: {
-            // If you want parts of the site to load on demand, remove them from the 'include' list
-            // above, and group them into bundles here.
-            // 'bundle-name': [ 'some/module', 'another/module' ],
-            // 'another-bundle-name': [ 'yet-another-module' ]
-        }
-    });
+        insertRequire: ['app/startup']
+    },
+    requireJsOptimizerConfigJor1kWorker = {
+        mainConfigFile: 'src/app/require.config.js',
+        out: 'app/jor1k-worker-wrapper.js',
+        baseUrl: './src',
+        name: 'cjs!jor1k/worker/worker',
+        paths: {
+            requireLib: 'bower_modules/requirejs/require'
+        },
+        include: [
+            'app/require.config',
+            'requireLib'
+        ],
+        insertRequire: ['cjs!jor1k/worker/worker']
+    };
 
 // Pushes all the source files through Babel for transpilation
 gulp.task('js:babel', () => {
@@ -67,8 +75,8 @@ gulp.task('js:babel', () => {
 
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
 gulp.task('js:optimize', ['js:babel'], () => {
-    var config = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
-    return rjs(config)
+    const mainConfig = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
+    return es.concat(rjs(mainConfig), rjs(requireJsOptimizerConfigJor1kWorker))
         .pipe(uglify({ preserveComments: 'some' }))
         .pipe(gulp.dest('./dist/'));
 });
