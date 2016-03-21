@@ -17,8 +17,12 @@
       <link href="styles.css" rel="stylesheet">
     <!-- endbuild -->
     <!-- build:js -->
-      <script src="app/require.config.js"></script>
-      <script data-main="app/startup" src="bower_modules/requirejs/require.js"></script>
+      <script src="bower_modules/requirejs/require.js"></script>
+      <script>
+      require(['app/require.config'], function () {
+        require(['app/startup']);
+      });
+      </script>
     <!-- endbuild -->
   </head>
   <body>

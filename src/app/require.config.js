@@ -1,6 +1,5 @@
 /*eslint quotes: [2, "double"]*/
-// require.js looks for the following global when initializing
-var require = {
+require.config({
     baseUrl: ".",
     paths: {
         "bootstrap":            "bower_modules/bootstrap-sass/assets/javascripts/bootstrap.min",
@@ -62,4 +61,4 @@ var require = {
             "jor1k/worker/riscv/htif": "jor1k/worker/riscv/htif"
         }
     }
-};
+});
