@@ -1,6 +1,5 @@
 import es from 'event-stream';
-import fs from 'fs';
-import vm from 'vm';
+import merge from 'deeply';
 import objectAssign from 'object-assign';
 
 import gulp from 'gulp';
@@ -9,15 +8,25 @@ import uglify from 'gulp-uglify';
 import clean from 'gulp-clean';
 import BabelTranspiler from './babel-transpiler';
 
-// Config
-const requireJsOptimizerConfig = {
-        mainConfigFile: 'src/app/require.config.js',
+// Configuration for the RequireJS Optimizer
+// https://requirejs.org/docs/optimization.html#options
+const requireJsOptimizerBaseConfig = {
+    mainConfigFile: 'src/app/require.config.js',
+    baseUrl: './src',
+    paths: {
+        requireLib: 'bower_modules/requirejs/require'
+    }
+};
+
+// The following list should contain build configuration for each
+// separate JS output file we want to create. Each config object is
+// merged with the base configuration defined above, then passed to
+// the optimizer separately.
+const requireJsOptimizerFilesConfig = [
+    {
+        // Main bundle
         out: 'scripts.js',
-        baseUrl: './src',
         name: 'app/startup',
-        paths: {
-            requireLib: 'bower_modules/requirejs/require'
-        },
         include: [
             'requireLib',
             'components/nav-bar/nav-bar',
@@ -51,32 +60,30 @@ const requireJsOptimizerConfig = {
         ],
         insertRequire: ['app/startup']
     },
-    requireJsOptimizerConfigJor1kWorker = {
-        mainConfigFile: 'src/app/require.config.js',
+    {
+        // Jor1k worker
         out: 'app/jor1k-worker-wrapper.js',
-        baseUrl: './src',
         name: 'cjs!jor1k/worker/worker',
-        paths: {
-            requireLib: 'bower_modules/requirejs/require'
-        },
         include: [
             'app/require.config',
             'requireLib'
         ],
         insertRequire: ['cjs!jor1k/worker/worker']
-    };
+    }
+];
 
 // Pushes all the source files through Babel for transpilation
 gulp.task('js:babel', () => {
-    return gulp.src(requireJsOptimizerConfig.baseUrl + '/**')
+    return gulp.src(requireJsOptimizerBaseConfig.baseUrl + '/**')
         .pipe((new BabelTranspiler('src')).stream())
         .pipe(gulp.dest('./temp'));
 });
 
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
 gulp.task('js:optimize', ['js:babel'], () => {
-    const mainConfig = objectAssign({}, requireJsOptimizerConfig, { baseUrl: 'temp' });
-    return es.concat(rjs(mainConfig), rjs(requireJsOptimizerConfigJor1kWorker))
+    const baseConfig = objectAssign({}, requireJsOptimizerBaseConfig, { baseUrl: 'temp' });
+    const optimizedFiles = requireJsOptimizerFilesConfig.map(config => rjs(merge(baseConfig, config)));
+    return es.concat(optimizedFiles)
         .pipe(uglify({ preserveComments: 'some' }))
         .pipe(gulp.dest('./dist/'));
 });
