@@ -78,11 +78,10 @@ class SysRuntime {
                 cpu: 'asm', // short name for the cpu to use
                 ncores: 1
             },
-
             fs: {
                 basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
                 // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
-                extendedfsURL: 'https://cs-education.github.io/sysassets/jor1kfs/sysroot/fs.json',
+                extendedfsURL: '../fs.json',
                 earlyload: [
                     'usr/bin/gcc',
                     'usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1',
@@ -98,7 +97,7 @@ class SysRuntime {
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
-            path: 'bower_modules/jor1k/demos/',
+            path: 'https://cs-education.github.io/sysassets/jor1kfs/sysroot/or1k/', // kernelURL and fsURLs are relative to this path
             worker: new Worker('app/jor1k-worker-wrapper.js')
         };
 
