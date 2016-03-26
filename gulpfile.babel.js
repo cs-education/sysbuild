@@ -4,7 +4,6 @@ import es from 'event-stream';
 import chalk from 'chalk';
 import gulp from 'gulp';
 import clean from 'gulp-clean';
-import uglify from 'gulp-uglify';
 import size from 'gulp-size';
 
 import './gulp-tasks/build-js';
@@ -26,25 +25,16 @@ gulp.task('clean', () => {
         .pipe(clean());
 });
 
-// Copies the Jor1k Web Worker script file, the VM disk image, and the filesystem files
-gulp.task('jor1k', () => {
-    const workerJs = gulp.src('./src/bower_modules/jor1k/bin/jor1k-worker-min.js')
-        .pipe(uglify({ preserveComments: 'some' }));
-    const fsFiles = gulp.src('./src/bower_modules/jor1k/bin/{vmlinux.bin.bz2,basefs-compile.json,sysroot/**}');
-    return es.concat(workerJs, fsFiles)
-        .pipe(gulp.dest('./dist/bower_modules/jor1k/bin/'));
-});
-
-gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras', 'jor1k'], () => {
+gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras'], () => {
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
     const buildStampFile = 'dist/build-stamp.txt';
     const recentCommitsFile = 'dist/publish-recentcommits.txt';
 
     const s = size({title: 'dist'});
     const buildStamp = gulp.src('dist/**/*').pipe(s).on('end', () => {
-            fs.writeFileSync(buildStampFile, `Build date: ${(new Date()).toUTCString()}\nBuilt size: ${s.prettySize}\n`);
-            console.log('Build stamp written to ' + chalk.magenta(buildStampFile));
-        });
+        fs.writeFileSync(buildStampFile, `Build date: ${(new Date()).toUTCString()}\nBuilt size: ${s.prettySize}\n`);
+        console.log('Build stamp written to ' + chalk.magenta(buildStampFile));
+    });
 
     const recentCommitLog = cp.exec('git log -n 5 --oneline', (err, stdout) => {
         if (err) throw err;
