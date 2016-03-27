@@ -1,3 +1,4 @@
+/*global require*/
 /*eslint quotes: [2, "double"]*/
 require.config({
     baseUrl: ".",
