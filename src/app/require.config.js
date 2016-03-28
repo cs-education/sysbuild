@@ -3,6 +3,12 @@
 require.config({
     baseUrl: ".",
     paths: {
+        // RequireJS plugins
+        "text":                 "bower_modules/requirejs-text/text",
+        "cjs":                  "bower_modules/cjs/cjs",
+        "amd-loader":           "bower_modules/amd-loader/amd-loader",
+
+        // Library/external dependencies
         "bootstrap":            "bower_modules/bootstrap-sass/assets/javascripts/bootstrap.min",
         "modernizr":            "bower_modules/modernizr/modernizr",
         "crossroads":           "bower_modules/crossroads/dist/crossroads.min",
@@ -11,7 +17,6 @@ require.config({
         "knockout":             "bower_modules/knockout/dist/knockout",
         "knockout-projections": "bower_modules/knockout-projections/dist/knockout-projections",
         "signals":              "bower_modules/js-signals/dist/signals.min",
-        "text":                 "bower_modules/requirejs-text/text",
         "marked":               "bower_modules/marked/marked.min",
         "videojs":              "bower_modules/videojs/dist/video.min",
         "jquery-ui":            "bower_modules/jquery-ui/jquery-ui.min",
@@ -23,8 +28,8 @@ require.config({
         "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // exports window global "Bloodhound"
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
-        "cjs":                  "bower_modules/cjs/cjs",
-        "amd-loader":           "bower_modules/amd-loader/amd-loader",
+
+        // Application-specific modules
         "app/config":           "app/config/config.dev" // overridden to 'config.dist' in build config
     },
     shim: {
