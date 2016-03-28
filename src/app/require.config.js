@@ -24,7 +24,8 @@ require.config({
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
         "cjs":                  "bower_modules/cjs/cjs",
-        "amd-loader":           "bower_modules/amd-loader/amd-loader"
+        "amd-loader":           "bower_modules/amd-loader/amd-loader",
+        "app/config":           "app/config/config.dev" // overridden to 'config.dist' in build config
     },
     shim: {
         "bootstrap": { deps: ["jquery"] },

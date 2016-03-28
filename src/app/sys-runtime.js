@@ -2,6 +2,7 @@ import ExpectTTY from 'app/expect-tty';
 import GccOutputParser from 'app/gcc-output-parser';
 import * as Jor1k from 'cjs!jor1k/master/master';
 import LinuxTerm from 'cjs!jor1k/plugins/terminal-linux';
+import { jor1kBaseFsUrl, jor1kWorkerUrl } from 'app/config';
 
 // Encapsulates the virtual machine interface
 class SysRuntime {
@@ -97,8 +98,8 @@ class SysRuntime {
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
-            path: 'https://cs-education.github.io/sysassets/jor1kfs/sysroot/or1k/', // kernelURL and fsURLs are relative to this path
-            worker: new Worker('app/jor1k-worker-wrapper.js')
+            path: jor1kBaseFsUrl, // kernelURL and fsURLs are relative to this path
+            worker: new Worker(jor1kWorkerUrl)
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);

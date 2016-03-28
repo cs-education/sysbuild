@@ -14,7 +14,8 @@ const requireJsOptimizerBaseConfig = {
     mainConfigFile: 'src/app/require.config.js',
     baseUrl: './src',
     paths: {
-        requireLib: 'bower_modules/requirejs/require'
+        requireLib: 'bower_modules/requirejs/require',
+        'app/config': 'app/config/config.dist'
     }
 };
 
@@ -62,7 +63,7 @@ const requireJsOptimizerFilesConfig = [
     },
     {
         // Jor1k worker
-        out: 'app/jor1k-worker-wrapper.js',
+        out: 'jor1k-worker.js',
         name: 'cjs!jor1k/worker/worker',
         include: [
             'app/require.config',
