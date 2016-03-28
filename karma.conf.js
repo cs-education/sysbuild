@@ -33,7 +33,6 @@ module.exports = function(config) {
         'karma-jasmine',
         'karma-requirejs',
         'karma-babel-preprocessor',
-        'karma-requireglobal-preprocessor',
         'karma-chrome-launcher',
         'karma-phantomjs-launcher'
     ],
@@ -41,7 +40,6 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        '**/require.config.js': ['requireglobal'],
         'src/app/{!(require.config), **/*}.js': ['babel'],
         'src/components/**/*.js': ['babel'],
         'test/app/**/*.js': ['babel'],

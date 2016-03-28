@@ -1,7 +1,8 @@
 import ExpectTTY from 'app/expect-tty';
 import GccOutputParser from 'app/gcc-output-parser';
 import * as Jor1k from 'cjs!jor1k/master/master';
-import MackeTerm from 'cjs!jor1k/plugins/terminal-macke';
+import LinuxTerm from 'cjs!jor1k/plugins/terminal-linux';
+import { jor1kBaseFsUrl, jor1kWorkerUrl } from 'app/config';
 
 // Encapsulates the virtual machine interface
 class SysRuntime {
@@ -68,8 +69,8 @@ class SysRuntime {
             }
         };
 
-        var termTTY0 = new MackeTerm('tty0');
-        var termTTY1 = new MackeTerm('tty1');
+        var termTTY0 = new LinuxTerm('tty0');
+        var termTTY1 = new LinuxTerm('tty1');
 
         var jor1kparameters = {
             system: {
@@ -78,11 +79,10 @@ class SysRuntime {
                 cpu: 'asm', // short name for the cpu to use
                 ncores: 1
             },
-
             fs: {
                 basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
                 // json file with extended filesystem informations. Loaded after the basic filesystem has been loaded.
-                extendedfsURL: 'https://cs-education.github.io/sysassets/jor1kfs/sysroot/fs.json',
+                extendedfsURL: '../fs.json',
                 earlyload: [
                     'usr/bin/gcc',
                     'usr/libexec/gcc/or1k-linux-musl/4.9.0/cc1',
@@ -98,10 +98,12 @@ class SysRuntime {
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
-            path: 'bower_modules/jor1k/bin/'
+            path: jor1kBaseFsUrl, // kernelURL and fsURLs are relative to this path
+            worker: new Worker(jor1kWorkerUrl)
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
+
         termTTY0.SetCharReceiveListener(this.putCharTTY0Listener);
         termTTY1.SetCharReceiveListener(this.putCharTTY1Listener);
 

@@ -9,7 +9,7 @@ class BabelTranspiler {
     constructor(root) {
         this.config = {
             root: root || 'src',
-            skip: ['bower_modules/**', 'app/require.config.js', 'test/require.config.js'],
+            skip: ['bower_modules/**', 'app/require.config.js', 'test/require.config.js', 'app/jor1k-worker-wrapper.js'],
             babelConfig: {
                 modules: 'amd',
                 sourceMaps: 'inline'
