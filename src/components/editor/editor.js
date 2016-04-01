@@ -72,7 +72,7 @@ class Editor {
 
         this.setAceMode('c_cpp');
         this.aceEditor.getSession().setTabSize(4);
-        this.aceEditor.getSession().setUseSoftTabs(true);
+        this.aceEditor.getSession().setUseSoftTabs(false);
 
         this.setAceTheme(this.prefs.theme());
         this.prefs.theme.subscribe((newTheme) => { this.setAceTheme(newTheme); });
@@ -91,15 +91,9 @@ class Editor {
 
         this.keyboardShortcuts.forEach((shortcutArgs) => this.addKeyboardCommand(...shortcutArgs));
 
-        // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
-        this.aceEditor.on('change', () => {
-            if (this.prefs.backgroundAutoIndent()) {
-                window.clearTimeout(this.reIndentTimer);
-                if (!this.reIndenting) {
-                    this.reIndentTimer = window.setTimeout(this.autoIndentCode.bind(this), 500);
-                }
-            }
-        });
+        
+        //TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
+        //this.enableAutoIndentTimer();
     }
 
     initSettingsDialog() {
@@ -197,6 +191,22 @@ class Editor {
         this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, this.openManPage);
     }
 
+    enableAutoIndentTimer(){
+        // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
+        this.aceEditor.on('change', () => {
+            if (this.prefs.backgroundAutoIndent()) {
+                window.clearTimeout(this.reIndentTimer);
+                if (!this.reIndenting) {
+                    this.reIndentTimer = window.setTimeout(this.autoIndentCode.bind(this), 500);
+                }
+            }
+        });
+    }
+
+    disableAutoIndentTimer(){
+        this.aceEditor.on('change', () => {window.clearTimeout(this.reIndentTimer);});
+    }
+
     /**
      * @param size A valid CSS font size string, for example '12px'.
      */
@@ -225,17 +235,33 @@ class Editor {
     }
 
     setAceAnnotations(annotations) {
+
+        this.anno = annotations;
+
+        var currFile = SysGlobalObservables.currentFileName();
+        var currPath = SysGlobalObservables.currentFilePath();
+
+        var currAnnotations = $.grep(annotations, function(e) { return e.workingDir + '/' + e.file == currPath; });
+
         this.aceEditor.getSession().setAnnotations(annotations);
     }
-
+    
     getText() {
         return this.aceEditor.getSession().getValue();
     }
 
     setFile(path, filename, text) {
+        this.disableAutoIndentTimer();
+
         var session = this.aceEditor.getSession();
 
         session.setValue(text);
+        if (this.anno) {
+            var currAnnotations = $.grep(this.anno, function(e) { return e.workingDir + '/' + e.file == path; });
+            session.setAnnotations(currAnnotations);
+        }
+
+        this.enableAutoIndentTimer();
 
         return;
     }
