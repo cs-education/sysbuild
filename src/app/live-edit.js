@@ -64,19 +64,16 @@ class LiveEdit {
 
         if (result.exitCode === 0) {
             SysGlobalObservables.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
-            this.runtime.startProgram('program', SysGlobalObservables.programArgs());
+            this.runtime.sendExecCmd(SysGlobalObservables.execCmd());
         } else {
             SysGlobalObservables.compileStatus('Failed');
         }
     }
 
-    runCode(code, gccOptions) {
-        if (code.length === 0 || code.indexOf('\x03') >= 0 || code.indexOf('\x04') >= 0) {
-            return;
-        }
+    runCode(buildCmd) {
         var callback = this.processGccCompletion.bind(this);
         SysGlobalObservables.compileStatus('Compiling');
-        this.runtime.startGccCompile(code, gccOptions, callback);
+        this.runtime.startBuild(buildCmd, callback);
     }
 }
 

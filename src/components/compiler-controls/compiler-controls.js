@@ -5,8 +5,8 @@ import { notify } from 'app/notifications';
 class CompilerControls {
     constructor(params) {
         this.gccOptsError = params.gccOptsError;
-        this.gccOptions = params.gccOptions;
-        this.programArgs = params.programArgs;
+        this.buildCmd = params.buildCmd;
+        this.execCmd = params.execCmd;
         this.compileStatus = params.compileStatus;
         this.compileBtnTooltip = params.compileBtnTooltip;
 

@@ -2,17 +2,17 @@
     <div class="row">
         <div class="col-sm-10">
             <div class="row">
-                <label class="col-sm-1 control-label" for="gccoptions"><small class="pull-right">gcc&nbsp;opts</small></label>
+                <label class="col-sm-1 control-label" for="buildcmd"><small class="pull-right">build&nbsp;cmd</small></label>
                 <div class="col-sm-11" data-bind="css: {'has-error': gccOptsError()}">
-                    <input class="form-control input-sm" type="text" id="gccoptions" maxlen=256
-                        data-bind="textInput: gccOptions, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
+                    <input class="form-control input-sm" type="text" id="buildcmd" maxlen=256
+                        data-bind="textInput: buildCmd, attr: {'data-content': gccOptsError() ? '<pre>' + gccOptsError() + '</pre>' : ''}"
                         tabindex="0" data-toggle="popover" data-container="body" data-html="true" data-placement="auto top" data-trigger="focus">
                 </div>
             </div>
             <div class="row">
-                <label class="col-sm-1 control-label" for="cmdline"><small class="pull-right">args</small></label>
+                <label class="col-sm-1 control-label" for="execcmd"><small class="pull-right">exec</small></label>
                 <div class="col-sm-11">
-                    <input class="form-control input-sm" type="text" id="cmdline" maxlen=256 data-bind="textInput: programArgs" placeholder="Program arguments">
+                    <input class="form-control input-sm" type="text" id="execCmd" maxlen=256 data-bind="textInput: execCmd" placeholder="Program arguments">
                 </div>
             </div>
         </div>

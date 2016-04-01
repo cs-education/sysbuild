@@ -3,11 +3,11 @@ import ko from 'knockout';
 export var vmState = ko.observable('');
 export var compileStatus = ko.observable('');
 
-export var gccOptions = ko.observable('');
-export var programArgs = ko.observable('');
-
 export var focusTerm = ko.observable((tty) => {});
-export var runCode = ko.observable((code, gccOptions) => {});
+export var runCode = ko.observable((gccOptions) => {});
+
+export var buildCmd = ko.observable('');
+export var execCmd = ko.observable('');
 
 export var lastGccOutput = ko.observable('');
 export var gccOptsError =  ko.observable('');
