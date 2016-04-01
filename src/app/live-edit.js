@@ -47,10 +47,10 @@ class LiveEdit {
 
         this.runtime.sendKeys('tty0', 'clear\n');
 
-        var aceAnnotations = [], gccOptsErrors = [];
+        var aceAnnotations = [], buildCmdErrors = [];
         result.annotations.forEach((annotation) => {
-            if (annotation.isGccOptsError) {
-                gccOptsErrors.push(annotation);
+            if (annotation.isBuildCmdError) {
+                buildCmdErrors.push(annotation);
             } else {
                 aceAnnotations.push(annotation);
             }
@@ -60,7 +60,7 @@ class LiveEdit {
         SysGlobalObservables.lastGccOutput(result.gccOutput);
         SysGlobalObservables.gccErrorCount(result.stats.error);
         SysGlobalObservables.gccWarningCount(result.stats.warning);
-        SysGlobalObservables.gccOptsError(gccOptsErrors.map((error) => error.text).join('\n'));
+        SysGlobalObservables.gccOptsError(buildCmdErrors.map((error) => error.text).join('\n'));
 
         if (result.exitCode === 0) {
             SysGlobalObservables.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
