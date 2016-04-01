@@ -19,8 +19,8 @@ class PlayActivityPage {
 
     setParamsFromActivity(playActivity) {
         this.editorParams.initialEditorText = playActivity.code;
-        this.compilerParams.gccOptions(playActivity.gccOptions || '');
-        this.compilerParams.programArgs(playActivity.programCommandLineArgs || '');
+        this.compilerParams.buildCmd(playActivity.buildCmd || '');
+        this.compilerParams.execCmd(playActivity.execCmd || '');
 
         if (playActivity.docFile) {
             this.doc = {
@@ -45,8 +45,8 @@ class PlayActivityPage {
             '}\n' +
             '';
 
-        this.compilerParams.gccOptions('-lm -Wall -fmax-errors=10 -Wextra');
-        this.compilerParams.programArgs('');
+        this.compilerParams.buildCmd('gcc -lm -Wall -fmax-errors=10 -Wextra program.c -o program');
+        this.compilerParams.execCmd('./program');
 
         this.doc = {
             text: '# Welcome\n' +
@@ -90,8 +90,8 @@ class PlayActivityPage {
 
     setCompilerParams() {
         this.compilerParams = {
-            gccOptions: SysGlobalObservables.gccOptions,
-            programArgs: SysGlobalObservables.programArgs,
+            buildCmd: SysGlobalObservables.buildCmd,
+            execCmd: SysGlobalObservables.execCmd,
             compileStatus: SysGlobalObservables.compileStatus,
             lastGccOutput: SysGlobalObservables.lastGccOutput,
             gccOptsError: SysGlobalObservables.gccOptsError,
@@ -114,9 +114,8 @@ class PlayActivityPage {
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
         var compile = () => {
-            var code = (this.editorParams.editorTextGetter())();
-            var gccOptions = this.compilerParams.gccOptions();
-            (SysGlobalObservables.runCode())(code, gccOptions);
+            var buildCmd = this.compilerParams.buildCmd();
+            (SysGlobalObservables.runCode())(buildCmd);
         };
 
         this.compilerParams.compileCallback = compile;
