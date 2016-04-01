@@ -53,6 +53,7 @@ const requireJsOptimizerFilesConfig = [
             'components/vm-state-label/vm-state-label',
             'components/compiler-state-label/compiler-state-label',
             'components/not-found-page/not-found-page',
+            'components/file-browser/file-browser',
             'ace/mode/c_cpp',
             'ace/theme/monokai',
             'ace/theme/terminal',

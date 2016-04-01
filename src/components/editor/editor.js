@@ -6,6 +6,7 @@ import 'bloodhound';
 import TokenHighlighter from 'components/editor/token-highlighter';
 import 'Blob';
 import 'FileSaver';
+import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class Editor {
     constructor(params) {
@@ -17,6 +18,8 @@ class Editor {
         prefs.theme = params.theme;
         prefs.fontSize = params.fontSize;
         this.prefs = prefs;
+
+        this.currentFileName = SysGlobalObservables.currentFileName;
 
         this.availableThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
 
@@ -42,8 +45,8 @@ class Editor {
 
         $('#download-file-btn').click(() => {
             var text = this.getText();
-            var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
-            saveAs(blob, 'program.c');
+            var blob = new Blob([text]);
+            saveAs(blob, SysGlobalObservables.currentFileName());
         });
 
         $('#autoindent-code-btn').click(() => {
@@ -54,6 +57,8 @@ class Editor {
         $(window).resize(this.resize.bind(this));
 
         params.editorTextGetter(this.getText.bind(this));
+
+        SysGlobalObservables.Editor = this;
     }
 
     initAce(editorDivId) {
@@ -225,6 +230,14 @@ class Editor {
 
     getText() {
         return this.aceEditor.getSession().getValue();
+    }
+
+    setFile(path, filename, text) {
+        var session = this.aceEditor.getSession();
+
+        session.setValue(text);
+
+        return;
     }
 
     resize() {

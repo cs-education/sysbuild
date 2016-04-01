@@ -25,7 +25,10 @@
     "jquery-fullscreen": "~1.1.4",
     "cjs": "*",
     "ace": "~1.2.2",
-    "browserfs": "0.5.8"
+    "browserfs": "0.5.8",
+    "ace": "~1.2.2",
+    "bootstrap-contextmenu": "^0.3.4",
+    "bootbox.js": "^4.4.0"
   },
   "devDependencies": {},
   "resolutions": {
