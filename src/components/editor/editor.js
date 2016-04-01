@@ -6,6 +6,7 @@ import 'bloodhound';
 import TokenHighlighter from 'components/editor/token-highlighter';
 import 'Blob';
 import 'FileSaver';
+import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class Editor {
     constructor(params) {
@@ -54,6 +55,8 @@ class Editor {
         $(window).resize(this.resize.bind(this));
 
         params.editorTextGetter(this.getText.bind(this));
+
+        SysGlobalObservables.Editor = this;
     }
 
     initAce(editorDivId) {
@@ -225,6 +228,14 @@ class Editor {
 
     getText() {
         return this.aceEditor.getSession().getValue();
+    }
+
+    setFile(path, filename, text) {
+        var session = this.aceEditor.getSession();
+
+        session.setValue(text);
+
+        return;
     }
 
     resize() {

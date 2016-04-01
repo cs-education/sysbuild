@@ -41,7 +41,9 @@ class PlaygroundLayout {
 
         this.createVideoSearchTab();
         this.createEditorTab(editorParams, compilerParams);
+        this.createFileBrowserTab();
         this.createManPageSearchTab(openManPageCallback);
+
     }
 
     createEditorTab(editorParams, compilerParams) {
@@ -78,6 +80,17 @@ class PlaygroundLayout {
             closable: false,
             component: {
                 name: 'video-search-tab'
+            }
+        });
+    }
+
+    createFileBrowserTab() {
+        this.editorPaneTabs.push({
+            title: 'File Browser',
+            icon: 'list-alt',
+            closable: false,
+            component: {
+                name: 'file-browser'
             }
         });
     }

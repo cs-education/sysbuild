@@ -1,0 +1,47 @@
+/* file browser */
+#file-browser {
+    $file-browser-background-color: #232830;
+
+    background-color: $file-browser-background-color;
+    color: lighten($file-browser-background-color, 50%);
+    user-select: none;
+    width: 100%;
+    height: 100%;
+
+    .loading {
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 35%;
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+    .item {
+        font-size: 15px;
+        display: block;
+        &:hover {
+            color: lighten($file-browser-background-color, 75%);
+            cursor: pointer;
+        }
+        .item-icon {
+            display: inline-block;
+            min-width: 15px;
+            margin-right: 4px;
+        }
+    }
+    .active-item {
+        color: #F8BC00;
+        font-weight: bold;
+    }
+    #file-browser-context-menu {
+        .dropdown-menu {
+            a {
+                &:hover {
+                    background: #396A8D;
+                    color: #eee;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

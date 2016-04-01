@@ -38,6 +38,7 @@ ko.components.register('playground-footer', { require: 'components/playground-fo
 ko.components.register('vm-state-label', { require: 'components/vm-state-label/vm-state-label' });
 ko.components.register('compiler-state-label', { require: 'components/compiler-state-label/compiler-state-label' });
 ko.components.register('not-found-page', { require: 'components/not-found-page/not-found-page' });
+ko.components.register('file-browser', { require: 'components/file-browser/file-browser' });
 // [Scaffolded component registrations will be inserted here. To retain this feature, don't remove this comment.]
 
 // Start the application

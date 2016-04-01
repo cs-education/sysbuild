@@ -29,6 +29,9 @@ require.config({
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
         "browserfs":            "bower_modules/browserfs/dist/browserfs.min",
+        "bootstrap-contextmenu":"bower_modules/bootstrap-contextmenu/bootstrap-contextmenu",
+        "bootbox":              "bower_modules/bootbox.js/bootbox",
+
         
         // Application-specific modules
         "app/config":           "app/config/config.dev" // overridden to 'config.dist' in build config
@@ -38,7 +41,9 @@ require.config({
         "jquery-ui": { deps: ["jquery"] },
         "jquery-ui-layout": { deps: ["jquery", "jquery-ui"] },
         "jquery-fullscreen": { deps: ["jquery"] },
-        "typeahead-jquery": { deps: ["jquery"] }
+        "typeahead-jquery": { deps: ["jquery"] },
+        "bootbox": { deps: ["jquery"] },
+        "bootstrap-contextmenu": { deps: ["bootstrap"] }
     },
     packages: [
         {
