@@ -24,7 +24,8 @@
     "jquery-ui": "~1.11.4",
     "jquery-fullscreen": "~1.1.4",
     "cjs": "*",
-    "ace": "~1.2.2"
+    "ace": "~1.2.2",
+    "browserfs": "0.5.8"
   },
   "devDependencies": {},
   "resolutions": {

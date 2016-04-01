@@ -28,7 +28,8 @@ require.config({
         "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // exports window global "Bloodhound"
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
-
+        "browserfs":            "bower_modules/browserfs/dist/browserfs.min",
+        
         // Application-specific modules
         "app/config":           "app/config/config.dev" // overridden to 'config.dist' in build config
     },
