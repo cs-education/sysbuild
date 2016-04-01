@@ -181,15 +181,21 @@ class SysRuntime {
         return this.compileTicket;
     }
 
-    getErrorAnnotations(gccOutputStr) {
-        var errors = (new GccOutputParser()).parse(gccOutputStr);
+    getErrorAnnotations(buildOutputStr) {
+        var workingDir = buildOutputStr.substr(0, buildOutputStr.indexOf('\n'));
+        if(workingDir.indexOf('/home/user') == 0)
+            workingDir = workingDir.substr(10, workingDir.length);
+        else
+            workingDir = '';
+
+        var errors = (new GccOutputParser()).parse(buildOutputStr);
         return errors.map((error) => {
             var aceAnnotationType;
 
             // Determine the type of editor annotation. ace supports error, warning or info.
-            if (error.gccErrorType.toLowerCase().indexOf('error') !== -1) {
+            if (error.buildErrorType.toLowerCase().indexOf('error') !== -1) {
                 aceAnnotationType = 'error';
-            } else if (error.gccErrorType.toLowerCase().indexOf('warning') !== -1) {
+            } else if (error.buildErrorType.toLowerCase().indexOf('warning') !== -1) {
                 aceAnnotationType = 'warning';
             } else {
                 aceAnnotationType = 'info';
@@ -203,11 +209,13 @@ class SysRuntime {
 
             return {
                 // line numbers in ace start from zero
+                workingDir: workingDir,
                 row: error.row - 1,
                 col: error.col,
-                isGccOptsError: error.type === 'gcc',
+                isBuildCmdError: (error.type === 'gcc') || (error.type == 'make'),
                 type: aceAnnotationType,
-                text: error.text
+                text: error.text,
+                file: error.file
             };
         });
     }
