@@ -19,6 +19,8 @@ class Editor {
         prefs.fontSize = params.fontSize;
         this.prefs = prefs;
 
+        this.currentFileName = SysGlobalObservables.currentFileName;
+
         this.availableThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
 
         this.annotations = params.annotations;
@@ -43,8 +45,8 @@ class Editor {
 
         $('#download-file-btn').click(() => {
             var text = this.getText();
-            var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
-            saveAs(blob, 'program.c');
+            var blob = new Blob([text]);
+            saveAs(blob, SysGlobalObservables.currentFileName());
         });
 
         $('#autoindent-code-btn').click(() => {
