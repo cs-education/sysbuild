@@ -34,6 +34,12 @@ class PlaygroundLayout {
                 backspace: 8
             };
 
+            // allow backspace for inputs
+            var focused = $(':focus');
+            if (focused.is('input') || focused.is('textarea')) {
+                return true;
+            }
+
             if (e.keyCode === keyCode.backspace) {
                 e.preventDefault();
             }
