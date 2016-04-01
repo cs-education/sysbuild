@@ -28,8 +28,8 @@ class GccOutputParser {
 
                 if (lineColTypeMatch) {//num:num: string
                     file = match[1];
-                    row = lineColTypeMatch[1];
-                    col = lineColTypeMatch[2];
+                    row = parseInt(lineColTypeMatch[1]);
+                    col = parseInt(lineColTypeMatch[2]);
                     typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(lineColTypeMatch[3]);
                     if (typeTextSplitMatch) {
                         buildErrorType = typeTextSplitMatch[1];

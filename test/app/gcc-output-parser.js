@@ -30,7 +30,7 @@ describe('GccOutputParser', function () {
             expect(this.results.length).toEqual(1); // one error
             expect(this.results[0]).toEqual(jasmine.objectContaining({
                 column: 2,
-                gccErrorType: 'error',
+                buildErrorType: 'error',
                 row: 6,
                 text: 'expected \';\' before \'return\'',
                 type: 'compile'
@@ -54,9 +54,9 @@ describe('GccOutputParser', function () {
             // error one
             expect(this.results[0]).toEqual(jasmine.objectContaining({
                 column: 0,
-                /* TODO: currently the gccErrorType returned is incorrect,
+                /* TODO: currently the buildErrorType returned is incorrect,
                    but functionality is not affected */
-                //gccErrorType: 'error',
+                //buildErrorType: 'error',
                 row: 0,
                 text: 'undefined reference to \'nonExistentFunction\'',
                 type: 'compile'
@@ -65,7 +65,7 @@ describe('GccOutputParser', function () {
             // error two
             expect(this.results[1]).toEqual(jasmine.objectContaining({
                 column: 0,
-                gccErrorType: 'error',
+                buildErrorType: 'error',
                 row: 0,
                 text: 'ld returned 1 exit status',
                 type: 'linker'
@@ -85,7 +85,7 @@ describe('GccOutputParser', function () {
             expect(this.results.length).toEqual(1); // one error
             expect(this.results[0]).toEqual(jasmine.objectContaining({
                 column: 0,
-                gccErrorType: 'error',
+                buildErrorType: 'error',
                 row: 0,
                 text: 'unrecognized command line option \'-asdfasdf\'',
                 type: 'gcc'
@@ -105,7 +105,7 @@ describe('GccOutputParser', function () {
             expect(this.results.length).toEqual(1); // one error
             expect(this.results[0]).toEqual(jasmine.objectContaining({
                 column: 0,
-                gccErrorType: 'error',
+                buildErrorType: 'error',
                 row: 0,
                 text: 'unrecognised debug output level "aslkdfjalksjd"',
                 type: 'gcc'
@@ -131,7 +131,7 @@ describe('GccOutputParser', function () {
             // error one
             expect(this.results[0]).toEqual(jasmine.objectContaining({
                 column: 5,
-                gccErrorType: 'warning',
+                buildErrorType: 'warning',
                 row: 10,
                 text: 'return makes integer from pointer without a cast [enabled by default]',
                 type: 'compile'
@@ -140,7 +140,7 @@ describe('GccOutputParser', function () {
             // error two
             expect(this.results[1]).toEqual(jasmine.objectContaining({
                 column: 1,
-                gccErrorType: 'error',
+                buildErrorType: 'error',
                 row: 11,
                 text: 'expected \';\' before \'}\' token',
                 type: 'compile'
