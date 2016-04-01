@@ -1,0 +1,29 @@
+/* Github Toolbar */
+#github-opts-container {
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  left: 0;
+  padding: 2px;
+  display: none;
+}
+#github-opts-container .col-sm-1,
+#github-opts-container .col-sm-10,
+#github-opts-container .col-sm-11 {
+  padding: 1px; }
+
+#github-opts-container .row {
+  margin: 0px;
+  padding: 1px; }
+
+#github-opts-container .btn-xs, #github-opts-container .btn-group-xs > .btn {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 3px; }
+
+#github-opts-container input {
+  padding: 2px;
+  height: 20px; }
+
+#github-opts-container .control-label {
+  padding-right: 2px; }

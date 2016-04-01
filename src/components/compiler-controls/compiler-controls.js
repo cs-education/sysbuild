@@ -1,6 +1,7 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./compiler-controls.html';
 import { notify } from 'app/notifications';
+import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class CompilerControls {
     constructor(params) {
@@ -19,6 +20,8 @@ class CompilerControls {
             }
             return ready;
         });
+
+        SysGlobalObservables.compileBtnEnable(this.compileBtnEnable);
 
         const $compileBtn = $('#compile-btn');
         $compileBtn.click(() => {

@@ -1,9 +1,11 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./file-browser.html';
 import 'knockout-projections';
+import GithubInt from 'app/github-int'
 import SysRuntime from 'app/sys-runtime';
 import SysFileSystem from 'app/sys-filesystem';
 import bootbox from 'bootbox';
+import Github from 'github-api';
 import 'bootstrap-contextmenu';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
@@ -30,13 +32,72 @@ var confirmNotific8Options = {
 
 class Filebrowser {
     constructor() {
+        this.githubUsername = SysGlobalObservables.githubUsername;
+        this.githubPassword = SysGlobalObservables.githubPassword;
+        this.githubRepo = SysGlobalObservables.githubRepo;
+        this.compileBtnEnable = SysGlobalObservables.compileBtnEnable;
+
         if (fbCalled) {
             fbCalled = false;
             return;
         }
 
         fbCalled = true;
-            
+
+        var githubOptsContainer = $('#github-opts-container');
+        $('span:contains("File Browser")').click(() => {
+            githubOptsContainer.show();
+        });
+
+        $('span:contains("Code")').click(() => {
+            githubOptsContainer.hide();
+        });
+
+        $('span:contains("Video Search")').click(() => {
+            githubOptsContainer.hide();
+        });
+
+        $('span:contains("Man page search")').click(() => {
+            githubOptsContainer.hide();
+        });
+
+        githubOptsContainer.css('width', $('#code-container').width() + 'px');
+
+        const $saveReop = $('#save-workspace-btn');
+        $saveReop.click(() => {
+            var username = this.githubUsername();
+            var password = this.githubPassword();
+            console.log('Save Repo');
+            this.githubPassword('');
+
+            if (!username || !password)
+                return;
+
+            var github = new GithubInt(username, password);
+            github.saveAll();
+        });
+
+        const $cloneRepo = $('#clone-repo-btn');
+        $cloneRepo.click(() => {
+            var username = this.githubUsername();
+            var password = this.githubPassword();
+            var repo = this.githubRepo();
+            console.log('Clone Repo');
+            if (!repo)
+                return;
+
+            this.githubPassword('');
+
+            var github;
+
+            if(username && password)
+                github = new GithubInt(username, password);
+            else
+                github = new GithubInt();
+
+            github.cloneRepo(repo);
+        });
+
         var readyCallback = () => {
             this.id = '#file-browser-body';
             var fs = this.fs = SysFileSystem;
@@ -79,6 +140,8 @@ class Filebrowser {
                     }
                 }
             });
+
+
 
             // Save Hotkey
             this.editor.addKeyboardCommand(

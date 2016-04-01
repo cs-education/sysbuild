@@ -4,4 +4,43 @@
         </ul>
     </div>
     <div id="file-browser-body"><span class="loading">Loading...</span></div>
+    <div id="github-opts-container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row">
+                    <label class="col-sm-2 control-label"><small>username</small></label>
+                    <div class="col-sm-4">
+                        <input class="form-control input-sm" type="text" maxlen=256
+                        title="Github username" data-bind="textInput: githubUsername">
+                    </div>
+                    <label class="col-sm-2 control-label"><small>password</small></label>
+                    <div class="col-sm-4">
+                        <input id="githubPassword" class="form-control input-sm" type="password" maxlen=256
+                        title="Github password" data-bind="textInput: githubPassword">
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 control-label"><small>repo&nbsp;url</small></label>
+                    <div class="col-sm-10">
+                        <input id="githubRepo" class="form-control input-sm" type="text" maxlen=256 title="URL of repo to clone into workspace" placeholder="username/saved-jor1k-workspace"
+                        data-bind="textInput: githubRepo">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button id="save-workspace-btn"
+                        data-bind="enable: compileBtnEnable"
+                        title="push workspace to 'saved-jor1k-workspace' repo"
+                        type="button" class="btn btn-xs pull-right col-sm-3 btn-default">
+                        Save Workspace<br>
+                </button>
+                <button id="clone-repo-btn"
+                        data-bind="enable: compileBtnEnable"
+                        title="clone repo into workspace"
+                        type="button" class="btn btn-xs pull-right col-sm-3 btn-default">
+                        Clone Repo<br>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

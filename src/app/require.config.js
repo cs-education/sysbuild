@@ -31,8 +31,8 @@ require.config({
         "browserfs":            "bower_modules/browserfs/dist/browserfs.min",
         "bootstrap-contextmenu":"bower_modules/bootstrap-contextmenu/bootstrap-contextmenu",
         "bootbox":              "bower_modules/bootbox.js/bootbox",
+        "github-api":           "app/github-api",
 
-        
         // Application-specific modules
         "app/config":           "app/config/config.dev" // overridden to 'config.dist' in build config
     },
