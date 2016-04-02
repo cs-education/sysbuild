@@ -1,11 +1,10 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./file-browser.html';
 import 'knockout-projections';
-import GithubInt from 'app/github-int'
+import GithubInt from 'app/github-int/github-int'
 import SysRuntime from 'app/sys-runtime';
 import SysFileSystem from 'app/sys-filesystem';
 import bootbox from 'bootbox';
-import Github from 'github-api';
 import 'bootstrap-contextmenu';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 

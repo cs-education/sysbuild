@@ -27,7 +27,8 @@
     "ace": "~1.2.2",
     "browserfs": "0.5.8",
     "bootstrap-contextmenu": "^0.3.4",
-    "bootbox.js": "^4.4.0"
+    "bootbox.js": "^4.4.0",
+    "github-api": "~0.10.7"
   },
   "devDependencies": {},
   "resolutions": {
