@@ -1,3 +1,4 @@
+/* global Buffer */
 import SysFileSystem from 'app/sys-filesystem';
 import { notify } from 'app/notifications';
 import * as Github from 'github-api';
