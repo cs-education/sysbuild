@@ -31,12 +31,15 @@ require.config({
         "browserfs":            "bower_modules/browserfs/dist/browserfs.min",
         "bootstrap-contextmenu":"bower_modules/bootstrap-contextmenu/bootstrap-contextmenu",
         "bootbox":              "bower_modules/bootbox.js/bootbox",
+        "github-api":           "bower_modules/github-api/github",
 
-        
         // Application-specific modules
-        "app/config":           "app/config/config.dev" // overridden to 'config.dist' in build config
+        "app/config":           "app/config/config.dev", // overridden to 'config.dist' in build config
+        "js-base64":            "app/github-int/github-base64", 
+        "xmlhttprequest":       "app/github-int/github-xmlhttpreq"
     },
     shim: {
+        "github-api": {},
         "bootstrap": { deps: ["jquery"] },
         "jquery-ui": { deps: ["jquery"] },
         "jquery-ui-layout": { deps: ["jquery", "jquery-ui"] },
