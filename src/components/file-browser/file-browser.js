@@ -1,3 +1,4 @@
+/* global Buffer */
 import ko from 'knockout';
 import templateMarkup from 'text!./file-browser.html';
 import 'knockout-projections';
