@@ -119,6 +119,9 @@ class PlaygroundLayout {
                 }
             }
         });
+
+        var addedTabName = `${name} (${section})`;
+        $('#editor-tabs-bar').find('span:contains("' + addedTabName + '")').click();
     }
 
     initLayout() {
