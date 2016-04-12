@@ -32,7 +32,7 @@ class TokenHighlighter {
             self.eventHandler(token);
         };
         editor.addKeyboardCommand('tokenHighlightShortcut', {win: 'Ctrl-I', mac: 'Command-I'}, keyShortcutExec);
-        self.aceEditor.on('click', self.onClick.bind(self));
+        self.aceEditor.on('dblclick', self.ondblclick.bind(self));
     }
 
     highlightTokens() {
@@ -79,7 +79,7 @@ class TokenHighlighter {
         self.busy = false;
     }
 
-    onClick(e) {
+    ondblclick(e) {
         var aceEditor = e.editor;
         var r = aceEditor.renderer;
         var canvasPos = r.rect || (r.rect = r.scroller.getBoundingClientRect());
