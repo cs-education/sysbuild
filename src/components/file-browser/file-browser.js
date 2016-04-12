@@ -110,6 +110,12 @@ class Filebrowser {
 
             // refresh the file browser on file system changes
             fs.addChangeListener(() => {
+                try {
+                    fs.readFileSync(this.activePath);
+                } catch (e) {
+                    this.makeActive(null);
+                    this.editor.setFile('', '', '');
+                }
                 setTimeout(() => {
                     this.refresh();
                 }, 300);
@@ -139,8 +145,6 @@ class Filebrowser {
                     }
                 }
             });
-
-
 
             // Save Hotkey
             this.editor.addKeyboardCommand(
@@ -298,7 +302,12 @@ class Filebrowser {
                 }
             });
 
-
+            // make program.c if not exists
+            try {
+                fs.readFileSync('/program.c');
+            } catch (e) {
+                fs.writeFile('/program.c', new Buffer(this.editor.getText(), 'binary'));
+            }
 
             // init
             this.init();
@@ -495,6 +504,8 @@ class Filebrowser {
         }
         else {
             this.activePath = '';
+            SysGlobalObservables.currentFileName('untitled');
+            SysGlobalObservables.currentFilePath('');
         }
     }
 
