@@ -269,29 +269,39 @@ class Filebrowser {
                 var files = e.originalEvent.dataTransfer.files;
                 var droppedLocationItem = $(e.target);
                 var itemId = droppedLocationItem.data('id');
+                var writeDroppedFile = function(i, done) {
+                    (function (i) {
+                        if (i === files.length) {
+                            return done();
+                        }
 
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
-                    var reader = new FileReader();
-                    reader.file = file;
-                    reader.onload = function(e){
-                        if(itemId == undefined)
-                        {
-                            fs.writeFile('/' +file.name, new Buffer(reader.result, 'binary'));
-                        }
-                        else if (self.metaData[itemId].isDirectory) {
-                            fs.writeFile(self.metaData[itemId].path + '/' +file.name, new Buffer(reader.result, 'binary'));
-                        }
-                        else {
-                            var newPath = self.metaData[itemId].parentPath + '/' + file.name;
-                            if (self.metaData[itemId].parentPath == '/'){
-                                newPath = self.metaData[itemId].parentPath + file.name;
+                        var file = files[i];
+                        var reader = new FileReader();
+                        reader.file = file;
+                        reader.onload = function (e) {
+                            if (itemId === undefined) {
+                                fs.writeFile('/' +file.name, new Buffer(reader.result, 'binary'));
+                                writeDroppedFile(i + 1, done);
                             }
-                            fs.writeFile(newPath, new Buffer(reader.result, 'binary'));
-                        }
-                    };
-                    reader.readAsBinaryString(file);
-                }
+                            else if (self.metaData[itemId].isDirectory) {
+                                fs.writeFile(self.metaData[itemId].path + '/' +file.name, new Buffer(reader.result, 'binary'));
+                                writeDroppedFile(i + 1, done);
+                            }
+                            else {
+                                var newPath = self.metaData[itemId].parentPath + '/' + file.name;
+                                if (self.metaData[itemId].parentPath == '/'){
+                                    newPath = self.metaData[itemId].parentPath + file.name;
+                                }
+                                fs.writeFile(newPath, new Buffer(reader.result, 'binary'));
+                                writeDroppedFile(i + 1, done);
+                            }
+                        };
+                        reader.readAsBinaryString(file);
+                    })(i);
+                };
+
+                writeDroppedFile(0, () => {});
+
                 return false;
             });
 
