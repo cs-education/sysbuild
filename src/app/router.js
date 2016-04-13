@@ -43,7 +43,7 @@ class Router {
             this.currentRoute(ko.utils.extend(requestParams, { page: 'activity-page' }));
         });
 
-        crossroads.addRoute('playground', (requestParams) => {
+        crossroads.addRoute('VM', (requestParams) => {
             this.currentRoute(ko.utils.extend(requestParams, { page: 'play-activity-page' }));
         });
 
