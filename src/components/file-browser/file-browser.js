@@ -9,8 +9,6 @@ import bootbox from 'bootbox';
 import 'bootstrap-contextmenu';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
-var fbCalled = false;
-
 // notification options
 var warningNotific8Options = {
     life: 5000,
@@ -36,13 +34,6 @@ class Filebrowser {
         this.githubPassword = SysGlobalObservables.githubPassword;
         this.githubRepo = SysGlobalObservables.githubRepo;
         this.compileBtnEnable = SysGlobalObservables.compileBtnEnable;
-
-        if (fbCalled) {
-            fbCalled = false;
-            return;
-        }
-
-        fbCalled = true;
 
         var githubOptsContainer = $('#github-opts-container');
         $('span:contains("File Browser")').click(() => {
