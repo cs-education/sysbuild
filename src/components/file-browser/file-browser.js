@@ -283,15 +283,15 @@ class Filebrowser {
                             fs.writeFile(self.metaData[itemId].path + '/' +file.name, new Buffer(reader.result, 'binary'));
                         }
                         else {
-                            var newPath = self.metaData[itemId].parentPath + '/' + file.name
+                            var newPath = self.metaData[itemId].parentPath + '/' + file.name;
                             if (self.metaData[itemId].parentPath == '/'){
-                                newPath = self.metaData[itemId].parentPath + file.name
+                                newPath = self.metaData[itemId].parentPath + file.name;
                             }
                             fs.writeFile(newPath, new Buffer(reader.result, 'binary'));
                         }
                     };
                     reader.readAsBinaryString(file);
-                };
+                }
                 return false;
             });
 
