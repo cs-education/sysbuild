@@ -102,7 +102,8 @@ class Filebrowser {
             // refresh the file browser on file system changes
             fs.addChangeListener(() => {
                 try {
-                    fs.readFileSync(this.activePath);
+                    var content = fs.readFileSync(this.activePath).toString('binary');
+                    this.editor.setFile(this.activePath, this.metaDataPathLookUp[this.activePath].name, content);
                 } catch (e) {
                     this.makeActive(null);
                     this.editor.setFile('', '', '');
