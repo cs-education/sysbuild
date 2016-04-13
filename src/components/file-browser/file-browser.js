@@ -102,7 +102,6 @@ class Filebrowser {
             this.id = '#file-browser-body';
             var fs = this.fs = SysFileSystem;
 
-            //TODO we are using the TokenHighligher to get a reference to the current Ace Editor... find a direct reference
             this.editor = SysGlobalObservables.Editor;
 
             this.depth = -1;
@@ -252,6 +251,60 @@ class Filebrowser {
                 e.preventDefault();
                 return false;
             });
+
+            $('#file-browser').on('dragover', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+            $('#file-browser').on('dragenter', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+
+            $('#file-browser').on('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                var files = e.originalEvent.dataTransfer.files;
+                var droppedLocationItem = $(e.target);
+                var itemId = droppedLocationItem.data('id');
+                var writeDroppedFile = function(i, done) {
+                    (function (i) {
+                        if (i === files.length) {
+                            return done();
+                        }
+
+                        var file = files[i];
+                        var reader = new FileReader();
+                        reader.file = file;
+                        reader.onload = function (e) {
+                            if (itemId === undefined) {
+                                fs.writeFile('/' +file.name, new Buffer(reader.result, 'binary'));
+                                writeDroppedFile(i + 1, done);
+                            }
+                            else if (self.metaData[itemId].isDirectory) {
+                                fs.writeFile(self.metaData[itemId].path + '/' +file.name, new Buffer(reader.result, 'binary'));
+                                writeDroppedFile(i + 1, done);
+                            }
+                            else {
+                                var newPath = self.metaData[itemId].parentPath + '/' + file.name;
+                                if (self.metaData[itemId].parentPath == '/'){
+                                    newPath = self.metaData[itemId].parentPath + file.name;
+                                }
+                                fs.writeFile(newPath, new Buffer(reader.result, 'binary'));
+                                writeDroppedFile(i + 1, done);
+                            }
+                        };
+                        reader.readAsBinaryString(file);
+                    })(i);
+                };
+
+                writeDroppedFile(0, () => {});
+
+                return false;
+            });
+
 
             // toggle directory
             $(this.id).on('click', '.folder', (e) => {
