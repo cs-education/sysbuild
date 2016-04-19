@@ -31,7 +31,7 @@ class GithubInt {
     * Note: unauthenticated users are limited to 60 github api calls per hour
     * and each file is an api call.
     */
-    cloneRepo(repoUrl) {
+    cloneRepo(repoUrl, destPath) {
 
         var tokens = repoUrl.split('/', 2);
         if(tokens.length<2)
@@ -57,7 +57,9 @@ class GithubInt {
                 return;
             }
 
-            fs.makeDirectory(reponame);
+            var parentPath = destPath + '/' + reponame;
+
+            fs.makeDirectory(parentPath);
 
             var loaded = 0;
             var showErrors = true;
@@ -82,7 +84,7 @@ class GithubInt {
                             return;
                         }
 
-                        fs.writeFile(reponame+'/'+tree[this].path, new Buffer(data,'binary'));
+                        fs.writeFile(parentPath+'/'+tree[this].path, new Buffer(data,'binary'));
 
                         loaded += 1;
 
@@ -94,7 +96,7 @@ class GithubInt {
                 if(tree[i].type == 'tree'){
 
                     loaded += 1;
-                    fs.makeDirectory(reponame+'/'+tree[i].path);
+                    fs.makeDirectory(parentPath+'/'+tree[i].path);
                 }
             }
         }.bind(this));
@@ -105,14 +107,16 @@ class GithubInt {
     * If the repo already exists, it deletes it and creates a new repo.
     * If needed this can be extended to modify current existing repo rather than deleting, but this is non-trivial.
     */
-    saveAll() {
+    saveAll(saveRepoName, srcPath) {
         var fs = SysFileSystem;
+        this.saveRepoName = saveRepoName;
+        this.sourcePath = srcPath;
 
         if(!this.authenticated)
         {
             notify('Must be authenticated...', 'red');
         }
-        var repo = this.hub.getRepo(this.username, 'saved-jor1k-workspace');
+        var repo = this.hub.getRepo(this.username, saveRepoName);
         repo.show(function(err, repo_info){
             if(err){
                 if(err.error==404)
@@ -138,7 +142,7 @@ class GithubInt {
     * Helper for saveAll.
     */
     createSaveRepo(err, res) {
-        this.user.createRepo({'name': 'saved-jor1k-workspace'}, function(err, res) {
+        this.user.createRepo({'name': this.saveRepoName}, function(err, res) {
 
             if(err)
             {
@@ -150,8 +154,8 @@ class GithubInt {
                 return;
             }
 
-            var repo = this.hub.getRepo(this.username, 'saved-jor1k-workspace');
-            this.pushToRepo(repo);
+            var repo = this.hub.getRepo(this.username, this.saveRepoName);
+            this.pushToRepo(repo, this.sourcePath);
         }.bind(this));
     }
 
@@ -160,9 +164,22 @@ class GithubInt {
     *
     * This is very hacky... the api is very limited and doesn't allow parallel writes
     */
-    pushToRepo(repo) {
+    pushToRepo(repo, sourcePath) {
         var fs = SysFileSystem;
-        var tree = fs.getDirectoryTree();
+
+        var tree = [];
+        if(sourcePath === ''){
+            tree = fs.getDirectoryTreeOfDir('/');
+        }
+        else{
+            tree = fs.getDirectoryTreeOfDir(sourcePath);
+        }
+
+        //trim source path from tree
+        var pathLength = sourcePath.length;
+        var trimPath = function(fullPath){
+            return fullPath.substring(pathLength, fullPath.length);
+        };
 
         var readFile = function(err){
 
@@ -206,7 +223,7 @@ class GithubInt {
 
             var i = this;
             tree[this].path = tree[this].path.substring(1,tree[this].path.length);
-            repo.write('master', tree[i].path, buf.toString('binary'), 'save', readFile.bind(i+1));
+            repo.write('master', trimPath(tree[i].path), buf.toString('binary'), 'save', readFile.bind(i+1));
         };
 
         readFile();

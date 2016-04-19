@@ -167,13 +167,13 @@ class SysFileSystem {
     * of all nodes within /home/user. Partially ordered from root -> leafs
     */
     getDirectoryTree(){
-        return this.getDirectoryTreeHelper('/');
+        return this.getDirectoryTreeOfDir('/');
     }
 
     /*
     * Helper for getDirectoryTree
     */
-    getDirectoryTreeHelper(path){
+    getDirectoryTreeOfDir(path){
         var children = this.localFS.readdirSync(path);
 
         if(path=='/')
@@ -200,7 +200,7 @@ class SysFileSystem {
 
         for(var a=0; a<dirs.length; a++)
         {
-            ret.push.apply(ret, this.getDirectoryTreeHelper(dirs[a]));
+            ret.push.apply(ret, this.getDirectoryTreeOfDir(dirs[a]));
         }
 
         return ret;
