@@ -6,10 +6,6 @@ export var compileStatus = ko.observable('');
 export var focusTerm = ko.observable((tty) => {});
 export var runCode = ko.observable((gccOptions) => {});
 
-export var githubUsername = ko.observable('');
-export var githubPassword = ko.observable('');
-export var githubRepo = ko.observable('');
-
 export var buildCmd = ko.observable('');
 export var execCmd = ko.observable('');
 

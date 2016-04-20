@@ -30,65 +30,6 @@ var confirmNotific8Options = {
 
 class Filebrowser {
     constructor() {
-        this.githubUsername = SysGlobalObservables.githubUsername;
-        this.githubPassword = SysGlobalObservables.githubPassword;
-        this.githubRepo = SysGlobalObservables.githubRepo;
-        this.compileBtnEnable = SysGlobalObservables.compileBtnEnable;
-
-        var githubOptsContainer = $('#github-opts-container');
-        $('span:contains("File Browser")').click(() => {
-            githubOptsContainer.show();
-        });
-
-        $('span:contains("Code")').click(() => {
-            githubOptsContainer.hide();
-        });
-
-        $('span:contains("Video Search")').click(() => {
-            githubOptsContainer.hide();
-        });
-
-        $('span:contains("Man page search")').click(() => {
-            githubOptsContainer.hide();
-        });
-
-        githubOptsContainer.css('width', $('#code-container').width() + 'px');
-
-        const $saveReop = $('#save-workspace-btn');
-        $saveReop.click(() => {
-            var username = this.githubUsername();
-            var password = this.githubPassword();
-            console.log('Save Repo');
-            this.githubPassword('');
-
-            if (!username || !password)
-                return;
-
-            var github = new GithubInt(username, password);
-            github.saveAll();
-        });
-
-        const $cloneRepo = $('#clone-repo-btn');
-        $cloneRepo.click(() => {
-            var username = this.githubUsername();
-            var password = this.githubPassword();
-            var repo = this.githubRepo();
-            console.log('Clone Repo');
-            if (!repo)
-                return;
-
-            this.githubPassword('');
-
-            var github;
-
-            if(username && password)
-                github = new GithubInt(username, password);
-            else
-                github = new GithubInt();
-
-            github.cloneRepo(repo);
-        });
-
         var readyCallback = () => {
             this.id = '#file-browser-body';
             var fs = this.fs = SysFileSystem;
@@ -169,6 +110,10 @@ class Filebrowser {
                     }
                     menuHtml += '<li><a data-action="rename">Rename</a></li>';
                     menuHtml += '<li><a data-action="delete">Delete</a></li>';
+                    if (self.metaData[itemId].isDirectory) {
+                        menuHtml += '<li><a data-action="clone">Clone a repo into \'' + self.metaData[itemId].name + '\'...</a></li>';
+                        menuHtml += '<li><a data-action="push">Push \''+ self.metaData[itemId].name + '\' to a repo...</a></li>';
+                    }
 
                     menuContainer.html(menuHtml);
                 },
@@ -182,7 +127,7 @@ class Filebrowser {
                     var index;
 
                     if (action === 'delete') {
-                        bootbox.confirm('Are you sure you want to delete "' + itemName + '" ?', function (result) {
+                        bootbox.confirm('Are you sure you want to delete the directory \'' + itemName + '\'?', function (result) {
                             if (result) {
                                 if (self.metaData[itemId].isDirectory) {
                                     self.fs.removeDirectory(itemPath);
@@ -233,6 +178,98 @@ class Filebrowser {
                                     self.fs.writeFile(itemPath + '/' + result, '');
                                 }
                             }
+                        });
+                    }
+                    else if (action === 'clone') {
+                        bootbox.dialog({
+                            title: 'Clone a GitHub repo into \'' + itemName + '\'...',
+                            message: '<div>'
+                                +    '<div class="row">'
+                                +        '<label class="col-sm-2 control-label"><small>Username (optional)</small></label>'
+                                +        '<div class="col-sm-4">'
+                                +            '<input id="githubUsername" class="form-control input-sm" type="text" maxlen=256>'
+                                +        '</div>'
+                                +        '<label class="col-sm-2 control-label"><small>Password</small></label>'
+                                +        '<div class="col-sm-4">'
+                                +            '<input id="githubPassword" class="form-control input-sm" type="password" maxlen=256>'
+                                +        '</div>'
+                                +    '</div>'
+                                +    '<div class="row">'
+                                +        '<label class="col-sm-2 control-label"><small>Repo URI</small></label>'
+                                +        '<div class="col-sm-10">'
+                                +            '<input id="githubRepo" class="form-control input-sm" type="text" maxlen=256 placeholder="username/repo-name">'
+                                +        '</div>'
+                                +    '</div>'
+                                +'</div>',
+                            buttons: {
+                                success: {
+                                    label: 'Clone',
+                                    className: 'btn-clone',
+                                    callback: function () {
+                                        var username = $('#githubUsername').val();
+                                        var password = $('#githubPassword').val();
+                                        var repoName = $('#githubRepo').val();
+
+                                        console.log('Clone Repo');
+
+                                        if (repoName.trim().length === 0)
+                                            return;
+
+                                        var github;
+
+                                        if((username.trim().length !== 0) && (password.trim().length !== 0))
+                                            github = new GithubInt(username, password);
+                                        else
+                                            github = new GithubInt();
+
+                                        github.cloneRepo(repoName, itemPath);      
+                                    }
+                                }
+                            }   
+                        });
+                    }
+                    else if (action === 'push') {
+                        bootbox.dialog({
+                            title: 'Push \''+ itemName + '\' to a GitHub repo...',
+                            message: '<div>'
+                                +    '<div class="row">'
+                                +        '<label class="col-sm-2 control-label"><small>Username</small></label>'
+                                +        '<div class="col-sm-4">'
+                                +            '<input id="githubUsername" class="form-control input-sm" type="text" maxlen=256>'
+                                +        '</div>'
+                                +        '<label class="col-sm-2 control-label"><small>Password</small></label>'
+                                +        '<div class="col-sm-4">'
+                                +            '<input id="githubPassword" class="form-control input-sm" type="password" maxlen=256>'
+                                +        '</div>'
+                                +    '</div>'
+                                +    '<div class="row">'
+                                +        '<label class="col-sm-2 control-label"><small>Repo Name</small></label>'
+                                +        '<div class="col-sm-10">'
+                                +            '<input id="githubSaveRepo" class="form-control input-sm" type="text" maxlen=256 placeholder="sysprog-save">'
+                                +        '</div>'
+                                +    '</div>'
+                                +'</div>',
+                            buttons: {
+                                success: {
+                                    label: 'Push',
+                                    className: 'btn-push',
+                                    callback: function () {
+                                        var username = $('#githubUsername').val();
+                                        var password = $('#githubPassword').val();
+                                        var saveRepoName = $('#githubSaveRepo').val();
+
+                                        console.log('Save Repo');
+
+                                        if ((username.trim().length === 0) || (password.trim().length === 0) 
+                                            || (saveRepoName.trim().length === 0))
+                                            return;
+
+                                        var github = new GithubInt(username, password);
+
+                                        github.saveAll(saveRepoName, itemPath);     
+                                    }
+                                }
+                            }   
                         });
                     }
                 }
