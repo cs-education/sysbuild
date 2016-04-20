@@ -1,4 +1,4 @@
-/* global Buffer */
+/*global Buffer, saveAs:false*/
 import ko from 'knockout';
 import templateMarkup from 'text!./file-browser.html';
 import 'knockout-projections';
@@ -212,7 +212,7 @@ class Filebrowser {
                                     zipNode.file(children[i].name, fileData);
                                 }
                             }
-                        }
+                        };
 
                         addChildren(zip, itemPath);
 
