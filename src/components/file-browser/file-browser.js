@@ -7,7 +7,10 @@ import SysRuntime from 'app/sys-runtime';
 import SysFileSystem from 'app/sys-filesystem';
 import bootbox from 'bootbox';
 import 'bootstrap-contextmenu';
+import 'Blob';
+import 'FileSaver';
 import * as SysGlobalObservables from 'app/sys-global-observables';
+import JSZip from 'jszip';
 
 // notification options
 var warningNotific8Options = {
@@ -110,7 +113,11 @@ class Filebrowser {
                     }
                     menuHtml += '<li><a data-action="rename">Rename</a></li>';
                     menuHtml += '<li><a data-action="delete">Delete</a></li>';
+                    if (!self.metaData[itemId].isDirectory) {
+                        menuHtml += '<li><a data-action="downloadFile">Download \''+ self.metaData[itemId].name +'\'</a></li>';
+                    }
                     if (self.metaData[itemId].isDirectory) {
+                        menuHtml += '<li><a data-action="downloadDir">Download \''+ self.metaData[itemId].name +'\' as .zip</a></li>';
                         menuHtml += '<li><a data-action="clone">Clone a repo into \'' + self.metaData[itemId].name + '\'...</a></li>';
                         menuHtml += '<li><a data-action="push">Push \''+ self.metaData[itemId].name + '\' to a repo...</a></li>';
                     }
@@ -139,17 +146,21 @@ class Filebrowser {
                         });
                     }
                     else if (action === 'rename') {
-                        bootbox.prompt('Insert new name', function (result) {
-                            if (result === null || result.trim().length === 0) {
-                                // do nothing
-                            }
-                            else {
-                                index = itemPath.indexOf(itemName);
-                                if (index === -1) {
-                                    return;
+                        bootbox.prompt({
+                            title: 'Insert a new name for \'' + itemName + '\'', 
+                            value: itemName,
+                            callback: function (result) {
+                                if (result === null || result.trim().length === 0) {
+                                    // do nothing
                                 }
                                 else {
-                                    self.fs.rename(itemPath, itemPath.slice(0, index) + result);
+                                    index = itemPath.indexOf(itemName);
+                                    if (index === -1) {
+                                        return;
+                                    }
+                                    else {
+                                        self.fs.rename(itemPath, itemPath.slice(0, index) + result);
+                                    }
                                 }
                             }
                         });
@@ -178,6 +189,35 @@ class Filebrowser {
                                     self.fs.writeFile(itemPath + '/' + result, '');
                                 }
                             }
+                        });
+                    }
+                    else if (action === 'downloadFile') {
+                        var text = self.fs.readFileSync(itemPath).toString('binary');
+                        var blob = new Blob([text]);
+                        saveAs(blob, itemName);
+                    }
+                    else if (action === 'downloadDir') {
+                        var zip = new JSZip();
+
+                        var addChildren = function(zipNode, itemPath) {
+                            var children = self.fs.getDirectoryChildren(itemPath);
+                        
+                            for(var i = 0; i < children.length; i++) {
+                                if(children[i].isDirectory){
+                                    var fol = zipNode.folder(children[i].name);
+                                    addChildren(fol, itemPath + '/' + children[i].name);
+                                }
+                                else{
+                                    var fileData = self.fs.readFileSync(itemPath + '/' + children[i].name).toString('binary');
+                                    zipNode.file(children[i].name, fileData);
+                                }
+                            }
+                        }
+
+                        addChildren(zip, itemPath);
+
+                        zip.generateAsync({type:'blob'}).then(function(content) {
+                            saveAs(content, itemName + '.zip');
                         });
                     }
                     else if (action === 'clone') {

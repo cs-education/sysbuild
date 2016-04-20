@@ -28,7 +28,8 @@
     "browserfs": "0.5.8",
     "bootstrap-contextmenu": "^0.3.4",
     "bootbox.js": "^4.4.0",
-    "github-api": "~0.10.7"
+    "github-api": "~0.10.7",
+    "Stuk/jszip": "3.0.0"
   },
   "devDependencies": {},
   "resolutions": {

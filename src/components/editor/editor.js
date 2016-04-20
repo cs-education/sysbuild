@@ -1,11 +1,9 @@
-/*global Bloodhound:false, saveAs:false*/
+/*global Bloodhound:false */
 import ko from 'knockout';
 import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
 import 'bloodhound';
 import TokenHighlighter from 'components/editor/token-highlighter';
-import 'Blob';
-import 'FileSaver';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class Editor {
@@ -41,12 +39,6 @@ class Editor {
         $('#editor-opts-container').find('form').submit((e) => {
             e.preventDefault();
             e.stopPropagation();
-        });
-
-        $('#download-file-btn').click(() => {
-            var text = this.getText();
-            var blob = new Blob([text]);
-            saveAs(blob, SysGlobalObservables.currentFileName());
         });
 
         $('#autoindent-code-btn').click(() => {
