@@ -32,6 +32,7 @@ require.config({
         "bootstrap-contextmenu":"bower_modules/bootstrap-contextmenu/bootstrap-contextmenu",
         "bootbox":              "bower_modules/bootbox.js/bootbox",
         "github-api":           "bower_modules/github-api/github",
+        "jszip":                "bower_modules/jszip/dist/jszip.min",
 
         // Application-specific modules
         "app/config":           "app/config/config.dev", // overridden to 'config.dist' in build config
