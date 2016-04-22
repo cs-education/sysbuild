@@ -324,13 +324,14 @@ class Editor {
                 );
 
                 thisLine = editSession.getLine(currentRow);
+				var prevlen = thisLine.length;
                 currentIndent = /^\s*/.exec(thisLine)[0];
                 if (currentIndent !== thisLineIndent) {
                     thisLine = thisLineIndent + thisLine.trim();
                 }
 
-                text.insertFullLines(currentRow, [thisLine]);
-                text.removeFullLines(currentRow + 1, currentRow + 1);
+				text.removeInLine(currentRow, 0, prevlen);
+				text.insertInLine({'row':currentRow, 'column':0}, thisLine);
 
                 mode.autoOutdent(
                     editSession.getState(currentRow),
@@ -344,6 +345,8 @@ class Editor {
         editor.clearSelection();
 
         this.reIndenting = false;
+
+    	//this.setAceAnnotations(this.anno);
     }
 
     dispose() {
