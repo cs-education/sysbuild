@@ -104,7 +104,8 @@ class SysRuntime {
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
             path: jor1kBaseFsUrl, // kernelURL and fsURLs are relative to this path
-            worker: new Worker(jor1kWorkerUrl)
+            worker: new Worker(jor1kWorkerUrl),
+			relayURL: 'wss://relay.widgetry.org/'
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
