@@ -300,7 +300,7 @@ class Editor {
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L618
 		
 		var modeName = this.modelist.getModeForPath(this.filename).mode;
-		if (modeName !== "ace/mode/c_cpp") return;
+		if (modeName === "ace/mode/text") return;
 
         var currentRow,
             thisLineIndent,
