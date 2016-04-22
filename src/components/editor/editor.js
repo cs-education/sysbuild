@@ -256,7 +256,8 @@ class Editor {
             session.setAnnotations(currAnnotations);
         }
         this.enableAutoIndentTimer();
-
+		
+		this.filename = filename;
 		var mode = this.modelist.getModeForPath(filename).mode;
 		this.aceEditor.session.setMode(mode);
 
@@ -297,6 +298,9 @@ class Editor {
     autoIndentCode() {
         // Implementation taken from the javaplayland project
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L618
+		
+		var modeName = this.modelist.getModeForPath(this.filename).mode;
+		if (modeName !== "ace/mode/c_cpp") return;
 
         var currentRow,
             thisLineIndent,
@@ -308,7 +312,7 @@ class Editor {
             text = editSession.getDocument(),
             mode = editSession.getMode(),
             length = editSession.getLength();
-
+		
         this.reIndenting = true;
 
         for (currentRow = 0; currentRow < length; currentRow++) {
