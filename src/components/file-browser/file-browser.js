@@ -38,6 +38,7 @@ class Filebrowser {
             var fs = this.fs = SysFileSystem;
 
             this.editor = SysGlobalObservables.Editor;
+			SysGlobalObservables.FileBrowser = this;
 
             this.depth = -1;
             this.directoryState = [];

@@ -22,3 +22,4 @@ export var compileBtnEnable = ko.observable('');
 export var projectLicense = ko.observable('');
 
 export var Editor = {};
+export var FileBrowser = {};
