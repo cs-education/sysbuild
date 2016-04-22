@@ -82,10 +82,11 @@ class Editor {
         this.annotations.subscribe((newVal) => { this.setAceAnnotations(newVal); });
 
         this.keyboardShortcuts.forEach((shortcutArgs) => this.addKeyboardCommand(...shortcutArgs));
-
+		
+		ace.require(['ace/ext/modelist'], (modelist)=> {
+			this.modelist = modelist;
+		}).bind(this);
         
-        //TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
-        //this.enableAutoIndentTimer();
     }
 
     initSettingsDialog() {
@@ -183,22 +184,6 @@ class Editor {
         this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, this.openManPage);
     }
 
-    enableAutoIndentTimer(){
-        // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
-        this.aceEditor.on('change', () => {
-            if (this.prefs.backgroundAutoIndent()) {
-                window.clearTimeout(this.reIndentTimer);
-                if (!this.reIndenting) {
-                    this.reIndentTimer = window.setTimeout(this.autoIndentCode.bind(this), 500);
-                }
-            }
-        });
-    }
-
-    disableAutoIndentTimer(){
-        this.aceEditor.on('change', () => {window.clearTimeout(this.reIndentTimer);});
-    }
-
     /**
      * @param size A valid CSS font size string, for example '12px'.
      */
@@ -243,8 +228,6 @@ class Editor {
     }
 
     setFile(path, filename, text) {
-        this.disableAutoIndentTimer();
-
         var session = this.aceEditor.getSession();
 
         session.setValue(text);
@@ -253,7 +236,8 @@ class Editor {
             session.setAnnotations(currAnnotations);
         }
 
-        this.enableAutoIndentTimer();
+		var mode = this.modelist.getModeForPath(filename).mode;
+		this.aceEditor.session.setMode(mode);
 
         return;
     }
