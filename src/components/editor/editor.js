@@ -82,8 +82,11 @@ class Editor {
         this.annotations.subscribe((newVal) => { this.setAceAnnotations(newVal); });
 
         this.keyboardShortcuts.forEach((shortcutArgs) => this.addKeyboardCommand(...shortcutArgs));
+		
+		ace.require(['ace/ext/modelist'], (modelist)=> {
+			this.modelist = modelist;
+		}).bind(this);
 
-        
         //TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
         //this.enableAutoIndentTimer();
     }
@@ -183,6 +186,7 @@ class Editor {
         this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, this.openManPage);
     }
 
+	
     enableAutoIndentTimer(){
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
         this.aceEditor.on('change', () => {
@@ -244,7 +248,6 @@ class Editor {
 
     setFile(path, filename, text) {
         this.disableAutoIndentTimer();
-
         var session = this.aceEditor.getSession();
 
         session.setValue(text);
@@ -252,8 +255,11 @@ class Editor {
             var currAnnotations = $.grep(this.anno, function(e) { return e.workingDir + '/' + e.file == path; });
             session.setAnnotations(currAnnotations);
         }
-
         this.enableAutoIndentTimer();
+		
+		this.filename = filename;
+		var mode = this.modelist.getModeForPath(filename).mode;
+		this.aceEditor.session.setMode(mode);
 
         return;
     }
@@ -292,6 +298,9 @@ class Editor {
     autoIndentCode() {
         // Implementation taken from the javaplayland project
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L618
+		
+		var modeName = this.modelist.getModeForPath(this.filename).mode;
+		if (modeName !== 'ace/mode/c_cpp') return;
 
         var currentRow,
             thisLineIndent,
@@ -303,7 +312,7 @@ class Editor {
             text = editSession.getDocument(),
             mode = editSession.getMode(),
             length = editSession.getLength();
-
+		
         this.reIndenting = true;
 
         for (currentRow = 0; currentRow < length; currentRow++) {
@@ -315,13 +324,14 @@ class Editor {
                 );
 
                 thisLine = editSession.getLine(currentRow);
+				var prevlen = thisLine.length;
                 currentIndent = /^\s*/.exec(thisLine)[0];
                 if (currentIndent !== thisLineIndent) {
                     thisLine = thisLineIndent + thisLine.trim();
                 }
 
-                text.insertFullLines(currentRow, [thisLine]);
-                text.removeFullLines(currentRow + 1, currentRow + 1);
+				text.removeInLine(currentRow, 0, prevlen);
+				text.insertInLine({'row':currentRow, 'column':0}, thisLine);
 
                 mode.autoOutdent(
                     editSession.getState(currentRow),
@@ -335,6 +345,7 @@ class Editor {
         editor.clearSelection();
 
         this.reIndenting = false;
+
     }
 
     dispose() {
