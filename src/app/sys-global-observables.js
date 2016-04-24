@@ -23,3 +23,4 @@ export var projectLicense = ko.observable('');
 
 export var Editor = {};
 export var FileBrowser = {};
+export var IncludeMap = {};

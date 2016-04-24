@@ -15,6 +15,36 @@ class PlayActivityPage {
         } else {
             this.setParamsFromDefaults();
         }
+        this.createMapping();
+    }
+
+    createMapping(callback) {
+        var includeMap = {};
+        $.getJSON("https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json", function(data) {
+            data.forEach(function(element) {
+                element.functions.forEach(function(func) {
+                    includeMap[func.name] = [];
+                    element.defines.forEach(function(define) {
+                        includeMap[func.name].push("#define " + define.text);
+                    });
+                    element.includes.forEach(function(include) {
+                        includeMap[func.name].push("#include <" + include.file_path + ">");
+                    });
+                });
+            });
+            SysGlobalObservables.IncludeMap = includeMap;
+        });
+    }
+
+    addMissingHeaders() {
+        var getter = this.editorParams.editorTextGetter();
+        var text = getter().split('\n');
+        var currentHeaders = text.filter(function(element) {
+            return element[0] === '#';
+        })
+        console.log(currentHeaders);
+        console.log(SysGlobalObservables.IncludeMap);
+        console.log(text);
     }
 
     setParamsFromActivity(playActivity) {
@@ -27,6 +57,7 @@ class PlayActivityPage {
                 url: 'https://cs-education.github.io/sysassets/' + playActivity.docFile,
                 format: 'markdown'
             };
+            console.log(this.doc.url);
         } else {
             this.doc = {
                 text: playActivity.doc || '',
@@ -114,6 +145,7 @@ class PlayActivityPage {
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
         var compile = () => {
+            this.addMissingHeaders();
             var buildCmd = this.compilerParams.buildCmd();
             (SysGlobalObservables.runCode())(buildCmd);
         };
