@@ -64,7 +64,7 @@ class PlayActivityPage {
         headers.forEach(function(header) {
             text.unshift(header);
         });
-        var final = text.join('\n')
+        var final = text.join('\n');
         SysGlobalObservables.Editor.setAceText(final);
     }
 
