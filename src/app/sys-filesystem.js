@@ -289,11 +289,13 @@ class SysFileSystem {
                 this.notifyChangeListeners();
                 break;
             case 'delete':
-                if(this.localFS.statSync(path).isDirectory())
-                    this.localFS.rmdir(path, function(err){if(err)console.log(err);});
-                else
-                    if(this.localFS.existsSync(path))
+                if(this.localFS.existsSync(path))
+                {
+                    if(this.localFS.statSync(path).isDirectory())
+                        this.localFS.rmdir(path, function(err){if(err)console.log(err);});
+                    else
                         this.localFS.unlink(path, function(err){if(err)console.log(err);});
+                }
                 this.notifyChangeListeners();
                 break;
             case 'rename':
@@ -306,6 +308,8 @@ class SysFileSystem {
     }
 
     Jor1kReadCallBack(file){
+        if(file === null) return;
+
         var filename = file.name.substring('home/user'.length, file.name.length);
 
         console.log('Writting to local: ' + filename);
