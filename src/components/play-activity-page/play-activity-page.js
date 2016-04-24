@@ -15,10 +15,11 @@ class PlayActivityPage {
         } else {
             this.setParamsFromDefaults();
         }
+        var self = this;
         this.createMapping();
     }
 
-    createMapping(callback) {
+    createMapping() {
         var includeMap = {};
         $.getJSON("https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json", function(data) {
             data.forEach(function(element) {
@@ -32,7 +33,7 @@ class PlayActivityPage {
                     });
                 });
             });
-            SysGlobalObservables.IncludeMap = includeMap;
+            self.IncludeMap = includeMap;
         });
     }
 
@@ -41,10 +42,30 @@ class PlayActivityPage {
         var text = getter().split('\n');
         var currentHeaders = text.filter(function(element) {
             return element[0] === '#';
-        })
-        console.log(currentHeaders);
-        console.log(SysGlobalObservables.IncludeMap);
-        console.log(text);
+        });
+        var editor = SysGlobalObservables.Editor.aceEditor;
+        var session = editor.session;
+        var length = session.getLength();
+        var includeMap = self.IncludeMap;
+        var headers = [];
+        for (var row = 1; row <= length; row++) {
+            var tokens = session.getTokens(row);
+            tokens.forEach(function(token) {
+                var syntax = token.value;
+                if (syntax in includeMap) {
+                    includeMap[syntax].forEach(function(header) {
+                        if (headers.indexOf(header) == -1 && currentHeaders.indexOf(header) == -1) {
+                            headers.push(header);
+                        }
+                    });
+                }
+            });
+        }
+        headers.forEach(function(header) {
+            text.unshift(header);
+        });
+        var final = text.join('\n')
+        SysGlobalObservables.Editor.setAceText(final);
     }
 
     setParamsFromActivity(playActivity) {
