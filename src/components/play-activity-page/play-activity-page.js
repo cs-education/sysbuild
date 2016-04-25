@@ -29,7 +29,6 @@ class PlayActivityPage {
                 url: 'https://cs-education.github.io/sysassets/' + playActivity.docFile,
                 format: 'markdown'
             };
-            console.log(this.doc.url);
         } else {
             this.doc = {
                 text: playActivity.doc || '',
