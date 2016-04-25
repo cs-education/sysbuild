@@ -41,7 +41,7 @@ class AutoIncluder {
                 if (syntax === '#include' || syntax === '#define') {
                 	var current = tokens.map(function(token) {
                 		return token.value;
-                	})
+                	});
                 	currentHeaders.push(current.join(''));
                 	return;
                 } else if (syntax in includeMap) {
