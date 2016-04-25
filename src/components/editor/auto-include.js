@@ -28,9 +28,6 @@ class AutoIncluder {
 	addMissingHeaders(params) {
         var getter = params.editorParams.editorTextGetter();
         var text = getter().split('\n');
-        var currentHeaders = text.filter(function(element) {
-            return element[0] === '#';
-        });
         var editor = SysGlobalObservables.Editor.aceEditor;
         var session = editor.session;
         var length = session.getLength();
@@ -40,13 +37,15 @@ class AutoIncluder {
             var tokens = session.getTokens(row);
             tokens.forEach(function(token) {
                 var syntax = token.value;
-                if (syntax in includeMap) {
-                    includeMap[syntax].forEach(function(header) {
-                        if (headers.indexOf(header) == -1 && currentHeaders.indexOf(header) == -1) {
-                            headers.push(header);
-                        }
-                    });
-                }
+                if (syntax !== '#include' && syntax !== '#define') {
+                	if (syntax in includeMap) {
+                    	includeMap[syntax].forEach(function(header) {
+                        	if (headers.indexOf(header) == -1) {
+                           		headers.push(header);
+                        	}
+                    	});
+                	}
+            	}
             });
         }
         headers.forEach(function(header) {
