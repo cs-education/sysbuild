@@ -70,7 +70,7 @@ class SysRuntime {
 
         var onTTY1Login = (completed) => {
             if (completed) {
-                this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
+                this.sendKeys('tty1', 'head -c1 /dev/urandom\nstty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
             }
         };
 
