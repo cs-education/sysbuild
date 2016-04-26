@@ -56,6 +56,7 @@ const requireJsOptimizerFilesConfig = [
             'components/file-browser/file-browser',
             'ace/ext/modelist',
             'ace/mode/c_cpp',
+            'ace/mode/makefile',
             'ace/theme/monokai',
             'ace/theme/terminal',
             'ace/theme/tomorrow',
