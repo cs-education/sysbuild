@@ -71,7 +71,7 @@ class PlayActivityPage {
         var showInvisibles = ko.observable(editorPrefs.getItem('showinvisibles', 'false') === 'true');
         showInvisibles.subscribe((newSetting) => editorPrefs.setItem('showinvisibles', newSetting));
 
-        var theme = ko.observable(editorPrefs.getItem('theme', 'monokai'));
+        var theme = ko.observable(editorPrefs.getItem('theme', 'tomorrow'));
         theme.subscribe((newSetting) => editorPrefs.setItem('theme', newSetting));
 
         var fontSize = ko.observable(editorPrefs.getItem('fontsize', 12));

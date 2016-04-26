@@ -19,7 +19,7 @@ class Editor {
 
         this.currentFileName = SysGlobalObservables.currentFileName;
 
-        this.availableThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
+        this.availableThemes = ko.observableArray(['tomorrow', 'monokai', 'terminal', 'xcode']);
 
         this.annotations = params.annotations;
         this.keyboardShortcuts = params.keyboardShortcuts;
