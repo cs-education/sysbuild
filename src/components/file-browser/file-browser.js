@@ -245,7 +245,7 @@ class Filebrowser {
                             buttons: {
                                 success: {
                                     label: 'Clone',
-                                    className: 'btn-clone',
+                                    className: 'btn-primary',
                                     callback: function () {
                                         var username = $('#githubUsername').val();
                                         var password = $('#githubPassword').val();
@@ -293,7 +293,7 @@ class Filebrowser {
                             buttons: {
                                 success: {
                                     label: 'Push',
-                                    className: 'btn-push',
+                                    className: 'btn-primary',
                                     callback: function () {
                                         var username = $('#githubUsername').val();
                                         var password = $('#githubPassword').val();

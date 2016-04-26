@@ -2,7 +2,7 @@
 import SysFileSystem from 'app/sys-filesystem';
 import { notify } from 'app/notifications';
 import * as Github from 'github-api';
-
+import bootbox from 'bootbox';
 
 class GithubInt {
 
@@ -132,7 +132,38 @@ class GithubInt {
                 }
             }
             else{
-                repo.deleteRepo(this.createSaveRepo.bind(this));
+                bootbox.dialog({
+                    title: 'Careful!',
+                    message: 'A repo with the name \'' + saveRepoName + '\' already exists. What do you want to do?',
+                    buttons: {
+                        cancel: {
+                            label: 'Cancel',
+                            className: 'btn-default',
+                            callback: function () {
+                                return;
+                            }
+                        },
+                        merge: {
+                            label: 'Merge',
+                            className: 'btn-primary',
+                            callback: function () {
+                                var repo = this.hub.getRepo(this.username, this.saveRepoName);
+                                this.pushToRepo(repo, this.sourcePath);
+                            }.bind(this)
+                        },
+                        overwrite: {
+                            label: 'Overwrite',
+                            className: 'btn-danger',
+                            callback: function () {
+                                bootbox.confirm('Are you sure? All the contents of \'' + saveRepoName  + '\' will be overwritten.', function(result) {
+                                    if(result){
+                                        repo.deleteRepo(this.createSaveRepo.bind(this));
+                                    }
+                                }.bind(this)); 
+                            }.bind(this)
+                        }
+                    }
+                });
             }
 
         }.bind(this));
