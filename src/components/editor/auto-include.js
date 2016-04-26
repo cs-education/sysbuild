@@ -27,13 +27,12 @@ class AutoIncluder {
                 });
             });
         });
-  		$.getJSON("components/editor/headers.JSON", function(data) {
+  		$.getJSON("components/editor/headers.min.json", function(data) {
   			for (var key in data) {
   				if (!(key in includeMap)) {
   					includeMap[key] = data[key];
   				}
   			};
-  			console.log(includeMap);
             self.IncludeMap = includeMap;
   		});
 	}
