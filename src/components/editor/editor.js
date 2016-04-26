@@ -259,6 +259,10 @@ class Editor {
 		
 		this.filename = filename;
 		var mode = this.modelist.getModeForPath(filename).mode;
+
+        if(mode !== 'ace/mode/c_cpp')
+            mode = 'ace/mode/text';
+
 		this.aceEditor.session.setMode(mode);
 
         return;
