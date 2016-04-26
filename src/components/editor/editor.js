@@ -21,6 +21,8 @@ class Editor {
 
         this.availableThemes = ko.observableArray(['monokai', 'terminal', 'tomorrow', 'xcode']);
 
+        this.supportedAceModes = ['ace/mode/c_cpp','ace/mode/makefile'];
+
         this.annotations = params.annotations;
         this.keyboardShortcuts = params.keyboardShortcuts;
 
@@ -259,6 +261,10 @@ class Editor {
 		
 		this.filename = filename;
 		var mode = this.modelist.getModeForPath(filename).mode;
+
+        if(this.supportedAceModes.indexOf(mode) < 0)
+            mode = 'ace/mode/text';
+
 		this.aceEditor.session.setMode(mode);
 
         return;
