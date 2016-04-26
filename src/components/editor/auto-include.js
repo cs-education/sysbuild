@@ -13,16 +13,29 @@ class AutoIncluder {
                 element.functions.forEach(function(func) {
                     includeMap[func.name] = [];
                     element.defines.forEach(function(define) {
-                        includeMap[func.name].push("#define " + define.text);
+                    	var adding = "#define " + define.text;
+                        if (includeMap[func.name].indexOf(adding) == -1) {
+                        	includeMap[func.name].push(adding);
+                        }
                     });
                     element.includes.forEach(function(include) {
-                        includeMap[func.name].push("#include <" + include.file_path + ">");
+                    	var adding = "#include <" + include.file_path + ">";
+                    	if (includeMap[func.name].indexOf(adding) == -1) {
+                        	includeMap[func.name].push("#include <" + include.file_path + ">");
+                    	}
                     });
                 });
             });
-            console.log(includeMap);
-            self.IncludeMap = includeMap;
         });
+  		$.getJSON("components/editor/headers.JSON", function(data) {
+  			for (var key in data) {
+  				if (!(key in includeMap)) {
+  					includeMap[key] = data[key];
+  				}
+  			};
+  			console.log(includeMap);
+            self.IncludeMap = includeMap;
+  		});
 	}
 
 	addMissingHeaders(params) {
