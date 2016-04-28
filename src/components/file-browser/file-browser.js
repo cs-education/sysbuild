@@ -112,8 +112,10 @@ class Filebrowser {
                         menuHtml += '<li><a data-action="newFile">New File</a></li>';
                         menuHtml += '<li><a data-action="newDir">New Directory</a></li>';
                     }
-                    menuHtml += '<li><a data-action="rename">Rename</a></li>';
-                    menuHtml += '<li><a data-action="delete">Delete</a></li>';
+                    if (self.metaData[itemId].path != '') {
+                        menuHtml += '<li><a data-action="rename">Rename</a></li>';
+                        menuHtml += '<li><a data-action="delete">Delete</a></li>';
+                    }
                     if (!self.metaData[itemId].isDirectory) {
                         menuHtml += '<li><a data-action="downloadFile">Download \''+ self.metaData[itemId].name +'\'</a></li>';
                     }
