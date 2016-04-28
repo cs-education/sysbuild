@@ -97,3 +97,10 @@ gulp.task('js', ['js:optimize'], () => {
     // Now clean up
     return gulp.src('./temp', { read: false }).pipe(clean());
 });
+
+// Copy BrowserFS for synchronous loading
+gulp.task('js:browserFS', () => {
+   // Copy From Bower components to Dist Folder
+   return gulp.src('./src/bower_modules/browserfs/dist/browserfs.min.js')
+        .pipe(gulp.dest('./dist/')); 
+});

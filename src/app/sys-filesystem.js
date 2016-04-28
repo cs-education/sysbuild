@@ -1,6 +1,4 @@
-/* global require, Buffer */
-import BrowserFS from 'browserfs';
-
+/* global require, Buffer, BrowserFS */
 class SysFileSystem {
 
     constructor() {
