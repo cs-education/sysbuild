@@ -28,7 +28,6 @@ require.config({
         "bloodhound":           "bower_modules/typeahead.js/dist/bloodhound.min", // exports window global "Bloodhound"
         "FileSaver":            "bower_modules/FileSaver/FileSaver.min", // exports window global "saveAs"
         "Blob":                 "bower_modules/Blob/Blob", // exports window global "Blob"
-        "browserfs":            "bower_modules/browserfs/dist/browserfs.min",
         "bootstrap-contextmenu":"bower_modules/bootstrap-contextmenu/bootstrap-contextmenu",
         "bootbox":              "bower_modules/bootbox.js/bootbox",
         "github-api":           "bower_modules/github-api/github",

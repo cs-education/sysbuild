@@ -25,7 +25,7 @@ gulp.task('clean', () => {
         .pipe(clean());
 });
 
-gulp.task('build', ['lint', 'html', 'js', 'css:dist', 'fonts', 'images', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'js', 'js:browserFS', 'css:dist', 'fonts', 'images', 'extras'], () => {
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
     const buildStampFile = 'dist/build-stamp.txt';
     const recentCommitsFile = 'dist/publish-recentcommits.txt';
