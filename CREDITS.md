@@ -14,7 +14,9 @@ two-semester sequence course in which students work in teams on real-world probl
 Dr. Angrave is the client and liaison for this project.
 
 ### 2015-16 Senior Projects Team
-TODO: Add team members here
+Colton Mercurio [![GitHub][github]](https://github.com/cmercur2)
+JeongWoo Chang [![GitHub][github]](https://github.com/inspiredjw)
+Jae Won Jang [![GitHub][github]](https://github.com/jjang16)
 
 ### 2014-15 Senior Projects Team
 Anant Singh [![GitHub][github]](https://github.com/anant-singh)  
