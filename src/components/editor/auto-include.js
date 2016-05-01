@@ -56,34 +56,34 @@ class AutoIncluder {
 			var currentHeaders = [];
 			var headers = [];
 			for (var row = 0; row <= length; row++) {
-			var tokens = session.getTokens(row);
-			tokens.forEach(function(token) {
-				var syntax = token.value;
-				if (syntax === '#include' || syntax === '#define') {
-					var current = tokens.map(function(token) {
-						return token.value;
-					});
-					currentHeaders.push(current.join(''));
-					return;
-				} else if (syntax in includeMap) {
-					includeMap[syntax].forEach(function(header) {
-						if (headers.indexOf(header) == -1 && currentHeaders.indexOf(header) == -1) {
-							headers.push(header);
-							if (header in updates) {
-								updates[header].push(file.substring(1));
-							} else {
-								updates[header] = [file.substring(1)];
+				var tokens = session.getTokens(row);
+				tokens.forEach(function(token) {
+					var syntax = token.value;
+					if (syntax === '#include' || syntax === '#define') {
+						var current = tokens.map(function(token) {
+							return token.value;
+						});
+						currentHeaders.push(current.join(''));
+						return;
+					} else if (syntax in includeMap) {
+						includeMap[syntax].forEach(function(header) {
+							if (headers.indexOf(header) == -1 && currentHeaders.indexOf(header) == -1) {
+								headers.push(header);
+								if (header in updates) {
+									updates[header].push(file.substring(1));
+								} else {
+									updates[header] = [file.substring(1)];
+								}
 							}
-						}
-					});
-				}
+						});
+					}
+				});
+			}
+			headers.forEach(function(header) {
+				text.unshift(header);
 			});
-		}
-		headers.forEach(function(header) {
-			text.unshift(header);
-		});
-		var final = text.join('\n');
-		SysGlobalObservables.Editor.setAceText(final);
+			var final = text.join('\n');
+			SysGlobalObservables.Editor.setAceText(final);
 			browser.saveActiveFile();
 		}
 		var originalContent = browser.fs.readFileSync(originalFile).toString('binary');
@@ -93,5 +93,6 @@ class AutoIncluder {
 }
 
 // TODO add an editor annotation
+// TODO add unit & integration testing
 
 export default AutoIncluder;
