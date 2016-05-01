@@ -1,7 +1,7 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./play-activity-page.html';
 import Preferences from 'app/preferences';
-import AutoIncluder from 'components/editor/auto-include'
+import AutoIncluder from 'components/editor/auto-include';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class PlayActivityPage {
@@ -116,7 +116,7 @@ class PlayActivityPage {
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
         var compile = () => {
-            this.autoIncluder.addMissingHeaders(this);
+            this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
             var buildCmd = this.compilerParams.buildCmd();
             (SysGlobalObservables.runCode())(buildCmd);
         };

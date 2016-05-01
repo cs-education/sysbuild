@@ -4,6 +4,7 @@ import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
 import 'bloodhound';
 import TokenHighlighter from 'components/editor/token-highlighter';
+import AutoIncluder from 'components/editor/auto-include';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class Editor {
@@ -15,6 +16,7 @@ class Editor {
         prefs.showInvisibles = params.showInvisibles;
         prefs.theme = params.theme;
         prefs.fontSize = params.fontSize;
+        prefs.autoinclude = false;
         this.prefs = prefs;
 
         this.currentFileName = SysGlobalObservables.currentFileName;
@@ -49,6 +51,11 @@ class Editor {
         $(window).resize(this.resize.bind(this));
 
         params.editorTextGetter(this.getText.bind(this));
+
+        this.autoIncluder = new AutoIncluder();
+        $('#autoinclude-code-btn').click(() => {
+            this.autoIncluder.addMissingHeaders(params.editorTextGetter);
+        });
 
         SysGlobalObservables.Editor = this;
     }

@@ -5,11 +5,11 @@
                 <label class="control-label sr-only" for="editor-theme">Theme</label>
                 <select data-bind="options: availableThemes, value: prefs.theme" id="editor-theme" class="form-control input-sm"></select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label class="control-label sr-only" for="editor-font-size">font size (in pixels)</label>
                 <input data-bind="value: prefs.fontSize" id="editor-font-size" type="number" class="form-control input-sm">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <button id="current-code-btn" type="button" class="btn btn-default btn-sm center-block">
                     <span class="glyphicon glyphicon-file"></span> <span class="file-name" data-bind="text: currentFileName">untitled</span>
                 </button>
@@ -17,6 +17,11 @@
             <div class="col-md-2">
                 <button id="autoindent-code-btn" type="button" class="btn btn-default btn-sm center-block">
                     <span class="glyphicon glyphicon-indent-left"></span> Indent code
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button id="autoinclude-code-btn" type="button" class="btn btn-default btn-sm center-block">
+                    <span class="glyphicon glyphicon-indent-left"></span>Include headers
                 </button>
             </div>
             <div class="col-md-2">
