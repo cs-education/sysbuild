@@ -10,28 +10,20 @@ at the University.
 
 View the project running live [here](https://cs-education.github.io/sys/).
 
-## Bugs and feature requests
+## Bugs and Feature Requests
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
 Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for helpful information.
 
 ## Community and Collaboration
-* We have an official public chat room on [Gitter](https://gitter.im/). You can use it to chat with the project team,
-  discuss ideas, and ask for help. You can join the chat [here](https://gitter.im/cs-education/sysbuild) (the Gitter
-  badge at the top of this README provides a quick shortcut to the chat room).
+* We have a public chat room on, which you can join [here](https://gitter.im/cs-education/sysbuild).
+  You can use it to discuss ideas, ask for help, or generally hang out. You can talk to a member privately
+  by clicking on their profile in the Gitter chat room and selecting "Chat Privately".
 
-* The project team uses [HuBoard](https://huboard.com/) for task management. View the task board
-  [here](https://huboard.com/cs-education/sysbuild) to see the status and progress of the project (the HuBoard badge at
-  the top of this README provides a quick shortcut to the board).
+* A Kanban-style task board is setup for task management, available [here](https://huboard.com/cs-education/sysbuild).
+  The board can be used to see the status and progress of the project.
 
 * The [Project development workflow Wiki page](https://github.com/cs-education/sysbuild/wiki/Project-development-workflow)
-  contains information on how the project team works and collaborates.
-
-* If you want to talk to a project team member privately, click on any member in the Gitter chat room and choose
-  "Chat Privately". Please feel free to reach out to the [project leaders](PEOPLE.md#project-leaders) if you want to
-  discuss large collaborations or adopting the project for your own use.
-
-* Please do not hesitate to reach out to the project leaders directly to report any kind of abuse, harassment,
-  or other concerns.
+  contains some guidelines and tips for working and collaborating effectively.
 
 ## Contributing
 Please read through our [contributing guidelines](CONTRIBUTING.md). Included are guidelines for opening issues,
@@ -39,7 +31,7 @@ information about the organization of this repository as well as the overall pro
 development environment, opening pull requests, coding standards, notes on development, and directions for
 deploying the application.
 
-### Further documentation
+### Further Documentation
 See the [Wiki](https://github.com/cs-education/sysbuild/wiki) for information about the technology stack used,
 project road maps, learning resources, and other information.
 

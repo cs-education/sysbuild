@@ -1,9 +1,9 @@
-# Contributing to the project
+# Contributing to the Project
 Thank you for taking the time to contribute! Please take a moment to review this document in order to make the
 contribution process easy and effective for everyone involved. These are just guidelines, not rules, so use your best
 judgment and feel free to propose changes to this document in a pull request or issue.
 
-## Using the issue tracker
+## Using the Issue Tracker
 The [issue tracker](https://github.com/cs-education/sysbuild/issues) is the preferred channel for bug reports, feature
 requests and [submitting pull requests](#pull-requests).
 
@@ -12,12 +12,11 @@ Operating System, and steps to reproduce the issue will help to fix any potentia
 
 You can also post on the chat room or reach out to the project team directly if you like. See the
 [Community and Collaboration](README.md#community-and-collaboration) section in the README for directions.
-It also contains details on the project team's workflow.
 
 If you would like to work on this project, see the information below to get started. Please read the whole
 document carefully before starting.
 
-## Project organization
+## Project Organization
 This is the main repository for the project. Other repositories which are part of the project are:
 
 * [cs-education/jor1k](https://github.com/cs-education/jor1k) - Our fork of the Jor1k project, that powers the virtual
@@ -37,7 +36,7 @@ be committing changes directly to these repositories, but instead use automated 
 
 * [cs-education/sys](https://github.com/cs-education/sys) - Production deployment for the project
 
-## Structure of this repository
+## Structure of this Repository
 ```
 sysbuild/
 ├── src/                      Application source code and other assets
@@ -57,7 +56,7 @@ This project was scaffolded using the Yeoman [Knockout](https://github.com/steve
 generator, with configuration ideas and code adapted from the [gulp-webapp](https://github.com/yeoman/generator-gulp-webapp#readme)
 and [webapp](https://github.com/yeoman/generator-webapp) generators.
 
-## Development environment set up
+## Development Environment Set Up
 1.  [Set up Git](https://help.github.com/articles/set-up-git/) and install [Node.js](https://nodejs.org/).
     Node's package manager ([npm](https://www.npmjs.org/)) comes bundled.
 
@@ -83,11 +82,10 @@ and [webapp](https://github.com/yeoman/generator-webapp) generators.
 
 8.  Navigate to <http://localhost:8080> in your preferred web browser.
 
-## Pull requests
+## Pull Requests
 Pull requests --- patches, improvements, new features --- are a fantastic help.
 
 Please ask first before embarking on any significant pull request.
-[The README contains](README.md#community-and-collaboration) ways to contact and collaborate with the project team ---
 You can comment on the relevant issue, post in the chat room, or open a new issue to start or join a discussion.
 It is also a good idea to discuss your solution/changes/approach before starting any implementation.
 
@@ -135,10 +133,10 @@ Adhering to the following process is the best way to get your work included in t
 10. [Create a pull request](https://help.github.com/articles/creating-a-pull-request) for merging into the
     upstream `master` branch. You're all set! Now wait for someone to review your code and merge your changes.
 
-**IMPORTANT**: By submitting a patch, you agree to allow the project owners to license your work as
-mentioned [in the License section at the bottom](#license).
+**IMPORTANT**: By contributing your code, you agree to license your contribution under the terms of the
+[project's license](LICENSE.md).
 
-### After your pull request is merged
+### After Your Pull Request is Merged
 Thank you and congratulations! After your pull request is merged, you can safely delete your branch and pull the
 changes from the main (upstream) repository:
 
@@ -157,7 +155,7 @@ changes from the main (upstream) repository:
 5.  Update your fork on GitHub:  
     `git push origin master`
 
-## Code guidelines
+## Code Guidelines
 * Please include tests whenever possible.
 * Make sure all tests pass.
 * We have an [editor config](.editorconfig) file for maintaining a consistent coding style. Read more and download
@@ -188,7 +186,7 @@ changes from the main (upstream) repository:
 (separate) pull request fixing the violations. Also feel free to discuss changing/adding/removing any guideline if you
 have a compelling reason for it.
 
-## Git and GitHub guidelines and tips
+## Git and GitHub Guidelines and Tips
 * Please adhere to the guidelines mentioned in the excellent post
   [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/). The post
   [5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message)
@@ -228,11 +226,11 @@ to your repository's `gh-pages` branch or to the web folder on your server.
 5.  Deploy to [production](https://cs-education.github.io/sys/):  
     `gulp deploy:prod`
 
-## Development notes
-### Useful commands
+## Development Notes
+### Useful Commands
 * Run `gulp serve` to start a local development server, which makes the application available at <http://localhost:8080>.
 
-* `gulp clean` can be used to delete the `dist/` folder (recommended before building the project).
+* `gulp clean` can be used to delete the `dist/` folder (recommended before re-building the project).
 
 ### Testing
 We use [Karma](https://karma-runner.github.io/0.13/index.html) for running tests. It has been configured to run tests in
@@ -250,7 +248,7 @@ or [open an issue](#using-the-issue-tracker).
 * If you want to run the tests in a browser manually instead of using Karma, run `gulp serve:test` to start a local test
   server, then navigate to <http://localhost:8080>.
 
-### Creating components
+### Creating Components
 To create a new [Knockout component](http://knockoutjs.com/documentation/component-overview.html) called "my-component",
 the following steps need to be followed:
 
@@ -271,7 +269,7 @@ the following steps need to be followed:
 5.  Use the component as needed, usually as a custom HTML element. For example:  
     `<my-component params="..."></my-component>`
 
-### Travis CI configuration.
+### Travis CI Configuration.
 * [We cache](.travis.yml) Bower and npm dependencies to speed up builds. The caches can be accessed
   [on the web](https://travis-ci.org/cs-education/sysbuild/caches), which gives us a means to
   [clear them](http://docs.travis-ci.com/user/caching/#Clearing-Caches) in case they are spoiled
@@ -284,7 +282,3 @@ the following steps need to be followed:
 ### Gotchas
 * Do not wrap your AMD modules in `define` calls, as Babel automatically does that. In fact, doing so will cause errors.
   Use ES6 `import` statements for specifying dependencies.
-
-## License
-By contributing your code, you agree to license your contribution under the terms of the
-[project's license](LICENSE.md).

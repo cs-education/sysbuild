@@ -3,14 +3,9 @@ extends: eslint:recommended
 env:
   browser: true
   jquery: true
-ecmaFeatures:
-  arrowFunctions: true
-  blockBindings: true
-  classes: true
-  destructuring: true
-  modules: true
-  spread: true
-  templateStrings: true
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
 rules:
   quotes:
     - 2
