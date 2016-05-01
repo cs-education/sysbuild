@@ -39,6 +39,7 @@ class Filebrowser {
 
             this.editor = SysGlobalObservables.Editor;
 			SysGlobalObservables.FileBrowser = this;
+            SysGlobalObservables.ObservableFS(this);
 
             this.depth = -1;
             this.directoryState = [];

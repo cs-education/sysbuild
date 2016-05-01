@@ -1,12 +1,20 @@
+import ko from 'knockout';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class AutoIncluder {
 	constructor() {
 		var self = this;
 		this.createMapping();
+
+		this.browser = SysGlobalObservables.ObservableFS;
+		this.browser.subscribe((newBrowser) => self.browser = newBrowser);
+
+		this.editor = SysGlobalObservables.ObservableEditor;
+		this.editor.subscribe((newEditor) => self.editor = newEditor);
 	}
 
 	createMapping() {
+		var self = this;
 		var includeMap = {};
 		$.getJSON('https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json', function(data) {
 			data.forEach(function(element) {
@@ -33,26 +41,28 @@ class AutoIncluder {
 					includeMap[key] = data[key];
 				}
 			}
-			self.IncludeMap = includeMap;
+			self.includeMap = includeMap;
 		});
 	}
 
+	loadFile(file) {
+		var content = this.browser.fs.readFileSync(file).toString('binary');
+		this.browser.makeActive(file);
+		this.editor.setFile(file, file.substring(1), content);
+	}
+
 	addMissingHeaders(textGetter) {
-		var browser = SysGlobalObservables.FileBrowser;
 		var originalGetter = SysGlobalObservables.currentFilePath;
 		var originalFile = originalGetter();
 		var updates = {};
-		for (var file in browser.metaDataPathLookUp) {
+		for (var file in this.browser.metaDataPathLookUp) {
 			if (file.length === 0 || (file.indexOf('.h') < 0 && file.indexOf('.c') < 0)) continue;
-			var content = browser.fs.readFileSync(file).toString('binary');
-			browser.makeActive(file);
-			browser.editor.setFile(file, file.substring(1), content);
+			this.loadFile(file);
 			var getter = textGetter();
 			var text = getter().split('\n');
-			var editor = SysGlobalObservables.Editor.aceEditor;
-			var session = editor.session;
+			var session = this.editor.aceEditor.session;
 			var length = session.getLength();
-			var includeMap = self.IncludeMap;
+			var includeMap = this.includeMap;
 			var currentHeaders = [];
 			var headers = [];
 			for (var row = 0; row <= length; row++) {
@@ -83,12 +93,10 @@ class AutoIncluder {
 				text.unshift(header);
 			});
 			var final = text.join('\n');
-			SysGlobalObservables.Editor.setAceText(final);
-			browser.saveActiveFile();
+			this.editor.setAceText(final);
+			this.browser.saveActiveFile();
 		}
-		var originalContent = browser.fs.readFileSync(originalFile).toString('binary');
-		browser.makeActive(originalFile);
-		browser.editor.setFile(originalFile, originalFile.substring(1), originalContent);
+		this.loadFile(originalFile);
 	}
 }
 

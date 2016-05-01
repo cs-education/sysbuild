@@ -58,6 +58,7 @@ class Editor {
         });
 
         SysGlobalObservables.Editor = this;
+        SysGlobalObservables.ObservableEditor(this);
     }
 
     initAce(editorDivId) {
