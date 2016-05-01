@@ -55,8 +55,8 @@ Amazing projects without which this project would not have been possible:
 * [RequireJS](http://requirejs.org/) and [Babel](https://babeljs.io/) have been extremely helpful in keeping the code base
   modular and maintainable.
 
-* Have a look at our [Bower](bower.json) and [npm](package.json) dependencies for a list of the many other libraries
-  and tools that have made this project possible.
+* Have a look at our [Bower](webapp/bower.json) and [npm](webapp/package.json) dependencies for a list of the many other
+  libraries and tools that have made this project possible.
 
 
 <!-- Social icons from https://github.com/carlsednaoui/gitsocial -->

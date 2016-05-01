@@ -38,7 +38,7 @@ be committing changes directly to these repositories, but instead use automated 
 
 ## Structure of this Repository
 ```
-sysbuild/
+sysbuild/webapp/
 ├── src/                      Application source code and other assets
 │   ├── app/                  Core application modules
 │   ├── bower_modules/        (Runtime) dependencies installed by Bower
@@ -68,8 +68,8 @@ and [webapp](https://github.com/yeoman/generator-webapp) generators.
 3.  [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository:  
     `git clone https://github.com/<your-username>/sysbuild.git`
 
-4.  Navigate to the newly cloned directory:  
-    `cd sysbuild/`
+4.  Navigate to the web project inside the newly cloned directory:  
+    `cd sysbuild/webapp/`
 
 5.  Configure Git to be able to update your fork with the changes from the original repository:  
     `git remote add upstream https://github.com/cs-education/sysbuild.git`
@@ -81,6 +81,8 @@ and [webapp](https://github.com/yeoman/generator-webapp) generators.
     `gulp serve`
 
 8.  Navigate to <http://localhost:8080> in your preferred web browser.
+
+Note: The rest of this guide assumes that `sysbuild/webapp/` is your working directory.
 
 ## Pull Requests
 Pull requests --- patches, improvements, new features --- are a fantastic help.
@@ -269,7 +271,7 @@ the following steps need to be followed:
 5.  Use the component as needed, usually as a custom HTML element. For example:  
     `<my-component params="..."></my-component>`
 
-### Travis CI Configuration.
+### Travis CI Configuration
 * [We cache](.travis.yml) Bower and npm dependencies to speed up builds. The caches can be accessed
   [on the web](https://travis-ci.org/cs-education/sysbuild/caches), which gives us a means to
   [clear them](http://docs.travis-ci.com/user/caching/#Clearing-Caches) in case they are spoiled
