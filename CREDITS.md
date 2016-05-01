@@ -6,10 +6,13 @@ students and faculty at the [University of Illinois at Urbana-Champaign](http://
 Starting with the Fall 2014 semester, this project has been one of the Non-profit/Research projects in the
 [CS Senior Projects](https://seniorprojects.cs.illinois.edu/confluence/display/CourseContent/Senior+Projects+in+CS)
 course at the University. Senior Projects (CS 492/493/494) is led and taught by Professor Michael Woodley and is a
-two-semester sequence course in which students work in teams on real-world problems for real-world clients.
+two-semester course in which students work in teams to solve real-world problems for clients.
 
 ### Project Liaison
 Dr. Lawrence Angrave [![GitHub][github]](https://github.com/angrave)  
+
+### 2016-17 Senior Theses
+Aadil Bhatti [![GitHub][github]](https://github.com/prevosis)  
 
 ### 2015-16 Senior Projects Team
 Colton Mercurio [![GitHub][github]](https://github.com/cmercur2)  
@@ -23,7 +26,7 @@ Joseph Tran [![GitHub][github]](https://github.com/jdtran23)
 Keagan McClelland [![GitHub][github]](https://github.com/CaptJakk)  
 Neelabh Gupta [![GitHub][github]](https://github.com/neelabhg) [![Twitter][twitter]](https://twitter.com/neelabhg)  
 Scott Walters [![GitHub][github]](https://github.com/scowalt)  
-Siddharth Seth [![GitHub][github]](https://github.com/siddharth-seth)
+Siddharth Seth [![GitHub][github]](https://github.com/siddharth-seth)  
 
 ## Other Contributors
 See the list of GitHub contributors for the [sysbuild](https://github.com/cs-education/sysbuild/graphs/contributors)
