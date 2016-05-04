@@ -1,0 +1,52 @@
+<!doctype html>
+
+<h1>jor1k file watch demo</h1>
+
+
+<canvas id="tty" class="screen" width="640" height="384">
+                        Terminal uses canvas
+</canvas>
+
+<h3>Shell History of ~/.ash_history</h3>
+<ul id="file-contents">
+</ul>
+
+
+<script src="jor1k-master-min.js"></script>
+
+<script>
+
+var Jor1k = require("Jor1k");
+var LinuxTerm = require("LinuxTerm");
+
+jor1kgui = new Jor1k({term: new LinuxTerm("tty"), path: "../sys/or1k/"});
+
+    var readFile = (function(fileName) {
+        var report = (function(file) {
+            var fileContents = document.getElementById("file-contents");
+            if (file !== null) {
+                var uintArray = file.data;
+                var encodedString = String.fromCharCode.apply(null, uintArray);
+                decodedString = decodeURIComponent(escape(encodedString));
+                s = decodedString.split("\n").map((function(line) {
+                    return "<li>" + line + "</li>";
+                }
+                )).join("");
+                fileContents.innerHTML = s;
+            }
+        });
+        jor1kgui.fs.ReadFile(fileName, report);
+    });
+
+    var startWatching = (function() {
+        console.log("start watching");
+        var watcher = (function(file) {
+            readFile(file.name);
+        });
+        jor1kgui.fs.WatchFile("home/user/.ash_history", readFile);
+    });
+
+    startWatching();
+
+</script>
+
