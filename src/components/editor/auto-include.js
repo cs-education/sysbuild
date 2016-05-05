@@ -16,7 +16,9 @@ class AutoIncluder {
 	createMapping() {
 		var self = this;
 		var includeMap = {};
-		$.getJSON('https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json', function(data) {
+		var syscalls = 'https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json';
+		var libcalls = 'https://cs-education.github.io/sysassets/man_pages/headers.min.json';
+		$.getJSON(syscalls, function(data) {
 			data.forEach(function(element) {
 				element.functions.forEach(function(func) {
 					includeMap[func.name] = [];
@@ -35,7 +37,7 @@ class AutoIncluder {
 				});
 			});
 		});
-		$.getJSON('https://cs-education.github.io/sysassets/man_pages/headers.min.json', function(data) {
+		$.getJSON(libcalls, function(data) {
 			for (var key in data) {
 				if (!(key in includeMap)) {
 					includeMap[key] = data[key];
