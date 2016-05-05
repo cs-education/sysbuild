@@ -54,7 +54,9 @@ const requireJsOptimizerFilesConfig = [
             'components/compiler-state-label/compiler-state-label',
             'components/not-found-page/not-found-page',
             'components/file-browser/file-browser',
+            'ace/ext/modelist',
             'ace/mode/c_cpp',
+            'ace/mode/makefile',
             'ace/theme/monokai',
             'ace/theme/terminal',
             'ace/theme/tomorrow',
@@ -94,4 +96,11 @@ gulp.task('js:optimize', ['js:babel'], () => {
 gulp.task('js', ['js:optimize'], () => {
     // Now clean up
     return gulp.src('./temp', { read: false }).pipe(clean());
+});
+
+// Copy BrowserFS for synchronous loading
+gulp.task('js:browserFS', () => {
+   // Copy From Bower components to Dist Folder
+   return gulp.src('./src/bower_modules/browserfs/dist/browserfs.min.js')
+        .pipe(gulp.dest('./dist/')); 
 });
