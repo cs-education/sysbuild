@@ -16,7 +16,6 @@ class Editor {
         prefs.showInvisibles = params.showInvisibles;
         prefs.theme = params.theme;
         prefs.fontSize = params.fontSize;
-        prefs.autoinclude = false;
         this.prefs = prefs;
 
         this.currentFileName = SysGlobalObservables.currentFileName;
