@@ -79,11 +79,15 @@ class PlayActivityPage {
         var fontSize = ko.observable(editorPrefs.getItem('fontsize', 12));
         fontSize.subscribe((newSetting) => editorPrefs.setItem('fontsize', newSetting));
 
+        var autoInclude = ko.observable(editorPrefs.getItem('autoInclude', 'true') === 'true');
+        autoInclude.subscribe((newSetting) => editorPrefs.setItem('autoInclude', newSetting));
+
         this.editorParams = {
             annotations: SysGlobalObservables.editorAnnotations,
             autoIndent: autoIndent,
             highlightLine: highlightLine,
             showInvisibles: showInvisibles,
+            autoInclude: autoInclude,
             theme: theme,
             fontSize: fontSize,
             keyboardShortcuts: []
@@ -116,7 +120,9 @@ class PlayActivityPage {
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
         var compile = () => {
-            this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
+            if (check()) {
+                this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
+            }
             var buildCmd = this.compilerParams.buildCmd();
             (SysGlobalObservables.runCode())(buildCmd);
         };
