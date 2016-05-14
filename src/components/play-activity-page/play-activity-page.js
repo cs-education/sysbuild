@@ -120,7 +120,7 @@ class PlayActivityPage {
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
         var compile = () => {
-            if (check()) {
+            if (this.editorParams.autoInclude()) {
                 this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
             }
             var buildCmd = this.compilerParams.buildCmd();

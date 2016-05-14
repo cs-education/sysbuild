@@ -55,7 +55,6 @@ class AutoIncluder {
 
 	addMissingHeaders(textGetter) {
 		var originalGetter = SysGlobalObservables.currentFilePath;
-		var originalFile = originalGetter();
 		this.browser.saveActiveFile();
 		var updates = {};
 		for (var file in this.browser.metaDataPathLookUp) {
