@@ -98,7 +98,6 @@ class AutoIncluder {
 			this.editor.setAceText(final);
 			this.browser.saveActiveFile();
 		}
-		this.loadFile(originalFile);
 	}
 }
 
