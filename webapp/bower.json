@@ -12,7 +12,7 @@
     "bootstrap-sass": "~3.3.6",
     "modernizr": "~2.8.3",
     "jquery": "~2.1.4",
-    "jor1k": "https://github.com/cs-education/jor1k.git#sysbuild-stable",
+    "jor1k": "../jor1k/",
     "Blob": "*",
     "FileSaver": "*",
     "sammy": "~0.7.6",
