@@ -68,19 +68,22 @@ and [webapp](https://github.com/yeoman/generator-webapp) generators.
 3.  [Fork](https://help.github.com/articles/fork-a-repo/) this repository. Clone your forked git repository:  
     `git clone https://github.com/<your-username>/sysbuild.git`
 
-4.  Navigate to the web project inside the newly cloned directory:  
-    `cd sysbuild/webapp/`
+4.  Navigate to the newly cloned directory:  
+    `cd sysbuild/`
 
-5.  Configure Git to be able to update your fork with the changes from the original repository:  
-    `git remote add upstream https://github.com/cs-education/sysbuild.git`
+5.  Run the setup script to create the recommended git remotes:  
+    `./scripts/setup.sh`
 
-6.  Install dependencies and set up the project:  
+6.  Navigate to the web project inside the repository:  
+    `cd webapp/`
+
+7.  Install dependencies and set up the project:  
     `npm install`
 
-7.  Start a local development server:  
+8.  Start a local development server:  
     `gulp serve`
 
-8.  Navigate to <http://localhost:8080> in your preferred web browser.
+9.  Navigate to <http://localhost:8080> in your preferred web browser.
 
 Note: The rest of this guide assumes that `sysbuild/webapp/` is your working directory.
 

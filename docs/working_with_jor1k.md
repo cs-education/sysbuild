@@ -12,7 +12,7 @@ For those interested, the exact command used to import Jor1k was:
 `git subtree add --prefix=jor1k/ s-macke-jor1k master --squash`
 
 To work with this setup, you need to add a new git remote to make it easier to refer
-to the upstream repository:  
+to the upstream repository. Note that this is automatically done by the setup script for you:  
 `git remote add -f s-macke-jor1k https://github.com/s-macke/jor1k.git`
 
 Then use the following commands for working with the subproject:
