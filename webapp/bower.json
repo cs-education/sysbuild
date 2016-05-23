@@ -1,0 +1,38 @@
+{
+  "name": "sysbuild",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "crossroads": "~0.12.0",
+    "hasher": "~1.2.0",
+    "requirejs": "~2.1.11",
+    "requirejs-text": "~2.0.10",
+    "knockout": "~3.3.0",
+    "knockout-projections": "~1.1.0",
+    "bootstrap-sass": "~3.3.6",
+    "modernizr": "~2.8.3",
+    "jquery": "~2.1.4",
+    "jor1k": "../jor1k/",
+    "Blob": "*",
+    "FileSaver": "*",
+    "sammy": "~0.7.6",
+    "marked": "~0.3.5",
+    "videojs": "~5.1.0",
+    "typeahead.js": "~0.10.5",
+    "jquery-notific8": "~2.3.0",
+    "jquery-ui-layout": "~1.4.3",
+    "jquery-ui": "~1.11.4",
+    "jquery-fullscreen": "~1.1.4",
+    "cjs": "*",
+    "ace": "~1.2.2",
+    "browserfs": "0.5.8",
+    "bootstrap-contextmenu": "^0.3.4",
+    "bootbox.js": "^4.4.0",
+    "github-api": "~0.10.7",
+    "Stuk/jszip": "3.0.0"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "knockout": "~3.3.0"
+  }
+}

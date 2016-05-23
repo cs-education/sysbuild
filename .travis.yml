@@ -2,9 +2,11 @@ sudo: false # this ensures our build is routed to Travis CI's new container-base
 language: node_js
 cache:
   directories:
-  - node_modules
-  - src/bower_modules
-before_install: npm install -g bower
+    - webapp/node_modules
+    - webapp/src/bower_modules
+before_install:
+  - cd webapp/
+  - npm install -g bower
 notifications:
   email: false
   webhooks:

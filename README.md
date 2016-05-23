@@ -12,7 +12,7 @@ View the project running live [here](https://cs-education.github.io/sys/).
 
 ## Bugs and Feature Requests
 Use the [issue tracker](https://github.com/cs-education/sysbuild/issues) to submit bug reports and feature requests.
-Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for helpful information.
+Please see the [issue guidelines](.github/CONTRIBUTING.md#using-the-issue-tracker) for helpful information.
 
 ## Community and Collaboration
 * We have a public chat room on, which you can join [here](https://gitter.im/cs-education/sysbuild).
@@ -26,7 +26,7 @@ Please see the [issue guidelines](CONTRIBUTING.md#using-the-issue-tracker) for h
   contains some guidelines and tips for working and collaborating effectively.
 
 ## Contributing
-Please read through our [contributing guidelines](CONTRIBUTING.md). Included are guidelines for opening issues,
+Please read through our [contributing guidelines](.github/CONTRIBUTING.md). Included are guidelines for opening issues,
 information about the organization of this repository as well as the overall project, directions for setting up your
 development environment, opening pull requests, coding standards, notes on development, and directions for
 deploying the application.
@@ -36,7 +36,7 @@ See the [Wiki](https://github.com/cs-education/sysbuild/wiki) for information ab
 project road maps, learning resources, and other information.
 
 ## Credits
-See [CREDITS.md](CREDITS.md).
+See [docs/CREDITS.md](docs/CREDITS.md).
 
 ## License
 See [LICENSE.md](LICENSE.md) for copyright, license, attribution and other legal information.
