@@ -30,7 +30,7 @@ licenses, and/or restrictions:
 * Ace (Ajax.org Cloud9 Editor) is [BSD licenced](https://github.com/ajaxorg/ace-builds/blob/master/LICENSE) and is Copyright (c) 2010, Ajax.org B.V.
 
 ### Copyrights and Licenses for Third Party Content and Creative Works
-* The "Linux in a browser" logo, used as the website favicon ([favicon.ico](src/favicon.ico)) is Copyright (c) 2014 Neelabh Gupta,
+* The "Linux in a browser" logo, used as the website favicon ([favicon.ico](webapp/src/favicon.ico)) is Copyright (c) 2014 Neelabh Gupta,
   and is based on the following works:
   - The [Linux Tux logo](http://isc.tamu.edu/~lewing/linux/) by Larry Ewing (<lewing@isc.tamu.edu>) and
     [The GIMP](http://isc.tamu.edu/~lewing/gimp/).

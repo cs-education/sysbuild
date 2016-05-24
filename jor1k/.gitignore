@@ -1,0 +1,14 @@
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+node_modules
+utils/fs.json
+utils/fs.xml
+utils/fs
+utils/fs2xml
+utils/packages
