@@ -1,10 +1,10 @@
 import ace from 'ace/ace';
-var Range = ace.require('ace/range').Range;
+const Range = ace.require('ace/range').Range;
 
 class TokenHighlighter {
 
     constructor(editor, tokens, cb) {
-        var self = this;
+        const self = this;
 
         self.aceEditor = editor.aceEditor;
         self.tokens = tokens;
@@ -19,50 +19,50 @@ class TokenHighlighter {
         self.tokenStore = {};
         self.busy = false;
 
-        var updateTimer = null;
-        self.aceEditor.on('change', function () {
+        let updateTimer = null;
+        self.aceEditor.on('change', () => {
             clearTimeout(updateTimer);
             if (!self.busy) {
                 updateTimer = setTimeout(self.highlightTokens.bind(self), 500);
             }
         });
-        var keyShortcutExec = function (aceEditor) {
-            var pos = aceEditor.getCursorPosition();
-            var token = aceEditor.session.getTokenAt(pos.row, pos.column);
+        const keyShortcutExec = aceEditor => {
+            const pos = aceEditor.getCursorPosition();
+            const token = aceEditor.session.getTokenAt(pos.row, pos.column);
             self.eventHandler(token);
         };
-        editor.addKeyboardCommand('tokenHighlightShortcut', {win: 'Ctrl-I', mac: 'Command-I'}, keyShortcutExec);
+        editor.addKeyboardCommand('tokenHighlightShortcut', { win: 'Ctrl-I', mac: 'Command-I' }, keyShortcutExec);
         self.aceEditor.on('dblclick', self.ondblclick.bind(self));
     }
 
     highlightTokens() {
-        var self = this;
+        const self = this;
 
         self.busy = true;
 
-        var session = self.aceEditor.session;
-        var docLength = session.getLength();
-        var manPageTokens = self.tokens;
-        var row = 1;
-        var tokenStart = 0;
+        const session = self.aceEditor.session;
+        const docLength = session.getLength();
+        const manPageTokens = self.tokens;
+        let row = 1;
+        let tokenStart = 0;
 
-        self.markers.forEach(function (marker) {
+        self.markers.forEach(marker => {
             session.removeMarker(marker);
         });
         self.markers = [];
 
-        var searchAndHighlight = function (token) {
+        const searchAndHighlight = token => {
             if (self.supportedTypes[token.type]) {
-                manPageTokens.get(token.value, function (results) {
-                    var i = 0;
+                manPageTokens.get(token.value, (results) => {
+                    let i = 0;
                     if (results.length && results[i].name === token.value) {
-                        var result = results[i];
+                        let result = results[i];
                         while (result && result.section !== 2 && result.section !== 3) {
                             result = results[++i];
                         }
                         if (result) {
                             self.tokenStore[token.value] = result;
-                            var range = new Range(row, tokenStart, row, tokenStart + token.value.length);
+                            const range = new Range(row, tokenStart, row, tokenStart + token.value.length);
                             self.markers.push(session.addMarker(range, 'token-highlight', 'text'));
                         }
                     }
@@ -72,7 +72,7 @@ class TokenHighlighter {
         };
 
         for (row = 1; row <= docLength; row++) {
-            var tokens = session.getTokens(row);
+            const tokens = session.getTokens(row);
             tokenStart = 0;
             tokens.forEach(searchAndHighlight);
         }
@@ -80,14 +80,14 @@ class TokenHighlighter {
     }
 
     ondblclick(e) {
-        var aceEditor = e.editor;
-        var r = aceEditor.renderer;
-        var canvasPos = r.rect || (r.rect = r.scroller.getBoundingClientRect());
-        var offset = (e.clientX + r.scrollLeft - canvasPos.left - r.$padding) / r.characterWidth;
-        var row = Math.floor((e.clientY + r.scrollTop - canvasPos.top) / r.lineHeight);
-        var column = Math.round(offset);
-        var screenPos = {row: row, column: column, side: offset - column > 0 ? 1 : -1};
-        var token = aceEditor.session.getTokenAt(screenPos.row, screenPos.column);
+        const aceEditor = e.editor;
+        const r = aceEditor.renderer;
+        const canvasPos = r.rect || (r.rect = r.scroller.getBoundingClientRect());
+        const offset = (e.clientX + r.scrollLeft - canvasPos.left - r.$padding) / r.characterWidth;
+        const row = Math.floor((e.clientY + r.scrollTop - canvasPos.top) / r.lineHeight);
+        const column = Math.round(offset);
+        const screenPos = { row: row, column: column, side: offset - column > 0 ? 1 : -1 };
+        const token = aceEditor.session.getTokenAt(screenPos.row, screenPos.column);
         if (token && this.supportedTypes[token.type]) {
             this.eventHandler(token);
         }

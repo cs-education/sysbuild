@@ -5,19 +5,19 @@ class LessonNavigationPager {
     constructor(params) {
         this.listCssClass = params.listCssClass;
 
-        var activityData = params.activityData,
-            currentChapter = activityData.chapter,
-            currentChapterIdx = currentChapter.index,
-            currentSection = activityData.section,
-            currentSectionIdx = currentSection.index,
-            currentActivity = activityData.activity,
-            currentActivityIdx = currentActivity.index;
+        const activityData = params.activityData;
+        const currentChapter = activityData.chapter;
+        const currentChapterIdx = currentChapter.index;
+        const currentSection = activityData.section;
+        const currentSectionIdx = currentSection.index;
+        const currentActivity = activityData.activity;
+        const currentActivityIdx = currentActivity.index;
 
         this.currentSectionName = currentSection.name;
 
         this.prevActivityUrl = ko.pureComputed(() => {
-            var prevSectionIdx = currentSectionIdx,
-                prevActivityIdx = currentActivityIdx - 1;
+            let prevSectionIdx = currentSectionIdx;
+            let prevActivityIdx = currentActivityIdx - 1;
 
             if (prevActivityIdx < 0) {
                 // we were already at first activity of current section,
@@ -28,8 +28,8 @@ class LessonNavigationPager {
                     // so go to chapter listing
                     return '#lessons';
                 }
-                var prevSection = currentChapter.sections[prevSectionIdx],
-                    prevSectionNumActivities = prevSection.activities.length;
+                const prevSection = currentChapter.sections[prevSectionIdx];
+                const prevSectionNumActivities = prevSection.activities.length;
                 prevActivityIdx = prevSectionNumActivities - 1;
             }
 
@@ -37,15 +37,15 @@ class LessonNavigationPager {
         });
 
         this.nextActivityUrl = ko.pureComputed(() => {
-            var currentSectionNumActivities = currentSection.activities.length,
-                nextSectionIdx = currentSectionIdx,
-                nextActivityIdx = currentActivityIdx + 1;
+            const currentSectionNumActivities = currentSection.activities.length;
+            let nextSectionIdx = currentSectionIdx;
+            let nextActivityIdx = currentActivityIdx + 1;
 
             if (nextActivityIdx >= currentSectionNumActivities) {
                 // we were already at last activity of current section,
                 // so go to first activity of next section
                 nextSectionIdx += 1;
-                var currentChapterNumSections = currentChapter.sections.length;
+                const currentChapterNumSections = currentChapter.sections.length;
                 if (nextSectionIdx >= currentChapterNumSections) {
                     // we were already at last section of current chapter,
                     // so go to chapter listing

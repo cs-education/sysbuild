@@ -14,13 +14,13 @@ class Lessons {
         // So, we return a Knockout computed observable, which updates
         // automatically when the "chapters" observable changes.
         return ko.pureComputed(() => {
-            var chapter = this.chapters()[chapterIdx];
+            const chapter = this.chapters()[chapterIdx];
             if (!chapter) return null;
 
-            var section = chapter.sections[sectionIdx];
+            const section = chapter.sections[sectionIdx];
             if (!section) return null;
 
-            var activity = section.activities[activityIdx];
+            const activity = section.activities[activityIdx];
             if (!activity) return null;
 
             return {

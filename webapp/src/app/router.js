@@ -19,7 +19,7 @@ class Router {
         // Configure Crossroads route handlers
         crossroads.addRoute('', (requestParams) => {
             // TODO: Remove redirection once home page is ready
-            //this.currentRoute(ko.utils.extend(requestParams, { page: 'home-page' }));
+            // this.currentRoute(ko.utils.extend(requestParams, { page: 'home-page' }));
             hasher.replaceHash('lessons');
         });
 
@@ -65,6 +65,6 @@ class Router {
 }
 
 // Create and export router instance
-var routerInstance = new Router();
+const routerInstance = new Router();
 
 export default routerInstance;

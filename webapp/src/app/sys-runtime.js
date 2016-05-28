@@ -33,9 +33,8 @@ class SysRuntime {
             this.notifyListeners('putchar-tty1', character);
         };
 
-        var onBootFinished = () => {
+        const onBootFinished = () => {
             if (this.tty0ready && this.tty1ready) {
-
                 //Attach persistent filesystem
                 SysFileSystem.initialize(this.jor1kgui.fs);
 
@@ -46,38 +45,38 @@ class SysRuntime {
             }
         };
 
-        var onTTY0Ready = (completed) => {
+        const onTTY0Ready = (completed) => {
             this.tty0ready = completed;
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
         };
 
-        var onTTY1Ready = (completed) => {
+        const onTTY1Ready = (completed) => {
             this.tty1ready = completed;
             onBootFinished(); // either tty0 or tty1 can be ready last, so both must call onBootFinished
         };
 
-        var onTTY1RootLogin = (completed) => {
+        const onTTY1RootLogin = (completed) => {
             if (completed) {
                 this.sendKeys('tty1', 'login -f user\n', '~ $', onTTY1Ready); // login as user
             }
         };
 
-        var onTTY0Login = (completed) => {
+        const onTTY0Login = (completed) => {
             if (completed) {
                 this.sendKeys('tty0', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY0Ready);
             }
         };
 
-        var onTTY1Login = (completed) => {
+        const onTTY1Login = (completed) => {
             if (completed) {
                 this.sendKeys('tty1', 'stty -clocal crtscts -ixoff\necho boot2ready-$?\n', 'boot2ready-0', onTTY1RootLogin);
             }
         };
 
-        var termTTY0 = new LinuxTerm('tty0');
-        var termTTY1 = new LinuxTerm('tty1');
+        const termTTY0 = new LinuxTerm('tty0');
+        const termTTY1 = new LinuxTerm('tty1');
 
-        var jor1kparameters = {
+        const jor1kparameters = {
             system: {
                 kernelURL: 'vmlinux.bin.bz2', // kernel image
                 memorysize: 32, // in MB, must be a power of two
@@ -140,23 +139,23 @@ class SysRuntime {
         this.captureOutput = true;
         ++this.compileTicket;
 
-        var compileCb = (completed) => {
+        const compileCb = (completed) => {
             var result = null;
             this.expecting = undefined;
             if (completed) {
                 this.captureOutput = false;
-                var regexMatchArray = this.gccOutputCaptureRe.exec(this.ttyOutput);
-                var gccOutput = regexMatchArray[1];
-                var gccExitCode = parseInt(this.gccExitCodeCaptureRe.exec(gccOutput)[1]);
+                const regexMatchArray = this.gccOutputCaptureRe.exec(this.ttyOutput);
+                const gccOutput = regexMatchArray[1];
+                const gccExitCode = parseInt(this.gccExitCodeCaptureRe.exec(gccOutput)[1]);
                 this.ttyOutput = '';
 
-                var stats = {
+                const stats = {
                     error: 0,
                     warning: 0,
                     info: 0
                 };
 
-                var annotations = this.getErrorAnnotations(gccOutput);
+                const annotations = this.getErrorAnnotations(gccOutput);
 
                 annotations.forEach((note) => {
                     stats[note.type] += 1;
@@ -171,10 +170,9 @@ class SysRuntime {
             }
 
             guiCallback(result);
-
         };
 
-        var cmd = 'echo \\#\\#\\#GCC_COMPILE\\#\\#\\#;clear;pwd;'+ buildCmd +'; echo GCC_EXIT_CODE: $?; echo \\#\\#\\#GCC_COMPILE_FINISHED\\#\\#\\#' +
+        const cmd = 'echo \\#\\#\\#GCC_COMPILE\\#\\#\\#;clear;pwd;' + buildCmd + '; echo GCC_EXIT_CODE: $?; echo \\#\\#\\#GCC_COMPILE_FINISHED\\#\\#\\#' +
             this.compileTicket + '.;clear\n';
 
         this.expecting = this.sendKeys('tty0', cmd, 'GCC_COMPILE_FINISHED###' + this.compileTicket + '.', compileCb);
@@ -183,15 +181,16 @@ class SysRuntime {
     }
 
     getErrorAnnotations(buildOutputStr) {
-        var workingDir = buildOutputStr.substr(0, buildOutputStr.indexOf('\n'));
-        if(workingDir.indexOf('/home/user') == 0)
+        let workingDir = buildOutputStr.substr(0, buildOutputStr.indexOf('\n'));
+        if (workingDir.indexOf('/home/user') === 0) {
             workingDir = workingDir.substr(10, workingDir.length);
-        else
+        } else {
             workingDir = '';
+        }
 
-        var errors = (new GccOutputParser()).parse(buildOutputStr);
+        const errors = (new GccOutputParser()).parse(buildOutputStr);
         return errors.map((error) => {
-            var aceAnnotationType;
+            let aceAnnotationType;
 
             // Determine the type of editor annotation. ace supports error, warning or info.
             if (error.buildErrorType.toLowerCase().indexOf('error') !== -1) {
@@ -213,7 +212,7 @@ class SysRuntime {
                 workingDir: workingDir,
                 row: error.row - 1,
                 col: error.col,
-                isBuildCmdError: (error.type === 'gcc') || (error.type == 'make'),
+                isBuildCmdError: (error.type === 'gcc') || (error.type === 'make'),
                 type: aceAnnotationType,
                 text: error.text,
                 file: error.file
@@ -235,7 +234,7 @@ class SysRuntime {
 
     // Used to broadcast 'putchar' and 'ready' events
     addListener(eventname, fn) {
-        var ary = this.listeners[eventname];
+        const ary = this.listeners[eventname];
         if (ary) {
             ary.push(fn);
         } else {
@@ -244,26 +243,26 @@ class SysRuntime {
     }
 
     removeListener(eventname, fn) {
-        var ary = this.listeners[eventname];
+        const ary = this.listeners[eventname];
         this.listeners[eventname] = ary.filter((el) => {
             return el !== fn;
         });
     }
 
     notifyListeners(eventname, data) {
-        var ary = this.listeners[eventname];
+        let ary = this.listeners[eventname];
         if (!ary) {
             return;
         }
         ary = ary.slice(); // Listeners may be added/removed during this event, so make a copy first
-        for (var i = 0; ary && i < ary.length; i++) {
+        for (let i = 0; ary && i < ary.length; i++) {
             ary[i](this, data);
         }
     }
 
     sendKeys(tty, text, expect, success, cancel) {
-        var expectResult = null;
-        var data = text.split('').map((c) => {
+        let expectResult = null;
+        const data = text.split('').map((c) => {
             /* jshint bitwise: false */
             return c.charCodeAt(0) >>> 0;
         });

@@ -60,21 +60,21 @@ class PlayActivityPage {
     }
 
     setEditorParams() {
-        var editorPrefs = Preferences.getPreferenceManager('editor');
+        const editorPrefs = Preferences.getPreferenceManager('editor');
 
-        var autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true') === 'true');
+        const autoIndent = ko.observable(editorPrefs.getItem('autoindent', 'true') === 'true');
         autoIndent.subscribe((newSetting) => editorPrefs.setItem('autoindent', newSetting));
 
-        var highlightLine = ko.observable(editorPrefs.getItem('highlightline', 'true') === 'true');
+        const highlightLine = ko.observable(editorPrefs.getItem('highlightline', 'true') === 'true');
         highlightLine.subscribe((newSetting) => editorPrefs.setItem('highlightline', newSetting));
 
-        var showInvisibles = ko.observable(editorPrefs.getItem('showinvisibles', 'false') === 'true');
+        const showInvisibles = ko.observable(editorPrefs.getItem('showinvisibles', 'false') === 'true');
         showInvisibles.subscribe((newSetting) => editorPrefs.setItem('showinvisibles', newSetting));
 
-        var theme = ko.observable(editorPrefs.getItem('theme', 'tomorrow'));
+        const theme = ko.observable(editorPrefs.getItem('theme', 'tomorrow'));
         theme.subscribe((newSetting) => editorPrefs.setItem('theme', newSetting));
 
-        var fontSize = ko.observable(editorPrefs.getItem('fontsize', 12));
+        const fontSize = ko.observable(editorPrefs.getItem('fontsize', 12));
         fontSize.subscribe((newSetting) => editorPrefs.setItem('fontsize', newSetting));
 
         this.editorParams = {
@@ -101,20 +101,20 @@ class PlayActivityPage {
     }
 
     setupCompileCallbacks() {
-        var compileShortcut = {
+        const compileShortcut = {
             win: 'Ctrl-Return',
             mac: 'Command-Return'
         };
 
-        var platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
-        var shortcut = platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win;
+        const platform = (navigator.platform.match(/mac|win|linux/i) || ['other'])[0].toLowerCase(); // from ace editor
+        const shortcut = platform === 'mac' ? compileShortcut.mac.replace('Command', '\u2318') : compileShortcut.win;
         this.compilerParams.compileBtnTooltip = `Compile and Run (${shortcut} in code editor)`;
 
         // the editor will set the value of this observable to a function which returns the editor text
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
-        var compile = () => {
-            var buildCmd = this.compilerParams.buildCmd();
+        const compile = () => {
+            const buildCmd = this.compilerParams.buildCmd();
             (SysGlobalObservables.runCode())(buildCmd);
         };
 

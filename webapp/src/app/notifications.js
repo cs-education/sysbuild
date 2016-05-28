@@ -19,9 +19,6 @@ const notifi8Options = {
 };
 
 class Notifications {
-    constructor() {
-    }
-
     notify(message, type) {
         $.notific8(message, notifi8Options[type]);
     }

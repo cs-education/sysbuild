@@ -23,7 +23,7 @@ class CompilerStateLabel {
             'label label-' + compileStatusToLabelClassMap[this.compileStatus()]);
 
         this.showErrorWarningLabel = ko.pureComputed(() => {
-            var unsuccessful = (this.compileStatus() === 'Warnings' || this.compileStatus() === 'Failed');
+            const unsuccessful = (this.compileStatus() === 'Warnings' || this.compileStatus() === 'Failed');
             if (unsuccessful) {
                 notify('There were errors or warnings during compilation', 'red');
             }
@@ -31,9 +31,9 @@ class CompilerStateLabel {
         });
 
         this.errorWarningLabel = ko.pureComputed(() => {
-            var errors = this.gccErrorCount(),
-                warnings = this.gccWarningCount(),
-                str = '';
+            const errors = this.gccErrorCount();
+            const warnings = this.gccWarningCount();
+            let str = '';
             str += errors ? '<span class="compile-status-label-text-error">' + (errors + ' error' + (errors > 1 ? 's ' : '')) + (warnings ? '' : '\u2026') + '</span>' : '';
             str += warnings ? '&nbsp;<span class="compile-status-label-text-warning">' + (warnings + ' warning' + (warnings > 1 ? 's' : '')) + '\u2026' + '</span>' : '';
             if (!str && this.showErrorWarningLabel()) {

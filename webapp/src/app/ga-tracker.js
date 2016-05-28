@@ -1,11 +1,11 @@
 /* global ga */
-const angraveOldProdGaWebPropertyId = 'UA-42515111-2',
-      neelabhgOldProdGaWebPropertyId = 'UA-39700861-4',
-      neelabhgStagingGaWebPropertyId = 'UA-39700861-5',
-      neelabhgProdGaWebPropertyId = 'UA-39700861-6';
+const angraveOldProdGaWebPropertyId = 'UA-42515111-2';
+const neelabhgOldProdGaWebPropertyId = 'UA-39700861-4';
+const neelabhgStagingGaWebPropertyId = 'UA-39700861-5';
+const neelabhgProdGaWebPropertyId = 'UA-39700861-6';
 
-var getEnvironment = () => {
-    var loc = window.location.hostname + window.location.pathname;
+const getEnvironment = () => {
+    const loc = window.location.hostname + window.location.pathname;
     if (loc === 'cs-education.github.io/sys/') {
         return 'prod';
     } else if (loc === 'angrave.github.io/sys/') {
@@ -20,7 +20,7 @@ var getEnvironment = () => {
 // Encapsulates Google Analytics tracking
 class Tracker {
     constructor() {
-        var env = getEnvironment();
+        const env = getEnvironment();
         // Disable tracking if the opt-out cookie exists.
         if (document.cookie.indexOf('disableTracking=true') > -1) {
             this.disableTracking();
@@ -28,12 +28,12 @@ class Tracker {
 
         // Create the tracker objects
         if (env === 'prod') {
-            ga('create', neelabhgProdGaWebPropertyId, 'auto', {'name': 'neelabhgProd'});
+            ga('create', neelabhgProdGaWebPropertyId, 'auto', { 'name': 'neelabhgProd' });
         } else if (env === 'angraveprod') {
-            ga('create', angraveOldProdGaWebPropertyId, 'auto', {'name': 'angraveOldProd'});
-            ga('create', neelabhgOldProdGaWebPropertyId, 'auto', {'name': 'neelabhgOldProd'});
+            ga('create', angraveOldProdGaWebPropertyId, 'auto', { 'name': 'angraveOldProd' });
+            ga('create', neelabhgOldProdGaWebPropertyId, 'auto', { 'name': 'neelabhgOldProd' });
         } else if (env === 'staging') {
-            ga('create', neelabhgStagingGaWebPropertyId, 'auto', {'name': 'neelabhgStaging'});
+            ga('create', neelabhgStagingGaWebPropertyId, 'auto', { 'name': 'neelabhgStaging' });
         }
 
         if (env === 'dev') {
@@ -78,8 +78,8 @@ class Tracker {
     trackEvent() {
         var args = Array.prototype.slice.call(arguments);
         args.unshift('event');
-        ga(function () {
-            ga.getAll().forEach(function (tracker) {
+        ga(() => {
+            ga.getAll().forEach(tracker => {
                 tracker.send.apply(tracker, args);
             });
         });

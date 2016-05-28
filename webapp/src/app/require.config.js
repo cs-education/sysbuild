@@ -35,7 +35,7 @@ require.config({
 
         // Application-specific modules
         "app/config":           "app/config/config.dev", // overridden to 'config.dist' in build config
-        "js-base64":            "app/github-int/github-base64", 
+        "js-base64":            "app/github-int/github-base64",
         "xmlhttprequest":       "app/github-int/github-xmlhttpreq"
     },
     shim: {

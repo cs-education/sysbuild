@@ -7,7 +7,7 @@ gulp.task('serve:src', ['css:watch'], () => {
     var root = 'src'; // this is relative to project root
     return connect.server({
         root: root,
-        middleware: (connect, opt) => {
+        middleware: (connectInstance, opt) => {
             return [(new BabelTranspiler(root)).connectMiddleware()];
         }
     });
@@ -18,7 +18,7 @@ gulp.task('serve:test', ['lint:test:watch'], () => {
     var root = '.'; // this is relative to project root
     return connect.server({
         root: root,
-        middleware: (connect, opt) => {
+        middleware: (connectInstance, opt) => {
             return [(new BabelTranspiler(root)).connectMiddleware()];
         }
     });

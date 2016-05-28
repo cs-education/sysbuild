@@ -24,7 +24,7 @@ class Preferences {
     getItem(key, defaultValue) {
         if (this.useLocalStorage) {
             try {
-                var result = localStorage.getItem(key);
+                const result = localStorage.getItem(key);
                 return (result !== null ? result : defaultValue);
             } catch (e) {
                 // error reading from local storage
@@ -78,8 +78,8 @@ class NamedPreferences {
     }
 }
 
-var instance = new Preferences();
-var namedInstances = [];
+const instance = new Preferences();
+const namedInstances = [];
 export default {
     getPreferenceManager: (namespace) => {
         if (!namedInstances[namespace]) {

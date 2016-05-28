@@ -6,9 +6,9 @@ import videojs from 'videojs';
 class VideoActivityPage {
     constructor(params) {
         this.activityData = params.activityData;
-        var videoActivity = this.activityData.activity;
-        var videoUrlPrefix = 'https://cs-education.github.io/sysassets/' + videoActivity.file;
-        var videoName = videoActivity.file.replace('mp4/', '');
+        const videoActivity = this.activityData.activity;
+        const videoUrlPrefix = 'https://cs-education.github.io/sysassets/' + videoActivity.file;
+        const videoName = videoActivity.file.replace('mp4/', '');
 
         this.topics = videoActivity.topics || '';
         this.doc = ko.observable(marked(videoActivity.doc || ''));
@@ -18,7 +18,7 @@ class VideoActivityPage {
             });
         }
 
-        var $video = $('<video>').attr('id', 'lesson-video').
+        const $video = $('<video>').attr('id', 'lesson-video').
             addClass('video-js vjs-default-skin vjs-big-play-centered');
 
         $('#lesson-video-container').width(960).append($video);
@@ -55,7 +55,7 @@ class VideoActivityPage {
         // It's very important that you wait for the video player to load before
         // adding remote text tracks. Source:
         // https://docs.brightcove.com/en/video-cloud/brightcove-player/guides/adding-captions-to-videos.html
-        player.on('loadstart', function () {
+        player.on('loadstart', () => {
             var trackLabel = 'English';
             player.addRemoteTextTrack({
                 kind: 'captions',
@@ -69,7 +69,7 @@ class VideoActivityPage {
             // so, let's use a hack!
             // get the text track options in the DOM of the video player
             $('div.video-js > div.vjs-control-bar > div.vjs-captions-button > div.vjs-control-content > ' +
-                'div.vjs-menu > ul.vjs-menu-content > li.vjs-menu-item').each(function (index, element) {
+                'div.vjs-menu > ul.vjs-menu-content > li.vjs-menu-item').each((index, element) => {
                 // find the option for our text track
                 if (element.innerHTML === trackLabel) {
                     // click the caption option in the DOM

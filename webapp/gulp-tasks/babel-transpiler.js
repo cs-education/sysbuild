@@ -22,14 +22,14 @@ class BabelTranspiler {
         pathname = slash(pathname);
         if (this.config.babelIgnoreRegexes.some((re) => re.test(pathname))) return callback();
         if (!babelCore.canCompile(pathname)) return callback();
-        var src  = path.join(this.config.root, pathname);
-        var opts = objectAssign({ sourceFileName: '/source/' + pathname }, this.config.babelConfig);
+        const src = path.join(this.config.root, pathname);
+        const opts = objectAssign({ sourceFileName: '/source/' + pathname }, this.config.babelConfig);
         babelCore.transformFile(src, opts, callback);
     }
 
     connectMiddleware() {
         return (req, res, next) => {
-            var pathname = path.normalize(url.parse(req.url).pathname);
+            const pathname = path.normalize(url.parse(req.url).pathname);
             this.transpile(pathname, (err, result) => {
                if (err) {
                    next(err);

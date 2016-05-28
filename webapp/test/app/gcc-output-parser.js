@@ -1,31 +1,31 @@
 import GccOutputParser from 'app/gcc-output-parser';
 
-describe('GccOutputParser', function () {
-    beforeEach(function () {
+describe('GccOutputParser', () => {
+    beforeEach(() => {
         this.parser = new GccOutputParser();
     });
 
     // no errors
-    describe('when given an empty string', function () {
-        beforeEach(function () {
+    describe('when given an empty string', () => {
+        beforeEach(() => {
             this.results = this.parser.parse('');
         });
 
-        it('should return no information', function () {
+        it('should return no information', () => {
             expect(this.results).toEqual([]);
         });
     });
 
     // compiler error
-    describe('when given a compiler error string', function () {
-        beforeEach(function () {
+    describe('when given a compiler error string', () => {
+        beforeEach(() => {
             var compilerOutput = 'program.c: In function \'main\':\n' +
                 'program.c:6:2: error: expected \';\' before \'return\'\n' +
                 '  return 0;\n  ^';
             this.results = this.parser.parse(compilerOutput);
         });
 
-        it('should return the correct error information', function () {
+        it('should return the correct error information', () => {
             expect(this.results).toEqual(jasmine.any(Array));
             expect(this.results.length).toEqual(1); // one error
             expect(this.results[0]).toEqual(jasmine.objectContaining({
@@ -39,15 +39,15 @@ describe('GccOutputParser', function () {
     });
 
     // linker error
-    describe('when given a linker error string', function () {
-        beforeEach(function () {
+    describe('when given a linker error string', () => {
+        beforeEach(() => {
             var compilerOutput = '/tmp/ccwIU8df.o: In function \'main\':\n' +
             'program.c:(.text+0x20): undefined reference to \'nonExistentFunction\'\n' +
             'collect2: error: ld returned 1 exit status';
             this.results = this.parser.parse(compilerOutput);
         });
 
-        it('should return the correct error information', function () {
+        it('should return the correct error information', () => {
             expect(this.results).toEqual(jasmine.any(Array));
             expect(this.results.length).toEqual(2); // two errors
 
@@ -74,13 +74,13 @@ describe('GccOutputParser', function () {
     });
 
     // gcc error
-    describe('when given a gcc error string', function () {
-        beforeEach(function () {
+    describe('when given a gcc error string', () => {
+        beforeEach(() => {
             var compilerOutput = 'gcc: error: unrecognized command line option \'-asdfasdf\'';
             this.results = this.parser.parse(compilerOutput);
         });
 
-        it('should return the correct error information', function () {
+        it('should return the correct error information', () => {
             expect(this.results).toEqual(jasmine.any(Array));
             expect(this.results.length).toEqual(1); // one error
             expect(this.results[0]).toEqual(jasmine.objectContaining({
@@ -94,13 +94,13 @@ describe('GccOutputParser', function () {
     });
 
     // cc1 error
-    describe('when given a cc1 error string', function () {
-        beforeEach(function () {
+    describe('when given a cc1 error string', () => {
+        beforeEach(() => {
             var compilerOutput = 'cc1: error: unrecognised debug output level "aslkdfjalksjd"';
             this.results = this.parser.parse(compilerOutput);
         });
 
-        it('should return the correct error information', function () {
+        it('should return the correct error information', () => {
             expect(this.results).toEqual(jasmine.any(Array));
             expect(this.results.length).toEqual(1); // one error
             expect(this.results[0]).toEqual(jasmine.objectContaining({
@@ -114,8 +114,8 @@ describe('GccOutputParser', function () {
     });
 
     // multiple errors
-    describe('when given a string containing multiple compiler errors', function () {
-        beforeEach(function () {
+    describe('when given a string containing multiple compiler errors', () => {
+        beforeEach(() => {
             var compilerOutput = 'program.c: In function \'thing\':\n' +
                 'program.c:10:5: warning: return makes integer from pointer without a cast [enabled by default]\n' +
                 '    return \"thing\"\n' + '    ^\n' +
@@ -124,7 +124,7 @@ describe('GccOutputParser', function () {
             this.results = this.parser.parse(compilerOutput);
         });
 
-        it('should return the correct error information', function () {
+        it('should return the correct error information', () => {
             expect(this.results).toEqual(jasmine.any(Array));
             expect(this.results.length).toEqual(2); // two errors
 

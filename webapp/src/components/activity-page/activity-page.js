@@ -9,11 +9,12 @@ const activityTypeToComponentNameMap = {
 
 class ActivityPage {
     constructor(params) {
-        var [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx));
+        const [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx));
         this.activityComponent = ko.pureComputed(() => {
-            var activityDataObj = lessons.getActivityData(chapterIdx, sectionIdx, activityIdx)();
-            if (!activityDataObj)
+            const activityDataObj = lessons.getActivityData(chapterIdx, sectionIdx, activityIdx)();
+            if (!activityDataObj) {
                 return { name: 'not-found-page', params: {} };
+            }
             return {
                 name: activityTypeToComponentNameMap[activityDataObj.activity.type],
                 params: {

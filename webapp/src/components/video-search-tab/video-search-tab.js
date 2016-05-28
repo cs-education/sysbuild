@@ -24,7 +24,7 @@ class VideoSearchTab {
     }
 
     initTypeahead() {
-        var resultVideo = null;
+        let resultVideo = null;
         $('#video-search-typeahead').children('.typeahead').typeahead({
             highlight: true
         }, {
@@ -83,11 +83,11 @@ class VideoSearchTab {
     }
 
     loadVideo(resultVid) {
-        var $video = $('<video>').attr('id', 'search-video').
+        const $video = $('<video>').attr('id', 'search-video').
             addClass('video-js vjs-default-skin vjs-big-play-centered');
         this.stopVideo();
         $('#search-video-container').width(640).append($video);
-        var vid = videojs('search-video', {
+        const vid = videojs('search-video', {
                     controls: true,
                     preload: 'none',
                     width: 640,
@@ -95,7 +95,7 @@ class VideoSearchTab {
                     poster: ''
                 });
         vid.ready(() => {
-            var videoURL = 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source;
+            const videoURL = 'https://cs-education.github.io/sysassets/mp4/' + resultVid.source;
             this.configurePlayer(vid, videoURL, resultVid.source);
         });
         vid.currentTime(resultVid.startTime);
@@ -112,8 +112,8 @@ class VideoSearchTab {
         // It's very important that you wait for the video player to load before
         // adding remote text tracks. Source:
         // https://docs.brightcove.com/en/video-cloud/brightcove-player/guides/adding-captions-to-videos.html
-        player.on('loadstart', function () {
-            var trackLabel = 'English';
+        player.on('loadstart', () => {
+            const trackLabel = 'English';
             player.addRemoteTextTrack({
                 kind: 'captions',
                 language: 'en',
@@ -126,7 +126,7 @@ class VideoSearchTab {
             // so, let's use a hack!
             // get the text track options in the DOM of the video player
             $('div.video-js > div.vjs-control-bar > div.vjs-captions-button > div.vjs-control-content > ' +
-                'div.vjs-menu > ul.vjs-menu-content > li.vjs-menu-item').each(function (index, element) {
+                'div.vjs-menu > ul.vjs-menu-content > li.vjs-menu-item').each((index, element) => {
                 // find the option for our text track
                 if (element.innerHTML === trackLabel) {
                     // click the caption option in the DOM

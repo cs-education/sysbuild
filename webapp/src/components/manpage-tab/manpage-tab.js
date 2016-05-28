@@ -3,8 +3,8 @@ import templateMarkup from 'text!./manpage-tab.html';
 
 class ManpageTab {
     constructor(params) {
-        var name = params.manPageName,
-            section = params.manPageSection;
+        const name = params.manPageName;
+        const section = params.manPageSection;
         this.url = `https://cs-education.github.io/sysassets/man_pages/html/man${section}/${name}.${section}.html`;
     }
 

@@ -7,8 +7,9 @@ class CopyrightLine {
     constructor(params) {
         this.projectLicense = projectLicense;
         this.displayHtml = ko.pureComputed(() => {
-            if (!this.projectLicense())
+            if (!this.projectLicense()) {
                 return '<p>Could not load the license file. Please use the link above to view the latest license on GitHub.</p>';
+            }
             return this.projectLicense();
         });
 

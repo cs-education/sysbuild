@@ -12,25 +12,27 @@ const errorTypeMap = {
 };
 
 class GccOutputParser {
-    constructor() {
-        // empty
-    }
 
     parse(buildOutputStr) {
-        var match, makeErr, lineColTypeMatch, typeTextSplitMatch, makefileColNum, row, col, buildErrorType, text, file, errors = [];
+        let row;
+        let col;
+        let buildErrorType;
+        let text;
+        let file;
+        const errors = [];
 
-        buildOutputStr.split('\n').forEach(function (errorLine) {
-            match = gccOutputParseRe.exec(errorLine);
-            makeErr = makeErrorSplitRe.exec(errorLine);
+        buildOutputStr.split('\n').forEach(errorLine => {
+            const match = gccOutputParseRe.exec(errorLine);
+            const makeErr = makeErrorSplitRe.exec(errorLine);
 
-            if (match) { //two colons
-                lineColTypeMatch = gccRowColTypeParseRe.exec(match[2]);
+            if (match) { // two colons
+                const lineColTypeMatch = gccRowColTypeParseRe.exec(match[2]);
 
-                if (lineColTypeMatch) {//num:num: string
+                if (lineColTypeMatch) { // num:num: string
                     file = match[1];
                     row = parseInt(lineColTypeMatch[1]);
                     col = parseInt(lineColTypeMatch[2]);
-                    typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(lineColTypeMatch[3]);
+                    const typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(lineColTypeMatch[3]);
                     if (typeTextSplitMatch) {
                         buildErrorType = typeTextSplitMatch[1];
                         text = typeTextSplitMatch[2] + ': ' + match[3];
@@ -40,17 +42,16 @@ class GccOutputParser {
                     }
                 } else {
                     // some gcc output without line info
-                    makefileColNum = makeOutputTypeTextSplitRe.exec(match[0]);
+                    const makefileColNum = makeOutputTypeTextSplitRe.exec(match[0]);
 
-                    if(makefileColNum){
+                    if (makefileColNum) {
                         file = makefileColNum[1];
                         row = makefileColNum[2];
                         text = makefileColNum[3];
                         buildErrorType = 'error';
-                    }
-                    else{
+                    } else {
                         row = col = 0;
-                        typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(match[2]);
+                        const typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(match[2]);
                         if (typeTextSplitMatch) {
                             buildErrorType = typeTextSplitMatch[1];
                             text = typeTextSplitMatch[2] + ': ' + match[3];
@@ -62,8 +63,8 @@ class GccOutputParser {
                 }
 
 
-                var mappedType = errorTypeMap[match[1]];
-                if(!mappedType) mappedType = 'compile';
+                let mappedType = errorTypeMap[match[1]];
+                if (!mappedType) mappedType = 'compile';
 
                 errors.push({
                     row: row,
@@ -73,20 +74,16 @@ class GccOutputParser {
                     text: text,
                     file: file
                 });
-            }
-            else if(makeErr)
-            {
+            } else if (makeErr) {
                 errors.push({
                     row: 0,
                     column: 0,
                     type: 'make',
                     buildErrorType: 'error',
-                    text: '*** '+makeErr[1],
+                    text: '*** ' + makeErr[1],
                     file: undefined
                 });
             }
-
-
         });
 
         return errors;

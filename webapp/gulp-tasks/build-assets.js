@@ -14,7 +14,7 @@ gulp.task('html', () => {
     const otherHtml = gulp.src('./src/404.html');
 
     return es.concat(indexHtml, otherHtml)
-        .pipe(minifyHtml({conditionals: true, loose: true}))
+        .pipe(minifyHtml({ conditionals: true, loose: true }))
         .pipe(gulp.dest('./dist/'));
 });
 
