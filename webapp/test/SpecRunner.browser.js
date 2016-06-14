@@ -2,6 +2,7 @@
   // Reference your test modules here
   var testModules = [
     'components/home-page',
+    'components/auto-include',
     'app/gcc-output-parser'
   ];
 

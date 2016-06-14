@@ -38,7 +38,7 @@ class Filebrowser {
             var fs = this.fs = SysFileSystem;
 
             this.editor = SysGlobalObservables.Editor;
-			SysGlobalObservables.FileBrowser = this;
+			      SysGlobalObservables.FileBrowser = this;
             SysGlobalObservables.ObservableFS(this);
 
             this.depth = -1;
@@ -151,7 +151,7 @@ class Filebrowser {
                     }
                     else if (action === 'rename') {
                         bootbox.prompt({
-                            title: 'Insert a new name for \'' + itemName + '\'', 
+                            title: 'Insert a new name for \'' + itemName + '\'',
                             value: itemName,
                             callback: function (result) {
                                 if (result === null || result.trim().length === 0) {
@@ -205,7 +205,7 @@ class Filebrowser {
 
                         var addChildren = function(zipNode, itemPath) {
                             var children = self.fs.getDirectoryChildren(itemPath);
-                        
+
                             for(var i = 0; i < children.length; i++) {
                                 if(children[i].isDirectory){
                                     var fol = zipNode.folder(children[i].name);
@@ -266,10 +266,10 @@ class Filebrowser {
                                         else
                                             github = new GithubInt();
 
-                                        github.cloneRepo(repoName, itemPath);      
+                                        github.cloneRepo(repoName, itemPath);
                                     }
                                 }
-                            }   
+                            }
                         });
                     }
                     else if (action === 'push') {
@@ -304,16 +304,16 @@ class Filebrowser {
 
                                         console.log('Save Repo');
 
-                                        if ((username.trim().length === 0) || (password.trim().length === 0) 
+                                        if ((username.trim().length === 0) || (password.trim().length === 0)
                                             || (saveRepoName.trim().length === 0))
                                             return;
 
                                         var github = new GithubInt(username, password);
 
-                                        github.saveAll(saveRepoName, itemPath);     
+                                        github.saveAll(saveRepoName, itemPath);
                                     }
                                 }
-                            }   
+                            }
                         });
                     }
                 }
