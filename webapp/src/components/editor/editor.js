@@ -155,7 +155,7 @@ class Editor {
             $('#' + this.elementIdPrefix + 'autoindent-checkbox').prop('checked', this.prefs.backgroundAutoIndent());
             $('#' + this.elementIdPrefix + 'ace-highlight-active-lines-checkbox').prop('checked', this.prefs.highlightLine());
             $('#' + this.elementIdPrefix + 'ace-show-invisibles-checkbox').prop('checked', this.prefs.showInvisibles());
-            $('#' + this.elementIdPrefix + 'auto-include-checkbox').prop('checked', this.prefs.autoInclude())
+            $('#' + this.elementIdPrefix + 'auto-include-checkbox').prop('checked', this.prefs.autoInclude());
         });
 
         // https://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
