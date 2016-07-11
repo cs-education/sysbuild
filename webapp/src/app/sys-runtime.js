@@ -146,7 +146,7 @@ class SysRuntime {
                 this.captureOutput = false;
                 const regexMatchArray = this.gccOutputCaptureRe.exec(this.ttyOutput);
                 const gccOutput = regexMatchArray[1];
-                const gccExitCode = parseInt(this.gccExitCodeCaptureRe.exec(gccOutput)[1]);
+                const gccExitCode = parseInt(this.gccExitCodeCaptureRe.exec(gccOutput)[1], 10);
                 this.ttyOutput = '';
 
                 const stats = {

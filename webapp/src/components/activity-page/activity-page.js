@@ -9,7 +9,7 @@ const activityTypeToComponentNameMap = {
 
 class ActivityPage {
     constructor(params) {
-        const [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx));
+        const [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx, 10));
         this.activityComponent = ko.pureComputed(() => {
             const activityDataObj = lessons.getActivityData(chapterIdx, sectionIdx, activityIdx)();
             if (!activityDataObj) {

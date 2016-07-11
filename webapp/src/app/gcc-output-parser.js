@@ -30,8 +30,8 @@ class GccOutputParser {
 
                 if (lineColTypeMatch) { // num:num: string
                     file = match[1];
-                    row = parseInt(lineColTypeMatch[1]);
-                    col = parseInt(lineColTypeMatch[2]);
+                    row = parseInt(lineColTypeMatch[1], 10);
+                    col = parseInt(lineColTypeMatch[2], 10);
                     const typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(lineColTypeMatch[3]);
                     if (typeTextSplitMatch) {
                         buildErrorType = typeTextSplitMatch[1];

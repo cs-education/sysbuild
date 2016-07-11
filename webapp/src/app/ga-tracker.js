@@ -6,15 +6,17 @@ const neelabhgProdGaWebPropertyId = 'UA-39700861-6';
 
 const getEnvironment = () => {
     const loc = window.location.hostname + window.location.pathname;
+    let env;
     if (loc === 'cs-education.github.io/sys/') {
-        return 'prod';
+        env = 'prod';
     } else if (loc === 'angrave.github.io/sys/') {
-        return 'angraveprod';
+        env = 'angraveprod';
     } else if (loc === 'cs-education.github.io/sys-staging/') {
-        return 'staging';
+        env = 'staging';
     } else {
-        return 'dev';
+        env = 'dev';
     }
+    return env;
 };
 
 // Encapsulates Google Analytics tracking

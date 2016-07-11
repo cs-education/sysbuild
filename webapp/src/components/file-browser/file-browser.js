@@ -1,4 +1,4 @@
-/* eslint-disable no-multi-spaces, no-shadow, func-names, no-cond-assign */
+/* eslint-disable no-multi-spaces, no-shadow, func-names, no-cond-assign, no-else-return */
 /* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
 // TODO: Fix the underlying issues instead of disabling ESLint
 
@@ -159,9 +159,8 @@ class Filebrowser {
                                     index = itemPath.indexOf(itemName);
                                     if (index === -1) {
                                         return;
-                                    } else {
-                                        self.fs.rename(itemPath, itemPath.slice(0, index) + result);
                                     }
+                                    self.fs.rename(itemPath, itemPath.slice(0, index) + result);
                                 }
                             }
                         });
@@ -678,13 +677,15 @@ class Filebrowser {
     }
 
     getItemDOM(data) {
+        let element;
         if (data.isDirectory) {
-            return '<div id="' + data.id + '" data-id="' + data.id + '" data-status="closed" class="item folder" style="margin-left:' + data.depth * this.indent +
+            element = '<div id="' + data.id + '" data-id="' + data.id + '" data-status="closed" class="item folder" style="margin-left:' + data.depth * this.indent +
                 'px;"><span class="item-icon"><i class="glyphicon glyphicon-chevron-right"></i></span>' + data.name + '</div>';
         } else {
-            return '<div id="' + data.id + '"data-id="' + data.id + '" class="item file" style="margin-left:' + data.depth * this.indent +
+            element = '<div id="' + data.id + '"data-id="' + data.id + '" class="item file" style="margin-left:' + data.depth * this.indent +
             'px;"><span class="item-icon"></span>' + data.name + '</div>';
         }
+        return element;
     }
 
     dispose() {
