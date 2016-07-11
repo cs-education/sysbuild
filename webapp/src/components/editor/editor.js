@@ -1,4 +1,4 @@
-/*global Bloodhound:false */
+/* global Bloodhound:false */
 import ko from 'knockout';
 import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
@@ -89,8 +89,8 @@ class Editor {
             this.modelist = modelist;
         }).bind(this);
 
-        //TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
-        //this.enableAutoIndentTimer();
+        // TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
+        // this.enableAutoIndentTimer();
     }
 
     initSettingsDialog() {

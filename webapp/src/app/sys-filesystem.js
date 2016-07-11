@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* global require, Buffer, BrowserFS */
 class SysFileSystem {
 
@@ -337,6 +338,9 @@ class SysFileSystem {
                     this.localFS.rename(oldpath, path);
                     this.notifyChangeListeners();
                 }
+                break;
+            default:
+                break;
         }
     }
 

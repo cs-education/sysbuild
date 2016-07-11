@@ -1,5 +1,5 @@
-/*global require*/
-/*eslint quotes: [2, "double"], quote-props: 0 */
+/* global require */
+/* eslint quotes: [2, "double"], quote-props: 0 */
 require.config({
     baseUrl: ".",
     paths: {

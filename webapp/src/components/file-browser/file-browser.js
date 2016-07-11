@@ -2,7 +2,7 @@
 /* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
 // TODO: Fix the underlying issues instead of disabling ESLint
 
-/*global Buffer, saveAs:false*/
+/* global Buffer, saveAs:false */
 import ko from 'knockout';
 import templateMarkup from 'text!./file-browser.html';
 import 'knockout-projections';
@@ -636,7 +636,7 @@ class Filebrowser {
         if (this.activePath !== '' && activeFileData) {
             const content = this.fs.readFileSync(activeFileData.path).toString('binary');
             this.editor.setFile(activeFileData.path, activeFileData.name, content);
-            //self.editor.getSession().setValue(content);
+            // self.editor.getSession().setValue(content);
         }
 
         for (let i = 0; i < this.children.length; i++) {

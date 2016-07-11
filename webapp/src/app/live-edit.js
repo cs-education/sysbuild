@@ -23,7 +23,7 @@ class LiveEdit {
     }
 
     escapeHtml(unsafe) {
-        /*stackoverflow.com/questions/6234773/*/
+        // stackoverflow.com/questions/6234773/
         return unsafe
              .replace(/&/g, '&amp;')
              .replace(/</g, '&lt;')

@@ -1,4 +1,4 @@
-/*global Bloodhound:false*/
+/* global Bloodhound:false */
 import ko from 'knockout';
 import templateMarkup from 'text!./video-search-tab.html';
 import videojs from 'videojs';
@@ -50,8 +50,8 @@ class VideoSearchTab {
             }
         }).on('typeahead:selected typeahead:autocompleted', (e, suggestion) => {
             resultVideo = suggestion;
-            //for now suggestion is a time for proof of concept purposes
-            //eventually it'll suggest an actually line from the transcripts
+            // For now suggestion is a time for proof of concept purposes
+            // eventually it'll suggest an actual line from the transcripts
         }).keypress((e) => {
             if (e.which === 13) {
                 // Enter key pressed

@@ -56,7 +56,7 @@ describe('GccOutputParser', () => {
                 column: 0,
                 /* TODO: currently the buildErrorType returned is incorrect,
                    but functionality is not affected */
-                //buildErrorType: 'error',
+                // buildErrorType: 'error',
                 row: 0,
                 text: 'undefined reference to \'nonExistentFunction\'',
                 type: 'compile'
@@ -118,7 +118,7 @@ describe('GccOutputParser', () => {
         beforeEach(() => {
             const compilerOutput = 'program.c: In function \'thing\':\n' +
                 'program.c:10:5: warning: return makes integer from pointer without a cast [enabled by default]\n' +
-                '    return \"thing\"\n' + '    ^\n' +
+                '    return "thing"\n' + '    ^\n' +
                 'program.c:11:1: error: expected \';\' before \'}\' token\n' +
                 ' }\n' + ' ^\n';
             this.results = this.parser.parse(compilerOutput);

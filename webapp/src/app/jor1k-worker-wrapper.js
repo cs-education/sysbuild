@@ -5,7 +5,7 @@
  * RequireJS is included directly during build.
  */
 
-/*global importScripts, require*/
+/* global importScripts, require */
 importScripts('../bower_modules/requirejs/require.js');
 importScripts('require.config.js');
 require.config({ baseUrl: '../' });

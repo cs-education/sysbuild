@@ -188,7 +188,7 @@ class GithubInt {
             tree = fs.getDirectoryTreeOfDir(sourcePath);
         }
 
-        //trim source path from tree
+        // trim source path from tree
         const pathLength = sourcePath.length;
         const trimPath = (fullPath) => {
             return fullPath.substring(pathLength, fullPath.length);

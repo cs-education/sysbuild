@@ -1,3 +1,5 @@
+/* eslint-disable new-cap */
+
 import ExpectTTY from 'app/expect-tty';
 import GccOutputParser from 'app/gcc-output-parser';
 import * as Jor1k from 'cjs!jor1k/master/master';
@@ -35,7 +37,7 @@ class SysRuntime {
 
         const onBootFinished = () => {
             if (this.tty0ready && this.tty1ready) {
-                //Attach persistent filesystem
+                // Attach persistent filesystem
                 SysFileSystem.initialize(this.jor1kgui.fs);
 
                 // LiveEdit uses the bootFinished value when sent the ready event,

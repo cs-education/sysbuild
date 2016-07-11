@@ -44,6 +44,7 @@ class BabelTranspiler {
     }
 
     stream() {
+        /* eslint-disable array-callback-return */
         return es.map((data, cb) => {
             if (!data.isNull()) {
                 this.transpile(data.relative, (err, res) => {
