@@ -1,18 +1,21 @@
 import GccOutputParser from 'app/gcc-output-parser';
 
 describe('GccOutputParser', () => {
+    let parser;
+    let results;
+
     beforeEach(() => {
-        this.parser = new GccOutputParser();
+        parser = new GccOutputParser();
     });
 
     // no errors
     describe('when given an empty string', () => {
         beforeEach(() => {
-            this.results = this.parser.parse('');
+            results = parser.parse('');
         });
 
         it('should return no information', () => {
-            expect(this.results).toEqual([]);
+            expect(results).toEqual([]);
         });
     });
 
@@ -22,13 +25,13 @@ describe('GccOutputParser', () => {
             const compilerOutput = 'program.c: In function \'main\':\n' +
                 'program.c:6:2: error: expected \';\' before \'return\'\n' +
                 '  return 0;\n  ^';
-            this.results = this.parser.parse(compilerOutput);
+            results = parser.parse(compilerOutput);
         });
 
         it('should return the correct error information', () => {
-            expect(this.results).toEqual(jasmine.any(Array));
-            expect(this.results.length).toEqual(1); // one error
-            expect(this.results[0]).toEqual(jasmine.objectContaining({
+            expect(results).toEqual(jasmine.any(Array));
+            expect(results.length).toEqual(1); // one error
+            expect(results[0]).toEqual(jasmine.objectContaining({
                 column: 2,
                 buildErrorType: 'error',
                 row: 6,
@@ -44,15 +47,15 @@ describe('GccOutputParser', () => {
             const compilerOutput = '/tmp/ccwIU8df.o: In function \'main\':\n' +
             'program.c:(.text+0x20): undefined reference to \'nonExistentFunction\'\n' +
             'collect2: error: ld returned 1 exit status';
-            this.results = this.parser.parse(compilerOutput);
+            results = parser.parse(compilerOutput);
         });
 
         it('should return the correct error information', () => {
-            expect(this.results).toEqual(jasmine.any(Array));
-            expect(this.results.length).toEqual(2); // two errors
+            expect(results).toEqual(jasmine.any(Array));
+            expect(results.length).toEqual(2); // two errors
 
             // error one
-            expect(this.results[0]).toEqual(jasmine.objectContaining({
+            expect(results[0]).toEqual(jasmine.objectContaining({
                 column: 0,
                 /* TODO: currently the buildErrorType returned is incorrect,
                    but functionality is not affected */
@@ -63,7 +66,7 @@ describe('GccOutputParser', () => {
             }));
 
             // error two
-            expect(this.results[1]).toEqual(jasmine.objectContaining({
+            expect(results[1]).toEqual(jasmine.objectContaining({
                 column: 0,
                 buildErrorType: 'error',
                 row: 0,
@@ -77,13 +80,13 @@ describe('GccOutputParser', () => {
     describe('when given a gcc error string', () => {
         beforeEach(() => {
             const compilerOutput = 'gcc: error: unrecognized command line option \'-asdfasdf\'';
-            this.results = this.parser.parse(compilerOutput);
+            results = parser.parse(compilerOutput);
         });
 
         it('should return the correct error information', () => {
-            expect(this.results).toEqual(jasmine.any(Array));
-            expect(this.results.length).toEqual(1); // one error
-            expect(this.results[0]).toEqual(jasmine.objectContaining({
+            expect(results).toEqual(jasmine.any(Array));
+            expect(results.length).toEqual(1); // one error
+            expect(results[0]).toEqual(jasmine.objectContaining({
                 column: 0,
                 buildErrorType: 'error',
                 row: 0,
@@ -97,13 +100,13 @@ describe('GccOutputParser', () => {
     describe('when given a cc1 error string', () => {
         beforeEach(() => {
             const compilerOutput = 'cc1: error: unrecognised debug output level "aslkdfjalksjd"';
-            this.results = this.parser.parse(compilerOutput);
+            results = parser.parse(compilerOutput);
         });
 
         it('should return the correct error information', () => {
-            expect(this.results).toEqual(jasmine.any(Array));
-            expect(this.results.length).toEqual(1); // one error
-            expect(this.results[0]).toEqual(jasmine.objectContaining({
+            expect(results).toEqual(jasmine.any(Array));
+            expect(results.length).toEqual(1); // one error
+            expect(results[0]).toEqual(jasmine.objectContaining({
                 column: 0,
                 buildErrorType: 'error',
                 row: 0,
@@ -121,15 +124,15 @@ describe('GccOutputParser', () => {
                 '    return "thing"\n' + '    ^\n' +
                 'program.c:11:1: error: expected \';\' before \'}\' token\n' +
                 ' }\n' + ' ^\n';
-            this.results = this.parser.parse(compilerOutput);
+            results = parser.parse(compilerOutput);
         });
 
         it('should return the correct error information', () => {
-            expect(this.results).toEqual(jasmine.any(Array));
-            expect(this.results.length).toEqual(2); // two errors
+            expect(results).toEqual(jasmine.any(Array));
+            expect(results.length).toEqual(2); // two errors
 
             // error one
-            expect(this.results[0]).toEqual(jasmine.objectContaining({
+            expect(results[0]).toEqual(jasmine.objectContaining({
                 column: 5,
                 buildErrorType: 'warning',
                 row: 10,
@@ -138,7 +141,7 @@ describe('GccOutputParser', () => {
             }));
 
             // error two
-            expect(this.results[1]).toEqual(jasmine.objectContaining({
+            expect(results[1]).toEqual(jasmine.objectContaining({
                 column: 1,
                 buildErrorType: 'error',
                 row: 11,
