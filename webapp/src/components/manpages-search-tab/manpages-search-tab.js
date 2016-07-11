@@ -25,7 +25,7 @@ class ManpagesSearchTab {
     }
 
     initTypeahead() {
-        var lastSelectedManPage = null;
+        let lastSelectedManPage = null;
         $('#man-pages-search-typeahead').children('.typeahead').typeahead({
             highlight: true
         }, {

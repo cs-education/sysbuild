@@ -45,6 +45,7 @@
   },
   "scripts": {
     "postinstall": "bower install && cd test/ && bower install",
-    "test": "gulp ci"
+    "test": "gulp ci",
+    "eslint": "eslint"
   }
 }

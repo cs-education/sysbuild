@@ -13,7 +13,7 @@ class GithubInt {
             this.hub = new Github({});
             this.authenticated = false;
         } else {
-            this.hub = new Github({ username:username, password:password, auth:'basic' });
+            this.hub = new Github({ username: username, password: password, auth: 'basic' });
             this.authenticated = true;
             this.user = this.hub.getUser();
             this.username = username;
@@ -127,7 +127,7 @@ class GithubInt {
                             className: 'btn-default',
                             callback: () => {
                                 return;
-                            }
+                            },
                         },
                         merge: {
                             label: 'Merge',
@@ -135,7 +135,7 @@ class GithubInt {
                             callback: () => {
                                 const repo = this.hub.getRepo(this.username, this.saveRepoName);
                                 this.pushToRepo(repo, this.sourcePath);
-                            }
+                            },
                         },
                         overwrite: {
                             label: 'Overwrite',
@@ -146,9 +146,9 @@ class GithubInt {
                                         repo.deleteRepo(this.createSaveRepo.bind(this));
                                     }
                                 });
-                            }
-                        }
-                    }
+                            },
+                        },
+                    },
                 });
             }
         });
@@ -158,7 +158,7 @@ class GithubInt {
     * Helper for saveAll.
     */
     createSaveRepo(err, res) {
-        this.user.createRepo({ 'name': this.saveRepoName }, (err, res) => {
+        this.user.createRepo({ name: this.saveRepoName }, (err, res) => {
             if (err) {
                 if (err.request.response === '') {
                     notify('Something happened... Try again.', 'red');

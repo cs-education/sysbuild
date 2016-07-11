@@ -209,7 +209,7 @@ class Filebrowser {
 
                         addChildren(zip, itemPath);
 
-                        zip.generateAsync({ type:'blob' }).then((content) => {
+                        zip.generateAsync({ type: 'blob' }).then((content) => {
                             saveAs(content, itemName + '.zip');
                         });
                     } else if (action === 'clone') {

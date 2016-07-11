@@ -5,10 +5,10 @@ const makeOutputTypeTextSplitRe = /(.+?):(\d+):\s*(.+)/;
 const makeErrorSplitRe = /make:\s\*\*\*\s*(.+)/;
 
 const errorTypeMap = {
-    'gcc': 'gcc',
-    'cc1': 'gcc',
-    'collect2': 'linker',
-    'make': 'make'
+    gcc: 'gcc',
+    cc1: 'gcc',
+    collect2: 'linker',
+    make: 'make',
 };
 
 class GccOutputParser {
@@ -72,7 +72,7 @@ class GccOutputParser {
                     type: mappedType,
                     buildErrorType: buildErrorType,
                     text: text,
-                    file: file
+                    file: file,
                 });
             } else if (makeErr) {
                 errors.push({
@@ -81,7 +81,7 @@ class GccOutputParser {
                     type: 'make',
                     buildErrorType: 'error',
                     text: '*** ' + makeErr[1],
-                    file: undefined
+                    file: undefined,
                 });
             }
         });

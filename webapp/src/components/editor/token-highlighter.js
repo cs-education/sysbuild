@@ -11,7 +11,7 @@ class TokenHighlighter {
         self.eventCallback = cb;
 
         self.supportedTypes = {
-            'identifier': 1,
+            identifier: 1,
             'support.function.C99.c': 1
         };
 

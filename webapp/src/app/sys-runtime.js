@@ -81,7 +81,7 @@ class SysRuntime {
                 kernelURL: 'vmlinux.bin.bz2', // kernel image
                 memorysize: 32, // in MB, must be a power of two
                 cpu: 'asm', // short name for the cpu to use
-                ncores: 1
+                ncores: 1,
             },
             fs: {
                 basefsURL: 'basefs-compile.json', // json file with the basic filesystem configuration.
@@ -94,17 +94,17 @@ class SysRuntime {
                     'usr/lib/libbfd-2.24.51.20140817.so',
                     'usr/lib/gcc/or1k-linux-musl/4.9.0/libgcc.a',
                     'usr/bin/as',
-                    'usr/include/stdio.h'
+                    'usr/include/stdio.h',
                 ], // list of files which should be loaded immediately after they appear in the filesystem
                 lazyloadimages: [
-                ] // list of automatically loaded images after the basic filesystem has been loaded
+                ], // list of automatically loaded images after the basic filesystem has been loaded
             },
             terms: [termTTY0, termTTY1],   // canvas ids for the terminals
             statsid: 'vm-stats',  // element id for displaying VM statistics
             memorysize: 32, // in MB, must be a power of two
             path: jor1kBaseFsUrl, // kernelURL and fsURLs are relative to this path
             worker: new Worker(jor1kWorkerUrl),
-			relayURL: 'wss://relay.widgetry.org/'
+			relayURL: 'wss://relay.widgetry.org/',
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
@@ -140,7 +140,7 @@ class SysRuntime {
         ++this.compileTicket;
 
         const compileCb = (completed) => {
-            var result = null;
+            let result = null;
             this.expecting = undefined;
             if (completed) {
                 this.captureOutput = false;
@@ -152,7 +152,7 @@ class SysRuntime {
                 const stats = {
                     error: 0,
                     warning: 0,
-                    info: 0
+                    info: 0,
                 };
 
                 const annotations = this.getErrorAnnotations(gccOutput);
@@ -165,7 +165,7 @@ class SysRuntime {
                     exitCode: gccExitCode,
                     stats: stats,
                     annotations: annotations,
-                    gccOutput: gccOutput
+                    gccOutput: gccOutput,
                 };
             }
 
@@ -215,7 +215,7 @@ class SysRuntime {
                 isBuildCmdError: (error.type === 'gcc') || (error.type === 'make'),
                 type: aceAnnotationType,
                 text: error.text,
-                file: error.file
+                file: error.file,
             };
         });
     }

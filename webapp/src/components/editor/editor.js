@@ -9,7 +9,7 @@ import * as SysGlobalObservables from 'app/sys-global-observables';
 class Editor {
     constructor(params) {
         // all the preferences are ko observables
-        var prefs = {};
+        const prefs = {};
         prefs.backgroundAutoIndent = params.autoIndent;
         prefs.highlightLine = params.highlightLine;
         prefs.showInvisibles = params.showInvisibles;
@@ -94,7 +94,7 @@ class Editor {
     }
 
     initSettingsDialog() {
-        var $editorSettingsPopover = $('<div>').append(
+        const $editorSettingsPopover = $('<div>').append(
             $('<form>').append(
                 $('<div>').attr('class', 'checkbox').append(
                     $('<label>').append(
@@ -123,7 +123,7 @@ class Editor {
         );
 
         // https://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
-        var $settingsPopover = $('#editor-settings-btn');
+        const $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
             title: () => {
                 return 'Editor settings';
@@ -176,7 +176,7 @@ class Editor {
     }
 
     initTokenHighlighting() {
-        var manPageTokens = new Bloodhound({
+        const manPageTokens = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             limit: 10,
@@ -341,7 +341,7 @@ class Editor {
                 }
 
                 text.removeInLine(currentRow, 0, prevlen);
-                text.insertInLine({ 'row': currentRow, 'column': 0 }, thisLine);
+                text.insertInLine({ row: currentRow, column: 0 }, thisLine);
 
                 mode.autoOutdent(
                     editSession.getState(currentRow),

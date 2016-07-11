@@ -26,7 +26,7 @@ class Lessons {
             return {
                 chapter: ko.utils.extend(chapter, { index: chapterIdx }),
                 section: ko.utils.extend(section, { index: sectionIdx }),
-                activity: ko.utils.extend(activity, { index: activityIdx })
+                activity: ko.utils.extend(activity, { index: activityIdx }),
             };
         });
     }

@@ -28,12 +28,12 @@ class Tracker {
 
         // Create the tracker objects
         if (env === 'prod') {
-            ga('create', neelabhgProdGaWebPropertyId, 'auto', { 'name': 'neelabhgProd' });
+            ga('create', neelabhgProdGaWebPropertyId, 'auto', { name: 'neelabhgProd' });
         } else if (env === 'angraveprod') {
-            ga('create', angraveOldProdGaWebPropertyId, 'auto', { 'name': 'angraveOldProd' });
-            ga('create', neelabhgOldProdGaWebPropertyId, 'auto', { 'name': 'neelabhgOldProd' });
+            ga('create', angraveOldProdGaWebPropertyId, 'auto', { name: 'angraveOldProd' });
+            ga('create', neelabhgOldProdGaWebPropertyId, 'auto', { name: 'neelabhgOldProd' });
         } else if (env === 'staging') {
-            ga('create', neelabhgStagingGaWebPropertyId, 'auto', { 'name': 'neelabhgStaging' });
+            ga('create', neelabhgStagingGaWebPropertyId, 'auto', { name: 'neelabhgStaging' });
         }
 
         if (env === 'dev') {
@@ -76,7 +76,7 @@ class Tracker {
      * These parameters are automatically set to 'send' and 'event' respectively.
      */
     trackEvent() {
-        var args = Array.prototype.slice.call(arguments);
+        const args = Array.prototype.slice.call(arguments);
         args.unshift('event');
         ga(() => {
             ga.getAll().forEach(tracker => {
@@ -93,8 +93,8 @@ class Tracker {
      */
     trackPageView(page, title) {
         // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
-        var properties = {
-            page: page || window.location.pathname + window.location.search + window.location.hash
+        const properties = {
+            page: page || window.location.pathname + window.location.search + window.location.hash,
         };
         if (title) {
             properties.title = title;

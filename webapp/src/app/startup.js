@@ -15,7 +15,7 @@ ko.components.register('home-page', { require: 'components/home-page/home' });
 
 // ... or for template-only components, you can just point to a .html file directly:
 ko.components.register('about-page', {
-    template: { require: 'text!components/about-page/about.html' }
+    template: { require: 'text!components/about-page/about.html' },
 });
 
 ko.components.register('lessons-page', { require: 'components/lessons-page/lessons-page' });

@@ -349,7 +349,7 @@ class SysFileSystem {
 
         console.log('Writing to local: ' + filename);
         const buf = new Buffer(file.data);
-        this.localFS.writeFileSync(filename, buf, { mode:file.mode });
+        this.localFS.writeFileSync(filename, buf, { mode: file.mode });
         this.notifyChangeListeners();
     }
 }

@@ -86,5 +86,5 @@ export default {
             namedInstances[namespace] = new NamedPreferences(namespace, instance);
         }
         return namedInstances[namespace];
-    }
+    },
 };

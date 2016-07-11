@@ -19,7 +19,7 @@ describe('GccOutputParser', () => {
     // compiler error
     describe('when given a compiler error string', () => {
         beforeEach(() => {
-            var compilerOutput = 'program.c: In function \'main\':\n' +
+            const compilerOutput = 'program.c: In function \'main\':\n' +
                 'program.c:6:2: error: expected \';\' before \'return\'\n' +
                 '  return 0;\n  ^';
             this.results = this.parser.parse(compilerOutput);
@@ -41,7 +41,7 @@ describe('GccOutputParser', () => {
     // linker error
     describe('when given a linker error string', () => {
         beforeEach(() => {
-            var compilerOutput = '/tmp/ccwIU8df.o: In function \'main\':\n' +
+            const compilerOutput = '/tmp/ccwIU8df.o: In function \'main\':\n' +
             'program.c:(.text+0x20): undefined reference to \'nonExistentFunction\'\n' +
             'collect2: error: ld returned 1 exit status';
             this.results = this.parser.parse(compilerOutput);
@@ -76,7 +76,7 @@ describe('GccOutputParser', () => {
     // gcc error
     describe('when given a gcc error string', () => {
         beforeEach(() => {
-            var compilerOutput = 'gcc: error: unrecognized command line option \'-asdfasdf\'';
+            const compilerOutput = 'gcc: error: unrecognized command line option \'-asdfasdf\'';
             this.results = this.parser.parse(compilerOutput);
         });
 
@@ -96,7 +96,7 @@ describe('GccOutputParser', () => {
     // cc1 error
     describe('when given a cc1 error string', () => {
         beforeEach(() => {
-            var compilerOutput = 'cc1: error: unrecognised debug output level "aslkdfjalksjd"';
+            const compilerOutput = 'cc1: error: unrecognised debug output level "aslkdfjalksjd"';
             this.results = this.parser.parse(compilerOutput);
         });
 
@@ -116,7 +116,7 @@ describe('GccOutputParser', () => {
     // multiple errors
     describe('when given a string containing multiple compiler errors', () => {
         beforeEach(() => {
-            var compilerOutput = 'program.c: In function \'thing\':\n' +
+            const compilerOutput = 'program.c: In function \'thing\':\n' +
                 'program.c:10:5: warning: return makes integer from pointer without a cast [enabled by default]\n' +
                 '    return \"thing\"\n' + '    ^\n' +
                 'program.c:11:1: error: expected \';\' before \'}\' token\n' +

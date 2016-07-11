@@ -14,14 +14,10 @@ rules:
   no-unused-vars: 0
   no-console: 0
   indent: 0
-  no-var: 0
   import/no-unresolved: 0
-  quote-props: 0
-  comma-dangle: 0
   no-else-return: 0
   prefer-template: 0
   max-len: 0
-  key-spacing: 0
   radix: 0
   spaced-comment: 0
   object-shorthand: 0
@@ -38,3 +34,4 @@ rules:
   new-cap: 0
   global-require: 0
   default-case: 0
+  comma-dangle: 0

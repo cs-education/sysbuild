@@ -30,7 +30,7 @@ class PlaygroundLayout {
         // when this component is disposed, as we want backspace to work properly
         // when the user is not in the playground.
         $(window).on('keydown.playground', (e) => {
-            var keyCode = {
+            const keyCode = {
                 backspace: 8
             };
 

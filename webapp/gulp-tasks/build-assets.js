@@ -7,8 +7,8 @@ import minifyHtml from 'gulp-minify-html';
 gulp.task('html', () => {
     const indexHtml = gulp.src('./src/index.html')
         .pipe(htmlreplace({
-            'css': 'styles.css',
-            'js': ['browserfs.min.js', 'scripts.js']
+            css: 'styles.css',
+            js: ['browserfs.min.js', 'scripts.js']
         }));
 
     const otherHtml = gulp.src('./src/404.html');

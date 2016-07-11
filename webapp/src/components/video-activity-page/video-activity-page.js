@@ -56,7 +56,7 @@ class VideoActivityPage {
         // adding remote text tracks. Source:
         // https://docs.brightcove.com/en/video-cloud/brightcove-player/guides/adding-captions-to-videos.html
         player.on('loadstart', () => {
-            var trackLabel = 'English';
+            const trackLabel = 'English';
             player.addRemoteTextTrack({
                 kind: 'captions',
                 language: 'en',

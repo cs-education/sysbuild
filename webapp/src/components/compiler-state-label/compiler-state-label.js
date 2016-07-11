@@ -3,13 +3,13 @@ import templateMarkup from 'text!./compiler-state-label.html';
 import { notify } from 'app/notifications';
 
 const compileStatusToLabelClassMap = {
-    'Waiting': 'default',
-    'Ready': 'success',
-    'Compiling': 'primary',
-    'Cancelled': 'default',
-    'Success': 'success',
-    'Warnings': 'default-light',
-    'Failed': 'default-light'
+    Waiting: 'default',
+    Ready: 'success',
+    Compiling: 'primary',
+    Cancelled: 'default',
+    Success: 'success',
+    Warnings: 'default-light',
+    Failed: 'default-light'
 };
 
 class CompilerStateLabel {
