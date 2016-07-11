@@ -21,5 +21,8 @@ export const compileBtnEnable = ko.observable('');
 
 export const projectLicense = ko.observable('');
 
-export const Editor = {};
-export const FileBrowser = {};
+export const editor = {};
+export const fileBrowser = {};
+
+export const observableFS = ko.observable('');
+export const observableEditor = ko.observable('');

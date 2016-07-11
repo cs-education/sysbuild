@@ -41,8 +41,9 @@ class Filebrowser {
             this.id = '#file-browser-body';
             const fs = this.fs = SysFileSystem;
 
-            this.editor = SysGlobalObservables.Editor;
-			SysGlobalObservables.FileBrowser = this;
+            this.editor = SysGlobalObservables.editor;
+            SysGlobalObservables.fileBrowser = this;
+            SysGlobalObservables.observableFS(this);
 
             this.depth = -1;
             this.directoryState = [];
