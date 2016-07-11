@@ -1,6 +1,7 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./play-activity-page.html';
 import Preferences from 'app/preferences';
+import AutoIncluder from 'components/editor/auto-include';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class PlayActivityPage {
@@ -15,6 +16,7 @@ class PlayActivityPage {
         } else {
             this.setParamsFromDefaults();
         }
+        this.autoIncluder = new AutoIncluder();
     }
 
     setParamsFromActivity(playActivity) {
@@ -77,11 +79,15 @@ class PlayActivityPage {
         var fontSize = ko.observable(editorPrefs.getItem('fontsize', 12));
         fontSize.subscribe((newSetting) => editorPrefs.setItem('fontsize', newSetting));
 
+        var autoInclude = ko.observable(editorPrefs.getItem('autoInclude', 'true') === 'true');
+        autoInclude.subscribe((newSetting) => editorPrefs.setItem('autoInclude', newSetting));
+
         this.editorParams = {
             annotations: SysGlobalObservables.editorAnnotations,
             autoIndent: autoIndent,
             highlightLine: highlightLine,
             showInvisibles: showInvisibles,
+            autoInclude: autoInclude,
             theme: theme,
             fontSize: fontSize,
             keyboardShortcuts: []
@@ -114,6 +120,9 @@ class PlayActivityPage {
         this.editorParams.editorTextGetter = ko.observable(() => '');
 
         var compile = () => {
+            if (this.editorParams.autoInclude()) {
+                this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
+            }
             var buildCmd = this.compilerParams.buildCmd();
             (SysGlobalObservables.runCode())(buildCmd);
         };

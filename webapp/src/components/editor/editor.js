@@ -4,6 +4,7 @@ import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
 import 'bloodhound';
 import TokenHighlighter from 'components/editor/token-highlighter';
+import AutoIncluder from 'components/editor/auto-include';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class Editor {
@@ -15,6 +16,7 @@ class Editor {
         prefs.showInvisibles = params.showInvisibles;
         prefs.theme = params.theme;
         prefs.fontSize = params.fontSize;
+        prefs.autoInclude = params.autoInclude;
         this.prefs = prefs;
 
         this.currentFileName = SysGlobalObservables.currentFileName;
@@ -52,7 +54,13 @@ class Editor {
 
         params.editorTextGetter(this.getText.bind(this));
 
+        this.autoIncluder = new AutoIncluder();
+        $('#autoinclude-code-btn').click(() => {
+            this.autoIncluder.addMissingHeaders(params.editorTextGetter);
+        });
+
         SysGlobalObservables.Editor = this;
+        SysGlobalObservables.ObservableEditor(this);
     }
 
     initAce(editorDivId) {
@@ -119,6 +127,14 @@ class Editor {
                         $('<span>').text('Show invisible characters')
                     )
                 )
+            ).append(
+                $('<div>').attr('class', 'checkbox').append(
+                    $('<label>').append(
+                        $('<input>').attr({id: this.elementIdPrefix + 'auto-include-checkbox', type: 'checkbox'})
+                    ).append(
+                        $('<span>').text('Auto-include missing headers')
+                    )
+                )
             )
         );
 
@@ -139,6 +155,7 @@ class Editor {
             $('#' + this.elementIdPrefix + 'autoindent-checkbox').prop('checked', this.prefs.backgroundAutoIndent());
             $('#' + this.elementIdPrefix + 'ace-highlight-active-lines-checkbox').prop('checked', this.prefs.highlightLine());
             $('#' + this.elementIdPrefix + 'ace-show-invisibles-checkbox').prop('checked', this.prefs.showInvisibles());
+            $('#' + this.elementIdPrefix + 'auto-include-checkbox').prop('checked', this.prefs.autoInclude());
         });
 
         // https://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
@@ -153,6 +170,10 @@ class Editor {
 
         $body.on('change', '#' + this.elementIdPrefix + 'ace-show-invisibles-checkbox', (e) => {
             this.prefs.showInvisibles(e.currentTarget.checked);
+        });
+
+        $body.on('change', '#' + this.elementIdPrefix + 'auto-include-checkbox', (e) => {
+            this.prefs.autoInclude(e.currentTarget.checked);
         });
 
         // The following three click handlers achieve toggling the settings popover when clicking the settings button
