@@ -4,10 +4,10 @@ import BabelTranspiler from './babel-transpiler';
 
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
 gulp.task('serve:src', ['css:watch'], () => {
-    var root = 'src'; // this is relative to project root
+    const root = 'src'; // this is relative to project root
     return connect.server({
         root: root,
-        middleware: (connect, opt) => {
+        middleware: (connectInstance, opt) => {
             return [(new BabelTranspiler(root)).connectMiddleware()];
         }
     });
@@ -15,10 +15,10 @@ gulp.task('serve:src', ['css:watch'], () => {
 
 // Starts a simple static file server that transpiles ES6 on the fly to ES5
 gulp.task('serve:test', ['lint:test:watch'], () => {
-    var root = '.'; // this is relative to project root
+    const root = '.'; // this is relative to project root
     return connect.server({
         root: root,
-        middleware: (connect, opt) => {
+        middleware: (connectInstance, opt) => {
             return [(new BabelTranspiler(root)).connectMiddleware()];
         }
     });

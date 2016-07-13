@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow, no-use-before-define, no-loop-func, func-names */
 /* global Buffer */
 import SysFileSystem from 'app/sys-filesystem';
 import { notify } from 'app/notifications';
@@ -5,20 +6,14 @@ import * as Github from 'github-api';
 import bootbox from 'bootbox';
 
 class GithubInt {
-
-    // notification options
-
     constructor(username, password) {
-        //TODO work out initialization conditions and grabbing github authkey
+        // TODO work out initialization conditions and grabbing github authkey
 
-        if(username == undefined)
-        {
+        if (username === undefined) {
             this.hub = new Github({});
             this.authenticated = false;
-        }
-        else
-        {
-            this.hub = new Github({username:username, password:password, auth:'basic'});
+        } else {
+            this.hub = new Github({ username: username, password: password, auth: 'basic' });
             this.authenticated = true;
             this.user = this.hub.getUser();
             this.username = username;
@@ -32,74 +27,68 @@ class GithubInt {
     * and each file is an api call.
     */
     cloneRepo(repoUrl, destPath) {
-
-        var tokens = repoUrl.split('/', 2);
-        if(tokens.length<2)
+        const tokens = repoUrl.split('/', 2);
+        if (tokens.length < 2) {
             return;
+        }
 
-        var username = tokens[0];
-        var reponame = tokens[1];
+        const username = tokens[0];
+        const reponame = tokens[1];
 
-        var repo = this.hub.getRepo(username, reponame);
-        var fs = SysFileSystem;
+        const repo = this.hub.getRepo(username, reponame);
+        const fs = SysFileSystem;
 
         notify('Cloning ' + repoUrl + '...', 'yellow');
 
-        repo.getTree('master?recursive=true', function(err, tree) {
-
-            if(err)
-            {
-                if(err.request.response=='')
+        repo.getTree('master?recursive=true', (err, tree) => {
+            if (err) {
+                if (err.request.response === '') {
                     notify('Something happened... Try again.', 'red');
-                else
-                    notify(JSON.parse(err.request.response)['message'], 'red');
+                } else {
+                    notify(JSON.parse(err.request.response).message, 'red');
+                }
 
                 return;
             }
 
-            var parentPath = destPath + '/' + reponame;
+            const parentPath = destPath + '/' + reponame;
 
             fs.makeDirectory(parentPath);
 
-            var loaded = 0;
-            var showErrors = true;
+            let loaded = 0;
+            let showErrors = true;
 
-            for(var i = 0; i<tree.length; i++)
-            {
-                if(tree[i].type == 'blob')
-                {
-                    repo.read('master', tree[i].path, function(err, data) {
-
-                        if(err)
-                        {
-                            if(showErrors)
-                            {
-                                if(err.request.response=='')
+            for (let i = 0; i < tree.length; i++) {
+                if (tree[i].type === 'blob') {
+                    repo.read('master', tree[i].path, function (err, data) {
+                        if (err) {
+                            if (showErrors) {
+                                if (err.request.response === '') {
                                     notify('Something happened... Try again.', 'red');
-                                else
-                                    notify(JSON.parse(err.request.response)['message'], 'red');
-
+                                } else {
+                                    notify(JSON.parse(err.request.response).message, 'red');
+                                }
                                 showErrors = false;
                             }
                             return;
                         }
 
-                        fs.writeFile(parentPath+'/'+tree[this].path, new Buffer(data,'binary'));
+                        fs.writeFile(parentPath + '/' + tree[this].path, new Buffer(data, 'binary'));
 
                         loaded += 1;
 
-                        if(loaded == tree.length)
+                        if (loaded === tree.length) {
                             notify('Successfully cloned ' + repoUrl + '!', 'green');
-
+                        }
                     }.bind(i));
                 }
-                if(tree[i].type == 'tree'){
 
+                if (tree[i].type === 'tree') {
                     loaded += 1;
-                    fs.makeDirectory(parentPath+'/'+tree[i].path);
+                    fs.makeDirectory(parentPath + '/' + tree[i].path);
                 }
             }
-        }.bind(this));
+        });
     }
 
     /*
@@ -108,30 +97,27 @@ class GithubInt {
     * If needed this can be extended to modify current existing repo rather than deleting, but this is non-trivial.
     */
     saveAll(saveRepoName, srcPath) {
-        var fs = SysFileSystem;
+        const fs = SysFileSystem;
         this.saveRepoName = saveRepoName;
         this.sourcePath = srcPath;
 
-        if(!this.authenticated)
-        {
+        if (!this.authenticated) {
             notify('Must be authenticated...', 'red');
         }
-        var repo = this.hub.getRepo(this.username, saveRepoName);
-        repo.show(function(err, repo_info){
-            if(err){
-                if(err.error==404)
+        const repo = this.hub.getRepo(this.username, saveRepoName);
+        repo.show((err, repoInfo) => {
+            if (err) {
+                if (err.error === 404) {
                     this.createSaveRepo();
-                else
-                {
-                    if(err.request.response=='')
+                } else {
+                    if (err.request.response === '') {
                         notify('Something happened... Try again.', 'red');
-                    else
-                        notify(JSON.parse(err.request.response)['message'], 'red');
-
+                    } else {
+                        notify(JSON.parse(err.request.response).message, 'red');
+                    }
                     return;
                 }
-            }
-            else{
+            } else {
                 bootbox.dialog({
                     title: 'Careful!',
                     message: 'A repo with the name \'' + saveRepoName + '\' already exists. What do you want to do?',
@@ -139,55 +125,52 @@ class GithubInt {
                         cancel: {
                             label: 'Cancel',
                             className: 'btn-default',
-                            callback: function () {
+                            callback: () => {
                                 return;
-                            }
+                            },
                         },
                         merge: {
                             label: 'Merge',
                             className: 'btn-primary',
-                            callback: function () {
-                                var repo = this.hub.getRepo(this.username, this.saveRepoName);
+                            callback: () => {
+                                const repo = this.hub.getRepo(this.username, this.saveRepoName);
                                 this.pushToRepo(repo, this.sourcePath);
-                            }.bind(this)
+                            },
                         },
                         overwrite: {
                             label: 'Overwrite',
                             className: 'btn-danger',
-                            callback: function () {
-                                bootbox.confirm('Are you sure? All the contents of \'' + saveRepoName  + '\' will be overwritten.', function(result) {
-                                    if(result){
+                            callback: () => {
+                                bootbox.confirm('Are you sure? All the contents of \'' + saveRepoName + '\' will be overwritten.', (result) => {
+                                    if (result) {
                                         repo.deleteRepo(this.createSaveRepo.bind(this));
                                     }
-                                }.bind(this)); 
-                            }.bind(this)
-                        }
-                    }
+                                });
+                            },
+                        },
+                    },
                 });
             }
-
-        }.bind(this));
+        });
     }
 
     /*
     * Helper for saveAll.
     */
     createSaveRepo(err, res) {
-        this.user.createRepo({'name': this.saveRepoName}, function(err, res) {
-
-            if(err)
-            {
-                if(err.request.response=='')
+        this.user.createRepo({ name: this.saveRepoName }, (err, res) => {
+            if (err) {
+                if (err.request.response === '') {
                     notify('Something happened... Try again.', 'red');
-                else
-                    notify(JSON.parse(err.request.response)['message'], 'red');
-
+                } else {
+                    notify(JSON.parse(err.request.response).message, 'red');
+                }
                 return;
             }
 
-            var repo = this.hub.getRepo(this.username, this.saveRepoName);
+            const repo = this.hub.getRepo(this.username, this.saveRepoName);
             this.pushToRepo(repo, this.sourcePath);
-        }.bind(this));
+        });
     }
 
     /*
@@ -196,43 +179,42 @@ class GithubInt {
     * This is very hacky... the api is very limited and doesn't allow parallel writes
     */
     pushToRepo(repo, sourcePath) {
-        var fs = SysFileSystem;
+        const fs = SysFileSystem;
 
-        var tree = [];
-        if(sourcePath === ''){
+        let tree = [];
+        if (sourcePath === '') {
             tree = fs.getDirectoryTreeOfDir('/');
-        }
-        else{
+        } else {
             tree = fs.getDirectoryTreeOfDir(sourcePath);
         }
 
-        //trim source path from tree
-        var pathLength = sourcePath.length;
-        var trimPath = function(fullPath){
+        // trim source path from tree
+        const pathLength = sourcePath.length;
+        const trimPath = (fullPath) => {
             return fullPath.substring(pathLength, fullPath.length);
         };
 
-        var readFile = function(err){
-
-            if(err)
-            {
-                if(err.request.response=='')
+        const readFile = function (err) {
+            if (err) {
+                if (err.request.response === '') {
                     notify('Something happened... Try again.', 'red');
-                else
-                    notify(JSON.parse(err.request.response)['message'], 'red');
+                } else {
+                    notify(JSON.parse(err.request.response).message, 'red');
+                }
 
                 return;
             }
 
-            var i = 0;
-            if(typeof this == 'number')
+            let i = 0;
+            if (typeof this === 'number') {
                 i = this;
+            }
 
-            while(i<tree.length && tree[i].isDirectory)
+            while (i < tree.length && tree[i].isDirectory) {
                 i++;
+            }
 
-            if(i>=tree.length)
-            {
+            if (i >= tree.length) {
                 notify('Successfully pushed!', 'green');
                 return;
             }
@@ -240,25 +222,22 @@ class GithubInt {
             fs.readFile(tree[i].path, writeFile.bind(i));
         };
 
-        var writeFile = function(err, buf){
-
-            if(err)
-            {
-                if(err.request.response=='')
+        const writeFile = function (err, buf) {
+            if (err) {
+                if (err.request.response === '') {
                     notify('Something happened... Try again.', 'red');
-                else
-                    notify(JSON.parse(err.request.response)['message'], 'red');
-
+                } else {
+                    notify(JSON.parse(err.request.response).message, 'red');
+                }
                 return;
             }
 
-            var i = this;
-            tree[this].path = tree[this].path.substring(1,tree[this].path.length);
-            repo.write('master', trimPath(tree[i].path), buf.toString('binary'), 'save', readFile.bind(i+1));
+            const i = this;
+            tree[this].path = tree[this].path.substring(1, tree[this].path.length);
+            repo.write('master', trimPath(tree[i].path), buf.toString('binary'), 'save', readFile.bind(i + 1));
         };
 
         readFile();
-
     }
 
 }

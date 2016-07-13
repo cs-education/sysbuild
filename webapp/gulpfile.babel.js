@@ -30,7 +30,7 @@ gulp.task('build', ['lint', 'html', 'js', 'js:browserFS', 'css:dist', 'fonts', '
     const buildStampFile = 'dist/build-stamp.txt';
     const recentCommitsFile = 'dist/publish-recentcommits.txt';
 
-    const s = size({title: 'dist'});
+    const s = size({ title: 'dist' });
     const buildStamp = gulp.src('dist/**/*').pipe(s).on('end', () => {
         fs.writeFileSync(buildStampFile, `Build date: ${(new Date()).toUTCString()}\nBuilt size: ${s.prettySize}\n`);
         console.log('Build stamp written to ' + chalk.magenta(buildStampFile));

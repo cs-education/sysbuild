@@ -1,4 +1,4 @@
-/*global Bloodhound:false */
+/* global Bloodhound:false */
 import ko from 'knockout';
 import templateMarkup from 'text!./editor.html';
 import ace from 'ace/ace';
@@ -10,7 +10,7 @@ import * as SysGlobalObservables from 'app/sys-global-observables';
 class Editor {
     constructor(params) {
         // all the preferences are ko observables
-        var prefs = {};
+        const prefs = {};
         prefs.backgroundAutoIndent = params.autoIndent;
         prefs.highlightLine = params.highlightLine;
         prefs.showInvisibles = params.showInvisibles;
@@ -23,7 +23,7 @@ class Editor {
 
         this.availableThemes = ko.observableArray(['tomorrow', 'monokai', 'terminal', 'xcode']);
 
-        this.supportedAceModes = ['ace/mode/c_cpp','ace/mode/makefile'];
+        this.supportedAceModes = ['ace/mode/c_cpp', 'ace/mode/makefile'];
 
         this.annotations = params.annotations;
         this.keyboardShortcuts = params.keyboardShortcuts;
@@ -59,8 +59,8 @@ class Editor {
             this.autoIncluder.addMissingHeaders(params.editorTextGetter);
         });
 
-        SysGlobalObservables.Editor = this;
-        SysGlobalObservables.ObservableEditor(this);
+        SysGlobalObservables.editor = this;
+        SysGlobalObservables.observableEditor(this);
     }
 
     initAce(editorDivId) {
@@ -92,21 +92,21 @@ class Editor {
         this.annotations.subscribe((newVal) => { this.setAceAnnotations(newVal); });
 
         this.keyboardShortcuts.forEach((shortcutArgs) => this.addKeyboardCommand(...shortcutArgs));
-		
-		ace.require(['ace/ext/modelist'], (modelist)=> {
-			this.modelist = modelist;
-		}).bind(this);
 
-        //TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
-        //this.enableAutoIndentTimer();
+        ace.require(['ace/ext/modelist'], (modelist) => {
+            this.modelist = modelist;
+        }).bind(this);
+
+        // TODO Disabling auto indenting until it can be fixed (removes annotations and indents non C files)
+        // this.enableAutoIndentTimer();
     }
 
     initSettingsDialog() {
-        var $editorSettingsPopover = $('<div>').append(
+        const $editorSettingsPopover = $('<div>').append(
             $('<form>').append(
                 $('<div>').attr('class', 'checkbox').append(
                     $('<label>').append(
-                        $('<input>').attr({id: this.elementIdPrefix + 'autoindent-checkbox', type: 'checkbox'})
+                        $('<input>').attr({ id: this.elementIdPrefix + 'autoindent-checkbox', type: 'checkbox' })
                     ).append(
                         $('<span>').text('Autoindent code')
                     )
@@ -114,7 +114,7 @@ class Editor {
             ).append(
                 $('<div>').attr('class', 'checkbox').append(
                     $('<label>').append(
-                        $('<input>').attr({id: this.elementIdPrefix + 'ace-highlight-active-lines-checkbox', type: 'checkbox'})
+                        $('<input>').attr({ id: this.elementIdPrefix + 'ace-highlight-active-lines-checkbox', type: 'checkbox' })
                     ).append(
                         $('<span>').text('Highlight Active Line')
                     )
@@ -122,7 +122,7 @@ class Editor {
             ).append(
                 $('<div>').attr('class', 'checkbox').append(
                     $('<label>').append(
-                        $('<input>').attr({id: this.elementIdPrefix + 'ace-show-invisibles-checkbox', type: 'checkbox'})
+                        $('<input>').attr({ id: this.elementIdPrefix + 'ace-show-invisibles-checkbox', type: 'checkbox' })
                     ).append(
                         $('<span>').text('Show invisible characters')
                     )
@@ -130,7 +130,7 @@ class Editor {
             ).append(
                 $('<div>').attr('class', 'checkbox').append(
                     $('<label>').append(
-                        $('<input>').attr({id: this.elementIdPrefix + 'auto-include-checkbox', type: 'checkbox'})
+                        $('<input>').attr({ id: this.elementIdPrefix + 'auto-include-checkbox', type: 'checkbox' })
                     ).append(
                         $('<span>').text('Auto-include missing headers')
                     )
@@ -139,12 +139,12 @@ class Editor {
         );
 
         // https://stackoverflow.com/a/12128784/2193410 (Contain form within a bootstrap popover?)
-        var $settingsPopover = $('#editor-settings-btn');
+        const $settingsPopover = $('#editor-settings-btn');
         $settingsPopover.popover({
-            title: function () {
+            title: () => {
                 return 'Editor settings';
             },
-            content: function () {
+            content: () => {
                 return $editorSettingsPopover.html();
             }
         });
@@ -159,7 +159,7 @@ class Editor {
         });
 
         // https://stackoverflow.com/a/22050564/2193410 (Attach event handler to button in twitter bootstrap popover)
-        var $body = $('body');
+        const $body = $('body');
         $body.on('change', '#' + this.elementIdPrefix + 'autoindent-checkbox', (e) => {
             this.prefs.backgroundAutoIndent(e.currentTarget.checked);
         });
@@ -197,7 +197,7 @@ class Editor {
     }
 
     initTokenHighlighting() {
-        var manPageTokens = new Bloodhound({
+        const manPageTokens = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             limit: 10,
@@ -209,8 +209,8 @@ class Editor {
         this.tokenHighlighter = new TokenHighlighter(this, manPageTokens, this.openManPage);
     }
 
-	
-    enableAutoIndentTimer(){
+
+    enableAutoIndentTimer() {
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L500
         this.aceEditor.on('change', () => {
             if (this.prefs.backgroundAutoIndent()) {
@@ -222,8 +222,10 @@ class Editor {
         });
     }
 
-    disableAutoIndentTimer(){
-        this.aceEditor.on('change', () => {window.clearTimeout(this.reIndentTimer);});
+    disableAutoIndentTimer() {
+        this.aceEditor.on('change', () => {
+            window.clearTimeout(this.reIndentTimer);
+        });
     }
 
     /**
@@ -254,39 +256,39 @@ class Editor {
     }
 
     setAceAnnotations(annotations) {
-
         this.anno = annotations;
 
-        var currFile = SysGlobalObservables.currentFileName();
-        var currPath = SysGlobalObservables.currentFilePath();
+        const currFile = SysGlobalObservables.currentFileName();
+        const currPath = SysGlobalObservables.currentFilePath();
 
-        var currAnnotations = $.grep(annotations, function(e) { return e.workingDir + '/' + e.file == currPath; });
+        const currAnnotations = $.grep(annotations, (e) => { return e.workingDir + '/' + e.file === currPath; });
 
         this.aceEditor.getSession().setAnnotations(annotations);
     }
-    
+
     getText() {
         return this.aceEditor.getSession().getValue();
     }
 
     setFile(path, filename, text) {
         this.disableAutoIndentTimer();
-        var session = this.aceEditor.getSession();
+        const session = this.aceEditor.getSession();
 
         session.setValue(text);
         if (this.anno) {
-            var currAnnotations = $.grep(this.anno, function(e) { return e.workingDir + '/' + e.file == path; });
+            const currAnnotations = $.grep(this.anno, (e) => { return e.workingDir + '/' + e.file === path; });
             session.setAnnotations(currAnnotations);
         }
         this.enableAutoIndentTimer();
-		
-		this.filename = filename;
-		var mode = this.modelist.getModeForPath(filename).mode;
 
-        if(this.supportedAceModes.indexOf(mode) < 0)
+        this.filename = filename;
+        let mode = this.modelist.getModeForPath(filename).mode;
+
+        if (this.supportedAceModes.indexOf(mode) < 0) {
             mode = 'ace/mode/text';
+        }
 
-		this.aceEditor.session.setMode(mode);
+        this.aceEditor.session.setMode(mode);
 
         return;
     }
@@ -325,21 +327,23 @@ class Editor {
     autoIndentCode() {
         // Implementation taken from the javaplayland project
         // https://github.com/angrave/javaplayland/blob/master/web/scripts/playerCodeEditor.coffee#L618
-		
-		var modeName = this.modelist.getModeForPath(this.filename).mode;
-		if (modeName !== 'ace/mode/c_cpp') return;
 
-        var currentRow,
-            thisLineIndent,
-            thisLine,
-            currentIndent,
-            editor = this.aceEditor,
-            position = editor.getCursorPosition(),
-            editSession = editor.getSession(),
-            text = editSession.getDocument(),
-            mode = editSession.getMode(),
-            length = editSession.getLength();
-		
+        const modeName = this.modelist.getModeForPath(this.filename).mode;
+        if (modeName !== 'ace/mode/c_cpp') {
+            return;
+        }
+
+        let currentRow;
+        let thisLineIndent;
+        let thisLine;
+        let currentIndent;
+        const editor = this.aceEditor;
+        const position = editor.getCursorPosition();
+        const editSession = editor.getSession();
+        const text = editSession.getDocument();
+        const mode = editSession.getMode();
+        const length = editSession.getLength();
+
         this.reIndenting = true;
 
         for (currentRow = 0; currentRow < length; currentRow++) {
@@ -351,14 +355,14 @@ class Editor {
                 );
 
                 thisLine = editSession.getLine(currentRow);
-				var prevlen = thisLine.length;
+                const prevlen = thisLine.length;
                 currentIndent = /^\s*/.exec(thisLine)[0];
                 if (currentIndent !== thisLineIndent) {
                     thisLine = thisLineIndent + thisLine.trim();
                 }
 
-				text.removeInLine(currentRow, 0, prevlen);
-				text.insertInLine({'row':currentRow, 'column':0}, thisLine);
+                text.removeInLine(currentRow, 0, prevlen);
+                text.insertInLine({ row: currentRow, column: 0 }, thisLine);
 
                 mode.autoOutdent(
                     editSession.getState(currentRow),
@@ -372,7 +376,6 @@ class Editor {
         editor.clearSelection();
 
         this.reIndenting = false;
-
     }
 
     dispose() {

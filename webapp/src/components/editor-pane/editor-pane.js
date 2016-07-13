@@ -29,8 +29,8 @@ class EditorPane {
     }
 
     closeTab(tab) {
-        var newActiveTabIndex = this.currentActiveTabIndex(),
-            index = this.editorPaneTabs().indexOf(tab);
+        let newActiveTabIndex = this.currentActiveTabIndex();
+        const index = this.editorPaneTabs().indexOf(tab);
 
         // Remove from the original array passed to this component,
         // so that the other observers also get the update.

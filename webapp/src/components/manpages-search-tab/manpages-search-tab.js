@@ -1,4 +1,4 @@
-/*global Bloodhound:false*/
+/* global Bloodhound:false */
 import ko from 'knockout';
 import templateMarkup from 'text!./manpages-search-tab.html';
 import 'typeahead-jquery';
@@ -25,7 +25,7 @@ class ManpagesSearchTab {
     }
 
     initTypeahead() {
-        var lastSelectedManPage = null;
+        let lastSelectedManPage = null;
         $('#man-pages-search-typeahead').children('.typeahead').typeahead({
             highlight: true
         }, {

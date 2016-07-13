@@ -2,10 +2,10 @@ import ko from 'knockout';
 import templateMarkup from 'text!./vm-state-label.html';
 
 const vmStateToLabelClassMap = {
-    'Stopped': 'danger',
-    'Booting': 'warning',
-    'Running': 'success',
-    'Paused': 'default'
+    Stopped: 'danger',
+    Booting: 'warning',
+    Running: 'success',
+    Paused: 'default'
 };
 
 class VmStateLabel {

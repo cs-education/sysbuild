@@ -9,13 +9,13 @@ class PlaygroundTermPane {
         this.ttys = ['tty0', 'tty1'];
         this.activeTerminal = ko.observable(0);
         this.ttySwitchBtnClass = ko.pureComputed(() =>
-            'glyphicon glyphicon-chevron-' + (this.activeTerminal() == 0 ? 'right' : 'left'));
+            'glyphicon glyphicon-chevron-' + (this.activeTerminal() === 0 ? 'right' : 'left'));
 
         // https://github.com/kayahr/jquery-fullscreen-plugin#querying-fullscreen-mode
         this.fullScreenSupported = this.currentFullScreenState() !== null;
         this.isFullScreenActive = ko.observable(false);
         $(document).bind('fullscreenchange', () => {
-            var currentState = !!this.currentFullScreenState(); // coerce to boolean
+            const currentState = !!this.currentFullScreenState(); // coerce to boolean
             this.isFullScreenActive(currentState);
             this.focusTerminal(this.activeTerminal());
         });
@@ -35,7 +35,7 @@ class PlaygroundTermPane {
            component is disposed, the elements are moved back into the hidden DIV (using
            the hideTerminalElements function), ready to be moved back if and when this
            component is constructed again at some point. */
-        for (var i = 0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
             this.ttyContainers[i].prepend($(`#tty${i}`));
         }
     }
@@ -43,8 +43,8 @@ class PlaygroundTermPane {
     hideTerminalElements() {
         // See the comment inside the displayTerminalElements function for details
         // about this function.
-        var $hiddenTermContainer = $('#hidden-term-container');
-        for (var i = 0; i < 2; i++) {
+        const $hiddenTermContainer = $('#hidden-term-container');
+        for (let i = 0; i < 2; i++) {
             $hiddenTermContainer.append($(`#tty${i}`));
         }
     }
@@ -62,8 +62,8 @@ class PlaygroundTermPane {
     }
 
     switchTerminal() {
-        var current = this.activeTerminal(),
-            other = 1 - current;
+        const current = this.activeTerminal();
+        const other = 1 - current;
         this.ttyContainers[current].hide();
         this.activeTerminal(other);
         this.ttyContainers[other].show();

@@ -3,42 +3,46 @@ import * as SysGlobalObservables from 'app/sys-global-observables';
 
 class AutoIncluder {
 	constructor() {
-		var self = this;
+		const self = this;
 		this.createMapping();
 
-		this.browser = SysGlobalObservables.ObservableFS;
-		this.browser.subscribe((newBrowser) => self.browser = newBrowser);
+		this.browser = SysGlobalObservables.observableFS;
+		this.browser.subscribe((newBrowser) => {
+			self.browser = newBrowser;
+		});
 
-		this.editor = SysGlobalObservables.ObservableEditor;
-		this.editor.subscribe((newEditor) => self.editor = newEditor);
+		this.editor = SysGlobalObservables.observableEditor;
+		this.editor.subscribe((newEditor) => {
+			self.editor = newEditor;
+		});
 	}
 
 	createMapping() {
-		var self = this;
-		var includeMap = {};
-		var syscalls = 'https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json';
-		var libcalls = 'https://cs-education.github.io/sysassets/man_pages/headers.min.json';
-		$.getJSON(syscalls, function(data) {
-			data.forEach(function(element) {
-				element.functions.forEach(function(func) {
+		const self = this;
+		const includeMap = {};
+		const syscalls = 'https://cs-education.github.io/sysassets/man_pages/syscall_metadata.min.json';
+		const libcalls = 'https://cs-education.github.io/sysassets/man_pages/headers.min.json';
+		$.getJSON(syscalls, (data) => {
+			data.forEach((element) => {
+				element.functions.forEach((func) => {
 					includeMap[func.name] = [];
-					element.defines.forEach(function(define) {
-						var adding = '#define ' + define.text;
-						if (includeMap[func.name].indexOf(adding) == -1) {
+					element.defines.forEach((define) => {
+						const adding = '#define ' + define.text;
+						if (includeMap[func.name].indexOf(adding) === -1) {
 							includeMap[func.name].push(adding);
 						}
 					});
-					element.includes.forEach(function(include) {
-						var adding = '#include <' + include.file_path + '>';
-						if (includeMap[func.name].indexOf(adding) == -1) {
+					element.includes.forEach((include) => {
+						const adding = '#include <' + include.file_path + '>';
+						if (includeMap[func.name].indexOf(adding) === -1) {
 							includeMap[func.name].push('#include <' + include.file_path + '>');
 						}
 					});
 				});
 			});
 		});
-		$.getJSON(libcalls, function(data) {
-			for (var key in data) {
+		$.getJSON(libcalls, (data) => {
+			for (const key in data) { // eslint-disable-line no-restricted-syntax
 				if (!(key in includeMap)) {
 					includeMap[key] = data[key];
 				}
@@ -48,38 +52,36 @@ class AutoIncluder {
 	}
 
 	loadFile(file) {
-		var content = this.browser.fs.readFileSync(file).toString('binary');
+		const content = this.browser.fs.readFileSync(file).toString('binary');
 		this.browser.makeActive(file);
 		this.editor.setFile(file, file.substring(1), content);
 	}
 
 	addMissingHeaders(textGetter) {
-		var originalGetter = SysGlobalObservables.currentFilePath;
+		const originalGetter = SysGlobalObservables.currentFilePath;
 		this.browser.saveActiveFile();
-		var updates = {};
-		for (var file in this.browser.metaDataPathLookUp) {
+		const updates = {};
+		for (const file in this.browser.metaDataPathLookUp) { // eslint-disable-line no-restricted-syntax
 			if (file.length === 0 || (file.indexOf('.h') < 0 && file.indexOf('.c') < 0)) continue;
 			this.loadFile(file);
-			var getter = textGetter();
-			var text = getter().split('\n');
-			var session = this.editor.aceEditor.session;
-			var length = session.getLength();
-			var includeMap = this.includeMap;
-			var currentHeaders = [];
-			var headers = [];
-			for (var row = 0; row <= length; row++) {
-				var tokens = session.getTokens(row);
-				tokens.forEach(function(token) {
-					var syntax = token.value;
+			const getter = textGetter();
+			const text = getter().split('\n');
+			const session = this.editor.aceEditor.session;
+			const length = session.getLength();
+			const includeMap = this.includeMap;
+			const currentHeaders = [];
+			const headers = [];
+			for (let row = 0; row <= length; row++) {
+				const tokens = session.getTokens(row);
+				tokens.forEach((token) => {
+					const syntax = token.value;
 					if (syntax === '#include' || syntax === '#define') {
-						var current = tokens.map(function(token) {
-							return token.value;
-						});
+						const current = tokens.map((token) => token.value); // eslint-disable-line no-shadow
 						currentHeaders.push(current.join(''));
 						return;
 					} else if (syntax in includeMap) {
-						includeMap[syntax].forEach(function(header) {
-							if (headers.indexOf(header) == -1 && currentHeaders.indexOf(header) == -1) {
+						includeMap[syntax].forEach((header) => {
+							if (headers.indexOf(header) === -1 && currentHeaders.indexOf(header) === -1) {
 								headers.push(header);
 								if (header in updates) {
 									updates[header].push(file.substring(1));
@@ -91,10 +93,10 @@ class AutoIncluder {
 					}
 				});
 			}
-			headers.forEach(function(header) {
+			headers.forEach((header) => {
 				text.unshift(header);
 			});
-			var final = text.join('\n');
+			const final = text.join('\n');
 			this.editor.setAceText(final);
 			this.browser.saveActiveFile();
 		}

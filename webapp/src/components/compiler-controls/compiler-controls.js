@@ -12,7 +12,7 @@ class CompilerControls {
         this.compileBtnTooltip = params.compileBtnTooltip;
 
         this.compileBtnEnable = ko.pureComputed(() => {
-            var ready = !(this.compileStatus() === 'Waiting' || this.compileStatus() === 'Compiling');
+            const ready = !(this.compileStatus() === 'Waiting' || this.compileStatus() === 'Compiling');
             if (ready) {
                 notify('The compiler is now online', 'green');
             } else {

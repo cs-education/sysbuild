@@ -5,7 +5,7 @@ import marked from 'marked';
 class PlaygroundDocPane {
     constructor(params) {
         this.docHtml = ko.observable('');
-        var processFunc = params.doc.format === 'markdown' ? marked : (data) => data;
+        const processFunc = params.doc.format === 'markdown' ? marked : (data) => data;
         if (params.doc.url) {
             $.get(params.doc.url, (data) => {
                 this.docHtml(processFunc(data));

@@ -102,5 +102,5 @@ gulp.task('js', ['js:optimize'], () => {
 gulp.task('js:browserFS', () => {
    // Copy From Bower components to Dist Folder
    return gulp.src('./src/bower_modules/browserfs/dist/browserfs.min.js')
-        .pipe(gulp.dest('./dist/')); 
+        .pipe(gulp.dest('./dist/'));
 });

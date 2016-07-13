@@ -4,8 +4,8 @@ class LiveEdit {
     constructor(_runtime) {
         this.runtime = _runtime;
 
-        var updateCompileButton = () => {
-            var ready = this.runtime.ready();
+        const updateCompileButton = () => {
+            const ready = this.runtime.ready();
             SysGlobalObservables.vmState(ready ? 'Running' : 'Booting');
             SysGlobalObservables.compileStatus(ready ? 'Ready' : 'Waiting');
         };
@@ -23,7 +23,7 @@ class LiveEdit {
     }
 
     escapeHtml(unsafe) {
-        /*stackoverflow.com/questions/6234773/*/
+        // stackoverflow.com/questions/6234773/
         return unsafe
              .replace(/&/g, '&amp;')
              .replace(/</g, '&lt;')
@@ -47,7 +47,8 @@ class LiveEdit {
 
         this.runtime.sendKeys('tty0', 'clear\n');
 
-        var aceAnnotations = [], buildCmdErrors = [];
+        const aceAnnotations = [];
+        const buildCmdErrors = [];
         result.annotations.forEach((annotation) => {
             if (annotation.isBuildCmdError) {
                 buildCmdErrors.push(annotation);
@@ -71,8 +72,8 @@ class LiveEdit {
     }
 
     runCode(buildCmd) {
-		SysGlobalObservables.FileBrowser.saveActiveFile();
-        var callback = this.processGccCompletion.bind(this);
+		SysGlobalObservables.fileBrowser.saveActiveFile();
+        const callback = this.processGccCompletion.bind(this);
         SysGlobalObservables.compileStatus('Compiling');
         this.runtime.startBuild(buildCmd, callback);
     }
