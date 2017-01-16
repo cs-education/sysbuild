@@ -4,6 +4,23 @@ import Preferences from 'app/preferences';
 import AutoIncluder from 'components/editor/auto-include';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
+const defaultEditorText =
+`/*
+* Write your C code here
+* This file (program.c) will be overwritten if you navigate away from
+* the page or to a different lesson! To save your code, either
+* download the file to your computer, or rename program.c to
+* something else and it will be persisted until you clear your
+* browser's localStorage. Both actions, and more, can be done through
+* the File Browser.
+*/
+#include <stdio.h>
+
+int main() {
+    printf("Hello world!\\n");
+    return 0;
+}
+`;
 const defaultBuildCmd = 'gcc -lm -Wall -fmax-errors=10 -Wextra program.c -o program';
 const defaultExecCmd = './program';
 
@@ -24,7 +41,11 @@ class PlayActivityPage {
     }
 
     setParamsFromActivity(playActivity) {
-        this.editorParams.initialEditorText = playActivity.code;
+        let editorText = defaultEditorText;
+        if (typeof playActivity.code !== 'undefined') {
+            editorText = playActivity.code;
+        }
+        this.editorParams.initialEditorText = editorText;
 
         let buildCmd = defaultBuildCmd;
         if (typeof playActivity.buildCmd !== 'undefined') {
@@ -32,6 +53,7 @@ class PlayActivityPage {
         } else if (typeof playActivity.gccOptions !== 'undefined') {
             buildCmd = `gcc ${playActivity.gccOptions} program.c -o program`;
         }
+        this.compilerParams.buildCmd(buildCmd);
 
         let execCmd = defaultExecCmd;
         if (typeof playActivity.execCmd !== 'undefined') {
@@ -39,8 +61,6 @@ class PlayActivityPage {
         } else if (typeof playActivity.programCommandLineArgs !== 'undefined') {
             execCmd = `./program ${playActivity.programCommandLineArgs}`;
         }
-
-        this.compilerParams.buildCmd(buildCmd);
         this.compilerParams.execCmd(execCmd);
 
         if (playActivity.docFile) {
@@ -57,24 +77,7 @@ class PlayActivityPage {
     }
 
     setParamsFromDefaults() {
-        this.editorParams.initialEditorText =
-`/*
- * Write your C code here
- * This file (program.c) will be overwritten if you navigate away from
- * the page or to a different lesson! To save your code, either
- * download the file to your computer, or rename program.c to
- * something else and it will be persisted until you clear your
- * browser's localStorage. Both actions, and more, can be done through
- * the File Browser.
- */
-#include <stdio.h>
-
-int main() {
-    printf("Hello world!\\n");
-    return 0;
-}
-`;
-
+        this.editorParams.initialEditorText = defaultEditorText;
         this.compilerParams.buildCmd(defaultBuildCmd);
         this.compilerParams.execCmd(defaultExecCmd);
 
