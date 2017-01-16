@@ -4,7 +4,11 @@ import Preferences from 'app/preferences';
 import AutoIncluder from 'components/editor/auto-include';
 import * as SysGlobalObservables from 'app/sys-global-observables';
 
+const defaultBuildCmd = 'gcc -lm -Wall -fmax-errors=10 -Wextra program.c -o program';
+const defaultExecCmd = './program';
+
 class PlayActivityPage {
+
     constructor(params) {
         this.activityData = params.activityData;
         this.setEditorParams();
@@ -21,8 +25,23 @@ class PlayActivityPage {
 
     setParamsFromActivity(playActivity) {
         this.editorParams.initialEditorText = playActivity.code;
-        this.compilerParams.buildCmd(playActivity.buildCmd || '');
-        this.compilerParams.execCmd(playActivity.execCmd || '');
+
+        let buildCmd = defaultBuildCmd;
+        if (typeof playActivity.buildCmd !== 'undefined') {
+            buildCmd = playActivity.buildCmd;
+        } else if (typeof playActivity.gccOptions !== 'undefined') {
+            buildCmd = `gcc ${playActivity.gccOptions} program.c -o program`;
+        }
+
+        let execCmd = defaultExecCmd;
+        if (typeof playActivity.execCmd !== 'undefined') {
+            execCmd = playActivity.execCmd;
+        } else if (typeof playActivity.programCommandLineArgs !== 'undefined') {
+            execCmd = `./program ${playActivity.programCommandLineArgs}`;
+        }
+
+        this.compilerParams.buildCmd(buildCmd);
+        this.compilerParams.execCmd(execCmd);
 
         if (playActivity.docFile) {
             this.doc = {
@@ -38,17 +57,26 @@ class PlayActivityPage {
     }
 
     setParamsFromDefaults() {
-        this.editorParams.initialEditorText = '/*Write your C code here*/\n' +
-            '#include <stdio.h>\n' +
-            '\n' +
-            'int main() {\n' +
-            '    printf("Hello world!\\n");\n' +
-            '    return 0;\n' +
-            '}\n' +
-            '';
+        this.editorParams.initialEditorText =
+`/*
+ * Write your C code here
+ * This file (program.c) will be overwritten if you navigate away from
+ * the page or to a different lesson! To save your code, either
+ * download the file to your computer, or rename program.c to
+ * something else and it will be persisted until you clear your
+ * browser's localStorage. Both actions, and more, can be done through
+ * the File Browser.
+ */
+#include <stdio.h>
 
-        this.compilerParams.buildCmd('gcc -lm -Wall -fmax-errors=10 -Wextra program.c -o program');
-        this.compilerParams.execCmd('./program');
+int main() {
+    printf("Hello world!\\n");
+    return 0;
+}
+`;
+
+        this.compilerParams.buildCmd(defaultBuildCmd);
+        this.compilerParams.execCmd(defaultExecCmd);
 
         this.doc = {
             text: '# Welcome\n' +

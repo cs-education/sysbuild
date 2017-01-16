@@ -68,7 +68,7 @@ class PlaygroundLayout {
 
     createManPageSearchTab(openManPageCallback) {
         this.editorPaneTabs.push({
-            title: 'Man page search',
+            title: 'Man Page Search',
             closable: false,
             component: {
                 name: 'manpages-search-tab',

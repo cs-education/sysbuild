@@ -418,12 +418,8 @@ class Filebrowser {
                 }
             });
 
-            // make program.c if not exists
-            try {
-                fs.readFileSync('/program.c');
-            } catch (e) {
-                fs.writeFile('/program.c', new Buffer(this.editor.getText(), 'binary'));
-            }
+            // overwrite program.c with contents of the editor for the current play activity
+            fs.writeFile('/program.c', new Buffer(this.editor.getText(), 'binary'));
 
             // init
             this.init();
