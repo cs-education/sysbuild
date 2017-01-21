@@ -1,8 +1,9 @@
+import path from 'path';
 import gulp from 'gulp';
 import { Server as KarmaServer } from 'karma';
 
 // Karma Gulp tasks adapted from https://github.com/karma-runner/gulp-karma
-const karmaConfPath = __dirname + '/../test/karma.conf.js';
+const karmaConfPath = path.join(__dirname, '..', 'test', 'karma.conf.js');
 
 /**
  * Run test once and exit

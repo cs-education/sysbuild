@@ -33,8 +33,6 @@ rules:
   comma-dangle: 0
   class-methods-use-this: 0
   dot-location: 0
-  no-undef: 0
   arrow-parens: 0
-  no-path-concat: 0
   no-plusplus: 0
   prefer-spread: 0

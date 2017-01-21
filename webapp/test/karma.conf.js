@@ -30,24 +30,26 @@ module.exports = function(config) {
     ],
 
     plugins: [
-        'karma-jasmine',
-        'karma-requirejs',
-        'karma-babel-preprocessor',
-        'karma-chrome-launcher',
-        'karma-phantomjs-launcher'
+      'karma-jasmine',
+      'karma-requirejs',
+      'karma-babel-preprocessor',
+      'karma-chrome-launcher',
+      'karma-phantomjs-launcher'
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'src/app/{!(require.config), **/*}.js': ['babel'],
-        'src/components/**/*.js': ['babel'],
-        'test/app/**/*.js': ['babel'],
-        'test/components/**/*.js': ['babel']
+      'src/app/{!(require.config), **/*}.js': ['babel'],
+      'src/components/**/*.js': ['babel'],
+      'test/app/**/*.js': ['babel'],
+      'test/components/**/*.js': ['babel']
     },
 
     babelPreprocessor: {
-        options: { modules: 'amd' }
+      options: {
+        plugins: ['add-module-exports', 'transform-es2015-modules-amd']
+      }
     },
 
 
