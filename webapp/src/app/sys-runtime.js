@@ -106,7 +106,7 @@ class SysRuntime {
             memorysize: 32, // in MB, must be a power of two
             path: jor1kBaseFsUrl, // kernelURL and fsURLs are relative to this path
             worker: new Worker(jor1kWorkerUrl),
-			relayURL: 'wss://relay.widgetry.org/',
+            relayURL: 'wss://relay.widgetry.org/',
         };
 
         this.jor1kgui = new Jor1k(jor1kparameters);
@@ -265,7 +265,7 @@ class SysRuntime {
     sendKeys(tty, text, expect, success, cancel) {
         let expectResult = null;
         const data = text.split('').map((c) => {
-            /* jshint bitwise: false */
+            // eslint-disable-next-line no-bitwise
             return c.charCodeAt(0) >>> 0;
         });
         this.jor1kgui.Pause(false);

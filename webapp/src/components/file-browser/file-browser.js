@@ -676,10 +676,10 @@ class Filebrowser {
     getItemDOM(data) {
         let element;
         if (data.isDirectory) {
-            element = '<div id="' + data.id + '" data-id="' + data.id + '" data-status="closed" class="item folder" style="margin-left:' + data.depth * this.indent +
+            element = '<div id="' + data.id + '" data-id="' + data.id + '" data-status="closed" class="item folder" style="margin-left:' + (data.depth * this.indent) +
                 'px;"><span class="item-icon"><i class="glyphicon glyphicon-chevron-right"></i></span>' + data.name + '</div>';
         } else {
-            element = '<div id="' + data.id + '"data-id="' + data.id + '" class="item file" style="margin-left:' + data.depth * this.indent +
+            element = '<div id="' + data.id + '"data-id="' + data.id + '" class="item file" style="margin-left:' + (data.depth * this.indent) +
             'px;"><span class="item-icon"></span>' + data.name + '</div>';
         }
         return element;

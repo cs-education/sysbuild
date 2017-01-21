@@ -163,7 +163,7 @@ class SysFileSystem {
         const ret = [];
 
         if (path.charAt(path.length - 1) !== '/') {
-            path = path + '/';
+            path += '/';
         }
 
         for (let i = 0; i < children.length; i++) {

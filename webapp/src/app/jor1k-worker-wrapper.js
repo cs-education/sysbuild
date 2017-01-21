@@ -6,6 +6,7 @@
  */
 
 /* global importScripts, require */
+/* eslint-disable import/no-dynamic-require */
 
 // see https://github.com/guybedford/amd-loader/issues/4
 const window = self; // returns a reference to the WorkerGlobalScope
