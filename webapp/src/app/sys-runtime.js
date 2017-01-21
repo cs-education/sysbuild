@@ -2,7 +2,7 @@
 
 import ExpectTTY from 'app/expect-tty';
 import GccOutputParser from 'app/gcc-output-parser';
-import * as Jor1k from 'cjs!jor1k/master/master';
+import Jor1k from 'cjs!jor1k/master/master';
 import LinuxTerm from 'cjs!jor1k/plugins/terminal-linux';
 import { jor1kBaseFsUrl, jor1kWorkerUrl } from 'app/config';
 import SysFileSystem from 'app/sys-filesystem';

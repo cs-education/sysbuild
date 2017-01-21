@@ -12,7 +12,7 @@ class SysFileSystem {
         BrowserFS.install(window);
         BrowserFS.initialize(new BrowserFS.FileSystem.LocalStorage());
 
-        this.localFS = require('fs');
+        this.localFS = BrowserFS.BFSRequire('fs');
         this.jor1kFS = jor1kFS;
         this.listeners = [];
 
