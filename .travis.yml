@@ -1,5 +1,7 @@
-sudo: false # this ensures our build is routed to Travis CI's new container-based infrastructure
+sudo: false # this ensures our build is routed to Travis CI's container-based infrastructure
 language: node_js
+node_js:
+  - node
 cache:
   directories:
     - webapp/node_modules
