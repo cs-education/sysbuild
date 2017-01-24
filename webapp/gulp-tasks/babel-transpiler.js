@@ -11,7 +11,7 @@ class BabelTranspiler {
             root: root || 'src',
             skip: ['bower_modules/**', 'app/require.config.js', 'test/require.config.js', 'app/jor1k-worker-wrapper.js'],
             babelConfig: {
-                modules: 'amd',
+                plugins: ['add-module-exports', 'transform-es2015-modules-amd'],
                 sourceMaps: 'inline'
             }
         };
@@ -21,7 +21,7 @@ class BabelTranspiler {
     transpile(pathname, callback) {
         pathname = slash(pathname);
         if (this.config.babelIgnoreRegexes.some((re) => re.test(pathname))) return callback();
-        if (!babelCore.canCompile(pathname)) return callback();
+        if (!babelCore.util.canCompile(pathname)) return callback();
         const src = path.join(this.config.root, pathname);
         const opts = objectAssign({ sourceFileName: '/source/' + pathname }, this.config.babelConfig);
         babelCore.transformFile(src, opts, callback);

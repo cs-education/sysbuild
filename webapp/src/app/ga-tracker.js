@@ -79,6 +79,7 @@ class Tracker {
      */
     trackEvent() {
         const args = Array.prototype.slice.call(arguments);
+        this.debug('Tracker#event:', args);
         args.unshift('event');
         ga(() => {
             ga.getAll().forEach(tracker => {
@@ -101,13 +102,14 @@ class Tracker {
         if (title) {
             properties.title = title;
         }
+        this.debug('Tracker#pageview:', properties);
         ga(() => {
             ga.getAll().forEach((tracker) => {
-                tracker.send('pageview', properties);
+                // See https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications#tracking_virtual_pageviews
+                tracker.set(properties);
+                tracker.send('pageview');
             });
         });
-
-        this.debug('pageview', properties, 'sent to', ga.getAll());
     }
 }
 

@@ -11,7 +11,7 @@ function lintJs(files, options) {
 }
 
 gulp.task('lint:js:src', lintJs('src/{app,components}/**/*.js'));
-gulp.task('lint:js:test', lintJs('test/{app,components}/**/*.js', { env: { jasmine: true } }));
+gulp.task('lint:js:test', lintJs('test/{app,components}/**/*.js', { envs: ['jasmine'] }));
 gulp.task('lint:js:test:watch', () => {
     gulp.watch('test/{app,components}/**/*.js', ['lint:js:test']);
 });

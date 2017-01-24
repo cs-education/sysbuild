@@ -109,13 +109,10 @@ class GithubInt {
             if (err) {
                 if (err.error === 404) {
                     this.createSaveRepo();
+                } else if (err.request.response === '') {
+                    notify('Something happened... Try again.', 'red');
                 } else {
-                    if (err.request.response === '') {
-                        notify('Something happened... Try again.', 'red');
-                    } else {
-                        notify(JSON.parse(err.request.response).message, 'red');
-                    }
-                    return;
+                    notify(JSON.parse(err.request.response).message, 'red');
                 }
             } else {
                 bootbox.dialog({
@@ -125,9 +122,7 @@ class GithubInt {
                         cancel: {
                             label: 'Cancel',
                             className: 'btn-default',
-                            callback: () => {
-                                return;
-                            },
+                            callback: () => {}
                         },
                         merge: {
                             label: 'Merge',

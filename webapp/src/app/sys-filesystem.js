@@ -12,7 +12,7 @@ class SysFileSystem {
         BrowserFS.install(window);
         BrowserFS.initialize(new BrowserFS.FileSystem.LocalStorage());
 
-        this.localFS = require('fs');
+        this.localFS = BrowserFS.BFSRequire('fs');
         this.jor1kFS = jor1kFS;
         this.listeners = [];
 
@@ -163,7 +163,7 @@ class SysFileSystem {
         const ret = [];
 
         if (path.charAt(path.length - 1) !== '/') {
-            path = path + '/';
+            path += '/';
         }
 
         for (let i = 0; i < children.length; i++) {

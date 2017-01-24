@@ -1,4 +1,6 @@
+/* eslint-disable no-mixed-operators */
 import ace from 'ace/ace';
+
 const Range = ace.require('ace/range').Range;
 
 class TokenHighlighter {

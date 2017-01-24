@@ -39,7 +39,7 @@ class EditorPane {
         this.sourceTabArray.splice(index, 1);
 
         if (index <= newActiveTabIndex) {
-            newActiveTabIndex = newActiveTabIndex - 1;
+            newActiveTabIndex -= 1;
         }
 
         this.currentActiveTabIndex(newActiveTabIndex);

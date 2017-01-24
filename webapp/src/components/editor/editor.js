@@ -289,8 +289,6 @@ class Editor {
         }
 
         this.aceEditor.session.setMode(mode);
-
-        return;
     }
 
     resize() {

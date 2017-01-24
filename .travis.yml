@@ -1,5 +1,7 @@
-sudo: false # this ensures our build is routed to Travis CI's new container-based infrastructure
+sudo: false # this ensures our build is routed to Travis CI's container-based infrastructure
 language: node_js
+node_js:
+  - node
 cache:
   directories:
     - webapp/node_modules
@@ -14,4 +16,4 @@ notifications:
       - https://webhooks.gitter.im/e/55f9d2e135034d806002
     on_success: always  # options: [always|never|change] default: always
     on_failure: always  # options: [always|never|change] default: always
-    on_start: never     # options: [always|never|change] default: always
+    on_start:   always  # options: [always|never|change] default: always

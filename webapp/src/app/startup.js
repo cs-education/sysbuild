@@ -3,7 +3,7 @@ import 'jquery';
 import 'bootstrap';
 import ko from 'knockout';
 import 'knockout-projections';
-import * as router from './router';
+import router from './router';
 import sysRuntime from 'app/sys-runtime';
 import LiveEdit from 'app/live-edit';
 
