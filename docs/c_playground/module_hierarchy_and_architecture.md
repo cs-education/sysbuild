@@ -19,7 +19,9 @@ while the gray boxes represent the "core" [singleton](https://en.wikipedia.org/w
 The diagram is accurate as of commit [7fb202f68eb8264034207075647d9a403af83753](https://github.com/cs-education/sysbuild/commit/7fb202f68eb8264034207075647d9a403af83753),
 and is bound to become outdated as more components are added. However, an attempt will be made to update the diagram whenever major changes are introduced.
 
-### Download the diagram:
+
+## Download the diagram:
+
 * [PDF](/docs/c_playground/module_hierarchy.pdf)
 * [PNG](/docs/c_playground/module_hierarchy.png)
 * [Source](/docs/c_playground/module_hierarchy.xml) (which can be opened in [draw.io](https://www.draw.io/), the tool used to create this diagram)
