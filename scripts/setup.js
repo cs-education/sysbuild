@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-'use strict';
 
 const shell = require('shelljs');
 
