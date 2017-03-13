@@ -1,0 +1,27 @@
+{
+  "name": "sysbuild",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A system programming learning environment in the browser",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs-education/sysbuild.git"
+  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/cs-education/sysbuild/issues"
+  },
+  "homepage": "https://github.com/cs-education/sysbuild#readme",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^0.13.2",
+    "shelljs": "^0.7.7"
+  },
+  "scripts": {
+    "postinstall": "node ./scripts/setup.js",
+    "precommit": "node ./scripts/git_hooks/pre-commit.js"
+  }
+}
