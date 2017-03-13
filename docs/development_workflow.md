@@ -44,7 +44,7 @@ Adhering to the following process is the best way to get your work included in t
     ```
 
 5.  Commit your changes in logical chunks. Please adhere to the [Git commit message guidelines](/docs/git_commit_message_guidelines.md).
-    Running the following will also run the [Git hooks](/scripts/git_hooks) installed by the setup script.
+    Running the following will also run the [Git hooks](/scripts/git_hooks) installed during setup:
 
     ```
     git commit

@@ -37,10 +37,11 @@ The following repositories are used for deployment:
     cd sysbuild/
     ```
 
-4.  Run the setup script to create the recommended Git remotes:
+4.  Install project-wide dependencies.
+    This will also run the setup script to create the recommended Git remotes and install Git hooks:
 
     ```
-    ./scripts/setup.sh
+    npm install
     ```
 
 

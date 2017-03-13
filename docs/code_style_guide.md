@@ -10,7 +10,7 @@
 * We have an [editor config file](.editorconfig) for maintaining a consistent coding style.
   Read more and download plugins at [editorconfig.org](http://editorconfig.org).
 
-* The git pre-commit hook (installed by the setup script) will automatically run code linters
+* The git pre-commit hook (installed during setup) will automatically run code linters
   to help you adhere to the these code style guidelines.
 
 
