@@ -3,7 +3,10 @@
 
 ## Project Organization
 
-This is the main repository for the project. Other repositories which are part of the project are:
+This is the main repository for the project.
+It is structured in a "monorepo" style to contain multiple related sub-projects
+(see [PR #169](https://github.com/cs-education/sysbuild/pull/169)).
+Other repositories which are part of the project are:
 
 * [cs-education/sysassets](https://github.com/cs-education/sysassets) - Pre-compiled assets used in the project,
   such as lecture videos, lessons, man pages, and the jor1k filesystem.
