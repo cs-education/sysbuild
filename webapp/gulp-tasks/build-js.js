@@ -39,7 +39,7 @@ const requireJsOptimizerFilesConfig = [
             'components/lesson-navigation-pager/lesson-navigation-pager',
             'components/copyright-line/copyright-line',
             'components/play-activity-page/play-activity-page',
-            'components/playground-layout/playground-layout',
+            'components/playground-layout-desktop/playground-layout-desktop',
             'components/editor/editor',
             'components/editor-pane/editor-pane',
             'components/compiler-controls/compiler-controls',

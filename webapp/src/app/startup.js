@@ -24,7 +24,7 @@ ko.components.register('video-activity-page', { require: 'components/video-activ
 ko.components.register('lesson-navigation-pager', { require: 'components/lesson-navigation-pager/lesson-navigation-pager' });
 ko.components.register('copyright-line', { require: 'components/copyright-line/copyright-line' });
 ko.components.register('play-activity-page', { require: 'components/play-activity-page/play-activity-page' });
-ko.components.register('playground-layout', { require: 'components/playground-layout/playground-layout' });
+ko.components.register('playground-layout-desktop', { require: 'components/playground-layout-desktop/playground-layout-desktop' });
 ko.components.register('editor', { require: 'components/editor/editor' });
 ko.components.register('editor-pane', { require: 'components/editor-pane/editor-pane' });
 ko.components.register('compiler-controls', { require: 'components/compiler-controls/compiler-controls' });
