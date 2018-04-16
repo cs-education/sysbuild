@@ -22,11 +22,10 @@ class PlaygroundLayout {
         const openManPageCallback = this.openManPage.bind(this);
         editorParams.openManPage = openManPageCallback;
 
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             // if device is mobile..
             this.initLayoutMobile();
-        }
-        else this.initLayoutDesktop();
+        } else this.initLayoutDesktop();
         $('body').css('overflow', 'hidden');
 
         // Prevent accidental backward navigation.

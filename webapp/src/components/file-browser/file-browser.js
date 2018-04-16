@@ -39,7 +39,8 @@ class Filebrowser {
     constructor() {
         const readyCallback = () => {
             this.id = '#file-browser-body';
-            const fs = this.fs = SysFileSystem;
+            const fs = SysFileSystem;
+            this.fs = SysFileSystem;
 
             this.editor = SysGlobalObservables.editor;
             SysGlobalObservables.fileBrowser = this;

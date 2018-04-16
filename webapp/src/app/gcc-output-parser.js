@@ -50,7 +50,8 @@ class GccOutputParser {
                         text = makefileColNum[3];
                         buildErrorType = 'error';
                     } else {
-                        row = col = 0;
+                        row = 0;
+                        col = 0;
                         const typeTextSplitMatch = gccOutputTypeTextSplitRe.exec(match[2]);
                         if (typeTextSplitMatch) {
                             buildErrorType = typeTextSplitMatch[1];

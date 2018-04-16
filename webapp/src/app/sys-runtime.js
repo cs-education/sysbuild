@@ -206,7 +206,8 @@ class SysRuntime {
             if (typeof error.type === 'undefined') {
                 // if the errors are not in program.c, invalidate the row and column so that
                 // the editor does not place an annotation
-                error.row = error.col = -1;
+                error.row = -1;
+                error.col = -1;
             }
 
             return {
