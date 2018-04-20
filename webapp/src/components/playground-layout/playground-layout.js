@@ -25,6 +25,8 @@ class PlaygroundLayout {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             // if device is mobile..
             this.initLayoutMobile();
+            this.createDocsTab(this.docParams);
+            this.createTerminalTab();
         } else this.initLayoutDesktop();
         $('body').css('overflow', 'hidden');
 
@@ -54,6 +56,19 @@ class PlaygroundLayout {
         this.createManPageSearchTab(openManPageCallback);
     }
 
+    createDocsTab(docParams) {
+        this.editorPaneTabs.push({
+            title: 'Intro',
+            closable: false,
+            component: {
+                name: 'playground-doc-pane',
+                params: {
+                    doc: docParams
+                }
+            }
+        });
+    }
+
     createEditorTab(editorParams, compilerParams) {
         this.editorPaneTabs.push({
             title: 'Code',
@@ -78,6 +93,16 @@ class PlaygroundLayout {
                 params: {
                     openManPage: openManPageCallback
                 }
+            }
+        });
+    }
+
+    createTerminalTab() {
+        this.editorPaneTabs.push({
+            title: 'Terminal',
+            closable: false,
+            component: {
+                name: 'playground-term-pane'
             }
         });
     }
@@ -216,6 +241,7 @@ class PlaygroundLayout {
             south__size: 29,
             south__spacing_open: 0,
         });
+
 
         return {
             mainLayout: mainLayout
