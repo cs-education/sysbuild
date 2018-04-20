@@ -1,6 +1,11 @@
 <!--html for editor-->
 <div id="editor-opts-container">
     <div class="navbar navbar-default">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-settings" id="toggle-user-settings">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-cog"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="user-settings">
         <form class="navbar-form row">
             <div class="col-md-2">
                 <label class="control-label sr-only" for="editor-theme">Theme</label>
@@ -32,6 +37,7 @@
                 </a>
             </div>
         </form>
+      </div>
     </div>
 </div>
 <div id="code"></div>
