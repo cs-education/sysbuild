@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=0, width=device-width, height=device-height"/>
     <title>System Programming</title>
     <link rel="shortcut icon" href="favicon.ico">
     <!-- Google Analytics -->
@@ -50,8 +50,8 @@
       <div id="page" class="container" data-bind="component: { name: route().page, params: route }"></div>
       <div class="footer"><div class="container"><copyright-line></copyright-line></div></div>
       <div id="hidden-term-container" class="hidden">
-        <canvas id="tty0" class="screen" width="640" height="384">Terminal1</canvas>
-        <canvas id="tty1" class="screen" width="640" height="384">Terminal2</canvas>
+        <canvas id="tty0" class="screen" width="640" height="384" tabindex="0">Terminal1</canvas>
+        <canvas id="tty1" class="screen" width="640" height="384" tabindex="1">Terminal2</canvas>
       </div>
       <div id="hidden-vm-stats-container" class="hidden">
         <span id="vm-stats" class="label label-info vm-state-span"></span>
