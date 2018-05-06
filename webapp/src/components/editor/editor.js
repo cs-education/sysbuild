@@ -67,6 +67,32 @@ class Editor {
         this.editorDivId = editorDivId;
         this.aceEditor = ace.edit(editorDivId);
 
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Enables scrolling
+            this.aceEditor.setOptions(
+            {
+                minLines: 15,
+                maxLines: 50
+            });
+
+            // Remove clutter
+            const mainLayout = $('#layout').layout();
+            $('.ace_text-input').focus(() => {
+                mainLayout.close('south');
+                mainLayout.state.south.autoClosed = true;
+                $('#compiler-components').hide();
+                $('#editor-opts-container').hide();
+            });
+
+            // Restores webpage layout
+            $('.ace_text-input').focusout(() => {
+                mainLayout.open('south');
+                mainLayout.state.south.autoClosed = false;
+                $('#compiler-components').show();
+                $('#editor-opts-container').show();
+            });
+        }
+
         // Fix for the following Ace warning:
         // "Automatically scrolling cursor into view after selection change this will be disabled
         // in the next version set editor.$blockScrolling = Infinity to disable this message"

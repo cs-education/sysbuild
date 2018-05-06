@@ -27,6 +27,7 @@ class PlaygroundLayout {
             this.initLayoutMobile();
             this.createDocsTab(this.docParams);
             this.createTerminalTab();
+            $('#doc-tty-container').hide();
         } else this.initLayoutDesktop();
         $('body').css('overflow', 'hidden');
 
@@ -50,8 +51,8 @@ class PlaygroundLayout {
             }
         });
 
-        this.createVideoSearchTab();
         this.createEditorTab(editorParams, compilerParams);
+        this.createVideoSearchTab();
         this.createFileBrowserTab();
         this.createManPageSearchTab(openManPageCallback);
     }
