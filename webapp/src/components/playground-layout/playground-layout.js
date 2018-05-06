@@ -22,7 +22,13 @@ class PlaygroundLayout {
         const openManPageCallback = this.openManPage.bind(this);
         editorParams.openManPage = openManPageCallback;
 
-        this.initLayout();
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // if device is mobile..
+            this.initLayoutMobile();
+            this.createDocsTab(this.docParams);
+            this.createTerminalTab();
+            $('#doc-tty-container').hide();
+        } else this.initLayoutDesktop();
         $('body').css('overflow', 'hidden');
 
         // Prevent accidental backward navigation.
@@ -45,10 +51,23 @@ class PlaygroundLayout {
             }
         });
 
-        this.createVideoSearchTab();
         this.createEditorTab(editorParams, compilerParams);
+        this.createVideoSearchTab();
         this.createFileBrowserTab();
         this.createManPageSearchTab(openManPageCallback);
+    }
+
+    createDocsTab(docParams) {
+        this.editorPaneTabs.push({
+            title: 'Intro',
+            closable: false,
+            component: {
+                name: 'playground-doc-pane',
+                params: {
+                    doc: docParams
+                }
+            }
+        });
     }
 
     createEditorTab(editorParams, compilerParams) {
@@ -75,6 +94,16 @@ class PlaygroundLayout {
                 params: {
                     openManPage: openManPageCallback
                 }
+            }
+        });
+    }
+
+    createTerminalTab() {
+        this.editorPaneTabs.push({
+            title: 'Terminal',
+            closable: false,
+            component: {
+                name: 'playground-term-pane'
             }
         });
     }
@@ -124,7 +153,7 @@ class PlaygroundLayout {
         $('#editor-tabs-bar').find('span:contains("' + addedTabName + '")').click();
     }
 
-    initLayout() {
+    initLayoutDesktop() {
         const mainNavBarHeightPx = 51;
         this.navbarTopMargin = mainNavBarHeightPx + 'px';
 
@@ -182,6 +211,41 @@ class PlaygroundLayout {
         return {
             mainLayout: mainLayout,
             ttyLayout: ttyLayout
+        };
+    }
+
+    initLayoutMobile() {
+        const mainNavBarHeightPx = 51;
+        this.navbarTopMargin = mainNavBarHeightPx + 'px';
+
+        let navBarHeightPx = 33;
+        if (!this.showLessonNavigation) {
+            navBarHeightPx = 0;
+        }
+
+        const mainLayout = $('#layout').layout({
+            livePaneResizing: true,
+
+            north__paneSelector: '#navbar-container',
+            center__paneSelector: '#code-container',
+            south__paneSelector: '#footer-container',
+
+            spacing_open: 2,
+
+            north__resizable: false,
+            north__size: mainNavBarHeightPx + navBarHeightPx,
+            north__spacing_open: 0,
+            north__spacing_closed: 0,
+            north__showOverflowOnHover: true,
+
+            south__resizable: false,
+            south__size: 29,
+            south__spacing_open: 0,
+        });
+
+
+        return {
+            mainLayout: mainLayout
         };
     }
 

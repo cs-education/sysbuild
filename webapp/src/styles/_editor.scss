@@ -27,6 +27,22 @@
     padding-right: 0px !important;
 }
 
+#code {
+    flex: 1 0;
+}
+
+#editor-opts-container {
+    flex: 0 0;
+}
+
+#code-editor-options {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+}
+
 /* hack for the gcc options + program args + compile button toolbar */
 #compile-opts-container .col-sm-1,
 #compile-opts-container .col-sm-10,
