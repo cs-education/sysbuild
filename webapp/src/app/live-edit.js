@@ -33,8 +33,6 @@ class LiveEdit {
     }
 
     runCode(buildCmd, execCmd) {
-        console.log("in run code with next command");
-        console.log(execCmd);
         SysGlobalObservables.fileBrowser.saveActiveFile();
         const callback = (result) => {
             SysGlobalObservables.gccErrorCount(0);

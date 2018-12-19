@@ -168,8 +168,6 @@ class PlayActivityPage {
             const buildCmd = this.compilerParams.buildCmd();
             const execCmd = this.compilerParams.execCmd();
 
-            console.log(execCmd);
-
             (SysGlobalObservables.runCode())(buildCmd, execCmd);
         };
 
@@ -181,8 +179,6 @@ class PlayActivityPage {
             }
             const buildCmd = this.compilerParams.buildCmd();
             const testCmd = this.compilerParams.testCmd();
-
-            console.log(testCmd);
 
             (SysGlobalObservables.runCode())(buildCmd, testCmd);
         };
