@@ -65,10 +65,19 @@ class PlayActivityPage {
         this.compilerParams.execCmd(execCmd);
 
         let testCmd = defaultTestCmd;
-        if (typeof playActivity.testCmd !== 'undefined') {
-            testCmd = playActivity.testCmd;
-        } else if (typeof playActivity.programCommandLineArgs !== 'undefined') {
-            testCmd = `./program ${playActivity.programCommandLineArgs}`;
+        this.compilerParams.enableTest = true;
+        if (typeof playActivity.testType !== 'undefined') {
+            if (playActivity.testType == "cmd") {
+                testCmd = playActivity.testCmd;
+            } else if (playActivity.testType == "returnValue") {
+                testCmd = `output=$(${execCmd}); status=$?; correctStatus=${playActivity.returnValue}; if [ $status = $correctStatus ]; then echo "Looks Good!"; else echo "Return value wrong!"; echo returned $status when expected $correctStatus fi`
+            } else if (playActivity.testType == "stdout") {
+                testCmd = `output=$(${execCmd}); status=$?; correctOut="${playActivity.stdout}"; if [ $output = $correctOut ]; then echo "Looks Good!"; else echo "Output wrong!"; echo returned; echo $output; echo expected; echo $correctOut fi`
+            } else if (playActivity.test == "returnValueAndStdout") {
+                testCmd = `output=$(${execCmd}); status=$?; correctStatus=${playActivity.returnValue}; correctOut="${playActivity.stdout}"; if [ $status = $correctStatus ]; then echo "Looks Good!"; else echo "Return value wrong!"; echo returned $status when expected $correctStatus fi; if [ $output = $correctOut ]; then echo "Looks Good!"; else echo "Output wrong!"; echo returned; echo $output; echo expected; echo $correctOut fi`
+            }
+        } else {
+            this.compilerParams.enableTest = false;
         }
         this.compilerParams.testCmd(testCmd);
 
