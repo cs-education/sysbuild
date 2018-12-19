@@ -4,10 +4,11 @@ export const vmState = ko.observable('');
 export const compileStatus = ko.observable('');
 
 export const focusTerm = ko.observable((tty) => {});
-export const runCode = ko.observable((gccOptions) => {});
+export const runCode = ko.observable((gccOptions, nextCommand) => {});
 
 export const buildCmd = ko.observable('');
 export const execCmd = ko.observable('');
+export const testCmd = ko.observable('');
 
 export const lastGccOutput = ko.observable('');
 export const gccOptsError = ko.observable('');

@@ -23,6 +23,7 @@ int main() {
 `;
 const defaultBuildCmd = 'gcc -lm -Wall -fmax-errors=10 -Wextra program.c -o program';
 const defaultExecCmd = './program';
+const defaultTestCmd = 'echo "No tests!"';
 
 class PlayActivityPage {
 
@@ -63,6 +64,14 @@ class PlayActivityPage {
         }
         this.compilerParams.execCmd(execCmd);
 
+        let testCmd = defaultTestCmd;
+        if (typeof playActivity.testCmd !== 'undefined') {
+            testCmd = playActivity.testCmd;
+        } else if (typeof playActivity.programCommandLineArgs !== 'undefined') {
+            testCmd = `./program ${playActivity.programCommandLineArgs}`;
+        }
+        this.compilerParams.testCmd(testCmd);
+
         if (playActivity.docFile) {
             this.doc = {
                 url: 'https://cs-education.github.io/sysassets/' + playActivity.docFile,
@@ -80,6 +89,7 @@ class PlayActivityPage {
         this.editorParams.initialEditorText = defaultEditorText;
         this.compilerParams.buildCmd(defaultBuildCmd);
         this.compilerParams.execCmd(defaultExecCmd);
+        this.compilerParams.testCmd(defaultTestCmd)
 
         this.doc = {
             text: '# Welcome\n' +
@@ -129,6 +139,7 @@ class PlayActivityPage {
         this.compilerParams = {
             buildCmd: SysGlobalObservables.buildCmd,
             execCmd: SysGlobalObservables.execCmd,
+            testCmd: SysGlobalObservables.testCmd,
             compileStatus: SysGlobalObservables.compileStatus,
             lastGccOutput: SysGlobalObservables.lastGccOutput,
             gccOptsError: SysGlobalObservables.gccOptsError,
@@ -155,10 +166,28 @@ class PlayActivityPage {
                 this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
             }
             const buildCmd = this.compilerParams.buildCmd();
-            (SysGlobalObservables.runCode())(buildCmd);
+            const execCmd = this.compilerParams.execCmd();
+
+            console.log(execCmd);
+
+            (SysGlobalObservables.runCode())(buildCmd, execCmd);
         };
 
         this.compilerParams.compileCallback = compile;
+
+        const compileAndTest = () => {
+            if (this.editorParams.autoInclude()) {
+                this.autoIncluder.addMissingHeaders(this.editorParams.editorTextGetter);
+            }
+            const buildCmd = this.compilerParams.buildCmd();
+            const testCmd = this.compilerParams.testCmd();
+
+            console.log(testCmd);
+
+            (SysGlobalObservables.runCode())(buildCmd, testCmd);
+        };
+
+        this.compilerParams.testCallback = compileAndTest;
 
         this.editorParams.keyboardShortcuts.push([
             'compileAndRunShortcut',
