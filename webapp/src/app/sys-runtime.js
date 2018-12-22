@@ -226,9 +226,6 @@ class SysRuntime {
         if (!cmd) {
             return;
         }
-        if (cmd[0] !== '/' && cmd[0] !== '.') {
-            cmd = './' + cmd.replace(' ', '\\ ');
-        }
         cmd = cmd.replace('\\', '\\\\').replace('\n', '\\n');
         // Don't \x03 ; it interrupts the clear command
         this.sendKeys('tty0', '\n' + cmd + '\n');

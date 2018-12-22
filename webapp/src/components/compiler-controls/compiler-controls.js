@@ -29,6 +29,18 @@ class CompilerControls {
             $compileBtn.popover('hide');
         });
 
+        const $testBtn = $('#test-btn');
+        $testBtn.click(() => {
+            params.testCallback();
+            $testBtn.popover('hide');
+        });
+
+        if (params.enableTest) {
+            $testBtn.show();
+        } else {
+            $testBtn.hide();
+        }
+
         // Initialize Bootstrap popovers
         $compileBtn.popover();
         // We don't want the "gcc opts errors" popover to be dismissed when clicked

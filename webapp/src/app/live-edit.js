@@ -32,48 +32,46 @@ class LiveEdit {
              .replace(/'/g, '&#039;');
     }
 
-    processGccCompletion(result) {
-        SysGlobalObservables.gccErrorCount(0);
-        SysGlobalObservables.gccWarningCount(0);
-
-        if (!result) {
-            // cancelled
-            SysGlobalObservables.compileStatus('Cancelled');
-            return;
-        }
-
-        // null if cancelled
-        // result = { 'exitcode':gcc_exit_code, 'stats':stats,'annotations':annotations,'gcc_ouput':gcc_output}
-
-        this.runtime.sendKeys('tty0', 'clear\n');
-
-        const aceAnnotations = [];
-        const buildCmdErrors = [];
-        result.annotations.forEach((annotation) => {
-            if (annotation.isBuildCmdError) {
-                buildCmdErrors.push(annotation);
-            } else {
-                aceAnnotations.push(annotation);
-            }
-        });
-
-        SysGlobalObservables.editorAnnotations(aceAnnotations);
-        SysGlobalObservables.lastGccOutput(result.gccOutput);
-        SysGlobalObservables.gccErrorCount(result.stats.error);
-        SysGlobalObservables.gccWarningCount(result.stats.warning);
-        SysGlobalObservables.gccOptsError(buildCmdErrors.map((error) => error.text).join('\n'));
-
-        if (result.exitCode === 0) {
-            SysGlobalObservables.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
-            this.runtime.sendExecCmd(SysGlobalObservables.execCmd());
-        } else {
-            SysGlobalObservables.compileStatus('Failed');
-        }
-    }
-
-    runCode(buildCmd) {
+    runCode(buildCmd, execCmd) {
         SysGlobalObservables.fileBrowser.saveActiveFile();
-        const callback = this.processGccCompletion.bind(this);
+        const callback = (result) => {
+            SysGlobalObservables.gccErrorCount(0);
+            SysGlobalObservables.gccWarningCount(0);
+        
+            if (!result) {
+                // cancelled
+                SysGlobalObservables.compileStatus('Cancelled');
+                return;
+            }
+    
+            // null if cancelled
+            // result = { 'exitcode':gcc_exit_code, 'stats':stats,'annotations':annotations,'gcc_ouput':gcc_output}
+       
+            this.runtime.sendKeys('tty0', 'clear\n');
+     
+            const aceAnnotations = [];
+            const buildCmdErrors = [];
+            result.annotations.forEach((annotation) => {
+                if (annotation.isBuildCmdError) {
+                    buildCmdErrors.push(annotation);
+                } else {
+                    aceAnnotations.push(annotation);
+                }
+            });
+        
+            SysGlobalObservables.editorAnnotations(aceAnnotations);
+            SysGlobalObservables.lastGccOutput(result.gccOutput);
+            SysGlobalObservables.gccErrorCount(result.stats.error);
+            SysGlobalObservables.gccWarningCount(result.stats.warning);
+            SysGlobalObservables.gccOptsError(buildCmdErrors.map((error) => error.text).join('\n'));
+        
+            if (result.exitCode === 0) {
+                SysGlobalObservables.compileStatus(result.stats.warning > 0 ? 'Warnings' : 'Success');
+                this.runtime.sendExecCmd(execCmd);
+            } else {
+                SysGlobalObservables.compileStatus('Failed');
+            }
+        }
         SysGlobalObservables.compileStatus('Compiling');
         this.runtime.startBuild(buildCmd, callback);
     }
