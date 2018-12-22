@@ -69,7 +69,7 @@ class PlayActivityPage {
         if (typeof playActivity.testCmd !== 'undefined') {
             testCmd = playActivity.testCmd
         } else if (typeof playActivity.testLocation !== 'undefined') {
-            testCmd = `curl -s ${playActivity.testLocation} | bash -s`
+            testCmd = `${playActivity.testLocation}`
         } else {
             this.compilerParams.enableTest = false;
         }
